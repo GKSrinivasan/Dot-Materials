@@ -1,0 +1,227 @@
+﻿@model Laserbeam.BusinessObject.Common.DailyTaskModel
+@{
+    string btnVisible = "";
+    //string completdBtnVisible = "";
+    if (ViewBag.TaskCount <= 4)
+    {
+        btnVisible = "visibility:hidden";
+    }
+    //if (ViewBag.CompletedTaskCount == 0)
+    //{
+    //    completdBtnVisible = "display:none";
+    //}
+    var submitionRecords = Model.ApprovalList.Where(x => x.SubmitCount > 0).ToList();
+    var approvalRecords = Model.ApprovalList.Where(x => x.ApproveCount > 0).ToList();
+    var reopenedRecords = Model.ApprovalList.Where(x => x.ReopenCount > 0).ToList();
+}
+
+<!--Action items-->
+<div class="panel db_panel" id="ActionItems">
+    <div class="db_title">
+        <span class="wt600"><i class="icon-hand-pointer-o" aria-hidden="true"></i> Action Items</span>
+        <span class="pull-right db-rticons clickable"><i class="fa fa-chevron-up" aria-hidden="true"></i></span>
+
+    </div>
+    <div class="db_content">
+        @if (ViewBag.UserRole != "Super Admin" || ViewBag.UserRole == "Admin")
+        {
+            if (submitionRecords.Count() > 0)
+            {
+                <div id="reviewNeedToSubmit" class="row to_do-stat">
+                    <div class="col-md-12 top-pad">
+                        <span class="task_orange"><i class="fa fa-paper-plane size18" aria-hidden="true"></i></span>
+                        <span class="spangap">@submitionRecords.Sum(x => x.SubmitCount) employees review need to be submitted for approval</span>
+                        <a class="btn norm-btn btn-xs takeact right" role="button" data-toggle="collapse" href="#TakeAction" aria-expanded="false" aria-controls="TakeAction"> Take Action </a>
+                    </div>
+                </div>
+
+                    <div class="row">
+                        <div class="col-md-10 col-md-offset-1">
+                            <div class="collapse" id="TakeAction">
+                                <div class="well">
+                                    <ul class="list-unstyled takeactionlist">
+                                        <li class="mgrname">Managers</li>
+                                        @foreach (var item in submitionRecords)
+                                        {
+                                            <li><a onclick="onSelectNotification(@item.ManagerNum,'Compensation');" href="javascript:void(0);" data-attr="@item.ManagerNum">@item.ManagerName</a> <span class="empNos">(@item.SubmitCount Employees)</span></li>
+                                        }
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            }
+
+            if (approvalRecords.Count() > 0)
+            {
+                <div id="waitingForApproval" class="row to_do-stat">
+                    <div class="col-md-8">
+                        <i class="icon-user-outline iconusergreen"></i>
+                        <span class="spangap">@approvalRecords.Sum(x => x.ApproveCount) employees waiting for your approval</span>
+                    </div>
+                    <div class="col-md-4 right"><a class="btn norm-btn takeact btn-xs right" role="button" data-toggle="collapse" href="#TakeAction1" aria-expanded="false" aria-controls="TakeAction1"> Take Action </a></div>
+                </div>
+                    <div class="row">
+                        <div class="col-md-10 col-md-offset-1">
+                            <div class="collapse" id="TakeAction1">
+                                <div class="well">
+                                    <ul class="list-unstyled takeactionlist">
+                                        <li class="mgrname">Managers</li>
+                                        @foreach (var item in approvalRecords)
+                                        {
+                                            <li><a onclick="onSelectNotification(@item.ManagerNum,'Compensation');" href="javascript:void(0);" data-attr="@item.ManagerNum">@item.ManagerName</a> <span class="empNos">(@item.ApproveCount Employees)</span></li>
+                                        }
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            }
+            if (reopenedRecords.Count() > 0)
+            {
+                <div class="row to_do-stat">
+                    <div class="col-md-8">
+                        <span class="task_red"><i class="icon-frown-o2 size18 icon-red" aria-hidden="true"></i></span>
+                        <span class="spangap">@reopenedRecords.Sum(x => x.ReopenCount) employees review has been reopened</span>
+                    </div>
+                    <div class="col-md-4 right"><a class="btn norm-btn takeact btn-xs right" role="button" data-toggle="collapse" href="#TakeAction2" aria-expanded="false" aria-controls="TakeAction2"> Take Action </a></div>
+                </div>
+                    <div class="row">
+                        <div class="col-md-10 col-md-offset-1">
+                            <div class="collapse" id="TakeAction2">
+                                <div class="well">
+                                    <ul class="list-unstyled takeactionlist">
+                                        <li class="mgrname">Managers</li>
+                                        @foreach (var item in reopenedRecords)
+                                        {
+                                            <li><a onclick="onSelectNotification(@item.ManagerNum,'Compensation');" href="javascript:void(0);" data-attr="@item.ManagerNum">@item.ManagerName</a> <span class="empNos">(@item.ReopenCount Employees)</span></li>
+                                        }
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            }
+        }
+        @if ((ViewBag.UserRole == "Super Admin" || ViewBag.UserRole == "Admin") && ViewBag.UsersYettoLogin != 0)
+        {
+            <div class="row to_do-stat">
+                <div class="col-md-8">
+                    <span class="task_gray"><i class="icon-user-outline iconusergray" aria-hidden="true"></i></span>
+                    <span class="spangap">@ViewBag.UsersYettoLogin User(s) Yet to Login</span>
+                </div>
+                <div class="col-md-4 right"><a href="#" id="btnSendEmail" class="btn norm-btn btn-xs right" data-toggle="modal" data-target="#yet-login-popup"> Send Reminder </a></div>
+            </div>
+        }
+        <!--Send Reminder Yet-to-login Popup Starts -->
+        <div id="divSendEmail" class="modal fade" role="dialog">
+
+        </div>
+    </div>
+</div>
+
+<!--end action items-->
+<!--Quick notes-->
+
+
+<div class="panel db_panel" id="divdailytaskquicknotes">
+    <div class="db_title">
+        <span class="wt600"><i class="fa fa-file-text-o" aria-hidden="true"></i> Quick notes</span>
+        <span class="pull-right db-rticons clickable"><i class="fa fa-chevron-up" aria-hidden="true"></i></span>
+        <span class="pull-right db-rticons">
+            <a data-toggle="collapse" id="idTaskToggle" data-parent="#accordion" href="#collapseTask" class="btn addnote-btn prim-btn btn-xs" onclick="onDailyTaskToggle();"> Add Notes  </a>
+        </span>
+    </div>
+
+    <div id="collapseTask" class="panel-collapse collapse">
+        <div class="panel-body">
+            @using (Ajax.BeginForm("_DailyTask", "Dashboard", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "formDailyTask", OnSuccess = "onSuccessAddTask" }))
+            {
+                @Html.AntiForgeryToken()
+                <div class="col-sm-12">
+                    <textarea class="form-control" name="TaskContent" id="TaskContent" rows="3" maxlength="200" onkeyup="setMaximumLimit();" required></textarea>
+                    <input type="hidden" id="TaskAction" name="TaskAction" value="Add" />
+                    <input type="hidden" id="TaskID" name="TaskID" value="0" />
+                </div>
+                <div class="row addnote-subbtn">
+                    <div class="col-md-8"><div class="char-content stat_red pull-left">Character Count: <input type="text" class="num-count" name="charCount" id="charCount" maxlength="3" readonly> (Limit to 200 Characters)</div></div>
+                    <div class="col-md-4 pad30rt">
+                        <button type="submit" class="btn check-btn1 btn-md btn-xs pull-right" id="idTaskActionBtn"><i class="icon-check-icon icon-blue big20"></i></button>
+                        <button id="idCancelTask" type="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTask" class="btn btn-white btn-xs pull-right" onclick="return onCancelTask()"><i class="icon icon-close-icon icon-grey big20"></i></button>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+
+    <div class="db_content">
+        <div id="idTask1">
+            @foreach (var item in Model.DailyTaskList)
+            {
+                DateTime CreateDate = Convert.ToDateTime(item.UpdatedDate == null?item.CreatedDate: item.UpdatedDate);
+
+                <div class="row" id="DailyTaskDiv@(item.TaskNum)">
+                    <div class="col-md-12">
+                        <div class="list-group to_do">
+                            <div class="col-md-9 col-xs-7 check-info left">
+                                <div class="checkbox checkbox-prime checkboxnopad dailytask@(item.TaskNum)">
+                                    <div class="label task-content" id="typeName">@item.TaskDescr</div>
+                                    <div class="db_date task">
+                                        @if (item.UpdatedDate != null)
+                                        {
+                                            @CreateDate.ToString("dd MMM, yyyy h:mm tt")
+                                        }
+                                        else
+                                        {
+                                            @CreateDate.ToString("dd MMM, yyyy h:mm tt")
+                                        }
+                                        @if (item.UpdatedDate != null)
+                                        {
+                                            <a data-toggle="tooltip" data-placement="top" title="@item.UpdatedDate">(Edited)</a>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-xs-5 text-right action-buttons">
+                                <a href="#" class="edit-icon" id="EditDailyTask" onclick="onEditDailyTask(@(item.TaskNum))"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                                <a class="del-icon" id="DeleteDailyTask" onclick="onDeleteDailyTask(@(item.TaskNum))"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            }
+@if (Model.DailyTaskList.Count() <= 0)
+{
+    <div class="row" id="noNoteImg">
+        <div class="col-md-12">
+            <div class="img-padding text-center">
+                <div class="img-responsive">
+                    <img src="../../images/task-icon.png" width="100">
+                </div>
+                <div class="big30">There are no notes to show</div>
+                <div class="big21">Tap the ‘add notes’ button to add some notes</div>
+            </div>
+        </div>
+    </div>
+}
+          
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <button class="btn btn-large btn-block db-btn" id="idTAskShowMore" onclick="onShowAllTask();" style="@(btnVisible)"><i class="fa fa-chevron-circle-down" aria-hidden="true"></i> Show More</button>
+                    <button class="btn btn-large btn-block db-btn" id="idTAskShowLess" onclick="onShowLessTask();" style="display:none;"> <i class="fa fa-chevron-circle-up" aria-hidden="true"></i> Show Less</button>
+                  
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    $(document).ready(function () {
+        onSetHeight();
+        TaskCount = @Model.DailyTaskList.Count();
+    });
+</script>
+

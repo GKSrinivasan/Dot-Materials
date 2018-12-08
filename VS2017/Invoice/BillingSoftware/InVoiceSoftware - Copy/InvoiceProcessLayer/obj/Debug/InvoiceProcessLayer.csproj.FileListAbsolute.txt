@@ -1,0 +1,12 @@
+F:\VS2017\Invoice\BillingSoftware\InVoiceSoftware\InvoiceProcessLayer\obj\Debug\InvoiceProcessLayer.csprojResolveAssemblyReference.cache
+F:\VS2017\Invoice\BillingSoftware\InVoiceSoftware\InvoiceProcessLayer\obj\Debug\InvoiceProcessLayer.csproj.CoreCompileInputs.cache
+F:\VS2017\Invoice\BillingSoftware\InVoiceSoftware\InvoiceProcessLayer\bin\Debug\InvoiceProcessLayer.dll
+F:\VS2017\Invoice\BillingSoftware\InVoiceSoftware\InvoiceProcessLayer\bin\Debug\InvoiceProcessLayer.pdb
+F:\VS2017\Invoice\BillingSoftware\InVoiceSoftware\InvoiceProcessLayer\bin\Debug\InvoiceDataLayer.dll
+F:\VS2017\Invoice\BillingSoftware\InVoiceSoftware\InvoiceProcessLayer\bin\Debug\EntityFramework.dll
+F:\VS2017\Invoice\BillingSoftware\InVoiceSoftware\InvoiceProcessLayer\bin\Debug\InvoiceDataLayer.pdb
+F:\VS2017\Invoice\BillingSoftware\InVoiceSoftware\InvoiceProcessLayer\bin\Debug\InvoiceDataLayer.dll.config
+F:\VS2017\Invoice\BillingSoftware\InVoiceSoftware\InvoiceProcessLayer\bin\Debug\EntityFramework.xml
+F:\VS2017\Invoice\BillingSoftware\InVoiceSoftware\InvoiceProcessLayer\obj\Debug\InvoiceProcessLayer.csproj.CopyComplete
+F:\VS2017\Invoice\BillingSoftware\InVoiceSoftware\InvoiceProcessLayer\obj\Debug\InvoiceProcessLayer.dll
+F:\VS2017\Invoice\BillingSoftware\InVoiceSoftware\InvoiceProcessLayer\obj\Debug\InvoiceProcessLayer.pdb

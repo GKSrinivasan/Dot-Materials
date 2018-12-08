@@ -1,0 +1,114 @@
+﻿@model List<Laserbeam.BusinessObject.Common.ManagerBudgetDetails>
+<script>
+    selectedCultureCode='@ViewBag.selectedCultureCode';
+    function GetBudgetParam()
+    {
+        var model = @Html.Raw(Json.Encode(Model));
+        var token = $('input[name="__RequestVerificationToken"]').val();
+        return {
+            __RequestVerificationToken:token,
+            budgetModel:model
+        }
+    }
+</script>
+
+
+<div class="modal-dialog" role="document">
+    <div class="modal-content">
+        <div class="modal-header modalheaderforbudget">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title"><i class="icon-budget-icon1 size19" aria-hidden="true"></i> Budget Utilization by Manager</h4>
+        </div>
+        <div class="modal-body">
+            <div class="row">
+                <div class="col-lg-4 col-sm-4 col-xs-12">
+                    <div class="row chartsec">
+                        <div class="col-md-5">
+                            <div class="c100 p100 circlecolor1 leftmaargin">
+                                <span id="budgetPct">@ViewBag.BudgetPct</span>
+                                <div class="slice">
+                                    <div class="bar"></div>
+                                    <div class="fill"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-7">
+                            <div class="tit1">Budget</div>
+                            <div class="tit1amt" id="budgetAmt">@ViewBag.Budget</div></div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-sm-4 col-xs-12">
+                        <div class="row chartsec1">
+                            <div class="col-md-5">
+                                <div class="c100 p@(ViewBag.SpentPctLevel) circlecolor2 leftmaargin" id="balancePctLevel">
+                                    <span id="spentPct">@ViewBag.SpentPct</span>
+                                    <div class="slice">
+                                        <div class="bar"></div>
+                                        <div class="fill"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-7">
+                                <div class="tit1">Spent</div>
+                                <div class="tit1amt" id="spentAmt">@ViewBag.Spent</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-sm-4 col-xs-12">
+                        <div class="row chartsec2">
+                            <div class="col-md-5">
+                                <div class="c100 p@(ViewBag.BalancePctLevel) circlecolor3 leftmaargin" id="balancePctLevel">
+                                    <span id="balancePct">@ViewBag.BalancePct</span>
+                                    <div class="slice">
+                                        <div class="bar"></div>
+                                        <div class="fill"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-7">
+                                <div class="tit1">Balance</div>
+                                <div class="tit1amt" id="balanceAmt">@ViewBag.Balance</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            <div class="row">
+                <div class="col-md-12" id="dashBoardBudget">
+                    <div class="db_content">
+                        <div class="table">
+                            @(Html.Kendo().Grid<Laserbeam.BusinessObject.Common.ManagerBudgetDetails>()
+                            .Name("ManagerBudget")
+                            .HtmlAttributes(new { @class = "table table-striped Excelalign" })
+                            .ToolBar(tool =>
+                            {
+                                tool.Excel();
+                                tool.Template("<i class='fa fa-file-excel-o fa-1x' aria-hidden='true' title='Export Manager Budget'></i>");
+                            })
+                            .Excel(excel => excel.FileName("Manager Budget Details.xlsx"))
+                            .Columns(columns =>
+                            {
+                                columns.Bound(m => m.ManagerName).Title("Manager").ClientTemplate("<a href='\\#' id='lnkManagerName' #if(ManagerBalance < 0){# class='over-spent' #}# > #=ManagerName#</a>");
+                                columns.Bound(m => m.ManagerBudget).Title("Budget").ClientTemplate("#=gridFormat(ManagerBudget)#");
+                                columns.Bound(m => m.ManagerSpent).Title("Spent").ClientTemplate("#=gridFormat(ManagerSpent)#");
+                                columns.Bound(m => m.ManagerBalance).Title("Balance").ClientTemplate("#if(ManagerBalance < 0){#" +
+                                                                                                    "<span class='over-spent'>#=gridFormat(ManagerBalance)#</span> #}" +
+                                                                                                    " else{# #=gridFormat(ManagerBalance)# #}#");
+                            })
+                            .Sortable()
+                            .DataSource(datasource => datasource
+                            .Ajax()
+                            .Read(read => read.Action("GetDashboardBudgetUtilization", "Dashboard").Data("GetBudgetParam"))
+                            ))
+                        </div>
+                    </div>
+
+                </div>
+                </div>
+                
+            </div>
+
+
+            
+        </div>
+    </div>
+</div>

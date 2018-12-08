@@ -1,0 +1,314 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UI", "UI", "{99D87C0F-DA1B-4A9C-A875-F108D8C5C6A0}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DataManagers", "DataManagers", "{7D2FCE5E-639E-4DB4-8407-74EBC285A67B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ProcessManagers", "ProcessManagers", "{0D37C399-9D36-43DA-BEBE-870DCA6D0838}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Constants", "Constants", "{798CD823-F523-423E-A61C-14A763D5FC69}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Laserbeam.UI.HR", "Laserbeam.UI.HR\Laserbeam.UI.HR.csproj", "{6CE57638-D8AE-431F-8771-0D7803234D72}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Laserbeam.DataManager", "Laserbeam.DataManager", "{96743675-213F-4479-8DEA-E9551DA8C691}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Laserbeam.Resource.HR", "Laserbeam.Resource.HR\Laserbeam.Resource.HR.csproj", "{0A2DE638-0970-44FA-A459-3E15004169BC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Laserbeam.Constant.HR", "Laserbeam.Constant.HR\Laserbeam.Constant.HR.csproj", "{8CDAF1A3-2072-4EC6-B56B-D5F8B260930D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Laserbeam.Libraries.Common", "Laserbeam.Libraries.Common\Laserbeam.Libraries.Common.csproj", "{A524C248-31A5-48FA-8759-B77D9380549F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Laserbeam.DataManager.Common", "Laserbeam.DataManager.Common\Laserbeam.DataManager.Common.csproj", "{943D15B8-60B2-46F8-954E-2419488078E1}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Libraries", "Libraries", "{D12C6FC9-CEAE-46E7-8D10-EEFFB9E748DA}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Laserbeam.DataManager.Entity", "Laserbeam.DataManager.Entity", "{5FAA4042-D1F0-4ADB-9133-0388A5E67C05}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Laserbeam.ProcessManager", "Laserbeam.ProcessManager", "{F8CC52BF-1B51-4A5A-B438-BA87456E526E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Laserbeam.ProcessManager.Interfaces", "Laserbeam.ProcessManager.Interfaces", "{725C4B4D-D481-45DF-9096-58F9214E4BC2}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Laserbeam.DataManager.Interfaces", "Laserbeam.DataManager.Interfaces", "{F9EF84C3-4111-4108-A807-E79DA823C8F8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Laserbeam.BusinessObject", "Laserbeam.BusinessObject", "{4727ADD7-760E-4A38-B0FB-9DD761802C63}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Laserbeam.BusinessObject.Common", "Laserbeam.BusinessObject.Common\Laserbeam.BusinessObject.Common.csproj", "{EE4F2F42-7EB6-4A07-9C8C-E100E0F88379}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Laserbeam.DataManager.Interfaces.Common", "Laserbeam.DataManager.Interfaces.Common\Laserbeam.DataManager.Interfaces.Common.csproj", "{C2A5619F-3111-4CEF-A069-DA3F42128430}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Laserbeam.ProcessManager.Common", "Laserbeam.ProcessManager.Common\Laserbeam.ProcessManager.Common.csproj", "{DD5DA820-EFB2-4A69-87B3-F976A03C33C2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Laserbeam.ProcessManager.Interfaces.Common", "Laserbeam.ProcessManager.Interfaces.Common\Laserbeam.ProcessManager.Interfaces.Common.csproj", "{0040B306-D988-4F6C-BA40-CFFBE2CC2986}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "RegistryManagers", "RegistryManagers", "{C8CAD634-7264-4EEE-8CD5-47EA6353D793}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Laserbeam.RegistryManager.HR", "Laserbeam.RegistryManager.HR\Laserbeam.RegistryManager.HR.csproj", "{A7BD130B-065F-484B-973F-297E78AEAACD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Laserbeam.Libraries.Interfaces.Common", "Laserbeam.Libraries.Common.Interfaces\Laserbeam.Libraries.Interfaces.Common.csproj", "{B01BB7F2-6BD3-4772-994B-C4CCA776978E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Laserbeam.EntityManager.Common", "Laserbeam.EntityManager.Common\Laserbeam.EntityManager.Common.csproj", "{B1BEDA08-D903-49E5-902B-EBE253E26AA7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Laserbeam.EntityManager.TenantObjects", "Laserbeam.EntityManager.TenantObjects\Laserbeam.EntityManager.TenantObjects.csproj", "{6EE80D5B-CBD6-4BAE-9124-722EDD3EE7F7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Laserbeam.DataManager.Core", "Laserbeam.DataManager.Core\Laserbeam.DataManager.Core.csproj", "{86B4DD7C-B047-4539-8757-8978E2BEAED9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Laserbeam.DataManager.Interfaces.Core", "Laserbeam.DataManager.Interfaces.Core\Laserbeam.DataManager.Interfaces.Core.csproj", "{BE09E09C-479C-427D-B64D-8E36DB7AA45E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{B3417204-D553-4A73-A30C-F8388AA5C36A}"
+	ProjectSection(SolutionItems) = preProject
+		NuGet.config = NuGet.config
+		.nuget\packages.config = .nuget\packages.config
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Laserbeam.Libraries.Core", "Laserbeam.Libraries.Core\Laserbeam.Libraries.Core.csproj", "{DF67CE86-D3B0-46D2-9450-C7F584814160}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Laserbeam.Libraries.Core.Interfaces.Common", "Laserbeam.Libraries.Core.Interfaces.Common\Laserbeam.Libraries.Core.Interfaces.Common.csproj", "{CC70EBA0-320C-4802-9A9A-8F0B9C00427B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Laserbeam.EntityManager.TenantMaster", "Laserbeam.EntityManager.TenantMaster\Laserbeam.EntityManager.TenantMaster.csproj", "{EDC7130F-EE31-49A9-A8E6-6AE42B3EC8F8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Laserbeam.EntityManager.TenantMasterObjects", "Laserbeam.EntityManager.TenantMasterObjects\Laserbeam.EntityManager.TenantMasterObjects.csproj", "{88919CFE-8E41-4871-A583-7B944F4C4368}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{4449B7B2-4E4F-4EEA-A058-E7A983A3292A}"
+	ProjectSection(SolutionItems) = preProject
+		.tfignore = .tfignore
+		WebEssentials2015-Settings.json = WebEssentials2015-Settings.json
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Octopus|Any CPU = Octopus|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6CE57638-D8AE-431F-8771-0D7803234D72}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6CE57638-D8AE-431F-8771-0D7803234D72}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6CE57638-D8AE-431F-8771-0D7803234D72}.Octopus|Any CPU.ActiveCfg = Octopus|Any CPU
+		{6CE57638-D8AE-431F-8771-0D7803234D72}.Octopus|Any CPU.Build.0 = Octopus|Any CPU
+		{6CE57638-D8AE-431F-8771-0D7803234D72}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6CE57638-D8AE-431F-8771-0D7803234D72}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0A2DE638-0970-44FA-A459-3E15004169BC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0A2DE638-0970-44FA-A459-3E15004169BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0A2DE638-0970-44FA-A459-3E15004169BC}.Octopus|Any CPU.ActiveCfg = Octopus|Any CPU
+		{0A2DE638-0970-44FA-A459-3E15004169BC}.Octopus|Any CPU.Build.0 = Octopus|Any CPU
+		{0A2DE638-0970-44FA-A459-3E15004169BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0A2DE638-0970-44FA-A459-3E15004169BC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8CDAF1A3-2072-4EC6-B56B-D5F8B260930D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8CDAF1A3-2072-4EC6-B56B-D5F8B260930D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8CDAF1A3-2072-4EC6-B56B-D5F8B260930D}.Octopus|Any CPU.ActiveCfg = Octopus|Any CPU
+		{8CDAF1A3-2072-4EC6-B56B-D5F8B260930D}.Octopus|Any CPU.Build.0 = Octopus|Any CPU
+		{8CDAF1A3-2072-4EC6-B56B-D5F8B260930D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8CDAF1A3-2072-4EC6-B56B-D5F8B260930D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A524C248-31A5-48FA-8759-B77D9380549F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A524C248-31A5-48FA-8759-B77D9380549F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A524C248-31A5-48FA-8759-B77D9380549F}.Octopus|Any CPU.ActiveCfg = Octopus|Any CPU
+		{A524C248-31A5-48FA-8759-B77D9380549F}.Octopus|Any CPU.Build.0 = Octopus|Any CPU
+		{A524C248-31A5-48FA-8759-B77D9380549F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A524C248-31A5-48FA-8759-B77D9380549F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{943D15B8-60B2-46F8-954E-2419488078E1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{943D15B8-60B2-46F8-954E-2419488078E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{943D15B8-60B2-46F8-954E-2419488078E1}.Octopus|Any CPU.ActiveCfg = Octopus|Any CPU
+		{943D15B8-60B2-46F8-954E-2419488078E1}.Octopus|Any CPU.Build.0 = Octopus|Any CPU
+		{943D15B8-60B2-46F8-954E-2419488078E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{943D15B8-60B2-46F8-954E-2419488078E1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EE4F2F42-7EB6-4A07-9C8C-E100E0F88379}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EE4F2F42-7EB6-4A07-9C8C-E100E0F88379}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EE4F2F42-7EB6-4A07-9C8C-E100E0F88379}.Octopus|Any CPU.ActiveCfg = Octopus|Any CPU
+		{EE4F2F42-7EB6-4A07-9C8C-E100E0F88379}.Octopus|Any CPU.Build.0 = Octopus|Any CPU
+		{EE4F2F42-7EB6-4A07-9C8C-E100E0F88379}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EE4F2F42-7EB6-4A07-9C8C-E100E0F88379}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C2A5619F-3111-4CEF-A069-DA3F42128430}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C2A5619F-3111-4CEF-A069-DA3F42128430}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C2A5619F-3111-4CEF-A069-DA3F42128430}.Octopus|Any CPU.ActiveCfg = Octopus|Any CPU
+		{C2A5619F-3111-4CEF-A069-DA3F42128430}.Octopus|Any CPU.Build.0 = Octopus|Any CPU
+		{C2A5619F-3111-4CEF-A069-DA3F42128430}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C2A5619F-3111-4CEF-A069-DA3F42128430}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DD5DA820-EFB2-4A69-87B3-F976A03C33C2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DD5DA820-EFB2-4A69-87B3-F976A03C33C2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DD5DA820-EFB2-4A69-87B3-F976A03C33C2}.Octopus|Any CPU.ActiveCfg = Octopus|Any CPU
+		{DD5DA820-EFB2-4A69-87B3-F976A03C33C2}.Octopus|Any CPU.Build.0 = Octopus|Any CPU
+		{DD5DA820-EFB2-4A69-87B3-F976A03C33C2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DD5DA820-EFB2-4A69-87B3-F976A03C33C2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0040B306-D988-4F6C-BA40-CFFBE2CC2986}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0040B306-D988-4F6C-BA40-CFFBE2CC2986}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0040B306-D988-4F6C-BA40-CFFBE2CC2986}.Octopus|Any CPU.ActiveCfg = Octopus|Any CPU
+		{0040B306-D988-4F6C-BA40-CFFBE2CC2986}.Octopus|Any CPU.Build.0 = Octopus|Any CPU
+		{0040B306-D988-4F6C-BA40-CFFBE2CC2986}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0040B306-D988-4F6C-BA40-CFFBE2CC2986}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A7BD130B-065F-484B-973F-297E78AEAACD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A7BD130B-065F-484B-973F-297E78AEAACD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A7BD130B-065F-484B-973F-297E78AEAACD}.Octopus|Any CPU.ActiveCfg = Octopus|Any CPU
+		{A7BD130B-065F-484B-973F-297E78AEAACD}.Octopus|Any CPU.Build.0 = Octopus|Any CPU
+		{A7BD130B-065F-484B-973F-297E78AEAACD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A7BD130B-065F-484B-973F-297E78AEAACD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B01BB7F2-6BD3-4772-994B-C4CCA776978E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B01BB7F2-6BD3-4772-994B-C4CCA776978E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B01BB7F2-6BD3-4772-994B-C4CCA776978E}.Octopus|Any CPU.ActiveCfg = Octopus|Any CPU
+		{B01BB7F2-6BD3-4772-994B-C4CCA776978E}.Octopus|Any CPU.Build.0 = Octopus|Any CPU
+		{B01BB7F2-6BD3-4772-994B-C4CCA776978E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B01BB7F2-6BD3-4772-994B-C4CCA776978E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B1BEDA08-D903-49E5-902B-EBE253E26AA7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B1BEDA08-D903-49E5-902B-EBE253E26AA7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B1BEDA08-D903-49E5-902B-EBE253E26AA7}.Octopus|Any CPU.ActiveCfg = Octopus|Any CPU
+		{B1BEDA08-D903-49E5-902B-EBE253E26AA7}.Octopus|Any CPU.Build.0 = Octopus|Any CPU
+		{B1BEDA08-D903-49E5-902B-EBE253E26AA7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B1BEDA08-D903-49E5-902B-EBE253E26AA7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6EE80D5B-CBD6-4BAE-9124-722EDD3EE7F7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6EE80D5B-CBD6-4BAE-9124-722EDD3EE7F7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6EE80D5B-CBD6-4BAE-9124-722EDD3EE7F7}.Octopus|Any CPU.ActiveCfg = Octopus|Any CPU
+		{6EE80D5B-CBD6-4BAE-9124-722EDD3EE7F7}.Octopus|Any CPU.Build.0 = Octopus|Any CPU
+		{6EE80D5B-CBD6-4BAE-9124-722EDD3EE7F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6EE80D5B-CBD6-4BAE-9124-722EDD3EE7F7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{86B4DD7C-B047-4539-8757-8978E2BEAED9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{86B4DD7C-B047-4539-8757-8978E2BEAED9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{86B4DD7C-B047-4539-8757-8978E2BEAED9}.Octopus|Any CPU.ActiveCfg = Octopus|Any CPU
+		{86B4DD7C-B047-4539-8757-8978E2BEAED9}.Octopus|Any CPU.Build.0 = Octopus|Any CPU
+		{86B4DD7C-B047-4539-8757-8978E2BEAED9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{86B4DD7C-B047-4539-8757-8978E2BEAED9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BE09E09C-479C-427D-B64D-8E36DB7AA45E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BE09E09C-479C-427D-B64D-8E36DB7AA45E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BE09E09C-479C-427D-B64D-8E36DB7AA45E}.Octopus|Any CPU.ActiveCfg = Octopus|Any CPU
+		{BE09E09C-479C-427D-B64D-8E36DB7AA45E}.Octopus|Any CPU.Build.0 = Octopus|Any CPU
+		{BE09E09C-479C-427D-B64D-8E36DB7AA45E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BE09E09C-479C-427D-B64D-8E36DB7AA45E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DF67CE86-D3B0-46D2-9450-C7F584814160}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DF67CE86-D3B0-46D2-9450-C7F584814160}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DF67CE86-D3B0-46D2-9450-C7F584814160}.Octopus|Any CPU.ActiveCfg = Octopus|Any CPU
+		{DF67CE86-D3B0-46D2-9450-C7F584814160}.Octopus|Any CPU.Build.0 = Octopus|Any CPU
+		{DF67CE86-D3B0-46D2-9450-C7F584814160}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DF67CE86-D3B0-46D2-9450-C7F584814160}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CC70EBA0-320C-4802-9A9A-8F0B9C00427B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CC70EBA0-320C-4802-9A9A-8F0B9C00427B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CC70EBA0-320C-4802-9A9A-8F0B9C00427B}.Octopus|Any CPU.ActiveCfg = Octopus|Any CPU
+		{CC70EBA0-320C-4802-9A9A-8F0B9C00427B}.Octopus|Any CPU.Build.0 = Octopus|Any CPU
+		{CC70EBA0-320C-4802-9A9A-8F0B9C00427B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CC70EBA0-320C-4802-9A9A-8F0B9C00427B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EDC7130F-EE31-49A9-A8E6-6AE42B3EC8F8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EDC7130F-EE31-49A9-A8E6-6AE42B3EC8F8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EDC7130F-EE31-49A9-A8E6-6AE42B3EC8F8}.Octopus|Any CPU.ActiveCfg = Octopus|Any CPU
+		{EDC7130F-EE31-49A9-A8E6-6AE42B3EC8F8}.Octopus|Any CPU.Build.0 = Octopus|Any CPU
+		{EDC7130F-EE31-49A9-A8E6-6AE42B3EC8F8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EDC7130F-EE31-49A9-A8E6-6AE42B3EC8F8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{88919CFE-8E41-4871-A583-7B944F4C4368}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{88919CFE-8E41-4871-A583-7B944F4C4368}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{88919CFE-8E41-4871-A583-7B944F4C4368}.Octopus|Any CPU.ActiveCfg = Octopus|Any CPU
+		{88919CFE-8E41-4871-A583-7B944F4C4368}.Octopus|Any CPU.Build.0 = Octopus|Any CPU
+		{88919CFE-8E41-4871-A583-7B944F4C4368}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{88919CFE-8E41-4871-A583-7B944F4C4368}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{6CE57638-D8AE-431F-8771-0D7803234D72} = {99D87C0F-DA1B-4A9C-A875-F108D8C5C6A0}
+		{96743675-213F-4479-8DEA-E9551DA8C691} = {7D2FCE5E-639E-4DB4-8407-74EBC285A67B}
+		{0A2DE638-0970-44FA-A459-3E15004169BC} = {99D87C0F-DA1B-4A9C-A875-F108D8C5C6A0}
+		{8CDAF1A3-2072-4EC6-B56B-D5F8B260930D} = {798CD823-F523-423E-A61C-14A763D5FC69}
+		{A524C248-31A5-48FA-8759-B77D9380549F} = {D12C6FC9-CEAE-46E7-8D10-EEFFB9E748DA}
+		{943D15B8-60B2-46F8-954E-2419488078E1} = {96743675-213F-4479-8DEA-E9551DA8C691}
+		{5FAA4042-D1F0-4ADB-9133-0388A5E67C05} = {7D2FCE5E-639E-4DB4-8407-74EBC285A67B}
+		{F8CC52BF-1B51-4A5A-B438-BA87456E526E} = {0D37C399-9D36-43DA-BEBE-870DCA6D0838}
+		{725C4B4D-D481-45DF-9096-58F9214E4BC2} = {0D37C399-9D36-43DA-BEBE-870DCA6D0838}
+		{F9EF84C3-4111-4108-A807-E79DA823C8F8} = {7D2FCE5E-639E-4DB4-8407-74EBC285A67B}
+		{4727ADD7-760E-4A38-B0FB-9DD761802C63} = {7D2FCE5E-639E-4DB4-8407-74EBC285A67B}
+		{EE4F2F42-7EB6-4A07-9C8C-E100E0F88379} = {4727ADD7-760E-4A38-B0FB-9DD761802C63}
+		{C2A5619F-3111-4CEF-A069-DA3F42128430} = {F9EF84C3-4111-4108-A807-E79DA823C8F8}
+		{DD5DA820-EFB2-4A69-87B3-F976A03C33C2} = {F8CC52BF-1B51-4A5A-B438-BA87456E526E}
+		{0040B306-D988-4F6C-BA40-CFFBE2CC2986} = {725C4B4D-D481-45DF-9096-58F9214E4BC2}
+		{A7BD130B-065F-484B-973F-297E78AEAACD} = {C8CAD634-7264-4EEE-8CD5-47EA6353D793}
+		{B01BB7F2-6BD3-4772-994B-C4CCA776978E} = {D12C6FC9-CEAE-46E7-8D10-EEFFB9E748DA}
+		{B1BEDA08-D903-49E5-902B-EBE253E26AA7} = {5FAA4042-D1F0-4ADB-9133-0388A5E67C05}
+		{6EE80D5B-CBD6-4BAE-9124-722EDD3EE7F7} = {5FAA4042-D1F0-4ADB-9133-0388A5E67C05}
+		{86B4DD7C-B047-4539-8757-8978E2BEAED9} = {96743675-213F-4479-8DEA-E9551DA8C691}
+		{BE09E09C-479C-427D-B64D-8E36DB7AA45E} = {F9EF84C3-4111-4108-A807-E79DA823C8F8}
+		{DF67CE86-D3B0-46D2-9450-C7F584814160} = {D12C6FC9-CEAE-46E7-8D10-EEFFB9E748DA}
+		{CC70EBA0-320C-4802-9A9A-8F0B9C00427B} = {D12C6FC9-CEAE-46E7-8D10-EEFFB9E748DA}
+		{EDC7130F-EE31-49A9-A8E6-6AE42B3EC8F8} = {5FAA4042-D1F0-4ADB-9133-0388A5E67C05}
+		{88919CFE-8E41-4871-A583-7B944F4C4368} = {5FAA4042-D1F0-4ADB-9133-0388A5E67C05}
+	EndGlobalSection
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 20
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = http://192.168.1.111:8080/tfs/laserbeam
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = Laserbeam.BusinessObject.Common\\Laserbeam.BusinessObject.Common.csproj
+		SccProjectTopLevelParentUniqueName1 = Laserbeam.sln
+		SccProjectName1 = Laserbeam.BusinessObject.Common
+		SccLocalPath1 = Laserbeam.BusinessObject.Common
+		SccProjectUniqueName2 = Laserbeam.Constant.HR\\Laserbeam.Constant.HR.csproj
+		SccProjectTopLevelParentUniqueName2 = Laserbeam.sln
+		SccProjectName2 = Laserbeam.Constant.HR
+		SccLocalPath2 = Laserbeam.Constant.HR
+		SccProjectUniqueName3 = Laserbeam.DataManager.Common\\Laserbeam.DataManager.Common.csproj
+		SccProjectTopLevelParentUniqueName3 = Laserbeam.sln
+		SccProjectName3 = Laserbeam.DataManager.Common
+		SccLocalPath3 = Laserbeam.DataManager.Common
+		SccProjectUniqueName4 = Laserbeam.DataManager.Interfaces.Common\\Laserbeam.DataManager.Interfaces.Common.csproj
+		SccProjectTopLevelParentUniqueName4 = Laserbeam.sln
+		SccProjectName4 = Laserbeam.DataManager.Interfaces.Common
+		SccLocalPath4 = Laserbeam.DataManager.Interfaces.Common
+		SccProjectUniqueName5 = Laserbeam.EntityManager.Common\\Laserbeam.EntityManager.Common.csproj
+		SccProjectTopLevelParentUniqueName5 = Laserbeam.sln
+		SccProjectName5 = Laserbeam.EntityManager.Common
+		SccLocalPath5 = Laserbeam.EntityManager.Common
+		SccProjectUniqueName6 = Laserbeam.Libraries.Common.Interfaces\\Laserbeam.Libraries.Interfaces.Common.csproj
+		SccProjectTopLevelParentUniqueName6 = Laserbeam.sln
+		SccProjectName6 = Laserbeam.Libraries.Common.Interfaces
+		SccLocalPath6 = Laserbeam.Libraries.Common.Interfaces
+		SccProjectUniqueName7 = Laserbeam.Libraries.Common\\Laserbeam.Libraries.Common.csproj
+		SccProjectTopLevelParentUniqueName7 = Laserbeam.sln
+		SccProjectName7 = Laserbeam.Libraries.Common
+		SccLocalPath7 = Laserbeam.Libraries.Common
+		SccProjectUniqueName8 = Laserbeam.ProcessManager.Common\\Laserbeam.ProcessManager.Common.csproj
+		SccProjectTopLevelParentUniqueName8 = Laserbeam.sln
+		SccProjectName8 = Laserbeam.ProcessManager.Common
+		SccLocalPath8 = Laserbeam.ProcessManager.Common
+		SccProjectUniqueName9 = Laserbeam.ProcessManager.Interfaces.Common\\Laserbeam.ProcessManager.Interfaces.Common.csproj
+		SccProjectTopLevelParentUniqueName9 = Laserbeam.sln
+		SccProjectName9 = Laserbeam.ProcessManager.Interfaces.Common
+		SccLocalPath9 = Laserbeam.ProcessManager.Interfaces.Common
+		SccProjectUniqueName10 = Laserbeam.RegistryManager.HR\\Laserbeam.RegistryManager.HR.csproj
+		SccProjectTopLevelParentUniqueName10 = Laserbeam.sln
+		SccProjectName10 = Laserbeam.RegistryManager.HR
+		SccLocalPath10 = Laserbeam.RegistryManager.HR
+		SccProjectUniqueName11 = Laserbeam.Resource.HR\\Laserbeam.Resource.HR.csproj
+		SccProjectTopLevelParentUniqueName11 = Laserbeam.sln
+		SccProjectName11 = Laserbeam.Resource.HR
+		SccLocalPath11 = Laserbeam.Resource.HR
+		SccProjectUniqueName12 = Laserbeam.UI.HR\\Laserbeam.UI.HR.csproj
+		SccProjectTopLevelParentUniqueName12 = Laserbeam.sln
+		SccProjectName12 = Laserbeam.UI.HR
+		SccLocalPath12 = Laserbeam.UI.HR
+		SccProjectUniqueName13 = Laserbeam.EntityManager.TenantObjects\\Laserbeam.EntityManager.TenantObjects.csproj
+		SccProjectTopLevelParentUniqueName13 = Laserbeam.sln
+		SccProjectName13 = Laserbeam.EntityManager.TenantObjects
+		SccLocalPath13 = Laserbeam.EntityManager.TenantObjects
+		SccProjectUniqueName14 = Laserbeam.DataManager.Core\\Laserbeam.DataManager.Core.csproj
+		SccProjectTopLevelParentUniqueName14 = Laserbeam.sln
+		SccProjectName14 = Laserbeam.DataManager.Core
+		SccLocalPath14 = Laserbeam.DataManager.Core
+		SccProjectUniqueName15 = Laserbeam.DataManager.Interfaces.Core\\Laserbeam.DataManager.Interfaces.Core.csproj
+		SccProjectTopLevelParentUniqueName15 = Laserbeam.sln
+		SccProjectName15 = Laserbeam.DataManager.Interfaces.Core
+		SccLocalPath15 = Laserbeam.DataManager.Interfaces.Core
+		SccProjectUniqueName16 = Laserbeam.Libraries.Core\\Laserbeam.Libraries.Core.csproj
+		SccProjectTopLevelParentUniqueName16 = Laserbeam.sln
+		SccProjectName16 = Laserbeam.Libraries.Core
+		SccLocalPath16 = Laserbeam.Libraries.Core
+		SccProjectUniqueName17 = Laserbeam.Libraries.Core.Interfaces.Common\\Laserbeam.Libraries.Core.Interfaces.Common.csproj
+		SccProjectTopLevelParentUniqueName17 = Laserbeam.sln
+		SccProjectName17 = Laserbeam.Libraries.Core.Interfaces.Common
+		SccLocalPath17 = Laserbeam.Libraries.Core.Interfaces.Common
+		SccProjectUniqueName18 = Laserbeam.EntityManager.TenantMaster\\Laserbeam.EntityManager.TenantMaster.csproj
+		SccProjectTopLevelParentUniqueName18 = Laserbeam.sln
+		SccProjectName18 = Laserbeam.EntityManager.TenantMaster
+		SccLocalPath18 = Laserbeam.EntityManager.TenantMaster
+		SccProjectUniqueName19 = Laserbeam.EntityManager.TenantMasterObjects\\Laserbeam.EntityManager.TenantMasterObjects.csproj
+		SccProjectTopLevelParentUniqueName19 = Laserbeam.sln
+		SccProjectName19 = Laserbeam.EntityManager.TenantMasterObjects
+		SccLocalPath19 = Laserbeam.EntityManager.TenantMasterObjects
+	EndGlobalSection
+EndGlobal

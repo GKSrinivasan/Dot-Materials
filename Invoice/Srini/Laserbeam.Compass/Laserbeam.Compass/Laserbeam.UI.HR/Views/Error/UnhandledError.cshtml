@@ -1,0 +1,10 @@
+﻿
+@{
+   Layout = "~/Views/Error/_ErrorLayout.cshtml";
+}
+<div class="big21 text-center">Sorry. We’re having some technical issues <br />(try to refresh the page)</div>
+
+<div class="relogin-btn text-center">
+    @Html.ActionLink("Click here to Re-Login", "Login", "Account", new { }, new { style = "" })
+</div>
+

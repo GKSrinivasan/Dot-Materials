@@ -1,0 +1,51 @@
+﻿<script type="text/javascript">
+    $(document).ready(function () {
+        BindManageCommunicationTemplateTreeView();
+    });
+</script>
+@Html.AntiForgeryToken()
+<div id="rendermanagertemplatetree">
+    <div id="manageComminicationTemplate" class="bhoechie-tab-content active">
+        <div class="row nomargin">
+            <div class="col-md-12 text-right top-pad">
+                <button id="btnManagerTemplateDelete" type="button" class="btn btn-cancel"><i class="fa fa-trash"></i> Delete</button>
+                <button id="btnManagerTemplateSave" type="button" class="btn btn-info prim-btn">
+                    Save
+                </button>
+                <button id="btnManagerTemplateCancel" type="button" class="btn btn-xs glyphiconbutton" style="display:none !important;">
+                    Cancel
+                </button>
+            </div>
+        </div>
+        <div class="row nomargin">
+            <div class="col-md-6">
+                <div class="row">
+                    <div class="col-md-3">Configured email list</div>
+                    <div class="col-md-9">
+                        <div id="ddlbtnManagerTemplateTree">
+                        </div>
+                    </div>
+                </div>
+                <div class="row top-pad">
+                    <div class="col-md-3">
+                        Subject
+                    </div>
+                    <div class="col-md-9">
+                        @Html.TextBox("select", "", new { id = "txtTemplateEmail", @class = "form-control" })
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">&nbsp;</div>
+        <div class="row nomargin tenbottompad">
+            <div class="col-md-12">
+                @(Html.Kendo().Editor()
+                              .Name("managerTemplateEditor")
+                              .Value("")
+                              .HtmlAttributes(new { style = "height:212px;" })
+                               .Tools(tools => tools.Clear().Formatting().Bold().Italic().Underline().JustifyLeft().JustifyCenter().JustifyRight().InsertUnorderedList().InsertOrderedList().Indent())
+                                  .Events(e => e.Change("editorChanged")))
+            </div>            
+        </div>
+    </div>
+</div>

@@ -1,0 +1,176 @@
+﻿@{
+    Layout = "~/Views/Shared/_WizardLayout.cshtml";
+}
+@*<link href="~/Content/Wizardstyle-new.css" rel="stylesheet">
+<link href="~/Content/Site.min.css" rel="stylesheet">*@
+<link href="~/Content/wizardnew.css" rel="stylesheet" />
+@*<link href="~/Content/Wizardstyles.css" rel="stylesheet">*@
+<script src="~/Scripts/Wizard.js"></script>
+<script type="text/javascript">
+    var stepCount = @ViewBag.Step;
+</script>
+<style>
+    #ajaxLoadingPanel{
+        display:none;
+    }
+</style>
+@Html.AntiForgeryToken()
+<div class="container-fluid white-bg">    
+    <div class="row">
+        <!--toaster popup-->
+        <div class="col-md-12" style="z-index:999">
+            <div class="col-md-3 col-md-offset-8 flash">
+                <div class="col-md-12 alert alert-blue alert-dismissable">
+                    <button id="btnwizardhomeclose" aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                    <div class="robotsecdiv">
+                        <img class="img-responsive" style="width:65px;height:65px;border-radius:50%;" src="~/images/robot.gif" alt="robot">
+                    </div>
+                    <div class="text-center toastersec">
+                        <div class="toasterheading">Hello! <span style="font-weight:500;">@ViewBag.UserName</span></div>
+                        <div class="toastercontent">Welcome to Compass Rewards tool set-up wizard.<br>Quickly and easily configure salary increase process</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12 form-box">
+            <form role="form" action="" method="post" class="f1">
+                @*<div class="pull-left imghello"><img class="img-responsive" src="../../images/robot.png" style="width:100px;"></div>
+                <h2>Hello! @ViewBag.UserName</h2>
+                <h3>Welcome to Compass Rewards tool setup wizard</h3>
+                <p>Quickly and easily configure salary increase process</p>*@
+
+                <div class="f1-steps">
+                    <a href="#divDataBind">
+                        <div style="width:15%;float:left;margin-top:10px;text-align:right;">
+                            @*<button type="button" class="btn btn-previous btn_prev" id="btnPrevious"><i class="fa fa-chevron-left" aria-hidden="true"></i></button>*@
+                            <button type="button" class="btn btn-bluecolor" id="btnPrevious"><i class="fa fa-angle-double-left" aria-hidden="true"></i></button>
+                        </div>
+                        <div style="width:70%;float:left;">
+                            <div class="f1-progress">
+                                <div class="f1-progress-line" data-now-value="0" data-number-of-steps="2" style="width: 0%;"></div>
+                            </div>
+                            <div class="f1-step active" id="step2">
+                                <div class="f1-step-icon">
+                                    <i class="fa fa-cogs"></i>
+                                </div>
+                                <p>Set compensation components & rules</p>
+                            </div>
+                            <div class="f1-step" id="step4">
+                                <div class="f1-step-icon"><i class="icon icon-wiz-multi-currency" style="font-size: 25px;position: relative; top: 3px;"></i></div>
+                                <p>Set Budget</p>
+                            </div>
+                            <div class="f1-step" id="step5">
+                                <div class="f1-step-icon"><i class="fa fa-check"></i></div>
+                                <p>Complete</p>
+                            </div>
+                        </div>
+                        <div class="text-right" style="width:15%;float:left;margin-top:10px;text-align:left;">
+                            <button type="button" class="btn btn-bluecolor" id="btnNext1"><i class="fa fa-angle-double-right" aria-hidden="true"></i></button>
+                            <button type="button" class="btn btn-danger" id="btnskip"><i class="fa fa-share" aria-hidden="true"></i> Skip</button>
+                        </div>
+                    </a>
+                    @*<div class="f1-buttons btn-plc">
+                        <button type="button" class="btn btn-previous btn_prev"><i class="fa fa-angle-left" aria-hidden="true"></i></button>
+                        <button type="button" class="btn btn-next btn_nxt"><i class="fa fa-angle-right" aria-hidden="true"></i></button>
+                    </div>*@
+                    @*<div class="row">
+                        <div class="col-md-12">
+                            <div class="pull-right bottom-pad"><button type="button" class="btn btn-bluecolor btn-orangecolor" id="btnskip"><i class="fa fa-share" aria-hidden="true"></i> Skip</button></div>
+                        </div>
+                    </div>*@
+                    
+                    <div id="divDataBind" class="col-md-12"></div>
+                </div>
+            </form>
+        </div>
+        @*<div class="col-md-12 norightpad noleftpad">
+            <div class="panel">
+                <div id="wizard" class="form_wizard wizard_horizontal">
+                    <ul class="wizard_steps">
+                        <li class="col-md-3">
+                            <a href="#divdatabind">
+                                <span class="step_no cursorpointer" id="step1" style="background:#f1c40f">
+                                    1
+                                </span>
+                                <div class="step_descr cursorpointer">welcome</div>
+                            </a>
+                        </li>
+                        <li class="col-md-1">
+                            <i class="fa fa-chevron-left" style="width: 35px;height: 35px;line-height: 35px;color: #fff;background: #06b3a2;border-radius: 50%;" aria-hidden="true"></i>
+                        </li>
+                        <li class="col-md-2">
+                            <a href="#divDataBind">
+                                <span class="step_no cursorpointer" id="step2" style="background:orange !important">
+                                    <i class="icon icon-merit-icon" style="font-size:30px;position:relative;top:6px;color:orange;"></i>
+                                </span>
+                                <div class="step_descr cursorpointer">Compensation Components</div>
+                            </a>
+                        </li>
+                        <li class="col-md-3">
+                            <a href="#divDataBind">
+                                <span class="step_no cursorpointer" id="step3" style="background:orange !important">
+                                    <i class="fa fa-cogs" style="font-size:25px;position:relative;top:9px;"></i>
+                                </span>
+                                <div class="step_descr cursorpointer">Set Rules</div>
+                            </a>
+                        </li>
+
+                        <li class="col-md-3">
+                            <a href="#divDataBind">
+                                <span class="step_no cursorpointer" id="step4" style="background:orange !important">
+                                    <i class="icon icon-wiz-multi-currency" style="font-size:30px;position:relative;top:6px;"></i>
+                                </span>
+                                <div class="step_descr cursorpointer">Set Budget</div>
+                            </a>
+                        </li>
+                        <li class="col-md-2">
+                            <a href="#divDataBind">
+                                <span class="step_no cursorpointer" id="step5" style="background:orange !important">
+                                    <i class="fa fa-check" style="font-size:20px;position:relative;top:10px;"></i>
+                                </span>
+                                <div class="step_descr cursorpointer">Complete</div>
+                            </a>
+                        </li>
+                        <li class="col-md-1">
+                            <span><i class="fa fa-chevron-right" style="width: 35px;height: 35px;line-height: 35px;color: #fff;background: #06b3a2;border-radius: 50%;"aria-hidden="true"></i></span>
+                        </li>
+                    </ul>
+
+                    <div class="progress" role="progressbar" style="position: relative; bottom: 70px;width: 74%;margin-left: 14%;">
+                        <div id="progressBar" class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+
+                    <div class="form-actions">
+                        <div class="row btn-place">
+                            <div class="col-md-12">
+                                <div class="text-right" id="btnLevels">
+                                    <a href="javascript:;" class="btn default button-previous" id="btnBack">
+                                        <i class="fa fa-angle-left"></i> Back
+                                    </a>
+                                    <a href="javascript:;" class="btn btn-outline green button-next" id="btnNext">
+                                        Save &amp; Continue
+                                        <i class="fa fa-angle-right"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+            <div id="divDataBind" class="col-md-12 tab-pane"></div>
+            
+        </div>*@
+<script>
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+    })
+   //script for hellop popout fade out
+    window.setTimeout(function() {
+        $(".flash").fadeTo(500, 0).slideUp(500, function(){
+            $(this).remove();
+        });
+    }, 5000);
+</script>
+

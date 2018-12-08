@@ -1,0 +1,1566 @@
+﻿@model Laserbeam.BusinessObject.Common.RuleConfigModel
+@{ string IsSuperAdmin = ""; 
+    if (ViewBag.UserRole!="Super Admin") { IsSuperAdmin = "display:none"; }    
+}
+<link href="~/Content/ManageRules.css" rel="stylesheet" />
+<script src="~/Scripts/RuleConfiguration.js"></script>
+
+@if (Model.isWizard == false)
+{
+    <div class="row">
+        <div class="col-md-12 text-right norightpad">
+            <button id="btnSaveRule" type="button" class="btn btn-info prim-btn">Save</button>
+        </div>
+    </div>
+}
+
+@if (Model.isWizard == true)
+{
+    <div class="form-actions">
+        <div class="row">
+            <div class="col-md-12 text-right top-btn" id="btnLevels">
+                <a href="javascript:;" class="btn default button-previous" id="btnBackToWelcome">
+                    <i class="fa fa-angle-left"></i> Back
+                </a>
+                <a href="javascript:;" class="btn btn-outline green button-next" id="btnNextToFields">
+                    Save &amp; Continue
+                    <i class="fa fa-angle-right"></i>
+                </a>
+
+            </div>
+        </div>
+    </div>
+}
+
+<div class="row top-pad">
+        <div class="col-sm-3 col-md-3 col-lg-2 noleftpad norightpad wizardleftsec">
+            <ul class="nav nav-pills nav-stacked">
+                <li class="active"><a id="lnkmanagerulescompensation" href="#tab_a" data-toggle="pill">Compensation Components</a></li>
+                <li><a id="lnkmanagerulesgeneralconfig" href="#tab_b" data-toggle="pill">General Configuration</a></li>
+                <li><a id="lnkmanagerulesperfratingMeritrule" href="#tab_c" data-toggle="pill">Set Performance rating & Merit rule</a></li>
+                <li><a id="lnkmanageruleslumpsumrule" href="#tab_d" data-toggle="pill">Set Lump Sum Rule</a></li>
+                <li><a id="lnkmanagerulescollaboration" href="#tab_e" data-toggle="pill">Decision Collaboration</a></li>
+                <li><a id="lnkmanagerulesroundingrule" href="#tab_f" data-toggle="pill">Set Rounding Rule</a></li>
+                <li><a id="lnkmanagerulesnamedateformat" href="#tab_g" data-toggle="pill">Set Name & Date Format</a></li>
+                <li><a id="lnkmanagerulessso" href="#tab_h" data-toggle="pill">Single Sign-on</a></li>
+            </ul>
+        </div>        
+        <div class="col-sm-9 col-md-9 col-lg-10 tabbableright">
+        <div class="row">
+            <div class="tab-content col-md-12">
+                <!--SSO login-->
+                <div class="tab-pane" id="tab_h">
+                    <div class="table-responsive">
+                        <table class="table descriptiontable">
+                            <thead>
+                                <tr>
+                                    <th class="field1 width20">Feature List</th>
+                                    <th class="field2 width45"></th>
+                                    <th class="field3">What it means?</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="field1 width20">
+                                        Enable SSO Login
+                                    </td>
+                                    <td class="field2">
+                                        <div class="register-switch" style="margin:0;">
+                                            <input type="radio" name="yesnoSSO" value="Y11" id="chkSSOYes" class="register-switch-input" checked="">
+                                            <label for="chkSSOYes" class="register-switch-label"><i class="glyphicon glyphicon-ok"></i></label>
+                                            <input type="radio" name="yesnoSSO" value="N11" id="chkSSONo" class="register-switch-input">
+                                            <label for="chkSSONo" class="register-switch-label removelabel"><i class="glyphicon glyphicon-remove"></i></label>
+                                        </div>
+                                    </td>
+                                    <td class="field3">
+                                       
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="field1 width20">
+                                        Identifier URL
+                                    </td>
+                                    <td class="field2 width45">
+                                        @*@Model.SSOUrl*@
+                                        <div class="input-group" style="width:90%;">
+                                            <input class="form-control" id="IdentifierURL" name="URL" readonly="readonly" type="text" value="@Model.SSOUrl">
+                                            <a class="input-group-addon whitetxt" onclick="IdentifierTextCopied('IdentifierURL')">
+                                                Copy link
+                                            </a>
+                                        </div>
+                                    </td>
+                                    <td class="field3">
+                                        The URL provided in this section is used to identify the service provider.
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="field1 width20">
+                                        Reply URL
+                                    </td>
+                                    <td class="field2 width45">
+                                        @*@Model.SSOUrl*@
+                                        <div class="input-group" style="width:90%;">
+                                            <input class="form-control" id="ReplyURL" name="URL" readonly="readonly" type="text" value="@Model.SSOUrl">
+                                            <a class="input-group-addon whitetxt" onclick="ReplyTextCopied('ReplyURL')">
+                                                Copy link
+                                            </a>
+                                        </div>
+                                    </td>
+                                    <td class="field3">
+                                        The URL provided in this section will be the endpoint that accepts SAML response.
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="field1 width20">
+                                        Single sign-on URL
+                                    </td>
+                                    <td class="field2 width45">
+                                        <input type="text" class="form-control" id="IPE" style="width:90%;" />
+                                        <div id="UserStatus"></div>
+                                    </td>
+                                    <td class="field3">
+                                        The URL provided in this section is used by compass to send SAML request.
+                                    </td>
+                                </tr>                                
+                                </tbody>
+                            </table>
+                        <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+                        </div>
+                    </div>
+                    <!--End SSO login-->
+                    <!--choose increase component-->
+                    <div class="tab-pane active" id="tab_a">
+                        <div class="row nomargin">
+                            <div class="col-md-12">
+                                <div class="row top-pad">
+                                    <div class="col-md-12 selecttext">
+                                        <span class="titlepro1 selectmodule">Select Compensation Components</span>
+                                        @*Select what your managers see when making pay decisions*@
+                                    </div>
+                                </div>
+                                <div class="row separation" style="border-bottom:none !important;padding-bottom:20%">
+                                    <div class="col-md-12 modulepad">
+                                        <div class="tilesec tile bg-yellow-lemon selected" id="divMeritFeature" onclick="selectMeritTile();">
+                                            <div style="display:none">
+                                                @(Html.Kendo().CheckBox().Name("chkMeritFeature").Label(""))
+                                            </div>
+                                            <div class="corner"> </div>
+                                            <div class="check"> </div>
+                                            <div class="tile-body">
+                                                <i id="iconMeritFeature" class="icon icon-merit-icon"></i>
+                                            </div>
+                                            <div class="tile-object">
+                                                <div id="lblMeritFeature" class="name"> Merit </div>
+                                            </div>
+                                        </div>
+                                        <div class="tilesec tile bg-yellow-lemon selected" id="divRatingFeature" onclick="selectPerfRatingTile()">
+                                            <div style="display:none">
+                                                @(Html.Kendo().CheckBox().Name("chkRatingFeature").Label(""))
+                                            </div>
+                                            <div class="corner"> </div>
+                                            <div class="check"> </div>
+                                            <div class="tile-body">
+                                                <i id="iconRatingFeature" class="icon icon-wiz-02"></i>
+                                            </div>
+                                            <div class="tile-object">
+                                                <div id="lblRatingFeature" class="name"> Performance Rating </div>
+                                            </div>
+                                        </div>
+                                        <div class="tilesec tile bg-yellow-lemon selected" id="divLumpsumFeature" onclick="selectLumpSumTile()">
+                                            <div style="display:none">
+                                                @(Html.Kendo().CheckBox().Name("chkLumpsumFeature").Label(""))
+                                            </div>
+                                            <div class="corner"> </div>
+                                            <div class="check"> </div>
+                                            <div class="tile-body">
+                                                <i id="iconLumpsumFeature" class="icon icon-wiz-03"></i>
+                                            </div>
+                                            <div class="tile-object">
+                                                <div id="lblLumpsumFeature" class="name"> Lump Sum </div>
+                                            </div>
+                                        </div>
+                                        <div class="tilesec tile bg-yellow-lemon selected" id="divPromotion" onclick="selectPromotionTile()">
+                                            <div style="display:none">
+                                                @(Html.Kendo().CheckBox().Name("chkPromotion").Label(""))
+                                            </div>
+                                            <div class="corner"> </div>
+                                            <div class="check"> </div>
+                                            <div class="tile-body">
+                                                <i id="iconPromotion" class="icon icon-promotion-icon"></i>
+                                            </div>
+                                            <div class="tile-object">
+                                                <div id="lblPromotion" class="name"> Promotion </div>
+                                            </div>
+                                        </div>
+                                        <div class="tilesec tile bg-yellow-lemon selected" id="divAdjustmentFeature" onclick="selectAdjustmentTile()">
+                                            <div style="display:none">
+                                                @(Html.Kendo().CheckBox().Name("chkAdjustmentFeature").Label(""))
+                                            </div>
+                                            <div class="corner"> </div>
+                                            <div class="check"> </div>
+                                            <div class="tile-body">
+                                                <i id="iconAdjustmentFeature" class="icon icon-wiz-market-adj"></i>
+                                            </div>
+                                            <div class="tile-object">
+                                                <div id="lblAdjustmentFeature" class="name"> Adjustment </div>
+                                            </div>
+                                        </div>
+                                        <div class="tilesec tile bg-yellow-lemon selected" id="divWorkFlowFeature" onclick="selectWorkFlowTile()">
+                                            <div style="display:none">
+                                                @(Html.Kendo().CheckBox().Name("chkWorkFlowFeature").Label(""))
+                                            </div>
+                                            <div class="corner"> </div>
+                                            <div class="check"> </div>
+                                            <div class="tile-body">
+                                                <i id="iconWorkFlowFeature" class="icon-workflow1"></i>
+                                                @*<i id="iconWorkFlowFeature" class="icon icon-mm-workflow"></i>*@
+                                            </div>
+                                            <div class="tile-object">
+                                                <div id="lblWorkFlowFeature" class="name"> Workflow </div>
+                                            </div>
+                                        </div>
+                                        <div class="tilesec tile bg-yellow-lemon selected" id="divMultiCurrency" onclick="selectMultiCurrencyTile()">
+                                            <div style="display:none">
+                                                @(Html.Kendo().CheckBox().Name("chkMultiCurrency").Label(""))
+                                            </div>
+                                            <div class="corner"> </div>
+                                            <div class="check"> </div>
+                                            <div class="tile-body">
+                                                <i id="iconMultiCurrency" class="icon icon-wiz-multi-currency"></i>
+                                            </div>
+                                            <div class="tile-object">
+                                                <div id="lblMultiCurrency" class="name"> Multi Currency </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12 modulepad" style="display:none;">
+                                        <!--Bonus-->
+                                        <div class="tilesec tile bg-yellow-lemon selected" id="divBonus" onclick="selectBonusTile()">
+                                            <div style="display:none">
+                                                @(Html.Kendo().CheckBox().Name("chkBonus").Label(""))
+                                            </div>
+                                            <div class="corner"> </div>
+                                            <div class="check"> </div>
+                                            <div class="tile-body">
+                                                <i id="iconBonus" class="icon-rewards-icon"></i>
+                                            </div>
+                                            <div class="tile-object">
+                                                <div id="lblBonus" class="name"> Bonus </div>
+                                            </div>
+                                        </div>
+                                        <!--Bonus End-->
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <br /><br /><br />
+                    </div>
+                    <!--end choose increase component-->
+                    <!--general configuration-->
+                    <div class="tab-pane" id="tab_b">
+                        <div class="table-responsive">
+                            <table class="table descriptiontable">
+                                <thead>
+                                    <tr>
+                                        <th class="field1">Feature List</th>
+                                        <th class="field2"></th>
+                                        <th class="field3">What it means?</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="field1">
+                                            Current Work Year
+                                        </td>
+                                        <td class="field2">
+                                            <input type="text" class="form-control" id="inpoldyear" style="display:none;" />
+                                            <input type="text" class="form-control" id="inpCurrentyear" style="width:60%;" />
+                                        </td>
+                                        <td class="field3">
+                                            The year configured will import data in the system accordingly<br>
+                                            <span style="font-style:italic;font-weight:500;">Example:</span> If 2017 is configured, current year will be considered to be 2017 and data prior to 2017 would be considered as history
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="field1">Password Length</td>
+                                        <td class="field2 drpdwnfield">
+                                            @(Html.Kendo().DropDownList().Name("ddlPasswordLength").HtmlAttributes(new { onChange = "onChange(this.id)" }).
+                                                BindTo(Model.PasswordLength.Select(role => new SelectListItem
+                                                {
+                                                    Text = role,
+                                                    Value = role
+                                                }).OrderBy(x => Convert.ToInt32(x.Text)).ToArray()).HtmlAttributes(new { style = "width:100%;" })
+                                            )
+                                        </td>
+                                        <td class="field3">Select the length of the password you want to set up for your organization. Use a minimum password length of 4 characters</td>
+                                    </tr>
+                                    <tr style="@(IsSuperAdmin)">
+                                        <td class="field1">Email Address</td>
+                                        <td class="field2"><input type="text" class="form-control" id="inpEmailAddress" style="width:60%;" /></td>
+                                        <td class="field3">This email is the sender email address for all system generated email notifications sent from the application</td>
+                                    </tr>
+                                    <div class="noborderline">
+                                        <div class="field1">
+                                            <div class="row top-pad panel-collapse collapse yet-to" id="takeAct">
+                                                <div class="col-sm-12 col-md-12 col-lg-7">
+                                                    <p class="s-title">Take Action - Send Reminder Rules</p>
+                                                    Send Reminder <input type="text" maxlength="3" size="3" class="tbox" />  days reviews due and every <input type="text" maxlength="3" size="3" class="tbox" /> days after that.  <button id="btnIgnoreRemLogin" type="button" class="btn cancel-btn pull-right" data-toggle="modal" data-target="#takeAction1">Ignore Reminder</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <tr>
+                                        <td class="field1">
+                                            Currency
+                                        </td>
+                                        <td class="field2">
+                                            <form style="width:60%;">
+                                                <label class="radio-inline">
+                                                    @(Html.Kendo().RadioButton().Name("radioCurrencyCode").Checked(true).HtmlAttributes(new { @name = "radioButton" }).Label("")) Currency Code
+                                                </label><br />
+                                                <label class="radio-inline">
+                                                    @(Html.Kendo().RadioButton().Name("radioCurrencySymbol").HtmlAttributes(new { @name = "radioButton" }).Label(""))Currency Symbol
+                                                </label>
+                                            </form>
+                                        </td>
+                                        <td class="field3">
+                                            <span style="font-weight:500;">Currency Code:</span> will be displayed in the budget section <br />
+                                            <span style="font-style:italic;font-weight:500;">Example:</span> USD, EUR, INR, AUD, GBP, etc., <span class="clicktext" data-toggle="collapse" data-target="#Currencycode">Click here for Preview</span><br />
+                                            <div style="margin-top:7px;"></div>
+                                            <span style="font-weight:500;">Currency Symbol:</span> will be displayed in the budget section <br />
+                                            <span style="font-style:italic;font-weight:500;">Example:</span> $, € <span class="clicktext" data-toggle="collapse" data-target="#Currencysymbol">Click here for Preview</span>
+                                        </td>
+                                    </tr>
+                                    <tr class="collapse" id="Currencycode">
+                                        <td>
+                                            <!--preview currency code-->
+                                            <div>
+                                                <div class="col-sm-12 col-md-12 col-lg-12 top-pad titlepro" style="margin-top:15px;">
+                                                    <button id="btnsetrulescloseCurrencycode" type="button" class="close" data-toggle="collapse" data-target="#Currencycode">×</button>
+                                                    <img src="~/Images/currencycode.png" class="img-responsive" />
+                                                </div>
+                                            </div>
+                                            <!--end preview currency code-->
+                                        </td>
+                                    </tr>
+                                    <tr class="collapse" id="Currencysymbol">
+                                        <td>
+                                            <!--preview currency code-->
+                                            <div>
+                                                <div class="col-sm-12 col-md-12 col-lg-12 top-pad titlepro" style="margin-top:15px;">
+                                                    <button id="btnsetrulescloseCurrencysymbol" type="button" class="close" data-toggle="collapse" data-target="#Currencysymbol">×</button>
+                                                    <img src="~/Images/currencysymbol.png" class="img-responsive" />
+                                                </div>
+                                            </div>
+                                            <!--end preview currency code-->
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="field1">
+                                            Default budget currency format
+                                        </td>
+                                        <td class="field2 bigfield">
+                                            <div class="register-switch">
+                                                <input type="radio" name="yesno6" value="Y6" id="BaseCurrency" class="register-switch-input" checked="">
+                                                <label for="BaseCurrency" class="register-switch-label">Logged User Currency</label>
+                                                <input type="radio" name="yesno6" value="N6" id="OtherCurrency" class="register-switch-input">
+                                                <label for="OtherCurrency" class="register-switch-label">Base Currency</label>
+                                            </div>
+                                        </td>
+                                        <td class="field3"></td>
+                                    </tr>
+
+                                    <tr>
+                                        <td class="field1">
+                                            Clear workflow action performed in recommend increase section
+                                        </td>
+                                        <td class="field2 bigfield">
+                                            <div class="text-left"><button type="button" id="btnExecute" class="btn btn-cancel">Clear workflow process</button></div>
+                                        </td>
+                                        <td class="field3">
+                                            This will clear out the workflow actions that you have performed in the Rewards >> Recommend Increase section. You cannot retrieve this data if you execute clear script.
+                                        </td>
+                                    </tr>
+
+                                    <tr style="display:none;">
+                                        <td class="field1">Individual Portion</td>
+                                        <td class="field2"><input type="text" class="form-control" id="inpBonusIndividual" style="width:60%;" /></td>
+                                        <td class="field3"></td>
+                                    </tr>
+                                    <tr style="display:none;">
+                                        <td class="field1">Global Portion</td>
+                                        <td class="field2"><input type="text" class="form-control" id="inpBonusGlobal" style="width:60%;" /></td>
+                                        <td class="field3"></td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <!--end general configuration-->
+                    <!--set merit proration-->
+                    <div class="tab-pane" id="tab_c">
+
+                        <!--new model-->
+
+
+                        <div class="table-responsive" id="fldProrationRule">
+                            <table class="table descriptiontable">
+                                <thead>
+                                    <tr>
+                                        <th class="field1">Feature List</th>
+                                        <th class="field2"></th>
+                                        <th class="field3">What it means?</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="noborderline">
+                                        <td class="field1" style="color:#06b3a2;font-size:17px; padding-top:15px; font-style:italic;">Comparative Ratio</td>
+                                        <td class="field2"></td>
+                                        <td class="field3"></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="field1">Auto calculate both current and new compa-ratio using single salary range data</td>
+                                        <td class="field2">
+                                            <div class="register-switch">
+                                                <input type="radio" name="yesno0" value="Y0" id="CompaRatioDropdownYes" class="register-switch-input" checked="">
+                                                <label for="CompaRatioDropdownYes" class="register-switch-label"><i class="glyphicon glyphicon-ok"></i></label>
+                                                <input type="radio" name="yesno0" value="N0" id="CompaRatioDropdownNo" class="register-switch-input">
+                                                <label for="CompaRatioDropdownNo" class="register-switch-label removelabel"><i class="glyphicon glyphicon-remove"></i></label>
+                                            </div>
+                                        </td>
+                                        <td class="field3">This option would auto calculate both current and new compa-ratio using single salary range data. Turn it off if the current and new compa-ratio is calculated using two different salary range data. In this case you would upload the current compa-ratio. The tool will calculate the new compa-ratio.</td>
+                                    </tr>
+                                    <tr class="noborderline">
+                                        <td class="field1" style="color:#06b3a2;font-size:17px; padding-top:15px; font-style:italic;">Performance Rating</td>
+                                        <td class="field2"></td>
+                                        <td class="field3"></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="field1">Allow manager to select performance rating</td>
+                                        <td class="field2">
+                                            <div class="register-switch">
+                                                <input type="radio" name="yesno" value="Y" id="RatingDropdownYes" class="register-switch-input" checked="">
+                                                <label for="RatingDropdownYes" class="register-switch-label"><i class="glyphicon glyphicon-ok"></i></label>
+                                                <input type="radio" name="yesno" value="N" id="RatingDropdownNo" class="register-switch-input">
+                                                <label for="RatingDropdownNo" class="register-switch-label removelabel"><i class="glyphicon glyphicon-remove"></i></label>
+                                            </div>
+                                        </td>
+                                        <td class="field3">This option allows managers to modify the Performance Ratings uploaded into the tool.</td>
+                                    </tr>
+                                    <tr class="noborderline">
+                                        <td class="field1" style="color:#06b3a2;font-size:17px; padding-top:15px; font-style:italic;">Merit</td>
+                                        <td class="field2"></td>
+                                        <td class="field3"></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="field1">
+                                            Total Cash Compensation (TCC)
+                                        </td>
+                                        <td class="field2">
+                                            <div class="register-switch">
+                                                <input type="radio" name="yesno1" value="Y1" id="chkTCCYes" class="register-switch-input" checked="">
+                                                <label for="chkTCCYes" class="register-switch-label"><i class="glyphicon glyphicon-ok"></i></label>
+                                                <input type="radio" name="yesno1" value="N1" id="chkTCCNo" class="register-switch-input">
+                                                <label for="chkTCCNo" class="register-switch-label removelabel"><i class="glyphicon glyphicon-remove"></i></label>
+                                            </div>
+                                        </td>
+                                        <td class="field3">TCC column will be shown on Recommend increase page</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="field1">Auto calculate the employee salary to the market minimum range</td>
+                                        <td class="field2">
+                                            <div class="register-switch">
+                                                <input type="radio" name="yesno2" value="Y2" id="meritCalcYes" class="register-switch-input" checked="">
+                                                <label for="meritCalcYes" class="register-switch-label"><i class="glyphicon glyphicon-ok"></i></label>
+                                                <input type="radio" name="yesno2" value="N2" id="meritCalcNo" class="register-switch-input">
+                                                <label for="meritCalcNo" class="register-switch-label removelabel"><i class="glyphicon glyphicon-remove"></i></label>
+                                            </div>
+                                        </td>
+                                        <td class="field3">
+                                            If the employee salary is below the market minimum range, this option will auto calculate the employee salary and match it with the market minimum range  <br />
+                                            <span class="clicktext" data-toggle="collapse" data-target="#minmarketrange-beforeinc">Click here for example</span>
+                                            <div class="collapse" id="minmarketrange-beforeinc">
+                                                <div class="col-sm-12 col-md-12 col-lg-12 top-pad titlepro">
+                                                    <button id="btnsetrulesminmarketrange" type="button" class="close" data-toggle="collapse" data-target="#minmarketrange-beforeinc">×</button>
+                                                    <i>
+                                                        Current Salary is $ 85,000<br />Market Minimum is $ 86,000<br />
+                                                        Tool will bring up the salary to $ 86,000 and all the increase will be applied on $ 86,000
+                                                    </i>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr class="noborderline">
+                                        <td class="field1" style="color:#06b3a2;font-size:17px; padding-top:15px; font-style:italic;">Prorate Merit</td>
+                                        <td class="field2"></td>
+                                        <td class="field3"></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="field1">Prorate merit</td>
+                                        <td class="field2">
+                                            <div class="register-switch">
+                                                <input type="radio" name="yesno4" value="Y4" id="ProrationProrate" class="register-switch-input" checked="">
+                                                <label for="ProrationProrate" class="register-switch-label"><i class="glyphicon glyphicon-ok"></i></label>
+                                                <input type="radio" name="yesno4" value="N4" id="ProrationDoNotProrate" class="register-switch-input">
+                                                <label for="ProrationDoNotProrate" class="register-switch-label removelabel"><i class="glyphicon glyphicon-remove"></i></label>
+                                            </div>
+                                        </td>
+                                        <td class="field3">Defines the merit proration rule. The prorate rule is calculated based on the given Merit proration Date</td>
+                                    </tr>
+                                    <tr id="prorated1">
+                                        <td class="field1">Set the cut-off date. The merit will be prorated for employees with merit proration date falling @*between*@</td>
+                                        <td class="field2">
+                                            <div class="fielddate">
+                                                <label>From</label>
+                                                <div class="input-group pull-left">
+                                                    @(Html.Kendo().DatePicker().Name("ProrationRuleStartDatepicker").HtmlAttributes(new { onChange = "onChange(this.id)" }))
+                                                </div>
+                                            </div>
+                                            <div class="fielddate" style="margin-top: 10px;">
+                                                <label>to</label>
+                                                <div class="input-group pull-left">
+                                                    @(Html.Kendo().DatePicker().Name("ProrationRuleEndDatepicker").HtmlAttributes(new { onChange = "onChange(this.id)" }))
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="field3"></td>
+                                    </tr>
+                                    <tr id="prorated2">
+                                        <td class="field1">Select the prorate method from the given options</td>
+                                        <td class="field2">
+                                            <div class="register-switch">
+                                                <input type="radio" name="duration" value="D" id="ProrationDaily" class="register-switch-input" checked="">
+                                                <label for="ProrationDaily" class="register-switch-label register-switch-label1">Daily</label>
+                                                <input type="radio" name="duration" value="W" id="ProrationWeekly" class="register-switch-input">
+                                                <label for="ProrationWeekly" class="register-switch-label register-switch-label1">Weekly</label>
+                                                <input type="radio" name="duration" value="M" id="ProrationMonthly" class="register-switch-input">
+                                                <label for="ProrationMonthly" class="register-switch-label register-switch-label1">Monthly</label>
+                                            </div>
+                                        </td>
+                                        <td class="field3">
+                                            <span class="clicktext" data-toggle="collapse" data-target="#proratedmethod">Click here for example</span>
+                                            <div class="collapse" id="proratedmethod">
+                                                <div class="col-sm-12 col-md-12 col-lg-12 top-pad titlepro" style="margin-top:15px;">
+                                                    <button id="btnsetrulesproratedmethod" type="button" class="close" data-toggle="collapse" data-target="#proratedmethod">×</button>
+                                                    <div class="rightspacebulb">
+                                                        Start date is 01/01/2017  End date is 12/31/2017<br />
+                                                        Employee Merit Proration Date is 04/12/2017<br />
+                                                        <b>Daily</b><br />
+                                                        Proration Factor is (12/31/2017 - 04/12/2017) = 263/365 days = 0.72055<br />
+                                                        <b>Weekly</b><br />
+                                                        Proration Factor is (37.57143/52 weeks) = 0.72253<br />
+                                                        <b>Monthly</b><br />
+                                                        Proration Factor is (9/12 months) = 0.75
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr id="prorated3">
+                                        <td class="field1">Input calendar duration (365 days or 52 weeks or 12 months)</td>
+                                        <td class="field2">
+                                            @Html.TextBox("ProrateLength", null, new { @onkeypress = "return onlyNos(event,this);", onChange = "onChange(this.id)", @class = "form-control" })
+                                        </td>
+                                        <td class="field3"><span style="font-style:italic;font-weight:500;">Example:</span> 365 </td>
+                                    </tr>
+                                    <tr id="prorated4">
+                                        <td class="field1">Enter no. of days an employee should have worked in a month</td>
+                                        <td class="field2">
+                                            @Html.TextBox("ProrateLengthtoInclude", null, new { @onkeypress = "return onlyNos(event,this);", onChange = "onChange(this.id)", @class = "form-control" })
+                                        </td>
+                                        <td class="field3"><span style="font-style:italic;font-weight:500;">Example:</span> 16</td>
+                                    </tr>
+                                    <tr id="prorated5">
+                                        <td class="field1">
+                                            <div class="checkbox checkbox-primary checkboxnopad checktxt">
+                                                <input id="chkBudgetCalc" type="checkbox" checked>
+                                                <label for="chkBudgetCalc">
+                                                    Apply the same prorate rule for <span style="font-weight:500;">Budget</span>
+                                                </label>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <!--end set merit proration-->
+                    <!--set lump sum rule-->
+                    <div class="tab-pane" id="tab_d">
+                        <!--new model-->
+                        <div class="table-responsive" id="fldLumpSumRule">
+                            <table class="table descriptiontable">
+                                <thead>
+                                    <tr>
+                                        <th class="field1">Feature List</th>
+                                        <th class="field2"></th>
+                                        <th class="field3">What it means?</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr id="fldLumpSumRule0">
+                                        <td class="field1">Allow manager to enter either merit or lump sum</td>
+                                        <td class="field2">
+                                            <div class="register-switch">
+                                                <input type="radio" name="yesno3" value="Y3" id="eitherMeritOrLumpsumYes" class="register-switch-input" checked="">
+                                                <label for="eitherMeritOrLumpsumYes" class="register-switch-label"><i class="glyphicon glyphicon-ok"></i></label>
+                                                <input type="radio" name="yesno3" value="N3" id="eitherMeritOrLumpsumNo" class="register-switch-input">
+                                                <label for="eitherMeritOrLumpsumNo" class="register-switch-label removelabel"><i class="glyphicon glyphicon-remove"></i></label>
+                                            </div>
+                                        </td>
+                                        <td class="field3">
+                                            This option allows manager to enter either merit or lump sum. If the manager enters merit they cannot enter Lump Sum and vice versa
+                                        </td>
+                                    </tr>
+                                    <tr id="fldLumpSumRule1" style="display:none!important;">
+                                        <td class="field1">Recalculate merit increase</td>
+                                        <td class="field2">
+                                            <div class="register-switch">
+                                                <input type="radio" name="yesno7" value="Y7" id="meritReCalcYes" class="register-switch-input" checked="">
+                                                <label for="meritReCalcYes" class="register-switch-label"><i class="glyphicon glyphicon-ok"></i></label>
+                                                <input type="radio" name="yesno7" value="N7" id="meritReCalcNo" class="register-switch-input">
+                                                <label for="meritReCalcNo" class="register-switch-label removelabel"><i class="glyphicon glyphicon-remove"></i></label>
+                                            </div>
+                                        </td>
+                                        <td class="field3">
+                                            This option will re-calculate the manager entered merit increase if an employee receives lump sum.<br />
+                                            <span class="clicktext" data-toggle="collapse" data-target="#lumpsumcalculate">Click here for example</span>
+                                            <div class="collapse" id="lumpsumcalculate">
+                                                <div class="col-sm-12 col-md-12 col-lg-12 top-pad titlepro">
+                                                    <button id="btnsetruleslumpsumcalculate" type="button" class="close" data-toggle="collapse" data-target="#lumpsumcalculate">×</button>
+                                                    <i>
+                                                        Market max is 95,000<br />
+                                                        Base salary is 92,000<br />
+                                                        Manager gave a merit increase of 4,000<br />
+                                                        Lump sum was calculated as 1,000 based on the lump sum rule<br />
+                                                        Tool will re-calculate merit increase to 3,000<br />
+                                                        New salary would be 95,000
+                                                    </i>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr id="fldLumpSumRule2">
+                                        <td class="field1">
+                                            <div style="width:25px;float:left">@(Html.Kendo().RadioButton().Name("LumpsumAutoCalc").HtmlAttributes(new { @name = "Lumpsum" }).Label(""))</div>
+                                            Auto calculate lump sum if the new salary is above the internal range maximum by
+                                        </td>
+                                        <td class="field2">
+                                            <div class="salaryamt">
+                                                @Html.TextBox("LumpsumAutoCalcPct", null, new { @onkeydown = "return allownumbers(event,this);", @class = "form-control", style = "width:100%;" })
+                                            </div>
+                                            <div style="width:20%;float:left;padding-left:10px;padding-top:7px;">% or</div>
+                                            <div class="salaryamt" style="margin-top:10px;">
+                                                @Html.TextBox("LumpsumAutoCalcAmt", null, new { @onkeydown = "return allownumbers(event,this);", @class = "form-control", style = "width:100%;" })
+                                            </div>
+                                            <div style="width:20%;float:left;padding-left:10px;padding-top:15px;">Amount</div>
+                                        </td>
+                                        <td class="field3">
+                                            Yes - and the rule is 100%. When a employee receives an merit increase which takes his/her new salary above market max, the tool will display the market max as new salary and remaining amount as lump sum.<br />
+                                            <span class="clicktext" data-toggle="collapse" data-target="#autocalculatelumpsum">Click here for example</span>
+                                            <div class="collapse" id="autocalculatelumpsum">
+                                                <div class="col-sm-12 col-md-12 col-lg-12 top-pad titlepro">
+                                                    <button id="btnautocalculatelumpsum" type="button" class="close" data-toggle="collapse" data-target="#autocalculatelumpsum">×</button>
+                                                    <i>
+                                                        Current Salary: 145,000<br />
+                                                        Pay Range Max: 150,000<br />
+                                                        Rule: 100% of max which is 150,000<br />
+                                                        Increase given: 7,000<br />
+                                                        New Salary: 150,000<br />
+                                                        Lump Sum: 2,000 <br/>
+                                                        The actual calculated new salary is 152,000, since the number is above the max tool displayed the market max as new salary and the remaining amount as lump sum
+                                                    </i>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr id="fldLumpSumRule3">
+                                        <td class="field1">Managers/Admins can override the auto calculated lump sum</td>
+                                        <td class="field2">
+                                            <div class="register-switch">
+                                                <input type="radio" name="yesno5" value="Y5" id="LumpsumAutoCalcOverride" class="register-switch-input" checked="">
+                                                <label for="LumpsumAutoCalcOverride" class="register-switch-label"><i class="glyphicon glyphicon-ok"></i></label>
+                                                <input type="radio" name="yesno5" value="N5" id="LumpsumAutoCalcWithoutOverride" class="register-switch-input">
+                                                <label for="LumpsumAutoCalcWithoutOverride" class="register-switch-label removelabel"><i class="glyphicon glyphicon-remove"></i></label>
+                                            </div>
+                                        </td>
+                                        <td class="field3"></td>
+                                    </tr>
+                                    <tr id="fldLumpSumRule5">
+                                        <td class="field1">Turn off Lump sum rule</td>
+                                        <td class="field2">
+                                            <div class="register-switch">
+                                                <input type="radio" name="yesno8" value="Y100" id="Lumpsumon" class="register-switch-input" checked="">
+                                                <label for="Lumpsumon" class="register-switch-label"><i class="glyphicon glyphicon-ok"></i></label>
+                                                <input type="radio" name="yesno8" value="N100" id="Lumpsumoff" class="register-switch-input">
+                                                <label for="Lumpsumoff" class="register-switch-label removelabel"><i class="glyphicon glyphicon-remove"></i></label>
+                                            </div>
+                                        </td>
+                                        <td class="field3">
+                                            <span class="clicktext" data-toggle="collapse" data-target="#lumpsumrule">Click here for example</span>
+                                            <div class="collapse" id="lumpsumrule">
+                                                <div class="col-sm-12 col-md-12 col-lg-12 top-pad titlepro" style="margin-top:15px;">
+                                                    <button id="btnsetruleslumpsumrule" type="button" class="close" data-toggle="collapse" data-target="#lumpsumrule">×</button>
+                                                    <div class="rightspacebulb">
+                                                        <b style="width:30px;float:left; text-align:center;"><i class="glyphicon glyphicon-ok"></i> </b> <span style="float:left;width:92%"> If a manager enter merit increase, the entered merit increase will be added to the new salary. This is generally enabled after completion of compensation process to handle exceptions i.e., add lump sum to new salary</span><br />
+                                                        <b style="width:30px;float:left; text-align:center;"><i class="glyphicon glyphicon-remove"></i> </b>  <span style="float:left;width:92%"> If a manager enter merit increase, the lump sum will be auto calculated based on the configured rule</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr id="fldLumpSumRule4">
+                                        <td class="field1">
+                                            <div>
+                                                <div style="width:25px;float:left">
+                                                    @(Html.Kendo().RadioButton().Name("LumpsumNoAutoCalc").HtmlAttributes(new { @name = "Lumpsum" }).Label(""))
+                                                </div>
+                                                Do not automatically calculate. Manager will determine the lumpsum amount
+                                            </div>
+                                        </td>
+                                        <td class="field2"></td>
+                                        <td class="field3"></td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <!--end set lump sum rule-->
+                    <!--decision collaboration-->
+                    <div class="tab-pane" id="tab_e">
+                        <div class="row nomargin proratepopup">
+                            <div class="col-md-12">
+                                <div class="row top-pad" id="fldMeritOverideRule">
+                                    <div class="col-md-12 col-lg-12 bottom-pad1">
+                                        Choose a rule for your managers if their increase decisions vary from the recommendation
+                                    </div>
+                                    <div class="col-md-12 col-lg-12">
+                                        <div class="row row-height" style="display:none;">
+                                            @(Html.Kendo().RadioButton().Name("MeritOverrideHardStop").HtmlAttributes(new { @name = "MeritOverride" }).Label("")) Hard Stop
+                                        </div>
+                                        <div id="merithardstop" class="row pad-leftfive">
+                                            <div class="col-md-12 row-height top-pad">
+                                                @(Html.Kendo().RadioButton().Name("HardNoExceedGuideline").HtmlAttributes(new { @name = "MeritOverride", onChange = "onChange(this.id)" }).Label("")) Manager cannot provide an increase over or below the recommendation
+                                            </div>
+                                            <div class="row empty-space"></div>
+                                            <div class="col-md-12 row-height top-pad">
+                                                @(Html.Kendo().RadioButton().Name("HardExceedGuideline").HtmlAttributes(new { @name = "MeritOverride", onChange = "onChange(this.id)" }).Label("")) Manager can provide an increase over or below the recommendation as long as the manager is within the budget
+                                            </div>
+                                        </div>
+                                        <div id="meritJustifyonSubmit" class="row pad-leftfive" style="display:none;">
+                                            <div class="col-md-12 row-height top-pad">
+                                                @(Html.Kendo().RadioButton().Name("MeritOverrideNoJustifiction").HtmlAttributes(new { @name = "MeritOverride" }).Label("")) Manager can provide an increase over or below the recommendation but a comment is required for each employee upon sending for review
+                                            </div>
+                                        </div>
+                                        <div class="row row-height" style="display:none;">
+                                            @(Html.Kendo().RadioButton().Name("MeritOverrideSoftStop").HtmlAttributes(new { @name = "MeritOverride" }).Label("")) Soft Stop
+                                        </div>
+                                        <div id="meritsoftstop" class="row pad-leftfive">
+                                            <div class="col-md-12 row-height top-pad">
+                                                @(Html.Kendo().RadioButton().Name("SoftStopMandatory").HtmlAttributes(new { @name = "MeritOverride", onChange = "onChange(this.id)" }).Label("")) Manager can provide increase over or below the recommendation but a justification is mandatory
+                                            </div>
+                                            <div class="row empty-space"></div>
+                                            <div class="col-md-12 row-height top-pad">
+                                                @(Html.Kendo().RadioButton().Name("SoftStopNoMandatory").HtmlAttributes(new { @name = "MeritOverride", onChange = "onChange(this.id)" }).Label("")) Manager can provide an increase over or below the recommendation and no comments are required
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <br />
+                                    <br />
+                                    <br />
+                                    <br />
+                                    <br />
+                                    <br />
+                                    <br />
+                                    <br />
+                                    <br />
+                                    <br />
+                                    <br />
+                                    <br />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--end decision collaboration-->
+                    <!--Set rounding rule-->
+                    <div class="tab-pane" id="tab_f">
+                        <div class="row nomargin proratepopup">
+                            <div class="col-md-12">
+                                <div class="row top-pad titleproration">
+                                    <div class="col-md-12 col-lg-12 titleproration1 bottom-pad1">
+                                        The following rules are only applicable for employees receiving an increase
+                                    </div>
+                                    <div class="col-md-12 col-lg-12 table-responsive">
+                                        <table class="table table-condensed table-bordered generalconfigtbl">
+                                            <thead>
+                                                <tr>
+                                                    <th></th>
+                                                    <th colspan="3" class="text-center">Rounding</th>
+                                                    <th colspan="3" class="text-center">Decimal</th>
+                                                </tr>
+                                                <tr>
+                                                    <th>Area</th>
+                                                    <th>Percentage</th>
+                                                    <th>Hourly</th>
+                                                    <th>Annual</th>
+                                                    <th>Percentage</th>
+                                                    <th>Hourly</th>
+                                                    <th>Annual</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <!--Current Salary Code -->
+                                                <tr>
+                                                    <td>Current Salary</td>
+                                                    <td>
+                                                        @(Html.Kendo().DropDownList().Name("ddlRoundCurrentSalaryPerc").Enable(false).HtmlAttributes(new { onChange = "onChange(this.id)" }).BindTo(Model.Rounding.Select(role =>
+                                    new SelectListItem
+                                    {
+                                        Text = role,
+                                        Value = role
+                                    }).OrderBy(x => x.Text).ToArray()).HtmlAttributes(new { style = "width:96%;" }))
+                                                    </td>
+                                                    <td>
+                                                        @(Html.Kendo().DropDownList().Name("ddlRoundCurrentSalaryHour").HtmlAttributes(new { onChange = "onChange(this.id)" }).BindTo(Model.Rounding.Select(role =>
+                                        new SelectListItem
+                                        {
+                                            Text = role,
+                                            Value = role
+                                        }).OrderBy(x => x.Text).ToArray()).HtmlAttributes(new { style = "width:96%;" }))
+                                                    </td>
+                                                    <td>
+                                                        @(Html.Kendo().DropDownList().Name("ddlRoundCurrentSalaryAnnual").HtmlAttributes(new { onChange = "onChange(this.id)" }).BindTo(Model.Rounding.Select(role =>
+                                    new SelectListItem
+                                    {
+                                        Text = role,
+                                        Value = role
+                                    }).OrderBy(x => x.Text).ToArray()).HtmlAttributes(new { style = "width:96%;" }))
+                                                    </td>
+                                                    <td>
+                                                        @(Html.Kendo().DropDownList().Name("ddlDecimalCurrentSalaryPerc").Enable(false).HtmlAttributes(new { onChange = "onChange(this.id)" }).BindTo(Model.PercentageDecimalVal.Select(role =>
+                new SelectListItem
+                {
+                    Text = role,
+                    Value = role
+                }).ToArray()).HtmlAttributes(new { style = "width:96%;" }))
+                                                    </td>
+                                                    <td>
+                                                        @(Html.Kendo().DropDownList().Name("ddlDecimalCurrentSalaryHour").HtmlAttributes(new { onChange = "onChange(this.id)" }).BindTo(Model.HourlyDecimalVal.Select(role =>
+                                    new SelectListItem
+                                    {
+                                        Text = role,
+                                        Value = role
+                                    }).ToArray()).HtmlAttributes(new { style = "width:96%;" }))
+                                                    </td>
+                                                    <td>
+                                                        @(Html.Kendo().DropDownList().Name("ddlDecimalCurrentSalaryAnnual").HtmlAttributes(new { onChange = "onChange(this.id)" }).BindTo(Model.DecimalVal.Select(role =>
+                                        new SelectListItem
+                                        {
+                                            Text = role,
+                                            Value = role
+                                        }).ToArray()).HtmlAttributes(new { style = "width:96%;" }))
+                                                    </td>
+                                                </tr>
+
+                                                <!------------------------>
+                                                <tr>
+                                                    <td>Merit</td>
+                                                    <td>
+                                                        @(Html.Kendo().DropDownList().Name("ddlRoundMeritPerc").HtmlAttributes(new { onChange = "onChange(this.id)" }).
+                                                BindTo(Model.Rounding.Select(role => new SelectListItem
+                                                {
+                                                    Text = role,
+                                                    Value = role
+                                                }).OrderBy(x => x.Text).ToArray()).HtmlAttributes(new { style = "width:96%;" })
+                                                        )
+
+                                                    </td>
+                                                    <td>
+                                                        @(Html.Kendo().DropDownList().Name("ddlRoundMeritHour").HtmlAttributes(new { onChange = "onChange(this.id)" }).BindTo(Model.Rounding.Select(role =>
+                new SelectListItem
+                {
+                    Text = role,
+                    Value = role
+                }).OrderBy(x => x.Text).ToArray()).HtmlAttributes(new { style = "width:96%;" })
+                                                        )
+                                                    </td>
+                                                    <td>
+                                                        @(Html.Kendo().DropDownList().Name("ddlRoundMeritAnnual").HtmlAttributes(new { onChange = "onChange(this.id)" }).BindTo(Model.Rounding.Select(role =>
+                new SelectListItem
+                {
+                    Text = role,
+                    Value = role
+                }).OrderBy(x => x.Text).ToArray()).HtmlAttributes(new { style = "width:96%;" })
+                                                        )
+                                                    </td>
+                                                    <td>
+                                                        @(Html.Kendo().DropDownList().Name("ddlDecimalMeritPerc").HtmlAttributes(new { onChange = "onChange(this.id)" }).BindTo(Model.PercentageDecimalVal.Select(role =>
+                new SelectListItem
+                {
+                    Text = role,
+                    Value = role
+                }).ToArray()).HtmlAttributes(new { style = "width:96%;" })
+                                                        )
+                                                    </td>
+                                                    <td>
+                                                        @(Html.Kendo().DropDownList().Name("ddlDecimalMeritHour").HtmlAttributes(new { onChange = "onChange(this.id)" }).BindTo(Model.HourlyDecimalVal.Select(role =>
+                new SelectListItem
+                {
+                    Text = role,
+                    Value = role
+                }).ToArray()).HtmlAttributes(new { style = "width:96%;" })
+                                                        )
+                                                    </td>
+                                                    <td>
+                                                        @(Html.Kendo().DropDownList().Name("ddlDecimalMeritAnnual").HtmlAttributes(new { onChange = "onChange(this.id)" }).BindTo(Model.DecimalVal.Select(role =>
+                new SelectListItem
+                {
+                    Text = role,
+                    Value = role
+                }).ToArray()).HtmlAttributes(new { style = "width:96%;" })
+                                                        )
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Lump Sum</td>
+                                                    <td>
+                                                        @(Html.Kendo().DropDownList().Name("ddlRoundLumpSumPerc").HtmlAttributes(new { onChange = "onChange(this.id)" }).BindTo(Model.Rounding.Select(role =>
+                new SelectListItem
+                {
+                    Text = role,
+                    Value = role
+                }).OrderBy(x => x.Text).ToArray()).HtmlAttributes(new { style = "width:96%;" })
+                                                        )
+                                                    </td>
+                                                    <td>
+                                                        @(Html.Kendo().DropDownList().Name("ddlRoundLumpSumHour").HtmlAttributes(new { onChange = "onChange(this.id)" }).BindTo(Model.Rounding.Select(role =>
+                new SelectListItem
+                {
+                    Text = role,
+                    Value = role
+                }).OrderBy(x => x.Text).ToArray()).HtmlAttributes(new { style = "width:96%;" })
+                                                        )
+                                                    </td>
+                                                    <td>
+                                                        @(Html.Kendo().DropDownList().Name("ddlRoundLumpSumAnnual").HtmlAttributes(new { onChange = "onChange(this.id)" }).BindTo(Model.Rounding.Select(role =>
+                new SelectListItem
+                {
+                    Text = role,
+                    Value = role
+                }).OrderBy(x => x.Text).ToArray()).HtmlAttributes(new { style = "width:96%;" })
+                                                        )
+                                                    </td>
+                                                    <td>
+                                                        @(Html.Kendo().DropDownList().Name("ddlDecimalLumpSumPerc").HtmlAttributes(new { onChange = "onChange(this.id)" }).BindTo(Model.PercentageDecimalVal.Select(role =>
+                new SelectListItem
+                {
+                    Text = role,
+                    Value = role
+                }).ToArray()).HtmlAttributes(new { style = "width:96%;" })
+                                                        )
+                                                    </td>
+                                                    <td>
+                                                        @(Html.Kendo().DropDownList().Name("ddlDecimalLumpSumHour").HtmlAttributes(new { onChange = "onChange(this.id)" }).BindTo(Model.HourlyDecimalVal.Select(role =>
+                new SelectListItem
+                {
+                    Text = role,
+                    Value = role
+                }).ToArray()).HtmlAttributes(new { style = "width:96%;" })
+                                                        )
+                                                    </td>
+                                                    <td>
+                                                        @(Html.Kendo().DropDownList().Name("ddlDecimalLumpSumAnnual").HtmlAttributes(new { onChange = "onChange(this.id)" }).BindTo(Model.DecimalVal.Select(role =>
+                new SelectListItem
+                {
+                    Text = role,
+                    Value = role
+                }).ToArray()).HtmlAttributes(new { style = "width:96%;" })
+                                                        )
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Adjustment</td>
+                                                    <td>
+                                                        @(Html.Kendo().DropDownList().Name("ddlRoundAdjustmentPerc").HtmlAttributes(new { onChange = "onChange(this.id)" }).BindTo(Model.Rounding.Select(role =>
+                new SelectListItem
+                {
+                    Text = role,
+                    Value = role
+                }).OrderBy(x => x.Text).ToArray()).HtmlAttributes(new { style = "width:96%;" })
+                                                        )
+                                                    </td>
+                                                    <td>
+                                                        @(Html.Kendo().DropDownList().Name("ddlRoundAdjustmentHour").HtmlAttributes(new { onChange = "onChange(this.id)" }).BindTo(Model.Rounding.Select(role =>
+                new SelectListItem
+                {
+                    Text = role,
+                    Value = role
+                }).OrderBy(x => x.Text).ToArray()).HtmlAttributes(new { style = "width:96%;" })
+                                                        )
+                                                    </td>
+                                                    <td>
+                                                        @(Html.Kendo().DropDownList().Name("ddlRoundAdjustmentAnnual").HtmlAttributes(new { onChange = "onChange(this.id)" }).BindTo(Model.Rounding.Select(role =>
+                new SelectListItem
+                {
+                    Text = role,
+                    Value = role
+                }).OrderBy(x => x.Text).ToArray()).HtmlAttributes(new { style = "width:96%;" })
+                                                        )
+                                                    </td>
+                                                    <td>
+                                                        @(Html.Kendo().DropDownList().Name("ddlDecimalAdjustmentPerc").HtmlAttributes(new { onChange = "onChange(this.id)" }).BindTo(Model.PercentageDecimalVal.Select(role =>
+                new SelectListItem
+                {
+                    Text = role,
+                    Value = role
+                }).ToArray()).HtmlAttributes(new { style = "width:96%;" })
+                                                        )
+                                                    </td>
+                                                    <td>
+                                                        @(Html.Kendo().DropDownList().Name("ddlDecimalAdjustmentHour").HtmlAttributes(new { onChange = "onChange(this.id)" }).BindTo(Model.HourlyDecimalVal.Select(role =>
+                new SelectListItem
+                {
+                    Text = role,
+                    Value = role
+                }).ToArray()).HtmlAttributes(new { style = "width:96%;" })
+                                                        )
+                                                    </td>
+                                                    <td>
+                                                        @(Html.Kendo().DropDownList().Name("ddlDecimalAdjustmentAnnual").HtmlAttributes(new { onChange = "onChange(this.id)" }).BindTo(Model.DecimalVal.Select(role =>
+                new SelectListItem
+                {
+                    Text = role,
+                    Value = role
+                }).ToArray()).HtmlAttributes(new { style = "width:96%;" })
+                                                        )
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Comp-Ratio</td>
+                                                    <td>
+                                                        @(Html.Kendo().DropDownList().Name("ddlRoundCompoRatioPerc").HtmlAttributes(new { onChange = "onChange(this.id)" }).BindTo(Model.Rounding.Select(role =>
+                new SelectListItem
+                {
+                    Text = role,
+                    Value = role
+                }).OrderBy(x => x.Text).ToArray()).HtmlAttributes(new { style = "width:96%;" })
+                                                        )
+                                                    </td>
+                                                    <td>
+                                                        @(Html.Kendo().DropDownList().Name("ddlRoundCompoRatioHour").HtmlAttributes(new { onChange = "onChange(this.id)" }).BindTo(Model.Rounding.Select(role =>
+                new SelectListItem
+                {
+                    Text = role,
+                    Value = role
+                }).OrderBy(x => x.Text).ToArray()).HtmlAttributes(new { style = "width:96%;" })
+                                                        )
+                                                    </td>
+                                                    <td>
+                                                        @(Html.Kendo().DropDownList().Name("ddlRoundCompoRatioAnnual").HtmlAttributes(new { onChange = "onChange(this.id)" }).BindTo(Model.Rounding.Select(role =>
+                new SelectListItem
+                {
+                    Text = role,
+                    Value = role
+                }).OrderBy(x => x.Text).ToArray()).HtmlAttributes(new { style = "width:96%;" })
+                                                        )
+                                                    </td>
+                                                    <td>
+                                                        @(Html.Kendo().DropDownList().Name("ddlDecimalCompoRatioPerc").HtmlAttributes(new { onChange = "onChange(this.id)" }).BindTo(Model.PercentageDecimalVal.Select(role =>
+                new SelectListItem
+                {
+                    Text = role,
+                    Value = role
+                }).ToArray()).HtmlAttributes(new { style = "width:96%;" })
+                                                        )
+                                                    </td>
+                                                    <td>
+                                                        @(Html.Kendo().DropDownList().Name("ddlDecimalCompoRatioHour").HtmlAttributes(new { onChange = "onChange(this.id)" }).BindTo(Model.HourlyDecimalVal.Select(role =>
+                new SelectListItem
+                {
+                    Text = role,
+                    Value = role
+                }).ToArray()).HtmlAttributes(new { style = "width:96%;" })
+                                                        )
+                                                    </td>
+                                                    <td>
+                                                        @(Html.Kendo().DropDownList().Name("ddlDecimalCompoRatioAnnual").HtmlAttributes(new { onChange = "onChange(this.id)" }).BindTo(Model.DecimalVal.Select(role =>
+                                        new SelectListItem
+                                        {
+                                            Text = role,
+                                            Value = role
+                                        }).ToArray()).HtmlAttributes(new { style = "width:96%;" })
+                                                        )
+                                                    </td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td>Promotion</td>
+                                                    <td>
+                                                        @(Html.Kendo().DropDownList().Name("ddlRoundpromotionPerc").HtmlAttributes(new { onChange = "onChange(this.id)" }).BindTo(Model.Rounding.Select(role =>
+                new SelectListItem
+                {
+                    Text = role,
+                    Value = role
+                }).OrderBy(x => x.Text).ToArray()).HtmlAttributes(new { style = "width:96%;" })
+                                                        )
+                                                    </td>
+                                                    <td>
+                                                        @(Html.Kendo().DropDownList().Name("ddlRoundPromotionHour").HtmlAttributes(new { onChange = "onChange(this.id)" }).BindTo(Model.Rounding.Select(role =>
+                new SelectListItem
+                {
+                    Text = role,
+                    Value = role
+                }).OrderBy(x => x.Text).ToArray()).HtmlAttributes(new { style = "width:96%;" })
+                                                        )
+                                                    </td>
+                                                    <td>
+                                                        @(Html.Kendo().DropDownList().Name("ddlRoundPromotionAnnual").HtmlAttributes(new { onChange = "onChange(this.id)" }).BindTo(Model.Rounding.Select(role =>
+                new SelectListItem
+                {
+                    Text = role,
+                    Value = role
+                }).OrderBy(x => x.Text).ToArray()).HtmlAttributes(new { style = "width:96%;" })
+                                                        )
+                                                    </td>
+                                                    <td>
+                                                        @(Html.Kendo().DropDownList().Name("ddlDecimalPromotionPerc").HtmlAttributes(new { onChange = "onChange(this.id)" }).BindTo(Model.PercentageDecimalVal.Select(role =>
+                new SelectListItem
+                {
+                    Text = role,
+                    Value = role
+                }).ToArray()).HtmlAttributes(new { style = "width:96%;" })
+                                                        )
+                                                    </td>
+                                                    <td>
+                                                        @(Html.Kendo().DropDownList().Name("ddlDecimalPromotionHour").HtmlAttributes(new { onChange = "onChange(this.id)" }).BindTo(Model.HourlyDecimalVal.Select(role =>
+                new SelectListItem
+                {
+                    Text = role,
+                    Value = role
+                }).ToArray()).HtmlAttributes(new { style = "width:96%;" })
+                                                        )
+                                                    </td>
+                                                    <td>
+                                                        @(Html.Kendo().DropDownList().Name("ddlDecimalPromotionAnnual").HtmlAttributes(new { onChange = "onChange(this.id)" }).BindTo(Model.DecimalVal.Select(role =>
+                                        new SelectListItem
+                                        {
+                                            Text = role,
+                                            Value = role
+                                        }).ToArray()).HtmlAttributes(new { style = "width:96%;" })
+                                                        )
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>New Salary</td>
+                                                    <td>
+                                                        @(Html.Kendo().DropDownList().Name("ddlRoundNewSalaryPerc").Enable(false).HtmlAttributes(new { onChange = "onChange(this.id)" }).BindTo(Model.Rounding.Select(role =>
+                                    new SelectListItem
+                                    {
+                                        Text = role,
+                                        Value = role
+                                    }).OrderBy(x => x.Text).ToArray()).HtmlAttributes(new { style = "width:96%;" }))
+                                                    </td>
+                                                    <td>
+                                                        @(Html.Kendo().DropDownList().Name("ddlRoundNewSalaryHour").HtmlAttributes(new { onChange = "onChange(this.id)" }).BindTo(Model.Rounding.Select(role =>
+                                        new SelectListItem
+                                        {
+                                            Text = role,
+                                            Value = role
+                                        }).OrderBy(x => x.Text).ToArray()).HtmlAttributes(new { style = "width:96%;" }))
+                                                    </td>
+                                                    <td>
+                                                        @(Html.Kendo().DropDownList().Name("ddlRoundNewSalaryAnnual").HtmlAttributes(new { onChange = "onChange(this.id)" }).BindTo(Model.Rounding.Select(role =>
+                                    new SelectListItem
+                                    {
+                                        Text = role,
+                                        Value = role
+                                    }).OrderBy(x => x.Text).ToArray()).HtmlAttributes(new { style = "width:96%;" }))
+                                                    </td>
+                                                    <td>
+                                                        @(Html.Kendo().DropDownList().Name("ddlDecimalNewSalaryPerc").Enable(false).HtmlAttributes(new { onChange = "onChange(this.id)" }).BindTo(Model.PercentageDecimalVal.Select(role =>
+                new SelectListItem
+                {
+                    Text = role,
+                    Value = role
+                }).ToArray()).HtmlAttributes(new { style = "width:96%;" }))
+                                                    </td>
+                                                    <td>
+                                                        @(Html.Kendo().DropDownList().Name("ddlDecimalNewSalaryHour").HtmlAttributes(new { onChange = "onChange(this.id)" }).BindTo(Model.HourlyDecimalVal.Select(role =>
+                                    new SelectListItem
+                                    {
+                                        Text = role,
+                                        Value = role
+                                    }).ToArray()).HtmlAttributes(new { style = "width:96%;" }))
+                                                    </td>
+                                                    <td>
+                                                        @(Html.Kendo().DropDownList().Name("ddlDecimalNewSalaryAnnual").HtmlAttributes(new { onChange = "onChange(this.id)" }).BindTo(Model.DecimalVal.Select(role =>
+                                        new SelectListItem
+                                        {
+                                            Text = role,
+                                            Value = role
+                                        }).ToArray()).HtmlAttributes(new { style = "width:96%;" }))
+                                                    </td>
+                                                </tr>
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <br />
+                                    <br />
+                                    <br />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--end Set rounding rule-->
+                    <!--Set name format-->
+                    <div class="tab-pane" id="tab_g">
+                        <!--new model-->
+                        <table class="table descriptiontable">
+                            <thead>
+                                <tr>
+                                    <th class="field1">Feature List</th>
+                                    <th class="field2"></th>
+                                    <th class="field3"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="field1">User name format</td>
+                                    <td class="field2 drpdwnfield">
+                                        @(Html.Kendo().DropDownList()
+                                    .Name("ddlUserNameFormatConfiguration")
+                                    .DataTextField("Text")
+                                    .DataValueField("Value")
+                                    .BindTo(new List<SelectListItem>() {
+                                        new SelectListItem() {
+                                                        Text = "FirstName",
+                                                        Value = "@firstname"
+                                                    },
+                                          new SelectListItem() {
+                                            Text = "PreferredName",
+                                            Value = "@preferredname"
+                                        },
+                                                    new SelectListItem() {
+                                            Text = "LastName",
+                                            Value = "@lastname"
+                                        },
+
+                                                    new SelectListItem() {
+                                                        Text = "FirstName LastName",
+                                                        Value = "@firstname @lastname"
+                                                    },
+
+                                                    new SelectListItem() {
+                                                        Text = "LastName, FirstName",
+                                                        Value = "@lastname, @firstname"
+                                                    },
+
+
+                                    }).HtmlAttributes(new { style = "width:100%", onChange = "onChange(this.id)" })
+                                        )
+                                    </td>
+                                    <td class="field3"></td>
+                                </tr>
+                                <tr>
+                                    <td class="field1">Employee name format</td>
+                                    <td class="field2 drpdwnfield">
+                                        @(Html.Kendo().DropDownList()
+                                                .Name("ddlEmployeeNameFormatConfiguration")
+                                                .DataTextField("Text")
+                                                .DataValueField("Value")
+                                                .BindTo(new List<SelectListItem>() {
+                                                    new SelectListItem() {
+                                                        Text = "FirstName",
+                                                        Value = "@firstname"
+                                                    },
+                                                  new SelectListItem() {
+                                                        Text = "PreferredName",
+                                                            Value = "@preferredname"
+                                                        },
+                                                    new SelectListItem() {
+                                                        Text = "FirstName LastName",
+                                                        Value = "@firstname @lastname"
+                                                    },
+                                                    new SelectListItem() {
+                                                        Text = "FirstName MiddleInitial LastName",
+                                                        Value = "@firstname @middleinitial @lastname"
+                                                    },
+                                                    new SelectListItem() {
+                                                        Text = "LastName, FirstName",
+                                                        Value = "@lastname, @firstname"
+                                                    },
+                                                    new SelectListItem() {
+                                                        Text = "LastName, FirstName MiddleInitial",
+                                                        Value = "@lastname, @firstname @middleinitial"
+                                                    },
+                                                }).HtmlAttributes(new { style = "width:100%", onChange = "onChange(this.id)" })
+                                        )
+                                    </td>
+                                    <td class="field3"></td>
+                                </tr>
+                                <tr>
+                                    <td class="field1">Employee name sort order</td>
+                                    <td class="field2 drpdwnfield">
+                                        @(Html.Kendo().DropDownList()
+                                            .Name("ddlSortOrderFormatConfiguration")
+                                    .DataTextField("Text")
+                                    .DataValueField("Value")
+                                    .BindTo(new List<SelectListItem>() {
+                                        new SelectListItem() {
+                                            Text = "FirstName",
+                                            Value = "@firstname"
+                                        },
+                                        new SelectListItem() {
+                                            Text = "PreferredName",
+                                            Value = "@preferredname"
+                                        },
+                                        new SelectListItem() {
+                                            Text = "LastName",
+                                            Value = "@lastname"
+                                        },
+                                        new SelectListItem() {
+                                            Text = "FirstName LastName",
+                                            Value = "@firstname @lastname"
+                                        },
+                                        new SelectListItem() {
+                                            Text = "FirstName MiddleInitial LastName",
+                                            Value = "@firstname @middleinitial @lastname"
+                                        },
+                                        new SelectListItem() {
+                                            Text = "LastName, FirstName",
+                                            Value = "@lastname, @firstname"
+                                        },
+                                        new SelectListItem() {
+                                            Text = "LastName, FirstName MiddleInitial",
+                                            Value = "@lastname, @firstname @middleinitial"
+                                        },
+
+                                    }).HtmlAttributes(new { style = "width:100%", onChange = "onChange(this.id)" })
+                                        )
+                                    </td>
+                                    <td class="field3"></td>
+                                </tr>
+                                <tr>
+                                    <td class="field1">Date format for all the dates</td>
+                                    <td class="field2 drpdwnfield">
+                                        @(Html.Kendo().DropDownList()
+                                            .Name("ddlDateFormatConfiguration")
+                                    .DataTextField("Text")
+                                    .DataValueField("Value")
+                                    .BindTo(Model.DateFormat).HtmlAttributes(new { style = "width:100%", onChange = "onChange(this.id)" })
+                                        )
+                                    </td>
+                                    <td class="field3"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+                        <!--end new model-->
+                    </div>
+                    <!--end Set name format-->
+                </div>
+        </div>
+            
+        </div><!-- tab content -->
+</div>
+
+
+<!--Yet to Login Reminder PopUp Starts-->
+<div class="modal fade" id="ignoreRem1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                @*<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>*@
+                <h3 class="modal-title" id="myModalLabel">Yet to Login - Ignore Reminder</h3>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-8 col-sm-12"><span class="short-desc">Select list of users you would like to exclude from getting auto reminder notification.</span></div>
+                    <div class="col-md-4 col-sm-12">
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Search Users...">
+                            <span class="input-group-btn">
+                                <button class="btn btn-default" type="button"><i class="fa fa-search" aria-hidden="true"></i></button>
+                            </span>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <h5>Users</h5>
+                        <div class="solidborder">
+                            <div class="table-responsive">
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr><th width="10%"><input type="checkbox" id="yet2LoginUsers"></th><th>User ID</th><th>User Name</th></tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><input type="checkbox" id="yet2LoginUsers1"></td>
+                                            <td>LBS0003</td>
+                                            <td>Karthick Ravichandran</td>
+                                        </tr>
+                                        <tr>
+                                            <td><input type="checkbox" id="yet2LoginUsers2"></td>
+                                            <td>LBS0004</td>
+                                            <td>Aishvarya Gunasekar</td>
+                                        </tr>
+                                        <tr>
+                                            <td><input type="checkbox" id="yet2LoginUsers3"></td>
+                                            <td>LBS0005</td>
+                                            <td>Praveenkumar Selvaraj</td>
+                                        </tr>
+                                        <tr>
+                                            <td><input type="checkbox" id="yet2LoginUsers4"></td>
+                                            <td>LBS0006</td>
+                                            <td>Kalyana Raghavan S</td>
+                                        </tr>
+                                        <tr>
+                                            <td><input type="checkbox" id="yet2LoginUsers5"></td>
+                                            <td>LBS0007</td>
+                                            <td>Boobalan Ranganathan</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <h5>Selected Users</h5>
+                        <div class="dottedborder">
+                            <div class="table-responsive">
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr><th>User ID</th> <th>User Name</th> <th>&nbsp;</th></tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>LBS0001</td>
+                                            <td>Naveen Veda</td>
+                                            <td><i class="fa fa-times igray" aria-hidden="true"></i></td>
+                                        </tr>
+                                        <tr>
+                                            <td>LBS0002</td>
+                                            <td>Satheesh</td>
+                                            <td><i class="fa fa-times igray" aria-hidden="true"></i></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-close" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Yet to Login Reminder PopUp ends-->
+
+
+<!--Take Action Reminder PopUp Starts-->
+<div class="modal fade" id="takeAction1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="myModalLabel">Take Action - Ignore Reminder</h3>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-8 col-sm-12"><span class="short-desc">Select list of users you would like to exclude from getting auto reminder notification.</span></div>
+                    <div class="col-md-4 col-sm-12">
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Search Users...">
+                            <span class="input-group-btn">
+                                <button class="btn btn-default" type="button"><i class="fa fa-search" aria-hidden="true"></i></button>
+                            </span>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <h5>Users</h5>
+                        <div class="solidborder">
+                            <div class="table-responsive">
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr><th width="10%"><input type="checkbox" id="takeactUsers"></th><th>User ID</th><th>User Name</th></tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><input type="checkbox" id="takeactUsers1"></td>
+                                            <td>LBS0003</td>
+                                            <td>Karthick Ravichandran</td>
+                                        </tr>
+                                        <tr>
+                                            <td><input type="checkbox" id="takeactUsers2"></td>
+                                            <td>LBS0004</td>
+                                            <td>Aishvarya Gunasekar</td>
+                                        </tr>
+                                        <tr>
+                                            <td><input type="checkbox" id="takeactUsers3"></td>
+                                            <td>LBS0005</td>
+                                            <td>Praveenkumar Selvaraj</td>
+                                        </tr>
+                                        <tr>
+                                            <td><input type="checkbox" id="takeactUsers4"></td>
+                                            <td>LBS0006</td>
+                                            <td>Kalyana Raghavan S</td>
+                                        </tr>
+                                        <tr>
+                                            <td><input type="checkbox" id="takeactUsers5"></td>
+                                            <td>LBS0007</td>
+                                            <td>Boobalan Ranganathan</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <h5>Selected Users</h5>
+                        <div class="dottedborder">
+                            <div class="table-responsive">
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr><th>User ID</th><th>User Name</th><th>&nbsp;</th></tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>LBS0001</td>
+                                            <td>Naveen Veda</td>
+                                            <td><i class="fa fa-times igray" aria-hidden="true"></i></td>
+                                        </tr>
+                                        <tr>
+                                            <td>LBS0002</td>
+                                            <td>Satheesh</td>
+                                            <td><i class="fa fa-times igray" aria-hidden="true"></i></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-close" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Yet to Login Reminder PopUp ends-->

@@ -1,0 +1,102 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{0040B306-D988-4F6C-BA40-CFFBE2CC2986}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Laserbeam.ProcessManager.Interfaces.Common</RootNamespace>
+    <AssemblyName>Laserbeam.ProcessManager.Interfaces.Common</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Octopus|AnyCPU'">
+    <OutputPath>bin\Octopus\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="IAccountProcessManager.cs" />
+    <Compile Include="IAnalyticsProcessManager.cs" />
+    <Compile Include="IBudgetPlanProcessManager.cs" />
+    <Compile Include="IChatBoxProcessManager.cs" />
+    <Compile Include="ICommentProcessManager.cs" />
+    <Compile Include="ICommunicationProcessManager.cs" />
+    <Compile Include="ICompensationProcessManager.cs" />
+    <Compile Include="IDashboardProcessManager.cs" />
+    <Compile Include="IEmailProcessManager.cs" />
+    <Compile Include="IExchangeRateProcessManager.cs" />
+    <Compile Include="IMarketPayRangeProcessManager.cs" />
+    <Compile Include="IPageCustomizationProcessManager.cs" />
+    <Compile Include="IProfileProcessManager.cs" />
+    <Compile Include="IRatingProcessManager.cs" />
+    <Compile Include="IRuleConfigurationProcessManager.cs" />
+    <Compile Include="ISessionProcessManager.cs" />
+    <Compile Include="IUserManagementProcessManager.cs" />
+    <Compile Include="IWorkFlowProcessManager.cs" />
+    <Compile Include="IWorkForceProcessManager.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Laserbeam.BusinessObject.Common\Laserbeam.BusinessObject.Common.csproj">
+      <Project>{ee4f2f42-7eb6-4a07-9c8c-e100e0f88379}</Project>
+      <Name>Laserbeam.BusinessObject.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Laserbeam.Constant.HR\Laserbeam.Constant.HR.csproj">
+      <Project>{8cdaf1a3-2072-4ec6-b56b-d5f8b260930d}</Project>
+      <Name>Laserbeam.Constant.HR</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Laserbeam.EntityManager.Common\Laserbeam.EntityManager.Common.csproj">
+      <Project>{b1beda08-d903-49e5-902b-ebe253e26aa7}</Project>
+      <Name>Laserbeam.EntityManager.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Laserbeam.EntityManager.TenantObjects\Laserbeam.EntityManager.TenantObjects.csproj">
+      <Project>{6ee80d5b-cbd6-4bae-9124-722edd3ee7f7}</Project>
+      <Name>Laserbeam.EntityManager.TenantObjects</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

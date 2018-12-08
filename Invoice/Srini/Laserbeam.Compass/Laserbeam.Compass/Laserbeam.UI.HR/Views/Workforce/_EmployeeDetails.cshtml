@@ -1,0 +1,153 @@
+﻿@model List<Laserbeam.BusinessObject.Common.TemplateMetaColumns>
+@using System.Text.RegularExpressions;
+<script type="text/javascript">
+    var dataCorrectionConstants = {
+        StagingNumber: '@ViewBag.StagingNumber',
+    };
+</script>
+@if (Model != null)
+{
+    List<string> functionalGroups = Model.Select(x => x.FunctionalGroup).Distinct().ToList();
+    <div id="accord-content" aria-expanded="false">
+        <div class="panel-group" id="accordion">
+            @foreach (var functionalGroup in functionalGroups)
+            {
+                int counter = 0;
+                var result = Model.Where(x => x.FunctionalGroup == functionalGroup && x.IsEnabled == true).ToList();
+                var functionalGroupName = functionalGroup.Substring(0, 1);
+                var funGroupName = functionalGroup.Substring(2);
+                if (result.Count() > 0)
+                {
+                    <div class="panel-default ltgrey">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#@(functionalGroupName)">
+                                    @funGroupName
+                                </a>
+                            </h4>
+                        </div>
+
+                        <div id="@(functionalGroupName)" class="panel-collapse collapse in">
+                            <div class="panel-body ltgrey col-centered">
+                                @foreach (var controls in result)
+                                {
+                                    if (counter % 4 == 0)
+                                    {
+                                        @Html.Raw("<div class='row'>")
+                                    }
+                                    @ControlsBasedOnCondition(controls.ControlFormat, controls.ControlType, controls.FieldName, controls.FieldValue, controls.PlaceHolder, (bool)controls.IsMandate, controls.AliasName, controls.FieldInformation, controls.ErrorMessage)
+                                    counter++;
+                                    if (counter % 4 == 0)
+                                    {
+                                        @Html.Raw("</div>")
+                                    }
+                                }
+                            </div>
+                        </div>
+                    </div>
+                }
+                <div class="voffset2"></div>
+            }
+
+        </div>
+    </div>
+    var result1 = Model.Where(x => x.IsEnabled == false).ToList();
+    <div style="display:none">
+        @foreach (var control in result1)
+        {
+            if (control.ControlType.ToLower() == ("DatePicker").ToLower())
+            {
+                DateTime tempDate;
+                bool isDate = !string.IsNullOrEmpty(control.FieldValue) ? (DateTime.TryParse(control.FieldValue, out tempDate) ? true : false) : false;
+                if (isDate)
+                {
+                    control.FieldValue = string.Format("{0:MM/dd/yyyy}", Convert.ToDateTime(control.FieldValue));
+                }
+
+            }
+            <input type="text" id="@control.FieldName" value="@control.FieldValue">
+            <span id="error_@control.FieldName"> </span>
+        }
+    </div>
+    <span id="error_NewHrlyRate" style="display:none;"> </span>
+}
+@helper ControlsBasedOnCondition(string dataFormat, string controlType, string controlId, string controlValue, string placeHolder, bool isMandate, string aliasName, string fieldInformation, string errorMessage)
+{
+    <div class="form-group col-md-3 col-sm-6">
+        <label for="@controlId">
+            @aliasName
+            @if (isMandate)
+            {
+                <span id="mandate_@controlId" class="red">*</span>
+            }
+        </label>
+        @if (fieldInformation != "" && fieldInformation != null)
+        {
+            <span class="tooltip1">
+                <i class="fa fa-info-circle" aria-hidden="true"></i>
+                <span class="tooltiptext">@fieldInformation</span>
+            </span>
+        }
+
+        @if (controlType.ToLower() == ("Link").ToLower())
+        {
+            <a href="#" datatype="@dataFormat" id='@controlId'>@controlValue</a>
+        }
+        else if (controlType.ToLower() == ("Label").ToLower())
+        {
+            <label id='@controlId' datatype="@dataFormat" style="font-weight:normal">@controlValue</label>
+        }
+        else if (controlType.ToLower() == ("TextBox").ToLower())
+        {
+            <input type="text" class="form-control input-sm" id="@controlId" placeholder="@placeHolder" value="@controlValue" style="border-color:@((errorMessage != "" && errorMessage != null) ? "red" : "")">
+        }
+        else if (controlType.ToLower() == ("NumericTextBox").ToLower())
+        {
+            <input type="number" class="form-control input-sm" id="@controlId" placeholder="@placeHolder" value="@controlValue" style="border-color:@((errorMessage != "" && errorMessage != null) ? "red" : "")">
+        }
+        else if (controlType.ToLower() == ("DropDown").ToLower())
+        {
+            @(Html.Kendo().DropDownList().Name(controlId).DataTextField("Text").DataValueField("Value").Value(controlValue).Text(controlValue).DataSource(datasource =>
+                           {
+                               datasource.Read(read =>
+                               {
+                                   read.Action("GetDropDownValue", "WorkForce").Data("AdditionalParam(" + controlId + ")").Type(HttpVerbs.Post);
+                               });
+                           }).OptionLabel(placeHolder).HtmlAttributes(new { id = controlId, style = "width:100% !important;border:" + ((errorMessage != "" && errorMessage != null) ? "1px solid red !important" : "") }))
+        }
+        else if (controlType.ToLower() == ("ComboBox").ToLower())
+        {
+            @(Html.Kendo().ComboBox().Name(controlId).DataTextField("Text").DataValueField("Value").Value(controlValue).Text(controlValue)
+            .DataSource(datasource =>
+                           {
+                               datasource.Read(read =>
+                               {
+                                   read.Action("GetDropDownValue", "WorkForce").Data("AdditionalParam(" + controlId + ")").Type(HttpVerbs.Post);
+                               }).ServerFiltering(false);
+                           }).Placeholder(placeHolder).HtmlAttributes(new { id = controlId, style = "width:100% !important;border:" + ((errorMessage != "" && errorMessage != null) ? "1px solid red !important" : "") }))
+        }
+        else if (controlType.ToLower() == ("DatePicker").ToLower())
+        {
+            DateTime tempDate;
+            bool isDate = !string.IsNullOrEmpty(controlValue) ? (DateTime.TryParse(controlValue, out tempDate) ? true : false) : false;
+            if (isDate)
+            {
+                controlValue = string.Format("{0:MM/dd/yyyy}", Convert.ToDateTime(controlValue));
+            }
+
+            @Html.Raw(Html.Kendo().DatePicker().Name(controlId).Format("MM/dd/yyyy").Value(controlValue)
+                                .HtmlAttributes(new
+                                {
+                                    id = controlId,
+                                    onkeydown = "javascript:return false;",
+                                    value = controlValue,
+                                    style = "width:100% !important;border:" + ((errorMessage != "" && errorMessage != null) ? "1px solid red !important" : "")
+                                }).ToString().Replace("type=\"date\"", "type=\"text\""))
+
+        }
+
+        <span id="error_@controlId" class="red" style="font-size:12px !important">@((errorMessage != "" && errorMessage != null) ? errorMessage : "")</span>
+
+    </div>
+}
+

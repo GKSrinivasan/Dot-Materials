@@ -1,0 +1,256 @@
+﻿@model List<SelectListItem>
+
+<script type="text/javascript">
+    var ddlChanged = false;
+    function addFilterSort() {
+        var option = document.createElement("option");
+        var column = $("#ddlFilterColumns").val();
+        var columnText = $("#ddlFilterColumns").data("kendoDropDownList").text();
+        var operation = $("#ddlDashBoardOperations").val();
+        var operationText = $("#ddlDashBoardOperations").data("kendoDropDownList").text();
+        var value = $("#txtConditionSearch").val();
+        if (operation == "asc" || operation == "desc") {
+            option.text = columnText + " -> " + operation;
+            option.value = column + "|" + operation;
+            $("#lstSorts").append(option);
+        } else {
+            option.text = columnText + " -> " + operationText + " -> " + value;
+            option.value = column + "|" + operation + "|" + value;
+            $("#lstFilters").append(option);
+        }
+    }
+
+    function clearFilterSort() {
+        var wndFilterSort = $("#divFilterSort").closest(".k-window-content").data("kendoWindow");
+        var gridName = wndFilterSort.options.gridName;
+        var grid = $("#" + gridName).data("kendoGrid");
+        $("#lstSorts").empty();
+        $("#lstFilters").empty();
+        $("#ddlFilterColumns").data("kendoDropDownList").value(null);
+        $("#ddlDashBoardOperations").data("kendoDropDownList").value(null);
+        $("#txtConditionSearch").val('');
+
+        $("#btnAddToList").prop("disabled", !($("#lstFilters option").length > 0 || $("#lstSorts option").length > 0));
+        var gridPage = 0;
+        var gridgroup = 0;
+        if (grid.pager != undefined) {
+            gridPage = grid.pager.dataSource._pageSize;
+            gridGroup = grid.pager.dataSource._group;
+        }
+        grid.dataSource.query({ pageSize: gridPage, filter: [], sort: [], group: gridgroup });
+    }
+
+    function showOrHideOperations(dataType) {
+        var items = $("[id='ddlDashBoardOperations_listbox']").last().find(".k-item");
+        if (dataType == "string") {
+            items[3].style.display = "block";
+            items[4].style.display = "block";
+            items[5].style.display = "block";
+            items[6].style.display = "none";
+            items[7].style.display = "none";
+            items[8].style.display = "none";
+            items[9].style.display = "none";
+            items[10].style.display = "none";
+            items[11].style.display = "none";
+        }
+        else {
+            items[3].style.display = "none";
+            items[4].style.display = "none";
+            items[5].style.display = "none";
+            items[6].style.display = "block";
+            items[7].style.display = "block";
+            items[8].style.display = "block";
+            items[9].style.display = "block";
+            items[10].style.display = "block";
+            items[11].style.display = "block";
+        }
+    }
+
+    $(document).ready(function () {
+        $("#btnConditionsApply").prop("disabled", true);
+        $(document).on("change", "#ddlFilterColumns", function () {
+            var ddlFilterColumns = $("#ddlFilterColumns").data("kendoDropDownList");
+            if (ddlFilterColumns.select() > 0) {
+                var wndFilterSort = $(this).closest(".k-window-content").data("kendoWindow");
+                var gridName = wndFilterSort.options.gridName;
+                var grid = $("#" + gridName).data("kendoGrid");
+                var gridColumns = grid.options.dataSource.schema.model.fields;
+                var dataType = gridColumns[ddlFilterColumns.dataItem(ddlFilterColumns.select()).Value].type;
+                showOrHideOperations(dataType);
+            }
+            $("#ddlDashBoardOperations").data("kendoDropDownList").select(0);
+            $("#txtConditionSearch").val("");
+            $("#txtConditionSearch").prop("disabled", true);
+            $("#ddlDashBoardOperations").data("kendoDropDownList").enable(ddlFilterColumns.select() > 0);
+        });
+
+        $(document).on("change", "#ddlDashBoardOperations", function () {
+            var ddlOperations = $("#ddlDashBoardOperations").data("kendoDropDownList");
+            var index = ddlOperations.select();
+            var value = $("#ddlDashBoardOperations").val();
+            $("#txtConditionSearch").val("");
+            $("#btnAddToList").prop("disabled", !(value == "asc" || value == "desc"));
+            $("#txtConditionSearch").prop("disabled", (index > 0 && (value == "asc" || value == "desc")));
+        });
+
+        $("#txtConditionSearch").keyup(function () {
+            $("#btnAddToList").prop("disabled", !(this.value.length > 0));
+
+        });
+
+        $("#btnAddToList").click(function () {
+            addFilterSort();
+            var ddlOperations = $("#ddlDashBoardOperations").data("kendoDropDownList");
+            var ddlFilterColumns = $("#ddlFilterColumns").data("kendoDropDownList");
+            $("#btnConditionsApply").prop("disabled", !($("#lstFilters option").length > 0 || $("#lstSorts option").length > 0));
+            $("#ddlFilterColumns").data("kendoDropDownList").select(0);
+            $("#ddlDashBoardOperations").data("kendoDropDownList").select(0);
+            $("#txtConditionSearch").val("");
+            $("#ddlDashBoardOperations").data("kendoDropDownList").enable(ddlFilterColumns.select() > 0);
+            $("#txtConditionSearch").prop("disabled", !(ddlOperations.select() > 0) || !(ddlFilterColumns.select() > 0));
+            $("#btnAddToList").prop("disabled", !((ddlOperations.select() > 0) || (ddlFilterColumns.select() > 0)));
+        });
+
+        $("select").dblclick(function () {
+            $("select option:selected").each(function () {
+                $(this).remove();
+            });
+            $("#btnConditionsApply").prop("disabled", !($("#lstFilters option").length > 0 || $("#lstSorts option").length > 0));
+            //$("#btnConditionsApply").data("kendoButton").enable(($("#lstFilters option").length > 0 || $("#lstSorts option").length > 0));
+        });
+
+        $("#btnConditionsApply").click(function () {
+            var wndFilterSort = $(this).closest(".k-window-content").data("kendoWindow");
+            var gridName = wndFilterSort.options.gridName;
+            var grid = $("#" + gridName).data("kendoGrid");
+            var gridFields = grid.options.dataSource.schema.model.fields;
+            var filter = { logic: "and", filters: [] };
+            var sort = [];
+            var filterConditions = [];
+            $("#lstFilters option").each(function () { filterConditions.push(this.value); });
+            filterConditions.sort();
+            var filterIndex = 0;
+            $.each(filterConditions, function (itemIndex) {
+                var filterLogic = { logic: "or", filters: [] };
+                var previsorValue = (itemIndex > 0) ? filterConditions[itemIndex - 1].split("|") : null;
+                var filterValue = this.split("|");
+                var valueObject = (gridFields[filterValue[0]].type == "number") ? Number(filterValue[2]) : filterValue[2];
+                if (previsorValue != null && filterValue[0] == previsorValue[0]) {
+                    filter.filters[filterIndex].filters.push({ field: filterValue[0], type: gridFields[filterValue[0]].type, operator: filterValue[1], value: valueObject });
+                }
+                else {
+                    filterLogic.filters.push({ field: filterValue[0], type: gridFields[filterValue[0]].type, operator: filterValue[1], value: valueObject });
+                    filter.filters.push(filterLogic);
+                    if (previsorValue != null && filterValue[0] != previsorValue[0]) {
+                        filterIndex++;
+                    }
+                }
+            });
+
+
+            $.each($("#lstSorts option"), function () {
+                var sortValue = this.value.split("|");
+                sort.push({ field: sortValue[0], type: gridFields[sortValue[0]].type, dir: sortValue[1] })
+            });
+            wndFilterSort.close();
+            var gridPage = 0;
+            var gridGroup = 0;
+            if (grid.pager != undefined) {
+                gridPage = grid.pager.dataSource._pageSize;
+                gridGroup = grid.pager.dataSource._group;
+            }
+
+
+            grid.dataSource.query({ pageSize: gridPage, filter: filter, sort: sort, group: gridGroup });
+            $("body").css("overflow", "auto");
+            $("#clearfilter").css("display", "inline");
+            $("#btnDashboardMessageFilter").css("display", "none");
+            $("#btnCommunicationClear").show();
+        });
+
+        $("#btnFilterPopupClose").click(function (e) {
+            if (!showSaveWarning(e, "ddlChanged")) return false;
+            $(this).closest(".k-window-content").data("kendoWindow").close();
+            $("body").css("overflow", "auto");
+            $("#btnCommunicationClear").hide();
+            $("#dashboardSubject")[0].value = "";
+            $("#dashBoardMessageEditor").data("kendoEditor").value("");
+            $("#ddlDashboardMessage").data("kendoDropDownList").text("-Configured message list-")
+            $("#ddlDashboardMessage").data("kendoDropDownList").dataSource.read();
+        });
+
+    });
+    function CopensationClosePopup(e) {
+        var $filterListBox = $("#lstFilters").text();
+        var $sortListBox = $("#lstSorts").text();
+        var ddlSelectedCol = $("#ddlFilterColumns").data("kendoDropDownList").value();
+        if (ddlSelectedCol != '' || $filterListBox != '' || $sortListBox != '')
+            ddlChanged = true;
+        else
+            ddlChanged = false;
+    }
+</script>
+<div id="divFilterSort" style="overflow:hidden;">
+    <div class="row top-bottom-space">
+        <div class="col-xs-4 nopadding text-center">
+            @(Html.Kendo().DropDownList().Name("ddlFilterColumns").BindTo(Model).DataTextField("Text").DataValueField("Value").HtmlAttributes(new { style = "width:90%!important;margin-left:10%" }).OptionLabel("--Select Filter/Sort By--").Events(x => x.Change("CopensationClosePopup")))
+        </div>
+        <div class="col-xs-3 nopadding text-center">
+            @(Html.Kendo().DropDownList().Name("ddlDashBoardOperations").OptionLabel("--Select Operation--").BindTo(new List<SelectListItem>()
+                        {
+                            new SelectListItem(){Text = "Sort Ascending",Value = "asc"},
+                            new SelectListItem(){Text = "Sort Descending",Value = "desc"},
+                            new SelectListItem(){Text = "Contains",Value = "contains"},
+                            new SelectListItem(){Text = "Starts With",Value = "startswith"},
+                            new SelectListItem(){Text = "Ends With",Value = "endswith"},
+                            new SelectListItem(){Text = "Equals",Value = "eq"},
+                            new SelectListItem(){Text = "Not Equals",Value = "neq"}
+                            ,new SelectListItem(){Text = "Greater Than",Value = "gt"},
+                            new SelectListItem(){Text = "Greater Than or Equals",Value = "gte"},
+                            new SelectListItem(){Text = "Less Than",Value = "lt"},
+                            new SelectListItem(){Text = "Less Than or Equals",Value = "lte"}
+                        }).DataTextField("Text").DataValueField("Value").HtmlAttributes(new { disabled = "disabled" }))
+        </div>
+        <div class="col-xs-2 nopadding text-center">
+            @Html.TextBox("txtConditionSearch", "", new { style = "width:85% !important;text-align:left;height:20px;", disabled = "disabled" })
+        </div>
+        <div class="col-xs-2 nopadding text-center">
+            <button id="btnAddToList" type="button" class="btn btn-xs glyphiconbutton defaultbtncss" style="background-color:rgb(217, 229, 254);" disabled="disabled">
+                <span class="glyphicon glyphicon-plus"></span> Click to Add
+            </button>
+
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col-xs-5" style="margin-left:10px">
+            @Html.Label("Filter Condition")
+        </div>
+        <div class="col-xs-5 ">
+            @Html.Label("Sort Condition")
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-5">
+            @Html.ListBox("lstFilters", new List<SelectListItem>())
+        </div>
+        <div class="col-xs-5">
+            @Html.ListBox("lstSorts", new List<SelectListItem>())
+        </div>
+
+
+    </div>
+    <div class="text-center bottom-space" style="color:blue;">
+        Double click to remove item from the list
+    </div>
+    <div class="row text-center top-space">
+        <button id="btnConditionsApply" type="button" class="btn btn-xs glyphiconbutton primarybtncss" style="background-color:rgb(217, 229, 254);">
+            <span class="glyphicon glyphicon-ok "></span> Apply
+        </button>
+        <button id="btnFilterPopupClose" type="button" class="btn btn-xs glyphiconbutton defaultbtncss" style="background-color:rgb(217, 229, 254);">
+            <span class="glyphicon glyphicon-remove "></span> Close
+        </button>
+
+    </div>
+</div>

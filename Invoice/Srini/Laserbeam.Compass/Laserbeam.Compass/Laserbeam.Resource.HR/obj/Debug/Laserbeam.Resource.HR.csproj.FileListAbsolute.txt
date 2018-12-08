@@ -1,0 +1,15 @@
+D:\TFS.111\Compass\Laserbeam.Compass\Laserbeam.Resource.HR\bin\Debug\Laserbeam.Resource.HR.dll
+D:\TFS.111\Compass\Laserbeam.Compass\Laserbeam.Resource.HR\bin\Debug\Laserbeam.Resource.HR.pdb
+D:\TFS.111\Compass\Laserbeam.Compass\Laserbeam.Resource.HR\obj\Debug\Laserbeam.Resource.HR.BudgetResources.BudgetResource.resources
+D:\TFS.111\Compass\Laserbeam.Compass\Laserbeam.Resource.HR\obj\Debug\Laserbeam.Resource.HR.CommentResources.CommentResource.resources
+D:\TFS.111\Compass\Laserbeam.Compass\Laserbeam.Resource.HR\obj\Debug\Laserbeam.Resource.HR.CommonResources.GlobalResource.resources
+D:\TFS.111\Compass\Laserbeam.Compass\Laserbeam.Resource.HR\obj\Debug\Laserbeam.Resource.HR.CommonResources.LayoutResource.resources
+D:\TFS.111\Compass\Laserbeam.Compass\Laserbeam.Resource.HR\obj\Debug\Laserbeam.Resource.HR.CompensationResources.CompensationResource.resources
+D:\TFS.111\Compass\Laserbeam.Compass\Laserbeam.Resource.HR\obj\Debug\Laserbeam.Resource.HR.DashboardResources.DashboardResource.resources
+D:\TFS.111\Compass\Laserbeam.Compass\Laserbeam.Resource.HR\obj\Debug\Laserbeam.Resource.HR.ErrorResources.ExceptionResource.resources
+D:\TFS.111\Compass\Laserbeam.Compass\Laserbeam.Resource.HR\obj\Debug\Laserbeam.Resource.HR.LoginResources.LoginResource.resources
+D:\TFS.111\Compass\Laserbeam.Compass\Laserbeam.Resource.HR\obj\Debug\Laserbeam.Resource.HR.UserManagementResources.UserManagementResources.resources
+D:\TFS.111\Compass\Laserbeam.Compass\Laserbeam.Resource.HR\obj\Debug\Laserbeam.Resource.HR.csproj.GenerateResource.Cache
+D:\TFS.111\Compass\Laserbeam.Compass\Laserbeam.Resource.HR\obj\Debug\Laserbeam.Resource.HR.dll
+D:\TFS.111\Compass\Laserbeam.Compass\Laserbeam.Resource.HR\obj\Debug\Laserbeam.Resource.HR.pdb
+D:\TFS.111\Compass\Laserbeam.Compass\Laserbeam.Resource.HR\obj\Debug\Laserbeam.Resource.HR.csprojResolveAssemblyReference.cache

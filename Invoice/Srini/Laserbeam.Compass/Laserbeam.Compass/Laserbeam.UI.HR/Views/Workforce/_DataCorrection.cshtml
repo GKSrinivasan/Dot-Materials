@@ -1,0 +1,24 @@
+﻿@model List<Laserbeam.BusinessObject.Common.TemplateMetaColumns>
+<script type="text/javascript">
+    var dataCorrection = {
+        ErrorType: '@ViewBag.ErrorType',
+    };
+</script>
+<div class="container-fluid">
+    @if (ViewBag.ErrorType == "")
+    {
+        <div id="employeeNameInfo">
+            @{Html.RenderAction("_EmployeeSearch", "WorkForce");}
+        </div>
+        <div class="voffset4"></div>
+        <div id="divEmployeeDetails">
+            @{Html.RenderPartial("~/Views/WorkForce/_EmployeeDetails.cshtml", Model);}
+        </div>
+    }
+    else
+    {
+        <div id="employeeNameInfo"></div>
+        <div class="voffset4"></div>
+        <div id="divEmployeeDetails"></div>
+    }
+</div>      

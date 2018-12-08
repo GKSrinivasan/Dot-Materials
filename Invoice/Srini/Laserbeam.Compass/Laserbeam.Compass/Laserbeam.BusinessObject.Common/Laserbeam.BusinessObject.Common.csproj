@@ -1,0 +1,228 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{EE4F2F42-7EB6-4A07-9C8C-E100E0F88379}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Laserbeam.BusinessObject.Common</RootNamespace>
+    <AssemblyName>Laserbeam.BusinessObject.Common</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Octopus|AnyCPU'">
+    <OutputPath>bin\Octopus\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.3\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AccessTree.cs" />
+    <Compile Include="AnalyticsBusinessObjects\AverageCostChartData.cs" />
+    <Compile Include="AnalyticsBusinessObjects\BonusCompRatio.cs" />
+    <Compile Include="AnalyticsBusinessObjects\BonusEligibilityCount.cs" />
+    <Compile Include="AnalyticsBusinessObjects\BonusTargetChart.cs" />
+    <Compile Include="AnalyticsBusinessObjects\ChartData.cs" />
+    <Compile Include="AnalyticsBusinessObjects\CompRatio.cs" />
+    <Compile Include="AnalyticsBusinessObjects\CompRevenueChart.cs" />
+    <Compile Include="AnalyticsBusinessObjects\IncreaseChart.cs" />
+    <Compile Include="AnalyticsBusinessObjects\IncreaseDistributionEmp.cs" />
+    <Compile Include="AnalyticsBusinessObjects\IncreaseDistributionMgr.cs" />
+    <Compile Include="AnalyticsBusinessObjects\IncreaseEmpCount.cs" />
+    <Compile Include="AnalyticsBusinessObjects\MeritIncreasebyRatings.cs" />
+    <Compile Include="AnalyticsBusinessObjects\OutlierChart.cs" />
+    <Compile Include="AnalyticsBusinessObjects\PayRangeDistribution.cs" />
+    <Compile Include="AnalyticsBusinessObjects\PopulationCount.cs" />
+    <Compile Include="AnalyticsBusinessObjects\ProRationChart.cs" />
+    <Compile Include="AnalyticsBusinessObjects\RatingDistributionModel.cs" />
+    <Compile Include="AppConfigModel.cs" />
+    <Compile Include="AppEmailDetails.cs" />
+    <Compile Include="AppMessageModel.cs" />
+    <Compile Include="ApprovalDataTemplateFields.cs" />
+    <Compile Include="AppUserDataModel.cs" />
+    <Compile Include="BindChart.cs" />
+    <Compile Include="CachedModels\ApplicationSettingModel.cs" />
+    <Compile Include="CachedModels\BudgetConfigurationModel.cs" />
+    <Compile Include="CachedModels\BudgetProrationRuleModel.cs" />
+    <Compile Include="CachedModels\BusinessSettingModel.cs" />
+    <Compile Include="CachedModels\Conversion.cs" />
+    <Compile Include="CachedModels\CurrencyConfigurationModel.cs" />
+    <Compile Include="CachedModels\DateConfigurationModel.cs" />
+    <Compile Include="CachedModels\FeatureConfigurationModel.cs" />
+    <Compile Include="CachedModels\GeneralConfigurationModel.cs" />
+    <Compile Include="CachedModels\LumpSumRuleModel.cs" />
+    <Compile Include="CachedModels\MeritOverrideRuleModel.cs" />
+    <Compile Include="CachedModels\MeritProrationRuleModel.cs" />
+    <Compile Include="CachedModels\NamingConfigurationModel.cs" />
+    <Compile Include="CachedModels\SmtpClientSettingModel.cs" />
+    <Compile Include="CachedModels\SSOConfigurationModel.cs" />
+    <Compile Include="ChatAccountModel.cs" />
+    <Compile Include="ChatBoxModel.cs" />
+    <Compile Include="ChatStatus.cs" />
+    <Compile Include="ChatDetails.cs" />
+    <Compile Include="Constants\ApplicationCacheConstants.cs" />
+    <Compile Include="Constants\AppSettingConstants.cs" />
+    <Compile Include="Constants\BusSettingConstants.cs" />
+    <Compile Include="Constants\BusSettingGroupConstants.cs" />
+    <Compile Include="DailyTaskModel.cs" />
+    <Compile Include="DashboardApprovalData.cs" />
+    <Compile Include="DashboardApprovalSearchData.cs" />
+    <Compile Include="DashboardSearchCriteriaTree.cs" />
+    <Compile Include="DataCorrectionModel.cs" />
+    <Compile Include="EmailDetailsModel.cs" />
+    <Compile Include="EmployeeErrorData.cs" />
+    <Compile Include="EmployeeSalaryDetails.cs" />
+    <Compile Include="ExchangeRateAPIResults.cs" />
+    <Compile Include="ExchangeRateListItem.cs" />
+    <Compile Include="LevelWiseApprovalDetails.cs" />
+    <Compile Include="ExchangeRateList.cs" />
+    <Compile Include="ExchangeRatesAPI.cs" />
+    <Compile Include="ManageCommunicationTemplate.cs" />
+    <Compile Include="ManagerBudgetDetails.cs" />
+    <Compile Include="MarketPayRangeGridModel.cs" />
+    <Compile Include="MarketPayRangeModel.cs" />
+    <Compile Include="MeritBusinussObjects\ApprovalEmployeeSearchData.cs" />
+    <Compile Include="MeritBusinussObjects\EmployeeInfoBasicDetails.cs" />
+    <Compile Include="MeritBusinussObjects\SubmitReporteesModel.cs" />
+    <Compile Include="RuleConfiguration.cs" />
+    <Compile Include="MessageModel.cs" />
+    <Compile Include="OrphanManagerDetails.cs" />
+    <Compile Include="PageCustomization.cs" />
+    <Compile Include="SelectMessageItem.cs" />
+    <Compile Include="SendReminderNotificationModel.cs" />
+    <Compile Include="BusSettingModel.cs" />
+    <Compile Include="DecimalTypeModel.cs" />
+    <Compile Include="RoundingTypeModel.cs" />
+    <Compile Include="RuleConfigModel.cs" />
+    <Compile Include="SupportTaskCommentsModel.cs" />
+    <Compile Include="TaskDataModel.cs" />
+    <Compile Include="TaskModel.cs" />
+    <Compile Include="TeamApprovalStatus.cs" />
+    <Compile Include="TemplateDataModel.cs" />
+    <Compile Include="AppUserModel.cs" />
+    <Compile Include="AppUserRoleModel.cs" />
+    <Compile Include="AppUsers.cs" />
+    <Compile Include="AppUserStatusModel.cs" />
+    <Compile Include="BudgetModel.cs" />
+    <Compile Include="BudgetPlanConfiguration.cs" />
+    <Compile Include="BudgetPlanData.cs" />
+    <Compile Include="BudgetPlanGridData.cs" />
+    <Compile Include="BudgetProration.cs" />
+    <Compile Include="BudgetProrationUpdateModel.cs" />
+    <Compile Include="CommentInputModel.cs" />
+    <Compile Include="CommentModel.cs" />
+    <Compile Include="ConfigureRating.cs" />
+    <Compile Include="CountryCodeModel.cs" />
+    <Compile Include="CultureCodeData.cs" />
+    <Compile Include="DropDownListItems.cs" />
+    <Compile Include="DropDownListModel.cs" />
+    <Compile Include="EmailDetails.cs" />
+    <Compile Include="EmployeeDataCorrection.cs" />
+    <Compile Include="EmployeeListModel.cs" />
+    <Compile Include="EmployeeModel.cs" />
+    <Compile Include="EmployeeTemplateFields.cs" />
+    <Compile Include="EmployeeTitleModel.cs" />
+    <Compile Include="EventsCommunicationModel.cs" />
+    <Compile Include="ExchangeRateData.cs" />
+    <Compile Include="ExchangeRateGridData.cs" />
+    <Compile Include="ExchangeRatePreviewData.cs" />
+    <Compile Include="MenuTreeList.cs" />
+    <Compile Include="MenuTypeModel.cs" />
+    <Compile Include="MeritBusinussObjects\AliasName.cs" />
+    <Compile Include="MeritBusinussObjects\CompensationConfiguration.cs" />
+    <Compile Include="MeritBusinussObjects\CompensationGridDisplay.cs" />
+    <Compile Include="MeritBusinussObjects\CompensationTypeConfiguration.cs" />
+    <Compile Include="MeritBusinussObjects\CompStatus.cs" />
+    <Compile Include="MeritBusinussObjects\EmployeeInfoDetails.cs" />
+    <Compile Include="MeritBusinussObjects\ExchangeCurrencies.cs" />
+    <Compile Include="MeritBusinussObjects\JobList.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="MeritBusinussObjects\ManagerTree.cs" />
+    <Compile Include="MeritBusinussObjects\MeritGridModel.cs" />
+    <Compile Include="MeritBusinussObjects\RatingModel.cs" />
+    <Compile Include="MyApproval.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RatingPopupModel.cs" />
+    <Compile Include="TemplateDisplayColumns.cs" />
+    <Compile Include="TemplateErrorListModel.cs" />
+    <Compile Include="TemplateMetaColumns.cs" />
+    <Compile Include="UserDataTemplateFields.cs" />
+    <Compile Include="UserManagementEmailDetails.cs" />
+    <Compile Include="UserMessageModel.cs" />
+    <Compile Include="UserModel.cs" />
+    <Compile Include="UserProfileModel.cs" />
+    <Compile Include="UserRights.cs" />
+    <Compile Include="WorkFlowBudgetSpendCount.cs" />
+    <Compile Include="WorkflowEditData.cs" />
+    <Compile Include="WorkFlowGrid.cs" />
+    <Compile Include="WorkForceTileData.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Laserbeam.Constant.HR\Laserbeam.Constant.HR.csproj">
+      <Project>{8cdaf1a3-2072-4ec6-b56b-d5f8b260930d}</Project>
+      <Name>Laserbeam.Constant.HR</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Laserbeam.EntityManager.TenantObjects\Laserbeam.EntityManager.TenantObjects.csproj">
+      <Project>{6EE80D5B-CBD6-4BAE-9124-722EDD3EE7F7}</Project>
+      <Name>Laserbeam.EntityManager.TenantObjects</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Laserbeam.Resource.HR\Laserbeam.Resource.HR.csproj">
+      <Project>{0a2de638-0970-44fa-a459-3e15004169bc}</Project>
+      <Name>Laserbeam.Resource.HR</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

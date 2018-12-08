@@ -1,0 +1,116 @@
+﻿
+@{
+    ViewBag.Title = "ExpireInfo";
+    Layout = null;
+}
+<style>
+    body{
+        font-family: 'segoeui';
+        background-image: url(/Images/trail-bg.png) ;
+			background-position: center center;
+			background-repeat:  no-repeat;
+			background-attachment: fixed;
+			background-size:  cover;
+    }
+ .center-info {
+        text-align: center !important;
+    }
+
+    .btn-blu1, .btn-blu1:hover {
+        background: #00abf0;
+        color: #FFF!important;
+        padding: 6px 15px!important;
+    border-radius: 5px;
+    }
+
+    .top-pad{
+        padding-top:20px;
+    }
+
+    .pad20 {
+        padding: 50px 0;
+    }
+
+    .top-bg {
+        background: #F5F5F5;
+        border: 1px solid #ccc;
+        border-bottom:none;
+    }
+
+    .btm-bg {
+        background: #FFF;
+        border: 1px solid #ccc;
+        border-top:none;
+    }
+
+    .box {
+        width: 50%;
+        margin: auto;
+        /*border: 1px solid #c0c0c0;*/
+        vertical-align: middle;
+        position:relative;
+        margin-top:10%;
+        -webkit-box-shadow: 2px 2px 12px 0px rgba(84,83,84,0.65);
+-moz-box-shadow: 2px 2px 12px 0px rgba(84,83,84,0.65);
+box-shadow: 2px 2px 12px 0px rgba(84,83,84,0.65);
+    }
+
+    .mainheading{
+        font-size:27px;
+        font-weight:400;
+    }
+    .subheading{
+        font-size:18px;
+        font-weight:300;
+        color:#333;
+    }
+    .warn{
+        color:#ee534f;
+    }
+
+</style>
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>ExpireInfo</title>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet">
+    @*@Scripts.Render("~/Scripts/Common")*@
+    @Scripts.Render("~/Scripts/SiteCommon")
+    <link rel="icon" type="image/png" sizes="192x192" href="~/Images/favicon.ico">
+    <script type="text/javascript">
+        function btnClick() {
+            window.location.href = '../Account/SendContactMail';
+        }
+    </script>
+</head>
+<body>
+@using (Html.BeginForm("SendContactMail", "Account", FormMethod.Post, new { id = "loginform", @class = "form-group" }))
+{
+    @Html.AntiForgeryToken()
+    <div class="box">
+        <div class="row center-info top-bg">
+            <div class="col-md-4 col-md-offset-4 pad20">
+                <img id="imgexpireinfosandclock" src="~/Images/sand-clock.png" class="img-responsive">
+            </div>
+        </div>
+        <div class="row center-info btm-bg">
+            <div class="col-md-12 pad20">
+                <h3 id="hexpireinfotrailends" class="mainheading warn">Uh-oh! Your trial just ended.</h3>
+                <h4 id="hexpireinfoupgradelicence" class="subheading"> You need to upgrade your licence.</h4>
+
+                <div class="top-pad">
+                    <button id="btnexpireinfolicenceupgrade" type="submit" class="btn btn-blu1">Upgrade Now</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+
+</body>
+</html>
+

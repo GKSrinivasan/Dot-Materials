@@ -1,0 +1,489 @@
+﻿@model Laserbeam.BusinessObject.Common.AnalyticsBusinessObjects.ChartData
+@{
+    ViewBag.Title = "Home";
+    Layout = "~/Views/Shared/_SiteLayout.cshtml";
+}
+@Html.Hidden("hndIsRollup", 1)
+@Html.Hidden("hndSelectedManagerNum", 1)
+@Html.Hidden("hndManagerLineage", null)
+@Html.Hidden("hndAnalyticsIsSelectedRollup", 1)
+@Html.Hidden("hndRowNumber", null)
+<script src="~/Scripts/Analytics.js"></script>
+<script src="~/Scripts/echarts.js"></script>
+<link href="~/Content/Analytics.min.css" rel="stylesheet" />
+<link href="~/Content/font-awesome-animation.min.css" rel="stylesheet" />
+<style>
+    span.k-in > span.highlight {
+        background: #fab301;
+    }
+
+    span.k-in {
+        font-size: 14px;
+    }
+
+    #ddlAnalyticsManagerTreeView .k-ext-treeview {
+        display: block !important;
+        border: 0px !important;
+        overflow-x: hidden;
+        top: 107px;
+    }
+    
+</style>
+
+<script>
+    $(document).ready(function (e) {
+        $("#hndSelectedManagerNum").val(@ViewBag.EmployeeNum)
+        //$("#menu-toggle").mouseover(function () {
+        //    $("#sidebar-wrapper").toggleClass("active");
+        //});
+        //$("#analyticsSelectedMgr").mouseover(function () {
+        //    $("#sidebar-wrapper").toggleClass("active");
+        //});
+        //$("#SelectedManagerName").mouseover(function () {
+        //    $("#sidebar-wrapper").toggleClass("active");
+        //});
+        BindAnalyticsTreeView();
+        $(document).ready(function () {
+            var selectedValue = '_MeritIncreaseByDepartment';
+            SelectedChartType(selectedValue);
+            PayRangeChartRender();
+        });
+    });
+</script>
+<!--sidebar nav-->
+@Html.AntiForgeryToken()
+<div class="row" id="rowWindow">
+    <div class="col-sm-12 col-md-12 sidebar">
+        @*<a id="menu-toggle" href="#" class="btn btn-mgrtree btn-lg toggle"><img style="width:35px;" src="../../images/org-tree.png" /></a>*@
+        <div id="sidebar-wrapper">
+            <ul class="sidebar-nav">
+                <a id="menu-close" href="#" class="btn btn-white btn-sm pull-right toggle">&times;</a>
+                <li class="sidebar-brand">
+                    <a href="#">My Teams</a>
+                </li>
+                <div class="row top-pad nomargin">
+                    <div class="col-md-12">
+                        <div class="input-group">
+                            <input type="text" id="ManagerTreesearch" class="form-control" placeholder="-- Search by Manager Name --">
+                            <div class="input-group-addon"><i class="fa fa-search"></i></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tree-dropdown">
+                    <div id="ddlAnalyticsManagerTreeView" data-content="Manager Tree"></div>
+                </div>
+            </ul>
+        </div>
+    </div>
+</div>
+<!-- budget plan start -->
+<div class="container-full">
+    <div class="row">
+        <div id="divanalyticsheader" class="col-sm-12 col-md-12 mainheading analytic-title top-pad">Analytics</div>
+
+    </div>
+    <div class="row" data-spy="affix" data-offset-top="150">
+        <div class="col-md-12">
+            <div class="row">
+                <div class="col-sm-4 col-md-4 top-pad">
+                    <div class="hierarchytitle noleftpad faa-parent animated-hover" id="analyticsSelectedMgr" data-toggle="tooltip" data-placement="bottom" title="Click to view the teams">
+                        <span id="SelectedManagerName"></span> <img class="faa-horizontal animated" style="width:15px;margin-left: 7px;position: relative;top: -1px;" src="../../images/dualarrow.png" />
+                    </div>
+                </div>
+                @if (ViewBag.MultiCurrencyEnabled)
+                {
+                    <div class="col-md-4 analyticscurrency text-center">
+                        <div id="analyticsCurrencies">
+                            <span class="showinc-text">Show increases in</span>
+                            @(Html.Kendo().DropDownList()
+                        .OptionLabel("Select a Currency Code")
+        .Name("ddlLocalCurrenciesAnalytics").DataTextField("CurrencyCode")
+        .DataValueField("CurrencyNum").BindTo(Model.ExchangeCurrencies)
+        .HtmlAttributes(new { style = "text-align:left; width:200px;padding-left: 0px;" })
+        .Enable(true))
+                        </div>
+                    </div>
+                }
+            </div>
+            <div class="row">
+                <div class="col-sm-7 col-md-5 top-pad">
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li role="presentation" class="active">
+                            <a id="lnkanalyticsonscreen" href="#onScreen" aria-controls="onScreen" role="tab" data-toggle="tab">
+                                On Screen Analytics
+                            </a>
+                        </li>
+                        <li role="presentation">
+                            <a id="lnkanalyticsexptoexcel" href="#exp2excel" aria-controls="exp2excel" role="tab" data-toggle="tab">
+                                Export to Excel
+                            </a>
+                        </li>
+                        <li role="presentation">
+                            <a id="lnkanalyticsstdReports" href="#stdReports" aria-controls="stdReports" role="tab" data-toggle="tab">
+                                Standard Reports
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-md-3">
+
+                </div>
+                <div class="col-sm-5 col-md-4 top-pad">
+                    <div class="register-switch">
+                        <input type="radio" name="directrollup" value="D" id="direct" class="register-switch-input">
+                        <label for="direct" class="register-switch-label">Direct Reports</label>
+                        <input type="radio" name="directrollup" value="R" id="rollup" class="register-switch-input" checked="">
+                        <label for="rollup" class="register-switch-label">My Organization</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="tabbable-panel">
+                <div class="tab-content analyticstab">
+
+                    <div role="tabpanel" class="tab-pane active" id="onScreen">
+                        <!--Row 1 Begin-->
+                        <div class="row bgGrey">
+                            <div class="col-md-6">
+                                <div class="panel panel-default new-widget widget1">
+                                    <div class="row">
+                                        <div id="chartGroup" class="row" style="text-align:center!important;margin-top:15px;">
+                                            <span class="widget-heading" style="border-bottom:none;background:transparent;">Overall Increase by </span>
+                                            @(Html.Kendo().DropDownList().Name("ddlOption").HtmlAttributes(new { style = "width:0.4em!imprtant;color:#408829!important;text-align:left;" }).BindTo(new List<SelectListItem>
+                                                () {
+                                                new SelectListItem() {
+                                                Text = "Department",
+                                                Value = "_MeritIncreaseByDepartment"
+                                                },
+                                                new SelectListItem() {
+                                                Text = "Gender",
+                                                Value = "_MeritIncreaseByGender"
+                                                },
+                                                new SelectListItem() {
+                                                Text = "Grade",
+                                                Value = "_MeritIncreaseByGrade"
+                                                },
+                                                }).SelectedIndex(1).DataTextField("Text").DataValueField("Value"))
+
+
+                                        </div>
+                                    </div>
+                                    <div class="panel-body">
+                                        <a target="_blank" onclick="ExportLnk('IncreaseExport')"><span class="fa fa-cloud-download right" aria-hidden="true" style="position: relative;bottom: 45px;"></span></a>
+
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div id="chartRender">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="panel panel-default new-widget widget1">
+                                    <div class="widget-heading"><span>Pay Range Distribution </span><a target="_blank" onclick="ExportLnk('PayRangeExport')"><span class="fa fa-cloud-download right" aria-hidden="true"></span></a></div>
+                                    <div class="panel-body">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div id="chartRender1">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row top-pad">
+                                            <div class="col-md-12">
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                            </div>
+
+
+                        </div>
+
+                        <div id="ChartCollection">
+                            @Html.Partial("~/Views/Analytics/_ChartPage.cshtml", Model)
+                        </div>
+                    </div>
+                    <!--OnScreen Ends Here-->
+                    <!--Export to Excel Starts Here-->
+                    <div class="tab-pane" id="exp2excel">
+                        <div class="bhoechie-tab-content">
+                            <div class="row top-pad">
+                                <div class="col-md-12">
+                                    <ul class="list-unstyled list-inline">
+                                        @*<li>
+                                                <div class="reporttxt">
+                                                    <div class="thumbnail">
+                                                        <div class="caption">
+                                                            <div class="big60"><a id="compensationLnk" class="caption" href="~/HelpDocuments/Compensation Extract Export- 12-Jul-2017.xlsx"><i class="icon-dwnld-icon" aria-hidden="true"></i></a></div>
+                                                        </div>
+                                                        Compensation
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div class="reporttxt">
+                                                    <div class="thumbnail">
+                                                        <div class="caption">
+                                                            <div class="big60"><a id="lTIPLnk" class="caption" href="~/HelpDocuments/LTIP Extract - 12-Jul-2017.xlsx"><i class="icon-dwnld-icon" aria-hidden="true"></i></a></div>
+                                                        </div>
+                                                        LTIP
+                                                    </div>
+                                                </div>
+                                            </li>*@
+                                        @*<li>
+                                                <div class="reporttxt">
+                                                    <div class="thumbnail">
+                                                        <div class="caption">
+                                                            <div class="big60"><a id="managerProposalLnk" class="caption" href="~/HelpDocuments/Manager Proposal Status- 12-Jul-2017.xlsx"><i class="icon-dwnld-icon" aria-hidden="true" style="display:none;"></i></a></div>
+                                                        </div>
+                                                        Manager Proposal
+                                                    </div>
+                                                </div>
+                                            </li>*@
+                                        <li>
+                                            <div class="reporttxt">
+                                                <div class="thumbnail">
+                                                    <div class="caption">
+                                                        <div class="big60"><a id="compensationExtractLnk" class="caption" onclick="ExportLnk('CompExport')"><i class="icon-dwnld-icon" aria-hidden="true"></i></a></div>
+                                                    </div>
+                                                    Compensation Extract
+                                                </div>
+                                            </div>
+                                        </li>
+                                        @*<li>
+                                                <div class="reporttxt">
+                                                    <div class="thumbnail">
+                                                        <div class="caption">
+                                                            <div class="big60"><a id="meritPayrollLnk" class="caption" href="~/HelpDocuments/Merit Payroll - 12-Jul-2017.xlsx"><i class="icon-dwnld-icon" aria-hidden="true"></i></a></div>
+                                                        </div>
+                                                        Merit Payroll
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div class="reporttxt">
+                                                    <div class="thumbnail">
+                                                        <div class="caption">
+                                                            <div class="big60"><a id="bonusPayrollLnk" class="caption" href="~/HelpDocuments/Bonus Payroll - 12-Jul-2017.xlsx"><i class="icon-dwnld-icon" aria-hidden="true"></i></a></div>
+                                                        </div>
+                                                        Bonus Payroll
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div class="reporttxt">
+                                                    <div class="thumbnail">
+                                                        <div class="caption">
+                                                            <div class="big60"><a id="lumpSumPayrollLnk" class="caption" href="~/HelpDocuments/Lump Sum Payroll - 12-Jul-2017.xlsx"><i class="icon-dwnld-icon" aria-hidden="true"></i></a></div>
+                                                        </div>
+                                                        Lump Sum Payroll
+                                                    </div>
+                                                </div>
+                                            </li>*@
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--Standard Reports Starts Here-->
+                    <div class="tab-pane" id="stdReports">
+                        <div class="bhoechie-tab-content">
+                            <div class="row top-pad">
+                                <div class="col-md-12">
+                                    <ul class="list-unstyled list-inline">
+                                        <li>
+                                            <div class="reporttxt">
+                                                <div class="thumbnail">
+                                                    <div class="caption">
+
+                                                        <div class="big60"><a id="budgetUtilizationbyCountryLnk" class="caption" target="_blank" onclick="ReportLnk('CountryBudgetReport')"><i class="icon-dwnld-icon" aria-hidden="true"></i></a></div>
+                                                    </div>
+                                                    Budget Utilization by Country
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="reporttxt">
+                                                <div class="thumbnail">
+                                                    <div class="caption">
+                                                        <div class="big60"><a id="reviewBudgetStatusLnk" class="caption" target="_blank" onclick="ReportLnk('BudgetStatusByDepartement')"><i class="icon-dwnld-icon" aria-hidden="true"></i></a></div>
+                                                    </div>
+                                                    Review and Budget Status
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="reporttxt">
+                                                <div class="thumbnail">
+                                                    <div class="caption">
+                                                        <div class="big60"><a id="increaseLnk" class="caption" target="_blank" onclick="ReportLnk('IncreaseDistributionByManager')"><i class="icon-dwnld-icon" aria-hidden="true"></i></a></div>
+                                                    </div>
+                                                    Increase Distribution by Manager
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="reporttxt">
+                                                <div class="thumbnail">
+                                                    <div class="caption">
+                                                        <div class="big60"><a id="meritExceptionsLnk" class="caption" target="_blank" onclick="ReportLnk('MeritExceptionReport')"><i class="icon-dwnld-icon" aria-hidden="true"></i></a></div>
+                                                    </div>
+                                                    Merit Exceptions
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="reporttxt">
+                                                <div class="thumbnail">
+                                                    <div class="caption">
+                                                        <div class="big60"><a id="meritExceptionsLnk" class="caption" target="_blank" href="~/HelpDocuments/20XX Compensation Statement.pdf"><i class="icon-dwnld-icon" aria-hidden="true"></i></a></div>
+                                                    </div>
+                                                    Compensation Statement
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--New Tabs Ends Here -->
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('.thumbnail').hover(
+            function () {
+                $(this).find('.caption').fadeToggle(250); //.fadeIn(250)
+            },
+            function () {
+                $(this).find('.caption').fadeToggle(250); //.fadeOut(205)
+            }
+        );
+
+        $("div.bhoechie-tab-menu>div.list-group>a").click(function (e) {
+            e.preventDefault();
+            $(this).siblings('a.active').removeClass("active");
+            $(this).addClass("active");
+            var index = $(this).index();
+            $("div.bhoechie-tab>div.bhoechie-tab-content").removeClass("active");
+            $("div.bhoechie-tab>div.bhoechie-tab-content").eq(index).addClass("active");
+        });
+
+        $("#mainemptydiv").hide();
+
+    });
+
+    //$(document).ready(function () {
+    //    $("div.bhoechie-tab-menu>div.list-group>a").click(function (e) {
+    //        e.preventDefault();
+    //        $(this).siblings('a.active').removeClass("active");
+    //        $(this).addClass("active");
+    //        var index = $(this).index();
+    //        $("div.bhoechie-tab>div.bhoechie-tab-content").removeClass("active");
+    //        $("div.bhoechie-tab>div.bhoechie-tab-content").eq(index).addClass("active");
+    //    });
+    // });
+
+
+    $(document).on("click", "#standardreports", function (e) {
+        $("#mainemptydiv").show();
+    });
+
+    $(document).on("click", ".noemptydiv", function (e) {
+        $("#mainemptydiv").hide();
+    });
+
+    //$(document).ready(function () {
+    //    $("#mainemptydiv").hide();
+    //});
+
+    $("#ddlOption").change(function () {
+        var selectedValue = $("#ddlOption").data("kendoDropDownList").dataItem($("#ddlOption").data("kendoDropDownList").select()).Value;
+        $.ajax({
+            url: '../Analytics/' + selectedValue,
+            cache: false,
+            success: function (result) {
+                $('#chartRender').html(result);
+            }
+        });
+    });
+
+    $(document).on("click", "#menu-close", function (e) {
+        $("#sidebar-wrapper").toggleClass("active");
+    });
+
+    $(document).on("click", "#menu-toggle", function (e) {
+        $("#sidebar-wrapper").toggleClass("active");
+    });
+
+    $(document).on("click", "#analyticsSelectedMgr", function (e) {
+        $("#sidebar-wrapper").toggleClass("active");
+    });
+
+    //$(document).on("click", "#SelectedManagerName", function (e) {
+    //    $("#sidebar-wrapper").toggleClass("active");
+    //});
+
+    $(document).mouseup(function (e) {
+        var container = $("#sidebar-wrapper");
+        if (!container.is(e.target) && container.has(e.target).length === 0) {
+            container.removeClass('active');
+        }
+    });
+    $('#ManagerTreesearch').on('keyup', function () {
+
+        $('span.k-in > span.highlight').each(function () {
+            $(this).parent().text($(this).parent().text());
+        });
+
+        if ($.trim($(this).val()) == '') {
+            $('#ddlAnalyticsManagerTreeView .k-ext-treeview').scrollTop(0);
+            return;
+        }
+        var term = this.value.toUpperCase();
+        var tlen = term.length;
+
+        $('#ddlAnalyticsManagerTreeView span.k-in').each(function () {
+            var termp = term.replace(/\w\S*/g, function (txt) { return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase(); });
+            $('#ddlAnalyticsManagerTreeView .k-ext-treeview').scrollTop($('#ddlAnalyticsManagerTreeView').find('span.k-in:contains("' + termp + '")').offset().top);
+            var text = $(this).text();
+            var p = text.toUpperCase().indexOf(term);
+            if (p >= 0) {
+                var s1 = '', s2 = '';
+
+                var high = '<span class="highlight">' + text.substr(p, tlen) + '</span>';
+
+                if (p > 0) {
+                    s1 = text.substr(0, p);
+                }
+
+                if (p + tlen < text.length) {
+                    s2 = text.substring(p + tlen)
+                }
+
+                $(this).html(s1 + high + s2);
+
+            }
+        });
+
+    });
+</script>

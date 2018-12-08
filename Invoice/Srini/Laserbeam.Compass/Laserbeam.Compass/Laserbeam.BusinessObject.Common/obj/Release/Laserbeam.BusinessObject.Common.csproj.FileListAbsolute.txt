@@ -1,0 +1,13 @@
+D:\TFS.111\Compass\Laserbeam.Compass\Laserbeam.BusinessObject.Common\bin\Release\Laserbeam.BusinessObject.Common.dll
+D:\TFS.111\Compass\Laserbeam.Compass\Laserbeam.BusinessObject.Common\bin\Release\Laserbeam.BusinessObject.Common.pdb
+D:\TFS.111\Compass\Laserbeam.Compass\Laserbeam.BusinessObject.Common\bin\Release\Laserbeam.Constant.HR.dll
+D:\TFS.111\Compass\Laserbeam.Compass\Laserbeam.BusinessObject.Common\bin\Release\Laserbeam.EntityManager.TenantObjects.dll
+D:\TFS.111\Compass\Laserbeam.Compass\Laserbeam.BusinessObject.Common\bin\Release\Laserbeam.Resource.HR.dll
+D:\TFS.111\Compass\Laserbeam.Compass\Laserbeam.BusinessObject.Common\bin\Release\System.Web.Mvc.dll
+D:\TFS.111\Compass\Laserbeam.Compass\Laserbeam.BusinessObject.Common\bin\Release\Laserbeam.Constant.HR.pdb
+D:\TFS.111\Compass\Laserbeam.Compass\Laserbeam.BusinessObject.Common\bin\Release\Laserbeam.EntityManager.TenantObjects.pdb
+D:\TFS.111\Compass\Laserbeam.Compass\Laserbeam.BusinessObject.Common\bin\Release\Laserbeam.Resource.HR.pdb
+D:\TFS.111\Compass\Laserbeam.Compass\Laserbeam.BusinessObject.Common\bin\Release\System.Web.Mvc.xml
+D:\TFS.111\Compass\Laserbeam.Compass\Laserbeam.BusinessObject.Common\obj\Release\Laserbeam.BusinessObject.Common.csprojResolveAssemblyReference.cache
+D:\TFS.111\Compass\Laserbeam.Compass\Laserbeam.BusinessObject.Common\obj\Release\Laserbeam.BusinessObject.Common.dll
+D:\TFS.111\Compass\Laserbeam.Compass\Laserbeam.BusinessObject.Common\obj\Release\Laserbeam.BusinessObject.Common.pdb

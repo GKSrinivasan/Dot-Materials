@@ -1,0 +1,116 @@
+﻿@model Laserbeam.BusinessObject.Common.TaskModel
+<div class="modal-dialog" role="document">
+    @using (Ajax.BeginForm("_AddTask", "Profile", new AjaxOptions { HttpMethod = "POST", OnSuccess = "editedSuccess()" }, new { id = "editForm", @enctype = "multipart/form-data" }))
+    {
+        @Html.AntiForgeryToken();
+        @Html.Hidden("hours");
+        @Html.HiddenFor(m => m.TaskNum);
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">Edit / Modify Task</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="datelabel">
+                                    Team
+                                </div>
+                                <div>
+                                    @(Html.Kendo().DropDownListFor(m => m.TeamNum)
+.DataTextField("Text")
+.DataValueField("Value")
+//.OptionLabel("--Select--")
+.DataSource(data => data.Read(read =>
+{ 
+    read.Action("TeamTitle", "Profile").Data("additionalParamInfo").Type(HttpVerbs.Post);
+})).Events(e => e.Change("teamchangedInEdit"))
+.HtmlAttributes(new { id = "ddlEditTeamTitle", style = "width:100%;" }))
+                                </div>
+                                <span class="orangetext" id="errorEdit_ddlTeamTitleEdit"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="datelabel">
+                                    Start Date
+                                </div>
+                                <div class="input-group fullwidthsize">
+                                    @(Html.Kendo().DatePickerFor(m => m.StartDate).Name("startDate").HtmlAttributes(new { style = "width:100%;", type = "text" }))
+                                    <span class="orangetext" id="errorEdit_startDateEdit"></span>
+                                    @*<div class="input-group-addon"><i class="fa fa-calendar"></i></div>*@
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="datelabel">
+                                    End Date
+                                </div>
+                                <div class="input-group fullwidthsize">
+                                    @(Html.Kendo().DatePickerFor(m => m.EndDate).Name("endDate").Value(Model.EndDate).HtmlAttributes(new { style = "width:100%;", type = "text" }))
+                                    <span class="orangetext" id="errorEdit_endDateEdit"></span>
+                                    @*<div class="input-group-addon"><i class="fa fa-calendar"></i></div>*@
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="datelabel">
+                                    Hours Spent
+                                </div>
+                                @Html.TextBoxFor(a => a.HoursSpent, new { @class = "form-control", id = "editedSpentHours" })
+                                <span class="orangetext" id="errorEdit_hrsEgEdit"></span>
+                                <span class="orangetext" id="hrsEg">(HH:MM)</span>
+                                @*<div class="input-group spinner spinnerfull">
+                                        <input type="text" class="form-control" value="42">
+                                        <div class="input-group-btn-vertical">
+                                            <button class="btn btn-default" type="button"><i class="fa fa-caret-up"></i></button>
+                                            <button class="btn btn-default" type="button"><i class="fa fa-caret-down"></i></button>
+                                        </div>
+                                    </div>*@
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row top-pad">
+                    <div class="col-md-12">
+                        <div class="datelabel">
+                            Title <div class="orangetext" style="padding-left:5px;">Character count: <input type="text" id="countTxtInEdit" maxlength="3" /> (Limit to 200 characters)</div>
+                        </div>
+                        <div class="top-pad">
+                            @Html.TextBoxFor(a => a.TaskTitle, new { @class = "form-control", id = "teamTitleEditTxt" , maxlength="200" })
+                            <span class="orangetext" id="errorEdit_teamTitleEditTxt"></span>
+                         </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="row top-pad">
+                            <div class="col-md-12">
+                                <div class="datelabel">
+                                    Description
+                                </div>
+                                <div class="smallpadtop">
+                                    @Html.TextAreaFor(a => a.TaskDescription, new { @class = "form-control", id = "teamDescriptionEditTxt" })
+                                    <span class="orangetext" id="errorEdit_teamDescriptionEditTxt"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="btnprofileedittaskcancel" class="btn btn-cancel" data-dismiss="modal"><i class="fa fa-ban" id="modelClose"></i> Cancel</button>
+                <button type="button" id="updateTask" class="btn btn-blue">Modify task</button>
+            </div>
+        </div>
+    }
+</div>

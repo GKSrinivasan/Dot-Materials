@@ -1,0 +1,332 @@
+﻿@model  Laserbeam.UI.HR.Models.CompensationViewModel
+@using Laserbeam.Constant.HR;
+@Html.Hidden("hdnMeritBudget", 0)
+@Html.Hidden("hdnMeritSpent", 0)
+@Html.Hidden("hndSelectedManagerNum", Model.EmployeeNum)
+@Html.Hidden("hdnSelectedMenuType", "0")
+@Html.Hidden("hndManagerLineage", null)
+@Html.Hidden("hndIsRollup", 0)
+@Html.Hidden("hndIsSelectedRollup", 0)
+@Html.Hidden("hndMenuType", 1)
+@Html.Hidden("hndRowNumber", null)
+@Html.Hidden("hndEmployeeNum", 0)
+@Html.Hidden("hndCurrencyCode", "")
+@Html.Hidden("hndPageType", ViewPageType.Compensation)
+@Html.Hidden("hdnLumpSumSpent", 0)
+@Html.Hidden("hdnAdjustmentSpent", 0)
+@Html.Hidden("hdnPromotionSpent", 0)
+@Html.Hidden("hdnBonusBudget", 0)
+@Html.Hidden("hdnBonusSpent", 0)
+@Html.Hidden("hdnBaseSalary", 0)
+@Html.AntiForgeryToken()
+
+@section ScriptReference {
+    <script src="~/Scripts/ManagerEvents.js"></script>
+    <link href="~/Content/Kendo/kendo.ext.css" rel="stylesheet" />
+    <link href="~/Content/Merit.css" rel="stylesheet" />
+    <link href="~/Content/compensation.css" rel="stylesheet" />
+    <script type="text/javascript">
+
+        var RuleConfiguration = @Html.Raw(Json.Encode(Model.CompensationTypeConfiguration));
+        var RatingRange=@Html.Raw(Json.Encode(Model.RatingRange.ToArray()));
+        var DefaultCurrencyNum ='@ViewBag.DefaultCurrencyNum';
+        var DefaultCurrencyCode='@ViewBag.DefaultCurrencyCode';
+
+        var ddlCurrencyCodeNum;
+        var meritPageConstants = {
+            LumpSumTypeAutoCalcWithOutOverride:'@MeritConstants.LumpSumTypeAutoCalcWithOutOverride',
+            LumpSumTypeAutoCalcWithOverride:'@MeritConstants.LumpSumTypeAutoCalcWithOverride',
+            LumpSumTypeNoAutoCalc:'@MeritConstants.LumpSumTypeNoAutoCalc',
+            LumpSumTypeAutoCalc:'@MeritConstants.LumpSumTypeAutoCalc',
+            RangeExceedPCT : '@Model.RangeExceedPCT',
+            AutoCalculateLumpSum:'@MeritConstants.AutoCalculateLumpSum',
+            Multicurrency:'@Model.CompensationTypeConfiguration.FeatureConfigurationMultiCurrencyDisplay'
+        };
+        var isMyApproval = '@Model.IsMyApproval';
+
+    </script>
+
+}
+<div class="row recommendinc-div nomargin">
+
+    @Html.AntiForgeryToken()
+    <!--recommend increase top section-->
+    <div class="top-pad"></div>
+    <div class="row nomargin">
+        <div id="divrecommendincreaseheader" class="col-sm-12 col-md-3 mainheading noleftpad"> Recommend Increase</div>
+        <div class="col-sm-6 col-md-3"style="padding-right:6px;">
+            @if (ViewBag.IsInDirects || Model.CompensationTypeConfiguration.FeatureConfigurationMultiCurrencyDisplay)
+            {
+                <div class="splitdivswitch" id="inDirectBudgetSection" style="width:100%;float:left;">
+
+                    <div class="">
+                        @if (ViewBag.IsInDirects)
+                        {
+                            <div class="register-switch" id="budgetCheckBox">
+                                <input type="radio" name="yesno" value="Y" id="DirectBudget" class="register-switch-input" checked="">
+                                <label for="DirectBudget" class="register-switch-label">Direct Budget</label>
+                                <input type="radio" name="yesno" value="N" id="DirectIndirect" class="register-switch-input">
+                                <label for="DirectIndirect" class="register-switch-label">My Organization Budget</label>
+                            </div>
+                        }
+                        @if (Model.ExchangeCurrencies.Count > 0 && Model.CompensationTypeConfiguration.FeatureConfigurationMultiCurrencyDisplay)
+                        {
+                            <div class="showbud">
+                                <span class="pull-left">Show Budget in</span>
+
+                                @if (Model.CompensationTypeConfiguration.FeatureConfigurationMultiCurrencyDisplay)
+                                {
+                                    <div class="pull-right">
+                                        @(Html.Kendo().DropDownList().Name("ddlLocalCurrencies").DataTextField("CurrencyCode").DataValueField("CurrencyNum").BindTo(Model.ExchangeCurrencies).Events(x => x.DataBound("dataBound").Change("onChange")).HtmlAttributes(new { style = "text-align:left; width:70px;padding-left: 0px;" }).Enable(true))
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="pull-right">
+                                        @(Html.Kendo().DropDownList().Name("ddlLocalCurrencies").DataTextField("CurrencyCode").DataValueField("CurrencyNum").BindTo(Model.ExchangeCurrencies).Events(x => x.DataBound("dataBound").Change("onChange")).HtmlAttributes(new { style = "text-align:left; width:70px;padding-left: 0px;" }).Enable(false))
+                                        @*<label class="show50budget smspace">@ViewBag.DefaultCurrencyCode</label>*@
+                                    </div>
+                                }
+
+                            </div>
+                        }
+                    </div>
+                </div>
+            }
+        </div>
+        
+        <div class="col-sm-6 col-md-3 splitdiv ipadtopspace">
+            <div class="col-md-12 fivepad">
+                <div class="row shadowedbox">
+                    <div class="col-sm-8 col-md-8 rightpart">
+                        <div class="textmute">Budget</div>
+                        <div class="counter counter1" id="meritBudget"></div>
+                    </div>
+                    <div class="col-sm-4 col-md-4">
+                        <div id="budgetDonughtClass" class="c100 p100 small">
+                            <span id="budgetPct"></span>
+                            <div class="slice">
+                                <div class="bar"></div>
+                                <div class="fill"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-md-3 splitdiv ipadtopspace">
+            <div class="col-md-12 fivepad">
+                <div class="row shadowedbox">
+                    <div class="col-sm-8 col-md-8 rightpart">
+                        <div class="textmute">Balance</div>
+                        <div class="counter counter2" id="meritBalance"></div>
+                    </div>
+                    <div class="col-sm-4 col-md-4">
+                        <div id="balanceDonughtClass" class="c100 p30 small">
+                            <span id="balancePct"></span>
+                            <div class="slice">
+                                <div class="bar"></div>
+                                <div class="fill"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="arrowsection">
+            <a id="arrowid" role="button" data-toggle="modal" data-target="#myModalgraph" onclick="chartClick();"><i class="glyphicon glyphicon-chevron-down"></i></a>
+        </div>
+    </div>
+   
+    <!--end of recommend increase top section-->
+    <!--dev code-->
+    <div class="col-md-12" style="display:none;visibility:hidden">
+        <div class="row">
+            <div class="col-md-12 noleftrightpad">
+                <div class="col-md-2 col-sm-12 uptitle">
+                    Recommend increase
+                </div>
+                <div class="col-md-2 col-sm-12 mobilebottommargin">
+                    <div class="panel panel-default mb20 mini-box panel-hovered">
+                        <div class="panel-body pad10">
+                            <div class="tilesec tile bg-yellow-lemon selected" id="btnDirectRollUp">
+                                <div class="corner"> </div>
+                                <div class="check">
+                                    <input type="checkbox" id="chkDirectRollUp">
+                                    <label for="chkDirectRollUp"></label>
+                                </div>
+                                <div class="tile-object">
+                                    <div class="name" id="txtDirectRollup"> Direct<br />Budget </div>
+                                </div>
+                            </div>
+                            @if (Model.ExchangeCurrencies.Count > 0)
+                            {
+                                <div class="tilesec tile">
+                                    <div class="showbudgettile">
+                                        <div class="name">Show budget in </div>
+                                        @if (Model.CompensationTypeConfiguration.FeatureConfigurationMultiCurrencyDisplay)
+                                        {
+                                            <div>
+                                                @(Html.Kendo().DropDownList().Name("ddlLocalCurrencies").DataTextField("CurrencyCode").DataValueField("CurrencyNum").BindTo(Model.ExchangeCurrencies).Events(x => x.DataBound("dataBound").Change("onChange")).HtmlAttributes(new { style = "text-align:left; width:100%;" }).Enable(true))
+                                            </div>
+                                        }
+                                        else
+                                        {
+                                            <div>
+                                                @(Html.Kendo().DropDownList().Name("ddlLocalCurrencies").DataTextField("CurrencyCode").DataValueField("CurrencyNum").BindTo(Model.ExchangeCurrencies).Events(x => x.DataBound("dataBound").Change("onChange")).HtmlAttributes(new { style = "text-align:left; width:100%;" }).Enable(false))
+                                              
+                                            </div>
+                                        }
+
+                                    </div>
+                                </div>
+                            }
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="col-md-3 col-sm-12 mobilebottommargin">
+                    <div class="panel panel-default mb20 mini-box panel-hovered">
+                        <div class="panel-body violetborder">
+                            <div class="clearfix">
+                                <div class="info left">
+                                    <h4 class="mt0 text-currency pinktext" id="meritBudget"></h4>
+                                    <h5 class="text-light mb0">Merit Budget</h5>
+                                </div>
+                                <div class="right">
+                                    <div id="budgetDonughtClass" class="c100 p100 small">
+                                        <span id="budgetPct"></span>
+                                        <div class="slice">
+                                            <div class="bar"></div>
+                                            <div class="fill"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-12 mobilebottommargin">
+                    <div class="panel panel-default mb20 mini-box panel-hovered">
+                        <div class="panel-body greenborder">
+                            <div class="clearfix">
+                                <div class="info left">
+                                    <h4 class="mt0 text-currency greentext" id="meritBalance"></h4>
+                                    <h5 class="text-light mb0">Balance</h5>
+                                </div>
+                                <div class="right">
+                                    <div id="balanceDonughtClass" class="c100 p0 small">
+                                        <span id="balancePct"></span>
+                                        <div class="slice">
+                                            <div class="bar"></div>
+                                            <div class="fill"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="arrowsection">
+                    <a id="arrowid" role="button" data-toggle="modal" data-target="#myModalgraph" onclick="chartClick();"><i class="glyphicon glyphicon-chevron-down"></i></a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="row nomargin">
+
+        @{Html.RenderAction("_ManagerAction", "Compensation", new { employeeNum = Model.EmployeeNum, compensationTypeConfiguration = Model.CompensationTypeConfiguration, compMenuType = Model.CompMenuType, employeeName = Model.EmployeeName, currencies = Model.ExchangeCurrencies, isInDirects=ViewBag.IsInDirects });}
+    </div>
+
+    <!--rajitha code-->
+    <div class="modal fade" id="myModalgraph" tabindex="-1" role="dialog" aria-labelledby="myModalgraph">
+        <div class="modal-dialog tablewidth" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="color:#a1a1a1"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title pop-title" id="myModalLabel">Spent Summary</h4>
+                </div>
+                <div class="modal-body chartmodalbody">
+                    <div class="row">
+                        <div class="col-md-4 col-md-offset-4">
+                            <div class="donut-wrapper">
+                                <div id="gauge-container">
+                                    <div id="gauge"></div>
+                                </div>
+                                <div class="inner-contentmsg">
+                                    Spent
+                                    <div id="totalSpentAmt"></div>
+                                </div>
+                                <div class="inner-contentmsg1">
+                                    Remaining
+                                    <div id="balanceAmt"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="amt-box">
+                                <div class="row">
+                                    @if (Model.CompensationTypeConfiguration.FeatureConfigurationMerit)
+                                    {
+                                    <div class="col-md-3 col-sm-6 col-xs-12 norightpad">
+                                        <div class="ind-box center-box">
+                                            <div class="merit-amt"><div id="meritSpentAmt"></div></div>
+                                            <div class="caption-block">
+                                                <div class="caption-legend merit-legend"></div>
+                                                <div class="pop-caption">Merit</div>
+                                            </div>
+                                        </div>
+                                    </div>}
+@if (Model.CompensationTypeConfiguration.FeatureConfigurationPromotion)
+{
+                                    <div class="col-md-3 col-sm-6 col-xs-12 noleftpad norightpad">
+                                        <div class="ind-box center-box">
+                                            <div class="promotion-amt"><div id="promotionSpentAmt"></div></div>
+                                            <div class="caption-block">
+                                                <div class="caption-legend promotion-legend"></div>
+                                                <div class="pop-caption">Promotion</div>
+                                            </div>
+                                        </div>
+                                    </div>}
+@if (Model.CompensationTypeConfiguration.FeatureConfigurationLumpSum)
+{
+                                    <div class="col-md-3 col-sm-6 col-xs-12 noleftpad norightpad">
+                                        <div class="ind-box center-box">
+                                            <div class="lumpsum-amt"><div id="lumpsumSpentAmt"></div></div>                                            
+                                            <div class="caption-block">
+                                                <div class="caption-legend lumpsum-legend"></div>
+                                                <div class="pop-caption">Lump Sum</div>
+                                            </div>
+                                        </div>
+                                    </div>}
+@if (Model.CompensationTypeConfiguration.FeatureConfigurationAdjustment)
+{
+                                    <div class="col-md-3 col-sm-6 col-xs-12 noleftpad">
+                                        <div class="center-box">
+                                            <div class="adjustment-amt"><div id="totalAdjustmentSpentAmt"></div></div>
+                                            <div class="caption-block">
+                                                <div class="pop-caption">Adjustment</div>
+                                            </div>
+                                        </div>
+                                    </div>}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row nomargin" id="divCompensationReportees" style="padding-top: 17px;">
+        @{Html.RenderPartial("~/Views/Compensation/_Reportees.cshtml", Model);}
+    </div>
+</div>
+@(Html.Kendo().Window().Name("RejectCommentPopup").Width(700).Height(300).Modal(true).Visible(false).Actions(action => action.Close()))

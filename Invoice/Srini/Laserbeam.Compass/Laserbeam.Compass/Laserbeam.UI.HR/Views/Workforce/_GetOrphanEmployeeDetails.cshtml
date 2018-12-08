@@ -1,0 +1,77 @@
+﻿@model IEnumerable<Laserbeam.BusinessObject.Common.OrphanManagerDetails>
+
+
+<div class="modal-dialog workforcePopup">
+    <div class="modal-content">
+        <div class="modal-header no-vpad">
+            <h3>Supervisor ID Missing</h3>
+        </div>
+        <div class="modal-body">
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="vpad10 short-desc">Employees without supervisor ID got uploaded into the tool. Select the employees from the below section to assign them to "Corporate". The unselected employees will remain under un-assigned. If you are not sure with the supervisor IDs, you can correct the data anytime in "Data Correction" Section.</div>
+
+                    <div class="vpad10"><span class="lbig">Corporate:</span> Assign top levels. Example: CEO will be assigned to corporate. Super Admins can view CEO's Information.</div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-8 no-toppad" id="OrphanEmployeePopupData">
+                    @(Html.Kendo().Grid<Laserbeam.BusinessObject.Common.OrphanManagerDetails>().Name("grdOrphanEmployees")
+                        .HtmlAttributes(new { style = "height:85%; width:100%;overflow-y:hidden" })
+    .Columns(columns =>
+    {
+        columns.Template(@<text></text>)
+            .ClientTemplate("<input type='checkbox' name='chkValue' #= IsChecked ? checked='checked' : '' # id='orphanEmployeeCheckBox'></input>")
+            .HtmlAttributes(new { id = "orphanEmployeeCheckBox1", style = " text-align:left; " })
+            .Width(30)
+            .HeaderHtmlAttributes(new { style = "text-align:left;" })
+            .Width(30)
+            .HeaderTemplate(" <input type='checkbox' id='orphanEmployeeCheckBoxSelectAll' /> ");
+        columns.Bound(x => x.EmployeeId).Title("Employee ID").HtmlAttributes(new { id = "orphanEmployeeId" }).Width(120);
+        columns.Bound(x => x.EmployeeName).Title("Employee Name").HtmlAttributes(new { id = "orphanEmpployeeName" }).Width(100);
+    })
+                                                                          .DataSource(dataSource => dataSource.Ajax()
+                                                                                .Model(model => model.Id(p => p.EmployeeJobNum))
+                                                                                        .Read(read => read.Action("GetOrphanEmployeeDetails", "WorkForce").Data("additionalParamInfo"))
+                                                                                        )
+                                                                                                .Sortable().Resizable(resize => resize.Columns(false))
+                                                                                                .Scrollable()
+                                                                                                .Events(x => x.DataBound("unAssignedUserList"))
+
+                    )
+
+                </div>
+
+                <div class="col-md-4" id="orphanEmployeeList">
+                    <span class="btxt">Organization View</span>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <span class="subtext">Corporate</span>
+                            <div class="subtext-area" style="overflow:scroll; min-height:200px !important; max-height:200px !important;">
+                                <div id="corporateUserList"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 top-pad">
+                            <span class="subtext">Un Assigned</span>
+                            <div class="subtext-area" style="overflow:scroll; min-height:200px !important; max-height:200px !important;">
+                                <div id="unAssigneduserList"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row text-right">
+                <div class="col-md-12 top-pad">
+                    <button type="button" id="btnCancel" class="btn cancel-btn" data-toggle="modal" data-target="#"><i class="fa fa-ban pad5rt" aria-hidden="true"></i> Cancel</button>
+                    <button id="btnTopLevelManager" type="button" class="btn btn-info prim-btn">Save</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

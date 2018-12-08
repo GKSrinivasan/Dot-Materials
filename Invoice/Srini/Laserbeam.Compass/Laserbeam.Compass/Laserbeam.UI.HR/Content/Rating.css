@@ -1,0 +1,226 @@
+﻿.processdropdown span {
+	float: left;
+	font-family: 'seguisb';
+	font-size: 15px;
+}
+
+.ratingtable thead tr th {
+	font-family: 'seguisb';
+	text-align: center;
+}
+
+.txtItalic {
+	font-style: italic
+}
+
+.ratingtable {
+	text-align: center;
+	background: #fff;
+}
+
+.fa-trash {
+	color: #555;
+}
+
+.fa-trash:hover {
+	color: red;
+}
+
+.fa-pencil {
+	color: #555;
+}
+
+.fa-pencil:hover {
+	color: #00abf0;
+}
+
+.checkbox-primary {
+	margin-top: 0;
+}
+
+.prim-btn,
+.prim-btn:hover,
+.prim-btn:focus {
+	background: #00abf0;
+}
+
+.ratingAdd {
+	border: 1px solid #ccc;
+	background: #fff;
+	padding-top: 15px;
+	padding-bottom: 15px;
+	box-shadow: 1px 0px 10px #ccc;
+}
+
+#grdConfigureRatingForRange .k-grid-content table tbody tr td:nth-child(3) a {
+	color: #00abf0;
+}
+
+.tab-content {
+	background: #fff;
+}
+
+.nav-tabs>li>a:hover {
+	background: #fff !important;
+	border-top: 1px solid #eee !important;
+	border-right: 1px solid #eee !important;
+	border-left: 1px solid #eee !important;
+	border-bottom: 3px solid #00abf0 !important;
+	font-size: 14px;
+	color: #0070c9;
+	border-radius: 0 !important;
+}
+
+.nav-tabs>li.active>a {
+	background: #fff !important;
+}
+
+.nav-tabs>li {
+	float: left;
+	margin-bottom: 0;
+}
+
+.nav-tabs>li>a {
+	color: #555;
+	font-size: 14px;
+}
+
+.grdConfigureRating {
+	height: 300px !important;
+	width: 100% !important;
+	overflow-y: auto;
+}
+
+.sec-btn,
+.sec-btn:hover,
+.sec-btn:focus {
+	color: #fff;
+	border: 1px solid #00abf0;
+	background: #00abf0;
+}
+
+.ConfigureRatingEditPopup {
+	margin-left: 10px !important;
+	margin-right: 10px !important;
+}
+
+.trashbin:hover {
+	color: red;
+}
+
+.b-pad {
+	padding-bottom: 15px;
+}
+
+.btn-cancel {
+	border: 1px solid #555;
+	background: #fff;
+	color: #555;
+}
+
+.table-bordered thead tr th {
+	font-weight: normal;
+}
+
+#grdConfigureRating thead tr th:nth-child(4) a,
+#grdConfigureRating thead tr th:nth-child(5) a,
+#grdConfigureRating thead tr th:nth-child(6) a,
+#grdConfigureRating thead tr th:nth-child(7) a,
+#grdConfigureRating thead tr th span,
+#btnConfigureRatingDelete,
+#grdConfigureRating tbody tr td:nth-child(4),
+#grdConfigureRating tbody tr td:nth-child(5),
+#grdConfigureRating tbody tr td:nth-child(6),
+#grdConfigureRating tbody tr td:nth-child(7) {
+	text-align: center;
+}
+
+#grdConfigureRating thead tr th:first-child a {
+	text-align: left;
+}
+
+.ratingtab {
+	border-bottom: none;
+}
+
+.ratingtab li a {
+	padding: 15px 10px;
+}
+
+.grdConfigureRating tbody tr td:nth-child(3) a {
+	color: #00abf0;
+}
+
+#configureRatingDescription a {
+	color: #00abf0;
+	font-size: 14px;
+}
+
+
+/*header styles*/
+
+.bluebg .navbar-nav>.active>a:hover {
+	color: #00abf0;
+	background-color: transparent;
+	border-radius: 0;
+	border-bottom: 1px solid #00abf0;
+}
+
+.bluebg .navbar-nav>.active>a {
+	background: white;
+	color: #777;
+	border-bottom: none;
+}
+
+.navbarnav li:nth-child(2) a {
+	color: #00abf0;
+	background-color: transparent;
+	border-radius: 0;
+	border-bottom: 1px solid #00abf0;
+}
+
+.menurating {
+	background: #777;
+}
+
+.menurating .menuadminicon i,
+.menurating .menuadmintitle {
+	color: white!important;
+}
+
+/*.menuratingicon {
+	background-image: url('../Images/ConfigureRating.png') !important;
+}*/
+
+
+/*end header styles*/
+
+
+/* Custom, iPhone Retina */
+
+@media only screen and (min-width: 320px) {}
+
+
+/* Extra Small Devices, Phones */
+
+@media only screen and (min-width: 480px) {}
+
+
+/* Small Devices, Tablets */
+
+@media only screen and (min-width: 768px) {}
+
+
+/* Medium Devices, Desktops */
+
+@media only screen and (min-width: 992px) {}
+
+
+/* Large Devices, Wide Screens */
+
+@media only screen and (min-width: 1200px) {}
+
+
+/* Large Screens, Wide Screens */
+
+@media only screen and (min-width: 1920px) {}

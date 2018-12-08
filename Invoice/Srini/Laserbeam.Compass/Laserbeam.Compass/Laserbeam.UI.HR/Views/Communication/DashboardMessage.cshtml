@@ -1,0 +1,312 @@
+﻿<script type="text/javascript">
+
+    $(document).ready(function () {
+        $("#btnCommunicationClear").hide();
+        $("#yetToLoginUserList").hide();
+        BindDashboardMessageSearchCriteriaTreeView();
+    });
+
+    function ddlDashboardMessageTreeViewOnSelect(e) {
+        var node = e.sender.dataItem(e.node);
+        var nodes = e.sender;
+        $("#hndIsNodeSelected").val(node.UserRoleNum);
+        $("#hndvalue").val(node.UserRoleNum);
+        $("#hndtext").val(node.UserRoleName);
+        $("#hndselectedtype").val(node.SelectedType);
+        var gridData = $("#dashboardMessageUserGrid").data("kendoGrid");
+        gridData.dataSource.read();
+        var root = $('.k-item:first');
+        if ((node.IsTreeTop == true) || !showSaveWarning) {
+            nodes.select(root);
+            $("#hndIsNodeSelected").val(1);
+            e._defaultPrevented = true;
+            return false;
+        }
+        else {
+            $("#hndIsNodeSelected").val(0);
+        }
+    }
+
+
+
+    $("#ddlDashboardMessage").change(function () {
+        $("#btnDashboardSave").attr("disabled", false);
+        $("btnDashboardDelete").attr("disabled", false);
+        var editor = $("#dashBoardMessageEditor").data("kendoEditor");
+        var ddlValue = $("#ddlDashboardMessage").data("kendoDropDownList")._selectedValue;
+        if (ddlValue > 0) {
+            $("#yetToLoginUserList").show();
+            $("#hideUserGrid").show();
+            var subjecttxt = $("#ddlDashboardMessage").data("kendoDropDownList").text();
+            $('#dashboardSubject').val(subjecttxt);
+            var token = $('input[name="__RequestVerificationToken"]').val();
+            var messageId = ddlValue;
+            $.ajax({
+                url: "../Communication/GetDropdown",
+                data: { __RequestVerificationToken: token, messageId: messageId },
+                type: 'Post',
+                cache: false,
+                success: function (result) {
+                    editor.value(result.MessageBody);
+                }
+            });
+        }
+        else {
+            $("#dashboardSubject")[0].value = "";
+            editor.value("");
+            $("#yetToLoginUserList").hide();
+            $("#hideUserGrid").hide();
+        }
+    });
+
+    $("#btnDashboardSave").on("click", function () {
+        var messageSubject = $("#dashboardSubject").val();
+        var messageBody = $("#dashBoardMessageEditor").val();
+        var messageNum = $("#ddlDashboardMessage").data("kendoDropDownList")._selectedValue;
+        if (messageNum == "" || messageNum== undefined) {
+            messageNum = '0';
+        }
+        else {
+            messageNum = $("#ddlDashboardMessage").data("kendoDropDownList")._selectedValue;
+        }
+        if (messageNum == 0) { action = "Save"; } else { action = "Update"; }
+        if ((messageNum == 0) && (messageBody == "") && ((messageSubject == " ") || (messageSubject == ""))) {
+            alert("Please Select Message Subject And Body");
+        }
+        else if ((messageNum == 0) && (messageBody == "") && ((messageSubject != " ") || (messageSubject != ""))) {
+            alert("Please Provide Message Body");
+        }
+        else if ((messageNum == 0) && (messageBody != "") && ((messageSubject == " ") || (messageSubject == ""))) {
+            alert("Please Provide Message Subject");
+        }
+        else if ((messageNum != 0) && (messageBody != "") && ((messageSubject == "") || (messageSubject == " "))) {
+            alert("Please Provide Message Subject");
+        }
+        else {
+            var token = $('input[name="__RequestVerificationToken"]').val();
+            $.ajax({
+                url: '@Url.Action("UpdateOrCreateMessage", "Communication")',
+                data: {__RequestVerificationToken:token, messageSubject: messageSubject, messageBody: messageBody, messageNum: messageNum },
+                cache: false,
+                type: "POST",
+                success: function (message) {
+                    Successmessage(message);
+                    $("#dashboardSubject")[0].value = "";
+                    $("#dashBoardMessageEditor").data("kendoEditor").value("");
+                    $("#ddlDashboardMessage").data("kendoDropDownList").text("-Configured message list-")
+                    $("#ddlDashboardMessage").data("kendoDropDownList").dataSource.read();
+                    $("#ddlDashboardMessage").data("kendoDropDownList").refresh();
+                    $("#yetToLoginUserList").hide();
+                    $("#hideUserGrid").hide();
+                    if (action == "Save") { Successmessage("Message Template Saved Successfully"); }
+                    else { Successmessage("Message Template Updated Successfully"); }
+                }
+            });
+        }
+    });
+
+    $("#btnDashboardSendMessage").on("click", function () {
+        var grid = $("#dashboardMessageUserGrid").data("kendoGrid");
+        var values = [];
+        var postData = [];
+        var rowIndexArray = [];
+        var templateID = $("#ddlDashboardMessage").data("kendoDropDownList").value();
+        $("#checkBx input[type=checkbox]:checked").each(function () {
+            var rowItem = $(this).closest("tr");
+            var rowIndex = $(rowItem).index();
+            var rowData = grid._data[rowIndex];
+            values.push({ UserNum: rowData.UserNum, AppMessageID: templateID });
+        });
+        if (values.length == 0) {
+
+            alert("select atleast one user");
+        }
+        else {
+            var token = $('input[name="__RequestVerificationToken"]').val();
+            $.ajax({
+
+                url: '../Communication/SendDashboardMessage',
+                type: "post",
+                data: {__RequestVerificationToken:token, userMessage: values },
+                cache: false,
+                success: function (message) {
+                    Successmessage(message);
+                    $("#chkBoxSelectAll").removeAttr('checked');
+                    //$('#dashboardSubject')[0].value = '';
+                    //$("#dashBoardMessageEditor").data("kendoEditor").value("");
+                    //$("#ddlDashboardMessage").data("kendoDropDownList").text("-Configured message list-");
+                    //$('#ddlDashboardMessageTreeView').find('.k-input').text("-Select-");
+
+                    $('#dashboardMessageUserGrid').data('kendoGrid').dataSource.read();
+                    $('#dashboardMessageUserGrid').data('kendoGrid').refresh();
+                }
+            });
+        }
+    });
+
+    $("#chkBoxSelectAll").on("click", function (e) {
+        if (this.checked) {
+            $("#checkBx input[type=checkbox]").each(function () {
+                this.checked = true;
+            });
+        }
+        else {
+            $("#checkBx input[type=checkbox]").each(function () {
+                this.checked = false;
+            });
+        }
+    });
+
+    $(document).on("click", "#btnDashboardMessageFilter", function () {
+        $("body").css("overflow", "hidden");
+        $.ajax({
+            url: '../Communication/_DashboardMessageFilterSort',
+            type: 'GET',
+            cache: false,
+            async: true,
+            dataType: 'html',
+            success: function (result) {
+                $("#communicationFilter").html(result);
+                var wndFilterSort = $("#communicationFilter").data("kendoWindow");
+                wndFilterSort.options.gridName = "dashboardMessageUserGrid";
+                wndFilterSort.center().open();
+                isFilter = true;
+            }
+        });
+    });
+
+    function DashboardDataBound() {
+        var grddashboardUserGrid = $("#dashboardMessageUserGrid").data("kendoGrid");
+        if (grddashboardUserGrid.dataSource._view.length == 0) {
+            var colCount = $("#dashboardMessageUserGrid").find('th').length;
+            $("#dashboardMessageUserGrid").find('tbody').append('<tr class="kendo-data-row"><td colspan="' + colCount + '" style="text-align:center;background-color:#6686C4;padding-top:30px"></td></tr>');
+            $("#dashboardMessageUserGrid").find('.k-grid-content tbody tr td').css("padding-top", 11).append('<b style="background-color:#6686C4 !important;color:white !important;">No Results Found!</b>');
+        }
+    }
+
+    function DropdownParam()
+    {
+       
+        var token = $('input[name="__RequestVerificationToken"]').val();
+        return {
+            __RequestVerificationToken:token
+        }
+
+    }
+</script>
+@Html.AntiForgeryToken()
+<div id="communicationDashBoardMessages" class="bhoechie-tab-content active">
+    <div class="row tenbottompad">
+        <div class="col-md-6 col-sm-6 col-lg-6">
+            <div class="row top-pad">
+                <div class="col-md-10 text-right pull-right">
+                    <button id="btnDashboardDelete" type="button" class="btn btn-cancel"><i class="fa fa-trash"></i> Delete</button>
+                    <button id="btnDashboardSave" type="button" class="btn btn-info prim-btn">Save</button>
+                </div>
+            </div>
+            <div class="row top-pad nomargin">
+                <div class="col-sm-6 col-md-4 titlespan">
+                    Configured dashboard message:
+                </div>
+                <div class="col-sm-6 col-md-8 dashboardtreeview">
+                    @(Html.Kendo().DropDownList()
+                                        .Name("ddlDashboardMessage")
+                                        .DataSource(source =>
+                                        {
+                                            source.Read(read =>
+                                            {
+                                                read.Action("GetDropdownValues", "Communication").Data("DropdownParam").Type(HttpVerbs.Post);
+
+                                            });
+                                        })
+                                        .HtmlAttributes(new { style = "width:70%" })
+                                            .DataTextField("Text").DataValueField("Value")
+                                                     .HtmlAttributes(new { @class = "dashmsg_list" })
+                                             .OptionLabel("-Select-")
+                    )
+                </div>
+            </div>
+            <div class="row top-pad nomargin">
+                <div class="col-sm-6 col-md-4 titlespan">
+                    Configured dashboard message:
+                </div>
+                <div class="col-sm-6 col-md-8">
+                    <input class="form-control" name="--select--" id="dashboardSubject" type="text" value="" />
+                </div>
+            </div>
+            <div class="row nomargin top-pad bottom-pad">
+                <div class="col-sm-12 col-md-12">
+                    @(Html.Kendo().Editor()
+                                          .Name("dashBoardMessageEditor")
+                                          .Value("")
+                                          .HtmlAttributes(new { style = "height:240px;" })
+                                          .Tools(tools => tools.Clear().Formatting().Bold().Italic().Underline().JustifyLeft().JustifyCenter().JustifyRight().InsertUnorderedList().InsertOrderedList().Indent())
+                                          .Events(e => e.Change("editorChanged")))
+                </div>
+            </div>
+        </div>
+
+        <div id="yetToLoginUserList" class="col-md-6 col-sm-6 col-lg-6">
+            <div class="row nomargin">
+                <div class="col-lg-12 col-sm-12 col-xs-12 distribute-moreaction">
+                    <div class="row top-pad">
+                        <div class="col-sm-5 col-md-6">
+                            <div id="ddlDashboardMessageTreeView"></div>
+                        </div>
+                        <div class="col-sm-7 col-md-6 text-right noleftpad">
+                            <div class="btn-group">
+                                <button id="btnDashboardSendMessage" type="button" class="btn btn-info prim-btn">
+                                    Send Message
+                                </button>
+                                <button type="button" class="btn btn-bordered dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <img src="../../Images/more-v.png" class="top2pad" alt=""> Action
+                                    @*<i class="icon-more-action-o morbtn-icon1 icon-grey big20" aria-hidden="true"></i>*@
+                                </button>
+                                <ul class="dropdown-menu moreaction-btn">
+                                    <li><a id="btnDashboardMessageExport" href="#" onclick="dashboardMessagesExport();"><i class=" fa fa-file-excel-o"></i> Export</a></li>
+                                    <li><a id="btnDashboardMessageFilter" href="#"><i class="fa fa-filter"></i> Filter</a></li>
+                                    <li><a id="btnCommunicationClear" href="#"><i class="fa fa-ban faban"></i> Clear</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="hideUserGrid" class="col-md-12 top-pad">
+                <div class="col-md-12 table-responsive nopad">
+                    @(Html.Kendo().Grid<Laserbeam.BusinessObject.Common.MessageModel>()
+                                                .Name("dashboardMessageUserGrid")
+                                                .Events(x => x.DataBound("DashboardDataBound"))
+                                                .TableHtmlAttributes(new { style = "border-bottom: 1px #ccc solid;" })
+                                                .Scrollable(s => s.Enabled(true))
+                                                .Columns(columns =>
+                                                {
+                                                    columns.Bound(r => r.UserNum).Visible(false);
+                                                    columns.Template(@<text></text>)
+                                                .ClientTemplate("<input type='checkbox' id='checkBx'></input>")
+                                                .Width("5.5%").HtmlAttributes(new { id = "checkBx", style = " text-align:center; " })
+                                                .HeaderHtmlAttributes(new { id = "checkBoxHeader", style = "text-align:center; " })
+                                                .HeaderTemplate("<input type='checkbox' id='chkBoxSelectAll' /> ");
+                                                   // columns.Bound(r => r.UserID).Title("UserID").Width("15%");
+                                                    columns.Bound(r => r.UserName).Title("UserName").Width("15%");
+                                                    columns.Bound(r => r.EmailID).Title("EmailAddress").Width("15%");
+                                                })
+
+                                            .DataSource(dataSource => dataSource
+                                            .Ajax()
+                                            .Read(read => read.Action("GetUserGridValues", "Communication")
+                                            .Data("GetParamValue")).Batch(true)
+                                            .ServerOperation(false)
+                                            .Model(m => m.Id(i => i.UserNum))
+                                            //.PageSize(50)
+                                            )
+                                            //.Pageable(pageable => pageable.ButtonCount(5))
+                    )
+                </div>
+                @(Html.Kendo().Window().Name("communicationFilter").Title("Filter/Sort").Visible(false).Width(710).Height(270).Modal(true))
+            </div>
+            <br />
+        </div>
+    </div>
+
+</div>

@@ -1,0 +1,21 @@
+﻿<div class="row voffset3">
+    <div class="col-lg-4 col-lg-offset-4">
+        <div class="input-group">
+            @Html.Hidden("hdnSelectedValue", "")
+            @(Html.Kendo().AutoComplete().Name("Employeedetails")
+                    .DataTextField("Text").Placeholder("Search by Employee Name or Employee ID")
+            .Filter(FilterType.Contains)
+                    .DataSource(datasource =>
+                    {
+                        datasource.Read(read =>
+                            {
+                                read.Action("GetEmployeeSearchData", "Workforce");
+                            }).ServerFiltering(false);
+                    }).HtmlAttributes(new { @class = "form-control" })
+                .Events(events => events.Select("onclick_employeesearch")))
+            <div class="input-group-btn">
+                <button class="btn btn-default" type="button"><i class="fa fa-search pad5"></i></button>
+            </div>
+        </div>
+    </div>
+</div>

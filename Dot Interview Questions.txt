@@ -1,0 +1,17 @@
+1.Data Annotation
+2.Custom Annotation
+3.Razor
+4.Custom Razor helper
+5.Bootstrap
+6.Http and Https
+7.cross join
+8.Server validation using annotation
+9.Data Encapsulation
+10.Grabage collector (Manged and unmangeddata)
+11.javascrpit to add a control
+12.Ienumerable and IQueryable
+13.session state
+14.default session timeout
+15.prevant yellow page on 404 error
+16.URL alise
+17.route table

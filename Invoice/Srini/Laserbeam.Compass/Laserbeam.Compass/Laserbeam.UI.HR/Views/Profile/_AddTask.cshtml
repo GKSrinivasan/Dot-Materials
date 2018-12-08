@@ -1,0 +1,116 @@
+﻿
+@model Laserbeam.BusinessObject.Common.TaskModel
+
+<div class="modal-dialog" role="document">
+    @using (Ajax.BeginForm("_AddTask", "Profile", new AjaxOptions { HttpMethod = "POST", OnSuccess = "refreshGridData()" }, new { id = "addForm", @enctype = "multipart/form-data" }))
+    {
+        @Html.AntiForgeryToken()
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">Add Task</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="datelabel">
+                                    Team
+                                </div>
+                                <div>
+                                    @(Html.Kendo().DropDownListFor(m => m.TeamNum)
+.DataTextField("Text")
+.DataValueField("Value")
+.OptionLabel("--Select--")
+.DataSource(data => data.Read(read =>
+{
+    read.Action("TeamTitle", "Profile").Data("additionalParamInfo").Type(HttpVerbs.Post);
+})).Events(e => e.Change("teamchanged"))
+.HtmlAttributes(new { id = "ddlTeamTitle", style = "width:100%;" }))
+                                </div>
+                                <span class="orangetext" id="error_ddlTeamTitle"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="datelabel">
+                                    Start Date
+                                </div>
+                                <div class="input-group fullwidthsize">
+                                    @(Html.Kendo().DatePickerFor(m => m.StartDate).Name("startDate").HtmlAttributes(new { style = "width:100%;", id = "addStartDate" }))
+                                    <span class="orangetext" id="error_startDate"></span>
+                                    @*<input type="text" class="form-control" id="">
+            <div class="input-group-addon"><i class="fa fa-calendar"></i></div>*@
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="datelabel">
+                                    End Date
+                                </div>
+                                <div class="input-group fullwidthsize">
+                                    @(Html.Kendo().DatePickerFor(m => m.EndDate).Name("endDate").HtmlAttributes(new { style = "width:100%;", id = "addEndDate" }))
+                                    <span class="orangetext" id="error_endDate"></span>
+                                    @*<input type="text" class="form-control" id="">
+            <div class="input-group-addon"><i class="fa fa-calendar"></i></div>*@
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="datelabel">
+                                    Hours Spent
+                                </div>
+
+                                @*@<div class="input-group spinner spinnerfull">*@
+                                @Html.TextBoxFor(a => a.HoursSpent, new { @class = "form-control", id = "spentHoursTxt" })
+                                <span class="orangetext" id="error_hrsEg"></span>
+                                <span class="orangetext" id="hrsEg">(HH:MM)</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row top-pad">
+                    <div class="col-md-12">
+                        <div class="datelabel">
+                            Title <span class="orangetext" style="padding-left:5px;">Character count: <input type="text" id="countTxt" maxlength="3" /> (Limit to 200 characters)</span>
+                        </div>
+                        <div style="padding-top:5px;">
+                            @*<input type="text" class="form-control" id="">*@
+                            @Html.TextBoxFor(a => a.TaskTitle, new { @class = "form-control", id = "teamTitleTxt", maxlength="200" })
+                            <span class="orangetext" id="error_teamTitleTxt"></span>
+                            
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="row top-pad">
+                            <div class="col-md-12">
+                                <div class="datelabel">
+                                    Description
+                                </div>
+                                <div>
+                                    @Html.TextAreaFor(a => a.TaskDescription, new { @class = "form-control", id = "teamDescriptionTxt" })
+                                    <span class="orangetext" id="error_teamDescriptionTxt"></span>
+                                    @*<textarea class="form-control" rows="5" placeholder="Short Description"></textarea>*@
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="btnprogileaddtaskcancel" type="button" class="btn btn-cancel" data-dismiss="modal"><i class="fa fa-ban"></i> Cancel</button>
+                <button type="button" id="checkValidation" class="btn btn-blue">Add task</button>
+            </div>
+        </div>
+    }
+</div>

@@ -1,0 +1,76 @@
+﻿@model List<Laserbeam.UI.HR.Models.EventsandCommunication>
+@{
+    int announce = 0;
+    string btnVisible = "";
+    if (ViewBag.AnnouncementCount <= 4)
+    {
+        btnVisible = "visibility:hidden";
+    }
+}
+<div class="panel db_panel">
+    <div class="db_title">
+        <span class="wt600"> <i class="icon-speaker" aria-hidden="true"></i> Announcements</span>
+        <span class="pull-right clickable"><i class="fa fa-chevron-up" aria-hidden="true"></i></span>
+    </div>
+
+
+    @*<div class="db_content db_content_scroll" style="height:325px !important;">*@
+    <div class="db_content">
+        <!--accordion Starts-->
+        <div class="panel-group" id="idAnnouncementPanel">
+            @if (Model.Count < 1)
+            {
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="img-padding text-center">
+                            <div class="img-responsive">
+                                <img src="../../Images/announcement-bicon.png">
+                            </div>
+                            <div class="big30">You don’t have any announcement right now</div>
+                            <div class="big21">When admins post any announcement, you will see it here</div>
+                        </div>
+                    </div>
+                </div>
+            }
+            else
+            {
+                foreach (var announcementItem in Model)
+                {
+
+                    announce++;
+                    DateTime AnnounceCreateDate = Convert.ToDateTime(announcementItem.UpdatedDate);
+                    <div class="panel-heading">
+                        <h4 class="announce-title">
+                            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseOne@(announce)" onclick="onSetHeight();" id="collpase@(announce)">
+                                @Html.Raw(announcementItem.EmailSubject)
+                            </a>
+                        </h4>
+                        <div class="row no-margin">
+                            <div class="col-md-6 col-xs-6 db_date text-left">@AnnounceCreateDate.ToString("dd MMM, yyyy h:mm tt")</div>
+                            <div class="col-md-6 col-xs-6 db_date text-right"><i class="fa fa-history"></i> @announcementItem.MinutesMessage</div>
+                        </div>
+                    </div>
+                    <div id="collapseOne@(announce)" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            @Html.Raw(announcementItem.EmailBody)
+                        </div>
+                    </div>
+
+                }
+                <div class="panel-heading1">
+                    <h4 class="announce-title">
+                        <a class="accordion-toggle1" data-toggle="collapse" data-parent="#accordion;">&nbsp;</a>
+                    </h4>                    
+                </div>
+            }
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12 text-center">
+            <button class="btn btn-large btn-block db-btn" id="idAnnouncementShowMore" onclick="onShowAllAnnouncement();" style="@(btnVisible)"><i class="fa fa-chevron-circle-down" aria-hidden="true"></i> Show More</button>
+            <button class="btn btn-large btn-block db-btn" id="idAnnouncementShowLess" onclick="onShowLessAnnouncement();" style="display:none;"> <i class="fa fa-chevron-circle-up" aria-hidden="true"></i> Show Less</button>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,80 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="~/Content/TitleBar.css" rel="stylesheet" />
+    <link href="~/Content/icon-styles.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <title>@ViewBag.Title</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+    <nav class="navbar navbar-default bluebg navbar-fixed-top">
+        <div class="container-fluid whiteebg">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div id="divtoggle" class="navbar-header">
+                <a class="navbar-brand" id="profileHome" href="#">
+                    <img id="imgprofileHome" src="@Url.Content(ViewContext.GetTenantLogo())" class="img-responsive center-block" alt="">
+                </a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="menugrid">
+                <ul class="nav navbar-nav navbarnav headermenus">
+                    <li class="active"><a data-linkname="Compensation" title="Compensation" href="@Url.Action("Dashboard", "Dashboard")" id="home">Home <span class="sr-only">(current)</span></a></li>
+                        <li class="dropdown mega-dropdown menudrpdwn" id="adminSection">
+                            <a href="#" class="dropdown-toggle" id="administration" data-toggle="dropdown"> Administration <span class="fa fa-angle-down menuheaderangledown"></span></a>
+
+                            <div class="row dropdown-menu mega-dropdown-menu menulg">
+                                <div class="col-md-12 col-sm-12 col-xs-12">
+                                    <div class="row">
+                                        <div class="col-md-12 col-xs-12">
+                                            <div class="col-md-12 col-xs-12 titlesec text-left">Manage data</div>
+                                        </div>
+                                    </div>
+                                    <div class="row top-pad">
+                                        <div class="col-md-12 col-xs-12">
+                                            <div class="col-sm-4 col-md-4 col-xs-6 text-center noleftrightpad">
+                                                <div class="col-md-12 fiveleftrightpad">
+                                                    <a id="lnksiteAccessControl" data-linkname="Access Control" title="Access Control" href="@Url.Action("UserDetail", "UserDetail")">
+                                                        <div class="col-md-12 col-xs-12 graybg menumanageuser" id="menumanageuser">
+                                                            <div class="menuadminicon menumanageusericon"><i class="icon-mm-users"></i></div>
+                                                            <div class="menuadmintitle">Access Control</div>
+                                                        </div>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                </ul>
+
+                @*<div id="ajaxLoadingPanel" class="loadingdiv" style="margin: 0; padding: 0px; position: fixed;TEXT-ALIGN: CENTER; right: 0px; top: 0px !important; width: 100%; height: 100%; background-color: white; z-index: 33333; opacity: 1;">
+                    <img id="imgsiteajaxLoadingPanel" style="color: White;TEXT-ALIGN: CENTER;POSITION: RELATIVE;TOP: 31VH;LEFT: auto;" src="~/Images/Loadingcogs.gif" />
+                </div>*@
+                <ul class="nav navbar-nav navbar-right" style="margin-right:0px">
+                    <li style="padding-top:5%">
+                        LoggedIn as : <span style="font-size:medium;color:#4800ff">
+    @ViewContext.UserName()
+                        <a href="@Url.Action("LogOut","Account")" style="color:#ff6a00"><span class="glyphicon glyphicon-log-out" style="cursor:pointer;" title="Logout"> </span></a>
+                    </span>
+                        
+                    </li>
+                </ul>
+            </div><!-- /.navbar-collapse -->
+
+        </div><!-- /.container-fluid -->
+    </nav>
+    <div>
+        @RenderBody()
+    </div>
+
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/angular")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

@@ -1,0 +1,272 @@
+﻿@model Laserbeam.UI.HR.Models.AddUserModel
+<div class="modal-dialog adduserPopup">
+    @using (Ajax.BeginForm("_UserAddPopup", "UserManagement", new AjaxOptions { HttpMethod = "POST", OnSuccess = "getUserTileData()" }, new { @class = "form-sec", id = "form" }))
+    {
+        @Html.Hidden("isEmail", "false");
+        @Html.Hidden("userStatus", Model.UserStatus);
+        @Html.AntiForgeryToken()
+        <div class="modal-content">
+            <div class="modal-header">
+                @if (Model.UserID != null)
+                {
+                    <h3 class="modal-title">@*<i class="icon-edit-user-512" aria-hidden="true"></i>*@ Edit/Modify User</h3>
+                }
+                else
+                {
+                    <h3 class="modal-title">@*<i class="fa fa-user-plus" aria-hidden="true"></i>*@ Add User</h3>
+                }
+            </div>
+
+            
+            <div class="neg-margin" id="addUserAlert">
+                <div class="alert alert-success">
+                    <strong><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Great!</strong> The user will have access to the entire organization. Confirm.
+                    <div class="pull-right"><a href="#" class="btn usrmgmt_btn" id="adminAccessValid">Yes</a> &nbsp; <a href="#" id="adminAccessNotValid" class="btn usrmgmt_no">No</a></div>
+                </div>
+            </div>
+            
+
+            <div class="modal-body">
+                <form>
+                    <div class="row padbtm">
+                        <div class="form-group">
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <label for="UserID">Email</label>
+                                <a href="#" data-toggle="tooltip" data-placement="right" data-container="body" title="This will be used to access Compass">
+                                    <i class="fa fa-question-circle gry-icon" aria-hidden="true"></i>
+                                </a>
+                               
+                                    <div class="input-group">
+                                        @Html.TextBoxFor(a => a.UserNum, new { @class = "form-control", id = "txtUserNum", style = "display:none", placeholder = Html.DisplayNameFor(a => a.UserID) })
+                                        @*@if (Model.UserID != null)
+                                        {
+                                            @Html.TextBoxFor(a => a.UserID, new { @class = "field", id = "txtUserId", placeholder = Html.DisplayNameFor(a => a.UserID) ,disabled="disabled"})
+                                        }
+                                        else
+                                        {*@
+                                            @Html.TextBoxFor(a => a.UserID, new { @class = "field", id = "txtUserId", placeholder = Html.DisplayNameFor(a => a.UserID) })
+                                        @*}*@
+                                    </div>
+                               
+                                <span class="orangetext">@Html.ValidationMessageFor(a => a.UserID)</span>
+                                
+
+                            </div>
+                            <div class="col-md-6 col-sm-6 col-xs-12 tb2">
+                                <label for="UserID">Employee ID</label>
+                                <a href="#" data-toggle="tooltip" data-placement="right" data-container="body" title="User would view the oraganization structure based on this employee ID">
+                                    <i class="fa fa-question-circle test" aria-hidden="true"></i>
+                                </a>
+
+
+                                <div class="input-group">
+                                    @Html.TextBoxFor(a => a.EmployeeID, new { @class = "field", id = "txtEmployeeID", placeholder = Html.DisplayNameFor(a => a.EmployeeID) })
+                                    <span class="orangetext">@Html.ValidationMessageFor(a => a.EmployeeID)</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row padbtm">
+                        <div class="form-group">
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <label for="UserID">First Name</label>
+                                <div class="input-group">
+                                    @Html.TextBoxFor(a => a.FirstName, new { @class = "field", id = "txtFirstName", placeholder = Html.DisplayNameFor(a => a.FirstName) })
+                                    <span class="orangetext">@Html.ValidationMessageFor(a => a.FirstName)</span>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-sm-6 col-xs-12 tb2">
+                                <label for="UserID">Last Name</label>
+                                <div class="input-group">
+                                    @Html.TextBoxFor(a => a.LastName, new { @class = "field", id = "txtLastName", placeholder = Html.DisplayNameFor(a => a.LastName) })
+                                    <span class="orangetext">@Html.ValidationMessageFor(a => a.LastName)</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row padbtm">
+                        <div class="form-group">
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <label for="UserID">Preferred Name</label>
+                                <div class="input-group">
+                                    @Html.TextBoxFor(a => a.PreferredName, new { @class = "field", id = "txtPreferredName", placeholder = Html.DisplayNameFor(a => a.PreferredName) })
+                                    <span class="orangetext">@Html.ValidationMessageFor(a => a.PreferredName)</span>
+                                 </div>
+                            </div>
+                            @*<div class="col-md-6 col-sm-12 col-xs-12 tb2">
+                                <label for="UserID">Email Address</label>
+                                <div class="input-group">
+                                    @Html.TextBoxFor(a => a.EmailID, new { @class = "field", id = "txtEmailID", placeholder = Html.DisplayNameFor(a => a.EmailID) })
+                                    <span class="orangetext">@Html.ValidationMessageFor(a => a.EmailID)</span>
+                                </div>
+                            </div>*@
+                        </div>
+                    </div>
+                    <div class="row padbtm">
+                        <div class="form-group">                            
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <label for="UserID">User Role</label>
+                                <div class="input-group">
+                                    @(Html.Kendo().DropDownListFor(m => m.UserRoleNum)
+                                            .DataTextField("UserRole")
+                                            .DataValueField("UserRoleNum")
+                                            .OptionLabel("--User Role--")
+                                            .DataSource(data => data.Read(read =>
+                                            {
+                                                read.Action("GetDropdownUserRoles", "UserManagement").Data("additionalParamInfo").Type(HttpVerbs.Post);
+                                            })).Events(e => e.Select("change"))
+                                            .HtmlAttributes(new { id = "ddlUserRole", style = "width:100%;" }))
+                                </div>
+                                @Html.TextBoxFor(a => a.UserRoleType, new { id = "txtUserRoleType", placeholder = Html.DisplayNameFor(a => a.UserRole),style="width:0;height:0;margin-left:50% !important" })
+                                <span class="orangetext" style="text-align:left;">@Html.ValidationMessageFor(a => a.UserRoleType)</span>
+                            </div>
+
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <div class="col-md-12 col-sm-12 col-xs-12 tb2">
+                                    <div class="row">
+                                        <label for="UserID">User Status</label>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12 noleftpad">
+                                            <label class="switch">
+                                                <input class="switch-input" type="checkbox" id="btnAddUserStatus" />
+                                                <span class="switch-label" data-on="Active" data-off="Locked" onclick="handleClick(this)"></span>
+                                                <span class="switch-handle"></span>
+                                                @Html.HiddenFor(m => m.AppUserStatusID)
+                                                @Html.HiddenFor(m => m.UserStatus, new { id = "addUserStatus" })
+                                            </label>
+                                        </div>                                        
+                                    </div>
+                                </div>
+                                <div class="col-md-8 col-sm-12 col-xs-12">
+                                    @Html.HiddenFor(m => m.IsAdminAccess, new { id = "addAdminAccess" })
+                                    <div class="check-info center" id="accessCheckBox" style="visibility:@(Model.UserRole=="Admin"? "visible" : "hidden")">
+                                        <div class="checkbox checkbox-primary checkboxnopad checktxt1 text-left">
+                                            <input id="checkbox1" type="checkbox">                                            
+                                            <label for="checkbox1">
+                                                <span class="label label-pred" id="typeName" data-toggle="modal" data-target="#confirm-popup">Access to view full organization</span>
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            @if (Model.UserID != null)
+            {
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="gap5px-right right"><button type="button" id="btnDeleteUser" class="btn del-btn" data-toggle="modal" data-target="#"><i class="fa fa-trash-o pad5rt" aria-hidden="true"></i>Delete User</button></div>
+                    </div>
+                </div>
+            }
+
+            <div class="modal-footer">
+                <div class="col-md-6 col-sm-6 col-xs-12 nopad">
+                    <div class="check-info left">
+                        <div class="checkbox checkbox-primary checkboxnopad checktxt2">
+                            <input id="checkbox2" type="checkbox">
+                            <label for="checkbox2">
+                                <span class="label label-pgrey" id="typeName">Email tool access link to the User</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-6 col-xs-12 right nopad">
+                        <button type="button" id="btnCancel" class="btn cancel-btn" data-toggle="modal" data-target="#"><i class="fa fa-ban pad5rt" aria-hidden="true"></i>Cancel</button>
+                        @if (Model.UserID != null)
+                        {
+                            <button type="submit" id="btnSave" class="btn prim-btn" data-toggle="modal" data-target="#addUser"><i class="icon-edit-s3 pad5rt editS" aria-hidden="true"></i>Modify User</button>
+                        }
+                        else
+                        {
+                            <button type="submit" id="btnSave" class="btn prim-btn" data-toggle="modal" data-target="#addUser"><i class="fa fa-user-plus pad5rt" aria-hidden="true"></i>Add User</button>
+                        }
+
+                </div>
+            </div>
+        </div>        
+    }
+</div>
+@*<script type="text/javascript">
+    $(document).ready(function () {
+        $("#addUserAlert").hide();
+        $.validator.unobtrusive.parse(document);
+        setValidation();
+        var a = $("#userStatus").val();
+        if (a == "Active" || a == "")
+            $("#btnAddUserStatus").prop("checked", true);
+        if (a == "Lock")
+            $("#btnAddUserStatus").prop("checked", false);
+        var b = $("#addAdminAccess").val();
+        if (b=="True")
+            $("#checkbox1").prop("checked", true);
+        if (b=="False")
+            $("#checkbox1").prop("checked", false);
+    });
+    function setValidation() {
+        $(".input-validation-error").parent().removeClass('has-success').addClass("has-error");
+        $("div.validation-summary-errors").has("li:visible").addClass("alert-block alert-danger");
+
+        $('#form').data('validator').settings.onfocusout = function (element) {
+            $(element).valid();
+        };
+    }
+
+    $(document).on("change", "#typeName", function (e) {
+        $("#addUserAlert").show();
+
+    });
+    $(document).on('click', '#checkbox1', function (e) {
+        if (this.checked) {
+            $("#addUserAlert").show();
+        }
+        else {
+            $("#addUserAlert").hide();
+            $("#addAdminAccess").val(false);
+        }
+    });
+    $(document).on('click', '#adminAccessNotValid', function (e) {
+        $("#checkbox1").prop("checked", false);
+        $("#addAdminAccess").val(false);
+        $("#addUserAlert").hide();
+    });
+    $(document).on('click', '#adminAccessValid', function (e) {
+        $("#checkbox1").prop("checked", true);
+        $("#addAdminAccess").val(true);
+        $("#addUserAlert").hide();
+    });
+
+    $(document).on("keydown", "#txtUserId", function (e) {
+        var code = e.keyCode || e.which;
+        if (code == '9') {
+            e.preventDefault();
+            setTimeout(function () {
+                $("#txtEmployeeID").focus();
+            },0);
+        }
+    });
+
+    /*Tooltip Query */
+    //$(document).ready(function () {
+    //    $('[data-toggle="tooltip"]').tooltip();
+
+    //    addStatus = $("#btnAddUserStatus")[0].checked;
+    //    if (addStatus == false) {
+    //        $("#checkbox2").attr("disabled", true);
+    //        $("#checkbox2").prop("checked", false);
+    //    }
+    //    else if (addStatus == true) {
+    //        $("#checkbox2").attr("disabled", false);
+    //    }
+    //});
+   
+    //$(function () {
+    //    $("#form").kendoValidator();
+    //});
+</script>*@

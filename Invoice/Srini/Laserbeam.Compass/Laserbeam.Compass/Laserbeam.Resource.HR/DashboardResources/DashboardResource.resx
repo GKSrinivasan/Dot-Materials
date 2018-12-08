@@ -1,0 +1,333 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddWeight" xml:space="preserve">
+    <value>Weight should add upto 100%</value>
+  </data>
+  <data name="alert" xml:space="preserve">
+    <value>Goal category is required to send request</value>
+  </data>
+  <data name="ApprovalStatus" xml:space="preserve">
+    <value>APPROVAL STATUS</value>
+  </data>
+  <data name="APPROVE" xml:space="preserve">
+    <value>APPROVE</value>
+  </data>
+  <data name="Approved" xml:space="preserve">
+    <value>Approved successfully</value>
+  </data>
+  <data name="Category" xml:space="preserve">
+    <value>CATEGORY</value>
+  </data>
+  <data name="Completion" xml:space="preserve">
+    <value>COMPLETION %</value>
+  </data>
+  <data name="CompletionDate" xml:space="preserve">
+    <value>COMPLETION DATE</value>
+  </data>
+  <data name="Department" xml:space="preserve">
+    <value>Department </value>
+  </data>
+  <data name="EEObj" xml:space="preserve">
+    <value>'s Objectives for Approval</value>
+  </data>
+  <data name="EmpListPopup" xml:space="preserve">
+    <value>EmpListPopup</value>
+  </data>
+  <data name="EndDate" xml:space="preserve">
+    <value>End Date</value>
+  </data>
+  <data name="EventTitle" xml:space="preserve">
+    <value>Upcoming Events and Communications</value>
+  </data>
+  <data name="GoalSubmitAlert" xml:space="preserve">
+    <value>Weighted and unweighted goal can not be submitted together</value>
+  </data>
+  <data name="HireDate" xml:space="preserve">
+    <value>Hire Date </value>
+  </data>
+  <data name="InitiativesTitle" xml:space="preserve">
+    <value>Initiatives</value>
+  </data>
+  <data name="JobTitle" xml:space="preserve">
+    <value>Job Title </value>
+  </data>
+  <data name="LbsRights" xml:space="preserve">
+    <value>© 2016 Laserbeam Software. All rights reserved.</value>
+  </data>
+  <data name="LbsWebsite" xml:space="preserve">
+    <value>www.laserbeamsoftware.com</value>
+  </data>
+  <data name="MyObjectivesTitle" xml:space="preserve">
+    <value>2016 My Objectives</value>
+  </data>
+  <data name="MyRevwTitle" xml:space="preserve">
+    <value>2015 My Review</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="NullWeightAlert" xml:space="preserve">
+    <value>Weights cannot be null</value>
+  </data>
+  <data name="NumAlert" xml:space="preserve">
+    <value>No numbers above 100</value>
+  </data>
+  <data name="ObjApproval" xml:space="preserve">
+    <value>'s Objectives for Approval</value>
+  </data>
+  <data name="Objectives" xml:space="preserve">
+    <value>OBJECTIVES</value>
+  </data>
+  <data name="PoweredBy" xml:space="preserve">
+    <value>Powered by</value>
+  </data>
+  <data name="ProfileTitle" xml:space="preserve">
+    <value>Employee Profile</value>
+  </data>
+  <data name="Progress" xml:space="preserve">
+    <value>Progress</value>
+  </data>
+  <data name="Progress_TeamObjective_Approved" xml:space="preserve">
+    <value>Employees with approved objectives</value>
+  </data>
+  <data name="Progress_TeamObjective_Reopen" xml:space="preserve">
+    <value>Employees with reopened objectives</value>
+  </data>
+  <data name="Progress_TeamObjective_Submitted" xml:space="preserve">
+    <value>Employees with submitted objectives</value>
+  </data>
+  <data name="Progress_TeamObjective_Total" xml:space="preserve">
+    <value>Total employee count</value>
+  </data>
+  <data name="Progress_TeamObjective_YetToStart" xml:space="preserve">
+    <value>Employees yet to start objectives</value>
+  </data>
+  <data name="Progress_TeamReview_Completed" xml:space="preserve">
+    <value>Employees with locked review</value>
+  </data>
+  <data name="Progress_TeamReview_InProgress" xml:space="preserve">
+    <value>Employees review in progress</value>
+  </data>
+  <data name="Progress_TeamReview_Reopen" xml:space="preserve">
+    <value>Employees with reopened self review</value>
+  </data>
+  <data name="Progress_TeamReview_Total" xml:space="preserve">
+    <value>Total employee count</value>
+  </data>
+  <data name="Progress_TeamReview_YetToStart" xml:space="preserve">
+    <value>Employees review yet to start</value>
+  </data>
+  <data name="REOPEN" xml:space="preserve">
+    <value>REOPEN</value>
+  </data>
+  <data name="Reopened" xml:space="preserve">
+    <value>Reopened successfully</value>
+  </data>
+  <data name="ReportWarning" xml:space="preserve">
+    <value>Report Not Found</value>
+  </data>
+  <data name="StartDate" xml:space="preserve">
+    <value>Start Date</value>
+  </data>
+  <data name="StatusBarTitle" xml:space="preserve">
+    <value>Progress</value>
+  </data>
+  <data name="submitted" xml:space="preserve">
+    <value>Submitted successfully</value>
+  </data>
+  <data name="SupervisorName" xml:space="preserve">
+    <value>Manager Name </value>
+  </data>
+  <data name="TeamObjTitle" xml:space="preserve">
+    <value>2016 Team Objectives</value>
+  </data>
+  <data name="TeamRevwTitle" xml:space="preserve">
+    <value>2015 Team Reviews</value>
+  </data>
+  <data name="Title" xml:space="preserve">
+    <value>GOALS</value>
+  </data>
+  <data name="TopObjectivesCategory" xml:space="preserve">
+    <value>Category</value>
+  </data>
+  <data name="TopObjectivesTitle" xml:space="preserve">
+    <value>Title</value>
+  </data>
+  <data name="TopObjectivesWeight" xml:space="preserve">
+    <value>Weight (%)</value>
+  </data>
+  <data name="TotalWeight" xml:space="preserve">
+    <value>Total Weight:</value>
+  </data>
+  <data name="Weight" xml:space="preserve">
+    <value>WEIGHT %</value>
+  </data>
+  <data name="WeightAlert" xml:space="preserve">
+    <value>Total objective weight should not exceed 100</value>
+  </data>
+  <data name="WeightAlert2" xml:space="preserve">
+    <value>Total objective weight should meet 100%</value>
+  </data>
+  <data name="WeightedGoals" xml:space="preserve">
+    <value>All weighted goals should be submitted together</value>
+  </data>
+  <data name="WeightedGoalSubmitAlert" xml:space="preserve">
+    <value>All weighted goals should be submitted together</value>
+  </data>
+  <data name="WeightTotal" xml:space="preserve">
+    <value>Total objective weight should meet 100%</value>
+  </data>
+  <data name="YearsOfService" xml:space="preserve">
+    <value>Years of Service </value>
+  </data>
+  <data name="Progress_MyGoals_Text" xml:space="preserve">
+    <value>The above progress bar indicates your objective setting status</value>
+  </data>
+  <data name="Progress_MyTeamGoals_Text" xml:space="preserve">
+    <value>The above progress bar indicates your direct reports objective setting status</value>
+  </data>
+  <data name="Progress_MyReview_Text" xml:space="preserve">
+    <value>The above progress bar indicates your review setting status</value>
+  </data>
+  <data name="Progress_MyTeamReview_Text" xml:space="preserve">
+    <value>The above progress bar indicates your direct reports review setting status</value>
+  </data>
+  <data name="EmployeeName" xml:space="preserve">
+    <value>Employee Name</value>
+  </data>
+  <data name="CompletionEndDate" xml:space="preserve">
+    <value>Completion Date</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="MyObjectivesMenuID" xml:space="preserve">
+    <value>L62</value>
+  </data>
+  <data name="MyReviewMenuID" xml:space="preserve">
+    <value>L70</value>
+  </data>
+  <data name="TeamObjectiveMenuID" xml:space="preserve">
+    <value>L63</value>
+  </data>
+  <data name="TeamReviewMenuID" xml:space="preserve">
+    <value>L71</value>
+  </data>
+</root>

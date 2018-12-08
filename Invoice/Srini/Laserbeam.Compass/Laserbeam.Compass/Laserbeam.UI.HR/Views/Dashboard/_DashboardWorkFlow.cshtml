@@ -1,0 +1,340 @@
+﻿@model Laserbeam.UI.HR.Models.DashboardWorkFlowModel
+@{
+    var Header = "";
+    var Count = "";
+    var ApprovalCount = "";
+    if (ViewBag.Type == "Yet") { Header = "Manager yet to submit"; }
+    else if (ViewBag.Type == "Pending") { Header = "Manager yet to approve"; }
+    else if (ViewBag.Type == "Reopen") { Header = "Reopened Manager"; }
+    else if (ViewBag.Type == "Approved") { Header = "Approved Manager"; }
+    Count = Model.ManagerApproval.Count().ToString();
+    ApprovalCount = Model.TeamApproval.Count().ToString();
+}
+<link href="~/Content/Kendo/kendo.ext.css" rel="stylesheet" />
+<div class="modal-dialog" role="document">
+    <div class="modal-content">
+        <div class="modal-header modalheaderforbudget">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title"><i class="icon-workflow1 size19" aria-hidden="true"></i> Employee Approval Status</h4>
+        </div>
+        <div class="modal-body">
+            <div id="dashBoardWorkFlow">
+                <div class="panel db_panel" id="dashBoardWorkFlowPanel">
+                    <div class="db_content">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <!-- Nav tabs -->
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <ul class="nav nav-tabs mytabs" role="tablist">
+                                            <li role="presentation" class="active wf_tab1">
+                                                <a id="managerApprovalTab" href="#yet-to" aria-controls="yet-to" role="tab" data-toggle="tab">
+                                                    @Header <span class="badge stats">
+                                                        @Count
+                                                    </span>
+                                                </a>
+                                            </li>
+
+                                            @*<li role="presentation" class="wf_tab4">
+                                                <a id="teamApprovalTab" href="#approved" aria-controls="approved" role="tab" data-toggle="tab">
+                                                    Team Status
+                                                    <span class="badge stats">
+                                                        @ApprovalCount
+                                                    </span>
+                                                </a>
+                                            </li>*@
+                                        </ul>
+                                    </div>
+                                    <div class="col-md-6">
+
+                                        <div class="closeiconsection" id="approvalClear"><span><i class="fa fa-close"></i></span></div>
+                                        <div class="form-group">
+                                            <div class="input-group searchbaremployee">
+
+                                                @(Html.Kendo().AutoComplete().Name("approvalEmployeedetails")
+                    .DataTextField("ManagerName").Placeholder("Search by Employee Name or Employee ID")
+            .Filter(FilterType.Contains)
+                    .DataSource(datasource =>
+                    {
+                        datasource.Read(read =>
+                        {
+                            read.Action("GetApprovalEmployeeSearchData", "Dashboard").Data("GetApprovalReporteesParam").Type(HttpVerbs.Post);
+                        }).ServerFiltering(false);
+                    }).HtmlAttributes(new { @class = "form-control", id = "approvalEmployeedetails" })
+                .Events(events => events.Select("onSelect_approvalEmployeeSearch"))
+                                                )
+
+                                                <div class="input-group-addon"><i class="fa fa-search"></i></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Tab panes -->
+                                <div class="tab-content">
+                                    <div role="tabpanel" class="tab-pane active" id="yet-to">
+                                        <div class="table">
+                                            <table class="table table-striped wrkflowtable">
+                                                <thead>
+                                                    <tr>
+                                                        <th class="wt600">Managers</th>
+                                                        <th class="wt600"><div class="text-center">Employees Submitted vs Total Employees</div></th>
+                                                        <th class="wt600"></th>
+                                                        <th class="wt600"></th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach (var item in Model.ManagerApproval)
+                                                    {
+                                                        <tr emp-num="@(item.ManagerID)" id="yetTo_@(item.ManagerID)">
+                                                            <td><a onclick="onSelectNotification(@item.ManagerNum,'Compensation');" href="javascript:void(0);" data-attr="@item.ManagerNum">@item.ManagerName</a></td>
+                                                            <td align="center"><span>@item.ApprovalCount </span> / <span>@item.TotalCount</span> </td>
+                                                            <td class="project_progress">
+                                                                <div class="progress progress_sm">
+                                                                    <div class="progress-bar progress-bar-striped progress-bar-success" role="progressbar" data-transitiongoal="0" aria-valuenow="@item.ApprovalPct" style="width:@(item.ApprovalPct)%;"></div>
+                                                                </div>
+                                                                <small>@item.ApprovalPct% Complete</small>
+                                                            </td>
+                                                            @*<td><button onclick="callSendRemainder('@item.ManagerNum')" type="button" class="btn norm-btn btn-xs sendrem" disabled="disabled" data-toggle="modal" data-target="#RemMsg"><i class="fa fa-envelope-o" aria-hidden="true"></i> Send Reminder</button></td>*@
+                                                        </tr>
+                                                    }
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <!--Send Reminder Popup Starts -->
+                                    <div id="sendRemainderDiv" class="modal fade" role="dialog" aria-labelledby="myModalLabel" data-keyboard="false" data-backdrop="static"></div>
+
+
+                                    <!-- Workflow Team Status Section Begins -->
+                                    <!--Approved Popover Content Ends-->
+
+                                    <div role="tabpanel" class="tab-pane" id="approved">
+                                        <div class="table">
+                                            <table class="table table-striped teamstatustable">
+                                                <thead>
+                                                    <tr>
+                                                        <th class="wt600">Teams</th>
+                                                        <th class="wt600">Team status</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+
+                                                    @foreach (var item in Model.TeamApproval)
+                                                    {
+                                                        <tr emp-num="@(item.ManagerID)" id="teamApproval_@(item.ManagerID)">
+                                                            <td><a onclick="onSelectNotification(@item.ManagerNum,'Compensation');" href="javascript:void(0);" data-attr="@item.ManagerNum">@item.ManagerName</a></td>
+                                                            <td>
+                                                                <ul class="list-inline1 no-padding">
+                                                                    <li>
+                                                                        <div class="user-stat">
+                                                                            <div class="level-box">Level 1</div>
+                                                                            <span class="small-txt">
+
+                                                                                @if (item.LevelOne > 0)
+                                                                                {
+                                                                                    <a onclick="onSelectLevel(@item.ManagerNum,'1');" href="javascript:void(0);" data-trigger="click" data-toggle="popover" data-placement="top" rel="popover" data-popover-content="#approve-m1popup_1_@item.ManagerNum">
+                                                                                        <span class="txt-center">(@item.LevelOne)</span>
+                                                                                    </a>
+                                                                                }<span>&nbsp;</span>
+
+                                                                            </span>
+                                                                            <div id="approve-m1popup_1_@item.ManagerNum" class="hide">
+                                                                                <div id="approval_1_@item.ManagerNum"></div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </li>
+                                                                    @if (item.TopLevel >= 2)
+                                                                    {
+                                                                        <li>
+                                                                            <div class="user-stat">
+                                                                                <div class="level-box">Level 2</div>
+                                                                                <span class="small-txt">
+                                                                                    @if (item.LevelTwo > 0)
+                                                                                    {
+                                                                                        <a onclick="onSelectLevel(@item.ManagerNum,'2');" href="javascript:void(0);" data-trigger="click" data-toggle="popover" data-managernum="@(item.ManagerNum)" data-level="2" data-placement="top" rel="popover" data-popover-content="#approve-m1popup_2_@item.ManagerNum"><span class="txt-center"> (@item.LevelTwo)</span></a>
+
+                                                                                    }<span>&nbsp;</span>
+                                                                                </span>
+                                                                                <div id="approve-m1popup_2_@item.ManagerNum" class="hide">
+                                                                                    <div id="approval_2_@item.ManagerNum"></div>
+                                                                                </div>
+
+                                                                            </div>
+                                                                        </li>
+                                                                    }
+                                                                    @if (item.TopLevel >= 3)
+                                                                    {
+                                                                        <li>
+                                                                            <div class="user-stat">
+                                                                                <div class="level-box">Level 3</div>
+                                                                                <span class="small-txt">
+                                                                                    @if (item.LevelThree > 0)
+                                                                                    {
+
+                                                                                        <a onclick="onSelectLevel(@item.ManagerNum,'3');" href="javascript:void(0);" data-trigger="click" data-toggle="popover" data-placement="top" rel="popover" data-popover-content="#approve-m1popup_3_@item.ManagerNum"><span class="txt-center"> (@item.LevelThree)</span></a>
+
+                                                                                    }<span>&nbsp;</span>
+                                                                                </span>
+                                                                                <div id="approve-m1popup_3_@item.ManagerNum" class="hide">
+                                                                                    <div id="approval_3_@item.ManagerNum"></div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </li>
+                                                                    }
+                                                                    @if (item.TopLevel >= 4)
+                                                                    {
+                                                                        <li>
+                                                                            <div class="user-stat">
+                                                                                <div class="level-box">Level 4</div>
+                                                                                <span class="small-txt">
+                                                                                    @if (item.LevelFour > 0)
+                                                                                    {
+
+                                                                                        <a onclick="onSelectLevel(@item.ManagerNum,'4');" href="javascript:void(0);" data-trigger="click" data-toggle="popover" data-placement="top" rel="popover" data-popover-content="#approve-m1popup_4_@item.ManagerNum"><span class="txt-center"> (@item.LevelFour)</span></a>
+
+                                                                                    }<span>&nbsp;</span>
+                                                                                </span>
+                                                                                <div id="approve-m1popup_4_@item.ManagerNum" class="hide">
+                                                                                    <div id="approval_4_@item.ManagerNum"></div>
+                                                                                </div>
+
+                                                                            </div>
+                                                                        </li>
+                                                                    }
+                                                                    @if (item.TopLevel >= 5)
+                                                                    {
+                                                                        <li>
+                                                                            <div class="user-stat">
+                                                                                <div class="level-box">Level 5</div>
+                                                                                <span class="small-txt">
+                                                                                    @if (item.LevelFive > 0)
+                                                                                    {
+
+                                                                                        <a onclick="onSelectLevel(@item.ManagerNum,'5');" href="javascript:void(0);" data-trigger="click" data-toggle="popover" data-placement="top" rel="popover" data-popover-content="#approve-m1popup_5_@item.ManagerNum"><span class="txt-center"> (@item.LevelFive)</span></a>
+
+                                                                                    }<span>&nbsp;</span>
+                                                                                </span>
+                                                                                <div id="approve-m1popup_5_@item.ManagerNum" class="hide">
+                                                                                    <div id="approval_5_@item.ManagerNum"></div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </li>
+                                                                    }
+                                                                    @if (item.TopLevel >= 6)
+                                                                    {
+                                                                        <li>
+                                                                            <div class="user-stat">
+                                                                                <div class="level-box">Level 6</div>
+                                                                                <span class="small-txt">
+                                                                                    @if (item.LevelSix > 0)
+                                                                                    {
+
+                                                                                        <a onclick="onSelectLevel(@item.ManagerNum,'6');" href="javascript:void(0);" data-trigger="click" data-toggle="popover" data-placement="top" rel="popover" data-popover-content="#approve-m1popup_6_@item.ManagerNum"><span class="txt-center"> (@item.LevelSix)</span></a>
+
+                                                                                    }<span>&nbsp;</span>
+                                                                                </span>
+                                                                                <div id="approve-m1popup_6_@item.ManagerNum" class="hide">
+                                                                                    <div id="approval_6_@item.ManagerNum"></div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </li>
+                                                                    }
+                                                                    @if (item.TopLevel >= 7)
+                                                                    {
+                                                                        <li>
+                                                                            <div class="user-stat">
+                                                                                <div class="level-box">Level 7</div>
+                                                                                <span class="small-txt">
+                                                                                    @if (item.LevelSeven > 0)
+                                                                                    {
+
+                                                                                        <a onclick="onSelectLevel(@item.ManagerNum,'7');" href="javascript:void(0);" data-trigger="click" data-toggle="popover" data-placement="top" rel="popover" data-popover-content="#approve-m1popup_7_@item.ManagerNum"><span class="txt-center"> (@item.LevelSeven)</span></a>
+
+                                                                                    }<span>&nbsp;</span>
+                                                                                </span>
+                                                                                <div id="approve-m1popup_7_@item.ManagerNum" class="hide">
+                                                                                    <div id="approval_7_@item.ManagerNum"></div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </li>
+                                                                    }
+                                                                    @if (item.TopLevel >= 8)
+                                                                    {
+
+                                                                        <li>
+                                                                            <div class="user-stat">
+                                                                                <div class="level-box">Level 8</div>
+                                                                                <span class="small-txt">
+                                                                                    @if (item.LevelEight > 0)
+                                                                                    {
+
+                                                                                        <a onclick="onSelectLevel(@item.ManagerNum,'8');" href="javascript:void(0);" data-trigger="click" data-toggle="popover" data-placement="top" rel="popover" data-popover-content="#approve-m1popup_8_@item.ManagerNum"><span class="txt-center"> (@item.LevelEight)</span></a>
+
+                                                                                    }<span>&nbsp;</span>
+                                                                                </span>
+                                                                                <div id="approve-m1popup_8_@item.ManagerNum" class="hide">
+                                                                                    <div id="approval_8_@item.ManagerNum"></div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </li>
+                                                                    }
+                                                                    @if (item.TopLevel >= 9)
+                                                                    {
+                                                                        <li>
+                                                                            <div class="user-stat">
+                                                                                <div class="level-box">Level 9</div>
+                                                                                <span class="small-txt">
+                                                                                    @if (item.LevelNine > 0)
+                                                                                    {
+
+                                                                                        <a onclick="onSelectLevel(@item.ManagerNum,'9');" href="javascript:void(0);" data-trigger="click" data-toggle="popover" data-placement="top" rel="popover" data-popover-content="#approve-m1popup_9_@item.ManagerNum"><span class="txt-center"> (@item.LevelNine)</span></a>
+
+                                                                                    }<span>&nbsp;</span>
+                                                                                </span>
+                                                                                <div id="approve-m1popup_9_@item.ManagerNum" class="hide">
+                                                                                    <div id="approval_9_@item.ManagerNum"></div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </li>
+                                                                    }
+                                                                    @if (item.TopLevel >= 10)
+                                                                    {
+                                                                        <li>
+                                                                            <div class="user-stat">
+                                                                                <div class="level-box">Level 10</div>
+                                                                                <span class="small-txt">
+                                                                                    @if (item.LevelTen > 0)
+                                                                                    {
+
+                                                                                        <a onclick="onSelectLevel(@item.ManagerNum,'10');" href="javascript:void(0);" data-trigger="click" data-toggle="popover" data-placement="top" rel="popover" data-popover-content="#approve-m1popup_10_@item.ManagerNum"><span class="txt-center"> (@item.LevelTen)</span></a>
+
+                                                                                    }<span>&nbsp;</span>
+                                                                                </span>
+                                                                                <div id="approve-m1popup_10_@item.ManagerNum" class="hide">
+                                                                                    <div id="approval_10_@item.ManagerNum"></div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </li>}
+                                                                </ul>
+
+                                                            </td>
+                                                        </tr>
+                                                    }
+
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-cancel" data-dismiss="modal"><i class="fa fa-ban"></i> Cancel</button>
+        </div>
+    </div>
+</div>
+

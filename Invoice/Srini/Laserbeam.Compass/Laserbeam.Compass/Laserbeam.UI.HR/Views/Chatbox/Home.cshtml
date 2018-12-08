@@ -1,0 +1,517 @@
+﻿@{
+    ViewBag.Title = "Home";
+    Layout = "~/Views/Shared/_SiteLayout.cshtml";
+}
+
+<link href="~/Content/Chatbox.css" rel="stylesheet" />
+<link href="~/Content/font-awesome-animation.min.css" rel="stylesheet" />
+
+
+
+<style>
+    .alert {
+        display:none;
+    }
+</style>
+
+@*<button type="button" class="btn btn-danger btn-lg mdlFire" data-target="#modal-1">Chat</button>*@
+
+<!-- Modal -->
+<div class="modal fade mymodal" id="modal-1" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"> <i class='fa fa-times'></i> </button>
+                <button class="close modalMinimize"> <i class='fa fa-minus'></i> </button>
+                <h4 class="modal-title"><i class="fa fa-comments-o"></i> CompChat</h4>
+            </div>
+
+            <div class="modal-bodyy">
+                <div class="row nomargin">
+                    <div class="col-md-3">
+                        <div class="row topmyname">
+                            <div class="col-md-10">
+                                <div class="namesec">
+                                    <i class="fa fa-circle activegreen"></i> Rajitha Rajendran
+                                    <div class="dropdown">
+                                        <a href="#" id="dLabel" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <span class="fa fa-angle-down rightarrow"></span>
+                                        </a>
+                                        <ul class="dropdown-menu" aria-labelledby="dLabel">
+                                            <li><a href="#"><i class="fa fa-circle greenstatus rightpad10"></i> Available</a></li>
+                                            <li><a href="#"><i class="fa fa-circle redstatus rightpad10"></i> Do not disturb</a></li>
+                                            <li><a href="#"><i class="fa fa-circle orangestatus rightpad10"></i> Away</a></li>
+                                            <li role="separator" class="divider"></li>
+                                            <li><a href="#">Edit profile</a></li>
+                                            <li><a href="#">Help & Feedback</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <span class="bell fa fa-bell rightarrow"></span>
+                            </div>
+                        </div>
+                        <div class="row top-pad">
+                            <div class="col-md-12 searchtxtbox">
+                                <div class="input-icon">
+                                    <input type="text" class="form-control input-circle incircle" placeholder="Search by people">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row top-pad">
+                            <div class="col-md-12 nopad">
+                                <ul class="list-unstyled leftlistsection">
+                                    <li class="chattitleleft">people (5) @*<button type="button" class="btn btn-invite pull-right">Invite People <i class="fa fa-user-plus"></i></button>*@</li>
+                                    <li><a href="#"><i class="fa fa-circle greenstatus rightpad10"></i> Umadevi Kumarasamy<span class="timetxt">typing..</span> <span class="msgcount">5</span></a></li>
+                                    <li><a href="#"><i class="fa fa-circle orangestatus rightpad10"></i> Adhithya Chandrasekar </a></li>
+                                    <li><a href="#"><i class="fa fa-circle greenstatus rightpad10"></i> Karthick Ravichandran</a></li>
+                                    <li><a href="#"><i class="fa fa-circle-o greystatus rightpad10"></i> Malai Selvi @*<span class="timetxt">15mins ago</span>*@<span class="msgcount">2</span></a></li>
+                                    <li><a href="#"><i class="fa fa-circle orangestatus rightpad10"></i> Kirubanandan swaminathaan </a></li>
+                                    <li><a href="#"><i class="fa fa-circle greenstatus rightpad10"></i> Aishvarya Gunasekar</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="modal-body nopad">
+                            <div class="row portlet light bordered">
+                                <div class="col-md-12 portlet-title">
+                                    <div class="col-md-6 caption">
+                                        <span class="caption-subject font-hide"><img class="img-responsive img-circle userimg" src="~/Images/img1.jpg" /> <a class="namediv">Karthick Ravichandran</a><i class="fa fa-circle greenstatus greenico"></i></span>
+                                    </div>
+                                    <div class="col-md-6 actions text-right">
+                                        <button type="button" class="btn btn-call"> <i class="fa fa-phone"></i></button>
+                                        <button type="button" class="btn btn-call"> <i class="fa fa-video-camera"></i></button>
+                                        <div class="portlet-input input-inline">
+                                            <div class="input-icon padleft">
+                                                <input type="text" class="form-control input-circle incircle" placeholder="Search by keywords">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="portlet-body" id="chats">
+                                    <div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto; height: auto;">
+                                        <div class="scroller" style="height: auto; overflow: hidden; width: auto;" data-always-visible="1" data-rail-visible1="1" data-initialized="1">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="col-md-4 bordersec"></div>
+                                                    <div class="col-md-4 datesec text-center">
+                                                        January 26th, 2017
+                                                    </div>
+                                                    <div class="col-md-4 bordersec"></div>
+                                                </div>
+                                            </div>
+                                            <div class="row top-pad bottomborder">
+                                                <div class="col-md-12">
+                                                    <div class="col-md-1 noleftrightpad textfilled text-center">
+                                                        <a href="#">R</a>
+                                                    </div>
+                                                    <div class="col-md-11">
+                                                        <div class="row">
+                                                            <div class="col-md-6 bottom-pad mynametoppad">
+                                                                <a href="#" class="blockblack">
+                                                                    Rajitha Rajendran
+                                                                </a>
+                                                                <span>21:21</span>
+                                                            </div>
+                                                            <div class="col-md-6 text-right sharestarlink">
+                                                                <div class="btn-groups pull-right">
+                                                                    <button data-toggle="tooltip" data-placement="left" title="Tag"><i class="fa fa-tags"></i></button>
+                                                                    <button data-toggle="tooltip" data-placement="top" title="Star"><i class="fa fa-star"></i></button>
+                                                                    <button><i class="fa fa-smile-o"></i></button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-md-12 top-pad">
+                                                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi sem justo, facilisis vitae nibh in, sollicitudin egestas ipsum. Vestibulum aliquet sed augue ut ornare. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Phasellus elementum est nec lorem ultrices, et porttitor lorem ullamcorper. Aenean vitae mollis turpis. Mauris tortor est, dignissim in nisi vitae, tristique malesuada lorem. </p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row top-pad bottomborder mychats">
+                                                <div class="col-md-12">
+                                                    <div class="col-md-1 noleftrightpad textfilled text-center">
+                                                        <a href="#">K</a>
+                                                    </div>
+                                                    <div class="col-md-11">
+                                                        <div class="row">
+                                                            <div class="col-md-6 bottom-pad">
+                                                                <a href="#" class="blockblack">
+                                                                    Karthick Ravichandran
+                                                                </a>
+                                                                <span>22:10</span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-md-12 uploaditem">
+                                                                <img class="img-responsive" src="../../Images/img1.jpg" alt="" />
+                                                                <a>img1.png</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row top-pad bottomborder">
+                                                <div class="col-md-12">
+                                                    <div class="col-md-1 noleftrightpad textfilled text-center">
+                                                        <a href="#">R</a>
+                                                    </div>
+                                                    <div class="col-md-11">
+                                                        <div class="row">
+                                                            <div class="col-md-6 bottom-pad">
+                                                                <a href="#" class="blockblack">
+                                                                    Rajitha Rajendran
+                                                                </a>
+                                                                <span>21:21</span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="collapse" id="collapseedit">
+                                                            <div class="well">
+                                                                <textarea class='form-control' row="7" placeholder="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi sem justo, facilisis vitae nibh in, sollicitudin egestas ipsum. Vestibulum aliquet sed augue ut ornare."></textarea>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-md-12 top-pad">
+                                                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi sem justo, facilisis vitae nibh in, sollicitudin egestas ipsum. Vestibulum aliquet sed augue ut ornare. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Phasellus elementum est nec lorem ultrices, et porttitor lorem ullamcorper. Aenean vitae mollis turpis. Mauris tortor est, dignissim in nisi vitae, tristique malesuada lorem. </p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row chatsec nomargin">
+                                        <div class="col-md-1">
+                                            <button type="button" class="btn btn-groupcall"> <i class="fa fa-paperclip"></i></button>
+                                        </div>
+                                        <div class="col-md-10 chat-form noleftpad norightpad">
+                                            <div class="input-cont">
+                                                <input class="form-control" type="text" placeholder="Type a message here...">
+                                            </div>
+                                            <div class="btn-cont">
+                                                <span class="arrow"> </span>
+                                                <a href="" class="btn blue icn-only">
+                                                    <i class="fa fa-microphone"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-1">
+                                            <button type="button" class="btn btn-groupcall1"> <i class="fa fa-send"></i></button>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<div class="minmaxCon"></div>  
+
+
+
+
+
+
+
+
+
+
+
+<!-- Button trigger modal -->
+@*<button type="button" class="btn btn-primary btn-lg mdlFire" data-toggle="modal" data-target="#myModalChat">
+    Chat
+</button>*@
+
+<!-- Modal -->
+@*<div class="modal fade in" id="myModalChat" tabindex="-1" role="dialog" aria-labelledby="myModalChat">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h4 class="modal-title"><i class="fa fa-comments-o"></i> CompChat</h4>
+                    </div>
+                    <div class="col-md-6">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <button type="button" class="close"><i class="fa fa-window-restore"></i></button>
+                        <button type="button" class="close"><i class="fa fa-window-minimize"></i></button>
+                    </div>
+                </div>
+            </div>
+            <div class="row nomargin">
+                <div class="col-md-3">
+                    <div class="row topmyname">
+                        <div class="col-md-10">
+                            <div class="namesec">
+                                <i class="fa fa-circle activegreen"></i> Rajitha Rajendran
+                                <div class="dropdown">
+                                    <a href="#" id="dLabel" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <span class="fa fa-angle-down rightarrow"></span>
+                                    </a>
+                                    <ul class="dropdown-menu" aria-labelledby="dLabel">
+                                        <li><a href="#"><i class="fa fa-circle greenstatus rightpad10"></i> Available</a></li>
+                                        <li><a href="#"><i class="fa fa-circle redstatus rightpad10"></i> Do not disturb</a></li>
+                                        <li><a href="#"><i class="fa fa-circle orangestatus rightpad10"></i> Away</a></li>
+                                        <li role="separator" class="divider"></li>
+                                        <li><a href="#">Edit profile</a></li>
+                                        <li><a href="#">Help & Feedback</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <span class="bell fa fa-bell rightarrow"></span>
+                        </div>
+                    </div>
+                    <div class="row top-pad">
+                        <div class="col-md-12 searchtxtbox">
+                            <div class="input-icon">
+                                <input type="text" class="form-control input-circle incircle" placeholder="Search by people">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row top-pad">
+                        <div class="col-md-12 nopad">
+                            <ul class="list-unstyled leftlistsection">
+                                <li class="chattitleleft">people (5)</li>
+                                <li><a href="#"><i class="fa fa-circle greenstatus rightpad10"></i> Umadevi Kumarasamy<span class="timetxt">typing..</span> <span class="msgcount">5</span></a></li>
+                                <li><a href="#"><i class="fa fa-circle orangestatus rightpad10"></i> Adhithya Chandrasekar </a></li>
+                                <li><a href="#"><i class="fa fa-circle greenstatus rightpad10"></i> Karthick Ravichandran</a></li>
+                                <li><a href="#"><i class="fa fa-circle-o greystatus rightpad10"></i> Malai Selvi <span class="msgcount">2</span></a></li>
+                                <li><a href="#"><i class="fa fa-circle orangestatus rightpad10"></i> Kirubanandan swaminathaan </a></li>
+                                <li><a href="#"><i class="fa fa-circle greenstatus rightpad10"></i> Aishvarya Gunasekar</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-9">
+                    <div class="modal-body nopad">
+                        <div class="row portlet light bordered">
+                            <div class="col-md-12 portlet-title">
+                                <div class="col-md-6 caption">
+                                    <span class="caption-subject font-hide"><img class="img-responsive img-circle userimg" src="~/Images/img1.jpg" /> <a class="namediv">Karthick Ravichandran</a><i class="fa fa-circle greenstatus greenico"></i></span>
+                                </div>
+                                <div class="col-md-6 actions text-right">
+                                    <button type="button" class="btn btn-call"> <i class="fa fa-phone"></i></button>
+                                    <button type="button" class="btn btn-call"> <i class="fa fa-video-camera"></i></button>
+                                    <div class="portlet-input input-inline">
+                                        <div class="input-icon padleft">
+                                            <input type="text" class="form-control input-circle incircle" placeholder="Search by keywords">
+                                        </div>
+                                        </div>
+                                </div>
+                            </div>
+                            <div class="portlet-body" id="chats">
+                                <div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto; height: auto;">
+                                    <div class="scroller" style="height: auto; overflow: hidden; width: auto;" data-always-visible="1" data-rail-visible1="1" data-initialized="1">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="col-md-4 bordersec"></div>
+                                                <div class="col-md-4 datesec text-center">
+                                                    January 26th, 2017
+                                                </div>
+                                                <div class="col-md-4 bordersec"></div>
+                                            </div>
+                                        </div>
+                                        <div class="row top-pad bottomborder">
+                                            <div class="col-md-12">
+                                                <div class="col-md-1 noleftrightpad textfilled text-center">
+                                                    <a href="#">F</a>
+                                                </div>
+                                                <div class="col-md-11">
+                                                    <div class="row">
+                                                        <div class="col-md-6 bottom-pad mynametoppad">
+                                                            <a href="#" class="blockblack">
+                                                                Rajitha Rajendran
+                                                            </a>
+                                                            <span>21:21</span>
+                                                        </div>
+                                                        <div class="col-md-6 text-right sharestarlink">
+                                                            <div class="btn-groups pull-right">
+                                                                <button data-toggle="tooltip" data-placement="left" title="Tag"><i class="fa fa-tags"></i></button>
+                                                                <button data-toggle="tooltip" data-placement="top" title="Star"><i class="fa fa-star"></i></button>
+                                                                <button><i class="fa fa-smile-o"></i></button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-12 top-pad">
+                                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi sem justo, facilisis vitae nibh in, sollicitudin egestas ipsum. Vestibulum aliquet sed augue ut ornare. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Phasellus elementum est nec lorem ultrices, et porttitor lorem ullamcorper. Aenean vitae mollis turpis. Mauris tortor est, dignissim in nisi vitae, tristique malesuada lorem. </p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row top-pad bottomborder mychats">
+                                            <div class="col-md-12">
+                                                <div class="col-md-1 noleftrightpad textfilled text-center">
+                                                    <a href="#">F</a>
+                                                </div>
+                                                <div class="col-md-11">
+                                                    <div class="row">
+                                                        <div class="col-md-6 bottom-pad">
+                                                            <a href="#" class="blockblack">
+                                                                Karthick Ravichandran
+                                                            </a>
+                                                            <span>22:10</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-12 uploaditem">
+                                                            <img class="img-responsive" src="../../Images/img1.jpg" alt="" />
+                                                            <a>img1.png</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row top-pad bottomborder">
+                                            <div class="col-md-12">
+                                                <div class="col-md-1 noleftrightpad textfilled text-center">
+                                                    <a href="#">F</a>
+                                                </div>
+                                                <div class="col-md-11">
+                                                    <div class="row">
+                                                        <div class="col-md-6 bottom-pad">
+                                                            <a href="#" class="blockblack">
+                                                                Rajitha Rajendran
+                                                            </a>
+                                                            <span>21:21</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="collapse" id="collapseedit">
+                                                        <div class="well">
+                                                            <textarea class='form-control' row="7" placeholder="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi sem justo, facilisis vitae nibh in, sollicitudin egestas ipsum. Vestibulum aliquet sed augue ut ornare."></textarea>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-12 top-pad">
+                                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi sem justo, facilisis vitae nibh in, sollicitudin egestas ipsum. Vestibulum aliquet sed augue ut ornare. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Phasellus elementum est nec lorem ultrices, et porttitor lorem ullamcorper. Aenean vitae mollis turpis. Mauris tortor est, dignissim in nisi vitae, tristique malesuada lorem. </p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row chatsec nomargin">
+                                    <div class="col-md-1">
+                                        <button type="button" class="btn btn-groupcall"> <i class="fa fa-paperclip"></i></button>
+                                    </div>
+                                    <div class="col-md-10 chat-form noleftpad norightpad">
+                                        <div class="input-cont">
+                                            <input class="form-control" type="text" placeholder="Type a message here...">
+                                        </div>
+                                        <div class="btn-cont">
+                                            <span class="arrow"> </span>
+                                            <a href="" class="btn blue icn-only">
+                                                <i class="fa fa-microphone"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-1">
+                                        <button type="button" class="btn btn-groupcall1"> <i class="fa fa-send"></i></button>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>*@
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $(".dropdown").click(function (e) {
+            e.preventDefault();
+            var $this = $(this).children(".dropdown-content");
+            $(".dropdown-content:visible").not($this).slideToggle(200); //Close submenu already opened
+            $this.slideToggle(200); //Open the new submenu
+        });
+    });
+
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+    })
+</script>
+<!--script for minimize-->
+<script>
+
+    $(document).ready(function () {
+
+
+        var $content, $modal, $apnData, $modalCon;
+
+        $content = $(".min");
+
+
+        //To fire modal
+        $(".mdlFire").click(function (e) {
+
+            e.preventDefault();
+
+            var $id = $(this).attr("data-target");
+
+            $($id).modal({ backdrop: false, keyboard: false });
+
+        });
+
+
+        $(".modalMinimize").on("click", function () {
+
+            $modalCon = $(this).closest(".mymodal").attr("id");
+
+            $apnData = $(this).closest(".mymodal");
+
+            $modal = "#" + $modalCon;
+
+            $(".modal-backdrop").addClass("display-none");
+
+            $($modal).toggleClass("min");
+
+            if ($($modal).hasClass("min")) {
+
+                $(".minmaxCon").append($apnData);
+
+                $(this).find("i").toggleClass('fa-minus').toggleClass('fa-clone');
+
+            }
+            else {
+
+                $(".container").append($apnData);
+
+                $(this).find("i").toggleClass('fa-clone').toggleClass('fa-minus');
+
+            };
+
+        });
+
+        $("button[data-dismiss='modal']").click(function () {
+
+            $(this).closest(".mymodal").removeClass("min");
+
+            $(".container").removeClass($apnData);
+
+            $(this).next('.modalMinimize').find("i").removeClass('fa fa-clone').addClass('fa fa-minus');
+
+        });
+
+    });
+
+</script>

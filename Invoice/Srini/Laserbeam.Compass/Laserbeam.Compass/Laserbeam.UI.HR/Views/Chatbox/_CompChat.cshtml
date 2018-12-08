@@ -1,0 +1,133 @@
+﻿@model Laserbeam.BusinessObject.Common.ChatBoxModel
+    <script>
+        var onLoad = true;        
+    </script>
+<link href="~/Content/Chatbox.css" rel="stylesheet" />
+<link href="~/Content/font-awesome-animation.min.css" rel="stylesheet" />
+<div class="modal fade mymodal" id="modal-1" role="dialog">
+    <div class="modal-dialog chatboxwidth">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"> <i class='fa fa-times'></i> </button>
+                <button class="close modalMinimize"> <i class='fa fa-minus'></i> </button>
+                <h4 class="modal-title"><i class="fa fa-comments-o"></i> CompChat</h4>
+            </div>
+
+            <div class="modal-bodyy">
+                <div class="row nomargin">
+                    <div class="col-md-3 borderright">
+                        <div class="row topmyname">
+                            <div class="col-md-10">
+                                <div id="thisdiv" class="namesec">
+                                    <span class="bluecircle bluecirclespacetop">@Model.loggedInUserShortName</span>  @Model.loggedInUserName <i id="username" class="@(Model.UserStatus == 1 ? "fa fa-circle greenstatus rightpad10" : Model.UserStatus == 2 ? "fa fa-circle redstatus rightpad10" : "fa fa-circle orangestatus rightpad10")"></i>
+                                    <div class="dropdown" id="chat-status-drpdwn">
+                                        <a href="#" id="dLabel" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <span class="fa fa-angle-down rightarrow"></span>
+                                        </a>
+                                        <ul id="Status" class="dropdown-menu" aria-labelledby="dLabel">
+                                            @foreach (var item in Model.chatStatusList)
+                                            {
+                                                <li id="lichatStatus" onclick="chatStatus(@item.ID)"><a href="#"><i class="@(item.ID == 1 ? "fa fa-circle greenstatus rightpad10" : item.ID == 2 ? "fa fa-circle redstatus rightpad10" : "fa fa-circle orangestatus rightpad10")"></i> @item.ChatStatus1</a></li>
+
+                                            }
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <span class="bell fa fa-bell rightarrow"></span>
+                            </div>
+                        </div>
+                        <div id="RenderManagerDetails">
+                            @{Html.RenderAction("_ChatManagerDetails", "Chatbox", new { }); }
+                        </div>
+                    </div>
+
+                    <div class="col-md-9" id="RenderChatData">
+                        @{Html.RenderAction("_ChatDetails", "Chatbox", new { selectedUserNum = Model.chatAccountModel[0].Usernum, selectedUserName = Model.chatAccountModel[0].UserName });}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="minmaxCon"></div>
+
+<script type="text/javascript">
+    function chatStatus(id) {
+        var usernum =@Model.loggeedInUserNum
+        $.ajax({
+            url: '../Chatbox/UpdateStatus',
+            data: { ID: id, UserNum: usernum },
+            type: "post",
+            async: true,
+            cache: false,
+            success: function (result) {
+                if (result == 1) {
+                    $("#username").removeClass("fa fa-circle redstatus rightpad10")
+                    $("#username").removeClass("fa fa-circle orangestatus rightpad10")
+                    $("#username").addClass("fa fa-circle greenstatus rightpad10")
+
+                }
+                else if (result == 2) {
+                    $("#username").removeClass("fa fa-circle greenstatus rightpad10")
+                    $("#username").removeClass("fa fa-circle orangestatus rightpad10")
+                    $("#username").addClass("fa fa-circle redstatus rightpad10")
+                }
+                else {
+                    $("#username").removeClass("fa fa-circle greenstatus rightpad10")
+                    $("#username").removeClass("fa fa-circle redstatus rightpad10")
+                    $("#username").addClass("fa fa-circle orangestatus rightpad10")
+                }
+
+            }
+        });
+    };
+
+
+    $(document).ready(function () {
+        $("#chat-status-drpdwn").click(function (e) {
+            e.preventDefault();
+            var $this = $(this).children(".dropdown-content");
+            $(".dropdown-content:visible").not($this).slideToggle(200); //Close submenu already opened
+            $this.slideToggle(200); //Open the new submenu
+        });
+    });
+
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+    })
+</script>
+<!--script for minimize-->
+<script>
+
+    $(document).ready(function () {
+        var $content, $modal, $apnData, $modalCon;
+        $(".modalMinimize").on("click", function () {
+            $modalCon = $(this).closest(".mymodal").attr("id");
+            $apnData = $(this).closest(".mymodal");
+            $modal = "#" + $modalCon;
+            $(".modal-backdrop").addClass("display-none");
+            $($modal).toggleClass("min");
+            if ($($modal).hasClass("min")) {
+                $(".minmaxCon").append($apnData);
+                $("#sendsection").hide();
+                $(this).find("i").toggleClass('fa-minus').toggleClass('fa-clone');
+            }
+            else {
+                $(".container").append($apnData);
+                $("#sendsection").show();
+                $(this).find("i").toggleClass('fa-clone').toggleClass('fa-minus');
+            };
+
+        });
+
+        $("button[data-dismiss='modal']").click(function () {
+            $(this).closest(".mymodal").removeClass("min");
+            $(".container").removeClass($apnData);
+            $(this).next('.modalMinimize').find("i").removeClass('fa fa-clone').addClass('fa fa-minus');
+        });
+
+    });
+
+</script>

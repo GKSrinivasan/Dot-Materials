@@ -1,0 +1,437 @@
+﻿@using Laserbeam.Resource.HR.CommonResources;
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Compass Rewards</title>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
+    <link rel="icon" type="image/png" sizes="192x192" href="~/Images/favicon.ico">
+
+    @Styles.Render("~/Content/Common")
+    @Styles.Render("~/Content/SiteCommon")
+    <link href="~/Content/TitleBar.css" rel="stylesheet" />
+    <link href="~/Content/icon-styles.css" rel="stylesheet" />
+    <style>
+        /*.removeZIndex {
+            z-index: 0 !important;
+        }*/
+
+        .close, .close:hover {
+            color: white;
+        }
+        .menupaychangeicon {
+            background-image: url('../../Images/mm-any-time-change-gray.png');
+            background-repeat: no-repeat;
+            background-position-x: center;
+        }
+
+            .menupaychangeicon:hover {background-image: url('../../Images/mm-any-time-change.png'); }
+
+        .menupaychange {
+            padding-top: 57px !important;
+        }
+    </style>
+    @Scripts.Render("~/Scripts/Common")
+    @Scripts.Render("~/Scripts/SiteCommon")
+    @RenderSection("ScriptReference", false)
+    <script src="~/Scripts/Timeout.js"></script>
+    <script src="~/Scripts/TitleBar.min.js"></script>
+    <script type="text/javascript">
+        var isBrowserClose = true;
+        var globalPageConstants = { GlobalWarningMessage: '@Html.Raw(GlobalResource.warningMessage)', GlobalSaveMessage: '@GlobalResource.MessageAlert' }
+    </script>
+</head>
+
+
+<body>
+    <div class="row nomargin">
+        <div class="col-md-12 neg-margin noleftpad norightpad" style="z-index:33333">
+            <div class="alert alert-success alert-dismissable fade in alerttoppad" id="successMessageDiv" style="display:none">
+                <span href="#" class="close" onclick="closeSaveWarning()">&times;</span>
+                <div id="idSuccessMessage"></div>
+            </div>
+            <div class="alert alert-warning alert-dismissable fade in alerttoppad" id="warningMessageDiv" style="display:none">
+                <a href="#" class="close" onclick="closeWarning()">&times;</a>
+                <div id="idwarningMessage"></div>
+            </div>
+            <div class="alert alert-danger alert-dismissable fade in alerttoppad" id="errorMessageDiv" style="display:none">
+                <a href="#" class="close" onclick="closeerrorWarning()">&times;</a>
+                <div id="iderrorMessage"></div>
+            </div>
+            <div class="alert alert-info alert-dismissable fade in alerttoppad" id="infoMessageDiv" style="display:none">
+                <a href="#" class="close" onclick="closeInfo()">&times;</a>
+                <div id="idinfoMessage"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-full">
+
+        @*<div class="line-bar-container" data-purpose="line-bar-container">
+                <a role="button" data-toggle="collapse" href="#CollapseTopbar" aria-expanded="false" aria-controls="CollapseTopbar" class="line-bar-border"></a>
+                <div class="collapse" id="CollapseTopbar">
+                    <div class="alert alert-bluecolor alert-dismissable fade in alerttoppad" id="">
+                        <a class="close" data-toggle="collapse" href="#CollapseTopbar" aria-expanded="false" aria-controls="CollapseTopbar">&times;</a>
+                        <strong>Danger!</strong> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla ullamcorper, nisl id dapibus gravida, mauris lacus vestibulum eros, vitae auctor dui leo et nibh
+                    </div>
+                </div>
+            </div>*@
+        <nav class="navbar navbar-default bluebg navbar-fixed-top">
+            <div class="container-fluid whiteebg">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div id="divtoggle" class="navbar-header">
+                    <button id="btnsitemenutoggle" type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#menugrid" aria-expanded="false">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+
+
+                    @*<a class="navbar-brand" href="#"><img class="img-responsive" alt="logo" src='@Url.Content("~/Images/Logo/" + ViewContext.GetTenant() + ".jpg")' onerror="this.onerror=null;this.src='@Url.Content("~/Images/Logo/" + ViewContext.GetTenant() + ".png")';" height="60" /></a>*@
+@if (ViewContext.GetUserRole() == "Super Admin")
+{
+                    <a class="navbar-brand" id="profileHome" href="#">
+                        <img id="imgprofileHome" src="@Url.Content(ViewContext.GetTenantLogo())" class="img-responsive center-block" alt="">
+                    </a>
+}
+@if (ViewContext.GetUserRole() != "Super Admin")
+{
+    
+        <img id="imgprofileHome" src="@Url.Content(ViewContext.GetTenantLogo())" class="img-responsive center-block" alt="">
+  
+}
+                    @*<a class="navbar-brand" href="#"><img src='@Url.Content("~/Images/Logo/" + ViewContext.GetTenant() + ".jpg")' onerror="this.onerror=null;this.src='@Url.Content(" ~ />Images/Logo/" + ViewContext.GetTenant() + ".png")';" class="img-responsive center-block" alt="logo"></a>*@
+                </div>
+
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse" id="menugrid">
+                    <ul class="nav navbar-nav navbarnav headermenus">
+                        <li class="active"><a data-linkname="Compensation" title="Compensation" href="@Url.Action("DashboardView", "Dashboard")" id="home">@*<i class="icon icon-home-icon"></i>*@ Home <span class="sr-only">(current)</span></a></li>
+                        @if (ViewContext.GetUserRole() == "Super Admin" || ViewContext.GetUserRole() == "Admin")
+                        {
+                            <li class="dropdown mega-dropdown menudrpdwn" id="adminSection">
+                                <a href="#" class="dropdown-toggle" id="administration" data-toggle="dropdown">@*<i class="icon icon-admin-icon"></i>*@ Administration <span class="fa fa-angle-down menuheaderangledown"></span></a>
+
+                                <div class="row dropdown-menu mega-dropdown-menu menulg">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <div class="row">
+                                            <div class="col-md-12 col-xs-12">
+                                                <div class="col-md-12 col-xs-12 titlesec text-left">Manage data</div>
+                                            </div>
+                                        </div>
+                                        <div class="row top-pad">
+                                            <div class="col-md-12 col-xs-12">
+                                                <div class="col-sm-4 col-md-4 col-xs-6 text-center noleftrightpad">
+                                                    <div class="col-md-12 col-xs-12 fiveleftrightpad">
+                                                        <a id="lnksiteworkforce" data-linkname="Workforce" title="Workforce" href="@Url.Action("Home", "Workforce")">
+                                                            <div class="col-md-12 col-xs-12 graybg menuworkforce" id="menuworkforce">
+                                                                <div class="menuadminicon menuworkforceicon"><i class="icon-workforce"></i></div>
+                                                                <div class="menuadmintitle">Workforce</div>
+                                                            </div>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-4 col-md-4 col-xs-6 text-center noleftrightpad">
+                                                    <div class="col-md-12 col-xs-12 fiveleftrightpad">
+                                                        <a id="lnksiteexchangerate" data-linkname="ExchangeRate" title="ExchangeRate" href="@Url.Action("Home", "ExchangeRate")">
+                                                            <div class="col-md-12 col-xs-12 graybg menuexchangerate" id="menuexchangerate">
+                                                                <div class="menuadminicon menuexchangerateicon"><i class="icon-mm-exchrate1"></i></div>
+                                                                <div class="menuadmintitle">Exchange Rate</div>
+                                                            </div>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-4 col-md-4 col-xs-6 text-center noleftrightpad">
+                                                    <div class="col-md-12 fiveleftrightpad">
+                                                        <a id="lnksiteAccessControl" data-linkname="Access Control" title="Access Control" href="@Url.Action("Home", "UserManagement")">
+                                                            <div class="col-md-12 col-xs-12 graybg menumanageuser" id="menumanageuser">
+                                                                <div class="menuadminicon menumanageusericon"><i class="icon-mm-users"></i></div>
+                                                                <div class="menuadmintitle">Access Control</div>
+                                                            </div>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row top-mini-pad">
+                                            <div class="col-md-12 col-xs-12">
+                                                @*<div class="col-sm-4 col-md-4 col-xs-6 text-center noleftrightpad">
+                                                        <div class="col-md-12 fiveleftrightpad">
+                                                            <a data-linkname="MarketPayRange" title="MarketPayRange" href="@Url.Action("Home", "MarketPayRange")">
+                                                                <div class="col-md-12 col-xs-12 graybg menumarketpayrange">
+                                                                    <div class="menuadminicon menumarketpayrangeicon"></div>
+                                                                    <div class="menuadmintitle">Market Pay Range</div>
+                                                                </div>
+                                                            </a>
+                                                        </div>
+                                                    </div>*@
+                                                <div class="col-sm-4 col-md-4 col-xs-6 text-center noleftrightpad">
+                                                    <div class="col-md-12 fiveleftrightpad">
+                                                        <a id="lnkWorkflow" data-linkname="Workflow" title="Workflow" href="@Url.Action("Home", "Workflow")">
+                                                            <div class="col-md-12 col-xs-12 graybg menuworkflow" id="menuworkflow">
+                                                                <div class="menuadminicon menuworkflowicon"><i class="icon-workflow1"></i></div>
+                                                                <div class="menuadmintitle">Workflow</div>
+                                                            </div>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-4 col-md-4 col-xs-6 text-center noleftrightpad">
+                                                    <div class="col-md-12 fiveleftrightpad">
+                                                        <a id="lnksiteRating" data-linkname="Rating" title="Rating" href="@Url.Action("Home", "Rating")">
+                                                            <div class="col-md-12 col-xs-12 graybg menurating" id="menurating">
+                                                                <div class="menuadminicon menuratingicon"><i class="fa fa-star" aria-hidden="true"></i></div>
+                                                                <div class="menuadmintitle">Rating</div>
+                                                            </div>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <div class="row">
+                                            <div class="col-md-12 col-xs-12">
+                                                <div class="col-md-12 col-xs-12 text-left titlesec titlesec1">Settings</div>
+                                            </div>
+                                        </div>
+                                        <div class="row top-pad">
+                                            <div class="col-md-12 col-xs-12">
+                                                <div class="col-sm-4 col-md-4 col-xs-6 text-center greyborder noleftrightpad ">
+                                                    <div class="col-md-12 fiveleftrightpad">
+                                                        <a id="lnkManageRules" data-linkname="ManageRules" title="ManageRules" href="@Url.Action("Home", "ManageRules")">
+                                                            <div class="col-md-12 graybg menurules" id="menurules">
+                                                                <div class="menuadminicon menurulesicon"><i class="fa fa-cogs" aria-hidden="true"></i></div>
+                                                                <div class="menuadmintitle">Rules</div>
+                                                            </div>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-4 col-md-4 col-xs-6 text-center noleftrightpad">
+                                                    <div class="col-md-12 fiveleftrightpad">
+                                                        <a id="lnksiteBudget" data-linkname="Budget" title="Budget" href="@Url.Action("Home", "BudgetPlan")">
+                                                            <div class="col-md-12 graybg menubudget" id="menubudget">
+                                                                <div class="menuadminicon menubudgeticon"><i class="icon-mm-budget"></i></div>
+                                                                <div class="menuadmintitle">Budget Plan</div>
+                                                            </div>
+                                                        </a>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-sm-4 col-md-4 col-xs-6 text-center greyborder noleftrightpad">
+                                                    <div class="col-md-12 fiveleftrightpad">
+                                                        <a id="lnksiteCommunication" data-linkname="Communication" title="Communication" href="@Url.Action("Home", "Communication")">
+                                                            <div class="col-md-12 graybg menucommunication" id="menucommunication">
+                                                                <div class="menuadminicon menucommunicationicon"><i class="icon-mm-customize-1"></i></div>
+                                                                <div class="menuadmintitle">Communication</div>
+                                                            </div>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row top-mini-pad">
+                                            <div class="col-md-12 col-xs-12">
+                                                <div class="col-sm-4 col-md-4 col-xs-6 text-center noleftrightpad">
+                                                    <div class="col-md-12 fiveleftrightpad">
+                                                        <a id="lnksitePageCustomization" data-linkname="PageCustomization" title="PageCustomization" href="@Url.Action("Home", "PageCustomization")">
+                                                            <div class="col-md-12 col-xs-12 graybg menucustomizeview" id="menucustomizeview">
+                                                                <div class="menuadminicon menucustomizeviewicon"><i class="icon-mm-commnbig"></i></div>
+                                                                <div class="menuadmintitle">Customize View</div>
+                                                            </div>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        }
+
+                        @* To Enable any Time Pay Change Folow the Step 1-3 which is below*@
+                        <!-- #region AnyTimePayChange -->
+                        <li class="dropdown menudrpdwn">
+                            <a href="#" class="dropdown-toggle rewardstoggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">@*<img src="~/Images/rewardicon.png" alt="icon" />*@ @*<i class="icon icon-rewards-icon"></i>*@ Rewards <span class="fa fa-angle-down menuheaderangledown"></span></a>
+                            <div class="row dropdown-menu usermenu" style="width:100% !important">
+                                @* Step:1. Change the style width : 300% *@
+                                <div class="col-md-12 col-sm-12 col-xs-12">
+                                    <div class="row top-pad">
+                                        <div class="col-md-12 col-xs-12">
+                                            <div class="col-md-12 col-xs-12 text-center noleftrightpad">
+                                                @*Step:2.  comment this and un cooment the below line*@
+                                                @*<div class="col-md-6 col-xs-6 text-center noleftrightpad">*@
+                                                <div class="col-md-12 col-xs-12 fiveleftrightpad">
+                                                    <div class="col-md-12 col-xs-12 graybg menurecommendincrease" id="menurecommendincrease">
+                                                        <a data-linkname="Compensation" title="Compensation" href="@Url.Action("Home", "Compensation")">
+                                                            <div class="menuadminicon menurewardicon"><i class="icon-merit-icon"></i></div>
+                                                            <div class="menuadmintitle menurewardtitle">Recommend Increase</div>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-6 col-xs-6 text-center noleftrightpad" style="display:none;">
+                                                @*Step:2. Remove Display: none*@
+                                                <div class="col-md-12 col-xs-12 fiveleftrightpad">
+                                                    <div class="col-md-12 col-xs-12 graybg menupaychangeicon" id="menupaychange">
+                                                        <a data-linkname=">PersonnelActionNotice" target="_blank" title="Personnel Action Notice" href="@Url.Action("PayChange", "Compensation")">
+                                                            <div class="menuadminicon"><i class="menupaychangeicon"></i></div>
+                                                            <div class="menuadmintitle menurewardtitle menupaychange">Personnel Action Notice</div>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <!--  #endregion -->
+
+                        <li class="" id="menureanalytic">
+                            <a id="lnksitemenureanalytic" data-linkname="Compensation" title="Compensation" href="@Url.Action("Home", "Analytics")">@*<i class="icon icon-analytics-icon"></i>*@ Analytics</a>
+                        </li>
+                    </ul>
+
+                    <div id="ajaxLoadingPanel" class="loadingdiv" style="margin: 0; padding: 0px; position: fixed;TEXT-ALIGN: CENTER; right: 0px; top: 0px !important; width: 100%; height: 100%; background-color: white; z-index: 33333; opacity: 1;">
+                        <img id="imgsiteajaxLoadingPanel" style="color: White;TEXT-ALIGN: CENTER;POSITION: RELATIVE;TOP: 31VH;LEFT: auto;" src="~/Images/Loadingcogs.gif" />
+                    </div>
+
+                    @*<div id="ajaxLoadingPanel" class="img-responsive text-center" style="z-index:99999">
+                            <img src="~/Images/Loading8.gif"  class="loader-anim"/>
+                        </div>*@
+
+
+
+                    <ul class="nav navbar-nav navbar-right">
+                        @{Html.RenderAction("GetTitleBarData", "Dashboard", new { moduleName = ViewContext.RouteData.Values["controller"].ToString() });}
+
+                    </ul>
+                </div><!-- /.navbar-collapse -->
+
+            </div><!-- /.container-fluid -->
+        </nav>
+
+    </div>
+    <div class="container-full">
+        <div class="row nomargin">
+            <div class="col-md-12 noleftpad norightpad">
+                <!--alert for upload employee-->
+                @if (ViewContext.GetIsSampleData())
+                {
+                    <div class="alert alert-danger alert-dismissable fade in alerttoppad" style="background:#66bb6a !important;position:relative; font-size:15px;top: 54px;border: none;" id="WorkforceMessageDiv">
+                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                        <div class="row">
+                            <div class="col-md-1"></div>
+                            <div class="col-md-8">
+                                Do you want to setup compensation data fields & upload your employee information into the tool? <br />
+                                <i><u>Note:</u> Compass Cloud does not store your organization's employee information beyond trial period.</i>
+
+                            </div>
+                            <div class="col-md-3 text-left" style="position: relative;bottom: 10px;"><a href="@Url.Action("Home", "Workforce", new { clearData = true })" class="orangebtn">Click here</a></div>
+                        </div>
+                    </div>
+                }
+                <!--end alert for upload employee-->
+            </div>
+        </div>
+    </div>
+    <!--alert msg-->
+    @*<div class="row nomargin">
+            <div class="col-md-12 neg-margin noleftpad norightpad">
+                <div class="alert alert-success alert-dismissable fade in alerttoppad" id="successMessageDiv">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                    <div id="idSuccessMessage"></div>
+                </div>
+                <div class="alert alert-warning alert-dismissable fade in alerttoppad" id="warningMessageDiv">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                    <div id="idwarningMessage"></div>
+                </div>
+                <div class="alert alert-danger alert-dismissable fade in alerttoppad" id="errorMessageDiv">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                    <strong>Danger!</strong> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla ullamcorper, nisl id dapibus gravida, mauris lacus vestibulum eros, vitae auctor dui leo et nibh
+                </div>
+                <div class="alert alert-info alert-dismissable fade in alerttoppad" id="infoMessageDiv">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                    <div id="idinfoMessage"></div>
+                </div>
+            </div>
+        </div>*@
+
+    <!--alert msg end-->
+
+
+
+    <div class="content-section container-fluid">
+        @RenderBody()
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="timeoutPopup" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header bg-red">
+                    <h3><span class="heading-toppad"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Automatic Session Logout</span></h3>
+                </div>
+                <div class="modal-body">
+                    <div class="img-responsive text-center">
+                        @*<img src="~/Images/clock-icon.png">*@
+                        <img src="~/Images/compass-clock.gif">
+                    </div>
+                    @*<div class="big21b t-center">You will be logged Out in <span id="count-down"></span>. If the session expires, you will need to start over.</div>*@
+                    <p class="big21b t-center">You will be logged out in <span id="divCountDown" class="timeClass text-center"></span>. If the session expires, you will need to start over.</p>
+                </div>
+
+
+
+                <div class="modal-footer" id="footer">
+                    <div class="session-btn" style="text-align:center; padding:0 20px;">
+                        @*<a href="#" id="btnRefresh" onclick="javascript: return refreshPage();">Continue Session</a>*@
+                        <button type="button" class="btn timeout-btn btn-lg btn-block" id="btnRefresh" onclick="javascript: return refreshPage();">Continue Session</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="ChatBoxPopup"></div>
+    <footer class="footer navbar-fixed-bottom">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-4 col-sm-4 col-xs-12 footer-left">
+                    &copy; Laserbeam Software. All Rights reserved.
+                </div>
+                <div class="col-md-4 col-sm-4 col-xs-12 text-center footer-middle">
+                    <div id="theTime" title="Click to refresh timer" class="timeClass text-center" onclick="refresh();" onmouseover="this.style.cursor='pointer'" onmouseout="this.style.cursor='default' " runat="server">
+                    </div>
+                    This page is best viewed with Microsoft Internet Explorer 11.0 or higher or Google Chrome.
+                </div>
+                <div class="col-md-4 col-sm-4 col-xs-12 text-right footer-right">
+                    Powered by <img src="~/Images/favicon.png" alt="logo" />
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>
+<script type="text/javascript">
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+    })
+    $(document).ready(function () {
+        //WorkforceMessage();
+    });
+    //window.setTimeout(function () {
+    //    debugger;
+    //    $(".custom-alert").alert('close'); <--- Do not use this
+
+    //    $(".alert").slideUp(500, function () {
+    //        $(this).remove();
+    //    });
+    //}, 10000);
+</script>

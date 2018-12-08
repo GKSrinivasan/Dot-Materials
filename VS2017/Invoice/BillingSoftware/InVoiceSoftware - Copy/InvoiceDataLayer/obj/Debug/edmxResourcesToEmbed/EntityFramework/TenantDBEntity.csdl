@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="BIZ_DEVModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="AppUser">
+    <Key>
+      <PropertyRef Name="AppUserPK" />
+    </Key>
+    <Property Name="AppUserPK" Type="Decimal" Precision="18" Scale="0" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserID" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="UserName" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="FirstName" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="LastName" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="Email" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="Passkey" Type="Binary" MaxLength="500" FixedLength="false" />
+    <Property Name="Logged" Type="Decimal" Precision="18" Scale="0" />
+    <Property Name="UserRole" Type="Byte" />
+    <Property Name="LoginAttempt" Type="Byte" />
+    <Property Name="Lastlogin" Type="DateTime" Precision="3" />
+    <Property Name="Lastlogout" Type="DateTime" Precision="3" />
+    <Property Name="UserStatus" Type="Byte" />
+  </EntityType>
+  <EntityType Name="CommonCode">
+    <Key>
+      <PropertyRef Name="CommonCodePK" />
+    </Key>
+    <Property Name="CommonCodePK" Type="Decimal" Precision="18" Scale="0" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CodeType" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Name="CodeID" Type="Byte" />
+    <Property Name="Code" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="IsActive" Type="Boolean" />
+  </EntityType>
+  <EntityType Name="UserRole">
+    <Key>
+      <PropertyRef Name="UserRolePK" />
+    </Key>
+    <Property Name="UserRolePK" Type="Byte" Nullable="false" />
+    <Property Name="UserRole1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="IsActive" Type="Boolean" Nullable="false" />
+  </EntityType>
+  <EntityContainer Name="BIZ_DEVEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="AppUsers" EntityType="Self.AppUser" />
+    <EntitySet Name="CommonCodes" EntityType="Self.CommonCode" />
+    <EntitySet Name="UserRoles" EntityType="Self.UserRole" />
+  </EntityContainer>
+</Schema>

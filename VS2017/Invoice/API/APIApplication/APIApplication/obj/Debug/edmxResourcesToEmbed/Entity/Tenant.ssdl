@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="TenantModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Tenant">
+    <Key>
+      <PropertyRef Name="TenantPK" />
+    </Key>
+    <Property Name="TenantPK" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FirstName" Type="varchar" MaxLength="250" />
+    <Property Name="LastName" Type="varchar" MaxLength="250" />
+    <Property Name="Email" Type="varchar" MaxLength="250" />
+    <Property Name="PhoneNo" Type="numeric" Precision="18" Scale="0" />
+    <Property Name="CompanyName" Type="varchar" MaxLength="250" />
+    <Property Name="TenantName" Type="varchar" MaxLength="500" />
+    <Property Name="UserID" Type="varchar" MaxLength="30" />
+  </EntityType>
+  <Function Name="USP_PUT_NewDataBase" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <EntityContainer Name="TenantModelStoreContainer">
+    <EntitySet Name="Tenant" EntityType="Self.Tenant" Schema="dbo" store:Type="Tables" />
+  </EntityContainer>
+</Schema>

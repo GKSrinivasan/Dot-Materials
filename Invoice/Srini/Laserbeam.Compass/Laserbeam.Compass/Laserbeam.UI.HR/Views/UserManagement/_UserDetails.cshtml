@@ -1,0 +1,260 @@
+﻿<style type="text/css">
+    #grdManageUser .k-grid-header .k-icon.k-i-arrow-n,
+    .k-grid-header .k-icon.k-i-arrow-s {
+        font-family: 'Glyphicons Halflings';
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 1;
+        -webkit-font-smoothing: antialiased;
+        background: none !important;
+        color: #91d1e9 !important;
+    }
+
+    #grdManageUser .k-grid-header .k-icon.k-i-arrow-s:before {
+        content: "\e156";
+    }
+
+    #grdManageUser .k-grid-header .k-icon.k-i-arrow-n:before {
+        content: "\e155";
+    }
+
+    .file-container {
+        max-height: 200px;
+        overflow-y: auto;
+        margin-top: 10px;
+        color: #808080;
+    }
+
+    .file-area {
+        padding: 5px 10px;
+        margin: 5px 0;
+        float: left;
+        clear: both;
+        width: 100%;
+        border-radius: 5px;
+    }
+
+    .file-icon {
+        width: 10%;
+        float: left;
+        font-size: 28px !important;
+    }
+
+    .uplodFile-icon {
+        width: 10%;
+        float: none;
+        font-size: 19px;
+    }
+
+    .file-content {
+        width: 85%;
+        float: left;
+    }
+
+    .file-remove {
+        width: 5%;
+        float: left;
+        color: #dbdbdb;
+        padding-top: 5px;
+        cursor: pointer;
+    }
+
+        .file-remove .fa {
+            vertical-align: middle;
+            color: #fa635c;
+        }
+
+    li.k-file .file-wrapper .k-upload-action {
+        position: absolute;
+        top: 0;
+        right: 0;
+    }
+
+    .progress .progress-bar {
+        background-image: none;
+        background-color: #0173c7;
+        text-align: center;
+    }
+
+        .progress .progress-bar[aria-valuenow="0"] {
+            color: black;
+        }
+
+    .file-area .progress {
+        margin-bottom: 1px !important;
+        display: none;
+    }
+
+    .file-area .progress-bar {
+        font-size: 8px !important;
+        line-height: 0 !important;
+    }
+
+    .progress {
+        height: 10px !important;
+    }
+
+    .progress-bar {
+        padding-top: 5px !important;
+    }
+</style>
+<div class="tab-content">
+    <div class="tab-pane fade in active" id="tab1default">
+        <div class="table-responsive scrollable user-tab">
+            @(Html.Kendo().Grid<Laserbeam.BusinessObject.Common.AppUserDataModel>().Name("grdManageUser")
+                 .HtmlAttributes(new { style = "font-size:12px;" })
+                 .Columns(columns =>
+                 {
+
+                     columns.Bound(m => m.UserNum).Visible(false);
+                     columns.Bound(m => m.LoginID).Visible(false);
+                     columns.Bound(m => m.UserID).HtmlAttributes(new { id = "UserID", style = "width:12% !important;" }).HeaderHtmlAttributes(new { style = "width:12% !important;font-weight:bold;" })
+                    .ClientTemplate("#=showMailStatusImage(MailDeliveryStatus,MailDeliveryDate)#<span style='width:40%;font-weight:normal;float:left'>#=UserID#</span>").Title("Email");
+
+                     columns.Bound(m => m.FirstName).Title("First Name").HtmlAttributes(new { style = "width:8% !important" }).HeaderHtmlAttributes(new { style = "width:8% !important;font-weight:bold;" });
+                     columns.Bound(m => m.LastName).Title("Last Name").HtmlAttributes(new { style = "width:8% !important" }).HeaderHtmlAttributes(new { style = "width:8% !important;font-weight:bold;" });
+                     columns.Bound(m => m.PreferredName).Visible(false);
+                     columns.Bound(m => m.UserRole).Title("User Role").HtmlAttributes(new { style = "width:6% !important" }).HeaderHtmlAttributes(new { style = "width:6% !important;font-weight:bold;" });
+                     columns.Bound(m => m.UserRoleNum).Visible(false);
+                     columns.Bound(m => m.EmployeeID).Title("Employee ID").HtmlAttributes(new { style = "width:8% !important" }).HeaderHtmlAttributes(new { style = "width:8% !important;font-weight:bold;" });
+                     columns.Bound(m => m.UserStatus).Title("User Status").HtmlAttributes(new { id = "UserStatus", style = "width:6% !important;text-align:center;" }).HeaderHtmlAttributes(new { style = "width:6% !important;font-weight:bold;" })
+                         .ClientTemplate("<a class='statusicon' id='lnkComment'>#=showUserStatusImage(UserStatus)#</a>");
+                     columns.Bound(m => m.AppUserStatusID).Visible(false);
+                     columns.Bound(m => m.LastLoginDt).Title("Last Login").HtmlAttributes(new { id = "Lastlogin", style = "width:11% !important" }).Format("{0:dddd, MMMM dd, yyyy hh:mm tt}").HeaderHtmlAttributes(new { style = "width:11% !important;font-weight:bold;" });
+
+
+                 })
+                                                               .DataSource(datasource => datasource.Ajax()
+                                                               .Sort(st => { st.Add(e => e.UserID).Ascending(); })
+                                                                   .Model(model => model.Id(p => p.UserNum))
+                                                               .Read(read => read.Action("GetDataSourceForGrid", "UserManagement").Data("UserGridData"))).Sortable()
+                                                              .Selectable(select => select.Mode(GridSelectionMode.Single).Type(GridSelectionType.Row))
+                                                              //.Pageable(page => page.Enabled(true)
+                                                              //.PageSizes(new int[] { 20, 40, 60, 80, 100 })
+                                                              //)
+                                                              .Events(e => e.Change("gridChange").DataBound("userGridDataBound")).Resizable(resize => resize.Columns(false))
+                                                              //.Scrollable(scrollable => scrollable.Height(300))
+            )
+
+        </div>
+    </div>
+
+    @(Html.Kendo().Window().Name("wndFilterSortPopup").Title("Filter/Sort").Visible(false).Width(710).Height(270).Modal(true))
+
+    <div class="tab-pane fade pad15top" id="tab2default">
+        <div class="row">
+            <!-- Row Begins -->
+            <div class="col-md-12 mainheading text-center">
+                Upload Users
+            </div>
+            <div class="col-md-12 para">To "<span class="darkgrey">Add multiple user records</span>" download, fill and upload the ‘user template’ file.</div>
+        </div><!-- Row Ends -->
+
+        <div class="row top-pad">
+            <div class="col-md-5 col-md-offset-1 col-sm-6">
+                <div class="col-md-12">
+                    <div class="dottedborder text-center">
+                        <div> <i class="icon-dwnld-icon icon-blue big60 " aria-hidden="true"></i> <a href="#" onclick="downloadUserTemplateData()">Download</a> the User Template</div>
+                        <div><i class="fa fa-question-circle-o fa-quest" aria-hidden="true"></i> <a data-toggle="modal" data-target="#usrMgmtTemplate">Click Here</a> to know about the template</div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="col-md-5 col-sm-6">
+
+                <div class="col-md-12">
+                    <div class="dottedborder1 text-center" id="drop-area">
+                        <div> <i class="icon-upld-icon icon-blue big60 " aria-hidden="true"></i><strong>Drag and Drop</strong> files here or <a id="browseBtn" href="#" class="p500">Browse</a> to begin upload</div>
+                        <div id="divFileArea" class="table table-striped">
+                        </div>
+
+                        <div class="text-right"><button type="button" id="userDataProcess" class="btn btn-skyblue1">@*<img src="~/Images/pdata-icon.png" alt="" class="gap5px-right" />*@ <i class="icon-pdata1 pdata big22" aria-hidden="true"></i> <span class="pdata-txt">Process Data</span></button></div>
+                        <div class="text-left"><a href="#" id="accessControlErrorLink" onclick="getUserDataErrorList()" class="error-link red-link" style="display:none"> Error List</a> </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="row nomargin tenbottompad">
+            <div id="grdHeaderTxt" class="col-md-12 top-pad existtit">Uploaded Files</div>
+            <div class="col-md-12 top-pad">
+                <div class="row">
+                    <div id="userData" class="col-md-12">
+                        @(Html.Kendo().Grid<Laserbeam.BusinessObject.Common.TemplateDataModel>()
+                                        .Name("grdUserData")
+                                                .Events(e => e.DataBound("grdUserDataBound"))
+                                .Scrollable(s => s.Enabled(false))
+                                .Columns(columns =>
+                                {
+                                    columns.Template(@<text></text>).ClientTemplate("<a id='lnkXmlUserDataFileName'>#=XmlFileName#</a>").HtmlAttributes(new { style = "text-align:center;" }).Title("File Name").HeaderHtmlAttributes(new { style = "text-align:center;white-space: normal" });
+                                    columns.Template(@<text></text>).ClientTemplate("#=RecordCount#").HtmlAttributes(new { style = "text-align:center;" }).Title("Record Count").HeaderHtmlAttributes(new { style = "text-align:center;white-space: normal" });
+                                    columns.Template(@<text></text>).ClientTemplate("#=ProcessedCount#").HtmlAttributes(new { style = "text-align:center;" }).Title("Processed").HeaderHtmlAttributes(new { style = "text-align:center;white-space: normal" });
+                                    columns.Template(@<text></text>).ClientTemplate("#=ProcessDate#").HtmlAttributes(new { style = "text-align:center;" }).Title("Process Date").HeaderHtmlAttributes(new { style = "text-align:center;white-space: normal" });
+                                    columns.Template(@<text></text>).ClientTemplate("#=UserName#").HtmlAttributes(new { style = "text-align:center;" }).Title("User Name").HeaderHtmlAttributes(new { style = "text-align:center;white-space: normal" });
+                                    columns.Template(@<text></text>).ClientTemplate("<span class='glyphicon glyphicon-trash' title='Delete' ></span>").Title("Delete").HtmlAttributes(new { id = "btnDelete" });
+                                }).AutoBind(true)
+
+                                                                                                  .DataSource(datasource => datasource
+                                                                                                  .Ajax()
+                                                                                                          .Read(read => read.Action("GetUserTemplateData", "UserManagement").Data("additionalParamInfo"))
+                                                                                                  .ServerOperation(true)
+                                                                                                  //.PageSize(50)
+                                                                                                  )
+                        // .Pageable()
+                        )
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div><!--tabpane 2-content Ends -->
+</div><!--tab-content Ends -->
+
+<div class="modal fade" tabindex="-1" role="dialog" id="usrMgmtTemplate">
+    <div class="modal-dialog usrmgmt-popup" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="popup-title">User Management Data Fields </h4>
+            </div>
+            <div class="modal-body">
+                <div class="table table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                        <th class="col-md-2">Entities</th>
+                        <th class="col-md-2">Sample Data</th>
+                        <th class="col-md-1">Data Length</th>
+                        <th class="col-md-2">Excel Data Format</th>
+                        <th class="col-md-5">Short Description</th>
+                        </thead>
+                        <tbody>
+
+                            <tr><td>Email</td><td>	adam3709@laserbm.com</td><td>	255	</td><td>	General	</td><td>	This is a unique key and used for login purpose.</td></tr>
+                            <tr><td>EmployeeID</td><td>"00A576 adam 005167"</td><td>	255	</td><td>	Text	</td><td>	User would view the organization structure based on the employee ID.	</td></tr>
+                            <tr><td>FirstName	</td><td>	Adam	</td><td>	255	</td><td>	General	</td><td>	First name is used for display purpose.	</td></tr>
+                            <tr><td>LastName	</td><td>	Smith	</td><td>	255	</td><td>	General	</td><td>	Last name is used for display purpose.	</td></tr>
+                            <tr><td>PreferredName	</td><td>	Wills	</td><td>	255	</td><td>	General	</td><td>	Preferred name is used for display purpose.	</td></tr>
+                            <tr>
+                                <td>UserRole</td>
+                                <td>Manager</td>
+                                <td>255	</td>
+                                <td>General</td>
+                                <td>
+                                    "Role is used to define level of access that a user should have. Roles
+                                    <ol class="order-list">
+                                        <li>
+                                            Manager - have access to Dashboard, Recommend Increase & Analytics
+                                        </li>
+                                        <li>Admin - have full access"</li>
+                                    </ol>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

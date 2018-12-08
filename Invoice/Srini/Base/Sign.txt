@@ -1,0 +1,217 @@
+﻿using Laserbeam.BusinessObject.Models;
+using Laserbeam.DataManager.ICommon;
+using Laserbeam.Libraries.Common;
+using Laserbeam.UI.CompassAdmin.Common;
+using Newtonsoft.Json;
+using System;
+using System.Configuration;
+using System.Data.Common;
+using System.Linq;
+using System.Net.Mail;
+using System.Threading.Tasks;
+using System.Web;
+using System.Web.Mvc;
+using System.Web.Script.Serialization;
+using System.Web.Security;
+
+namespace Laserbeam.UI.CompassAdmin.Controllers
+{
+    public class SignUpController : Controller
+    {
+        string cc;
+        public static string GlobalVarSecretKey;
+
+        #region Fields
+        // Author         :   Hariharasubramaniyan Chandrasekaran	
+        // Creation Date  :   25-01-2017
+        /// <summary>
+        /// Instance of user Repository
+        /// </summary>
+        private IUserRepository m_userRepository;
+        #endregion
+        #region Constructors
+        // Author         :   Hariharasubramaniyan Chandrasekaran	
+        // Creation Date  :   25-01-2017
+        /// <summary>
+        /// Constructor for Controller
+        /// </summary>
+        public SignUpController(IUserRepository userRepository)
+        {
+            m_userRepository = userRepository;
+
+        }
+        #endregion
+        #region SignUp Implementation
+        // Author         :   Hariharasubramaniyan Chandrasekaran	
+        // Creation Date  :   25-01-2017
+        /// <summary>
+        /// Get Signup view
+        /// </summary>
+        public ActionResult Home()
+       {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> Home(UserSignUpModel model)
+        {
+            MessageModel messageModel = new MessageModel();
+            if (!m_userRepository.IsMailDuplication(model.EmailAddress))
+                ModelState.AddModelError("EmailAddress", "Email is Already Exists");
+            if (ModelState.IsValid)
+            {
+                bool isAdded = m_userRepository.AddUser(model);
+                if (isAdded)
+                {
+                    bool isMailSent = await sendEmailToUser(model.EmailAddress);
+                    if (isMailSent)
+                    {
+                        messageModel.MailExists = false;
+                        messageModel.Mail = model.EmailAddress;
+                        JavaScriptSerializer js = new JavaScriptSerializer();
+                        string json = js.Serialize(messageModel);
+                        string encryptPath = encrypt(json);
+                        return RedirectToAction("Message", new { messages = encryptPath });
+                    }
+                }
+            }
+            return View(model);
+        }
+
+
+
+        public void SignOut()
+        {
+            Session.Clear();
+            Session.Abandon();            
+            HttpCookie cookie2 = new HttpCookie("ASP.NET_SessionId", "");
+            cookie2.Expires = DateTime.Now.AddYears(-1);
+            Response.Cookies.Add(cookie2);
+            HttpCookie cookie1 = new HttpCookie(FormsAuthentication.FormsCookieName, "");
+            cookie1.Expires = DateTime.Now.AddYears(-1);
+            Response.Cookies.Add(cookie1);
+        }
+
+        public JsonResult UserValidation(UserSignUpModel model)
+        {
+            bool b = m_userRepository.IsMailDuplication(model.EmailAddress);
+            MailAddress address = new MailAddress(model.EmailAddress);
+            PublicDomainArray v = new PublicDomainArray();
+            int a = Array.IndexOf(v.domains, address.Host);
+            if (b == true || a >= 0)
+            {
+
+                return Json(false);
+            }
+
+            else
+                return Json(true);
+
+        }
+
+        
+        [HttpPost]
+        public async Task<string> ReSendEmail(string email)
+        {
+            bool result=await sendEmailToUser(email);
+            return (result==true ? "Mail sent successfully" : "Failed to send the mail");
+        }
+
+        #endregion
+        #region Private Methods
+
+        private async Task<bool> sendEmailToUser(string email)
+        {
+            string bccEmail = ConfigurationManager.AppSettings["TenantCreationBCCMailAddress"].ToString();
+            EmailData emailDetail = new EmailData();
+            var user = m_userRepository.GetUser().Where(x => x.Email == email).FirstOrDefault();
+            string emailTemplate1= "<html> <head> </head> <body style=\"font-family: sans-serif; margin:0 auto;\"> <div style=\"width:500px; height:500px; padding: 10px; border:50px solid #f3f3f3;\"> <div style=\"padding:5px; background:#FFF; width:480px; height:480px;margin-left:0;margin-top:0;\"> <div style=\"font-size:45px;font-weight:500;Text-align:center;\"><span style=\"color:#625d59;\">Laser</span><span style=\"color:#c63329;\">beam</span></div> <div style=\"font-size:25px;font-weight:500;Text-align:center; color:#625d59;\">Compass</div> <h3 style=\"margin-top: 30px; text-align: center; color: #666666;\">Congratulations</h3> <h2 style=\"text-align: center; color: #f98d00;\">Account Created</h2> <p style=\"margin-top: 20px; text-align:center; color: #666666; line-height:24px; font-size:15px; font-family: sans-serif;\"><span style=\"font-weight:bold;\">You are almost done.</span> Click on login button to access COMPASS LITE<p> <h3 style=\"margin-top: 20px; text-align:center; color: #01569d; line-height:24px; font-family: sans-serif;\"><span style=\"font-weight:bold;\">User ID:</span>@UserID</h3> @URLButton <div style=\"margin-top: 40px;\"></div>  <div style=\"margin-top: 40px;\"></div> <hr style=\"margin-top: 50px; margin-bottom:30px; color:#666666;padding:0;\"> <p style=\"margin-top: 40px; text-align:center; color: #666666; font-family: sans-serif; line-height:24px; font-size:12px;\">If you have trouble mail us at @SupportEmailLink </p> </div> </div> </body> </html>";
+            Attachment imgAtt = new Attachment(Server.MapPath("~/Images/login-btn.png"));
+            imgAtt.ContentId = "login-btn.png";
+            emailDetail.EmailSubject = "We've created COMPASS account to manage compensation cycle";
+            emailDetail.ToEmailId = email;
+            emailDetail.BCCEmailId = bccEmail;
+            emailDetail.EmailBody = getCreateTenantEmailBody(emailTemplate1, user, GlobalVarSecretKey);
+            string inputEmail = email;
+            string[] emailElements = inputEmail.Split('@');
+            string[] domainElements = emailElements[1].Split('.');
+            string emailAddress = "<span>" + emailElements[0] + "</span><span>@</span><span>" + domainElements[0] + "</span><span>.</span><span>" + domainElements[1] + "</span>";
+            emailDetail.EmailBody = emailDetail.EmailBody.Replace("@UserID", emailAddress);
+            var status = Email.SendEmail(emailDetail);
+            return await status;
+        }
+
+
+        private string decrypt(string encryptedUrl)
+        {
+            byte[] byteDecryptedUrl = Convert.FromBase64String(encryptedUrl);
+            string url = System.Text.ASCIIEncoding.ASCII.GetString(byteDecryptedUrl);
+            return url;
+        }
+
+        private string encrypt(string url)
+        {
+            string encryptedPassword = string.Empty;
+            byte[] byteEncrptPassword = System.Text.ASCIIEncoding.ASCII.GetBytes(url);
+            encryptedPassword = Convert.ToBase64String(byteEncrptPassword);
+            return encryptedPassword;
+        }
+
+        private string getCreateTenantEmailBody(string emailBody, UserEmailModel user, string secrectKey)
+        {
+            string referenceUrl = ConfigurationManager.AppSettings["compassInstanceBaseUrl"].ToString() + user.TenantName + "/Account/Login";
+            bool isEncrypted = false;
+            string encryptedMagicKey = string.Empty;
+            if ((user.UserName != "") && !string.IsNullOrWhiteSpace(secrectKey))
+            {
+                DateTime epochStart = new DateTime(1970, 01, 01, 0, 0, 0, 0, DateTimeKind.Utc);
+                TimeSpan timeSpan = DateTime.UtcNow - epochStart;
+                string requestTimeStamp = "";
+                isEncrypted = MayaKey.TryEncrypt(user.UserName + '|' + secrectKey + '|' + requestTimeStamp, out encryptedMagicKey);
+                referenceUrl = isEncrypted ? referenceUrl + "?mayaLink=" + HttpUtility.UrlEncode(encryptedMagicKey) : referenceUrl;
+            }
+            emailBody = emailBody.Replace("@URLButton", "<span><a style=\"margin:0 auto; margin-left:38%;background: #099cde; padding: 10px;color:#FFF;font-size:15px; float:none; border-radius:5px;text-decoration: none;\" href = '" + referenceUrl + "'> Click here to login</a><span>");
+            emailBody = emailBody.Replace("@SupportEmailLink", "<a href=\"\" style=\"text-decoration:underline; color:#064bc9;\">support@laserbm.net</a>");
+            //emailBody = emailBody.Replace("@URLButton", "<span><a style=\"margin:0 auto; margin-left:38%;background: #099cde; padding: 10px;color:#FFF;font-size:15px; float:none; border-radius:5px;text-decoration: none;\" href = '" + referenceUrl + "'> Create Account</a><span>");
+            //emailBody = emailBody.Replace("@SupportEmailLink", "<a href=\"#\" style=\"text - decoration:underline; color:#064bc9;\">support@laserbm.net</a>");
+            return emailBody;
+        }
+
+
+        public string getCurrentCreatedDBConnectionString(string dbName)
+        {
+            var databaseConnection = new DbConnectionStringBuilder();
+            databaseConnection.ConnectionString = ConfigurationManager.ConnectionStrings["CompTenant"].ConnectionString;
+            string dbServer = Convert.ToString(databaseConnection["Data Source"]);
+            string dbUserId = Convert.ToString(databaseConnection["User ID"]);
+            string dbPassword = Convert.ToString(databaseConnection["Password"]);
+            MayaKey.TryDecrypt(dbServer, out dbServer);
+            MayaKey.TryDecrypt(dbUserId, out dbUserId);
+            MayaKey.TryDecrypt(dbPassword, out dbPassword);
+            databaseConnection["Data Source"] = dbServer;
+            databaseConnection["Initial Catalog"] = dbName;
+            databaseConnection["User ID"] = dbUserId;
+            databaseConnection["Password"] = dbPassword;
+            return databaseConnection.ConnectionString;
+        }
+        // Author       : Shaheena Shaik
+        // Creation Date: 30-June-2017
+        /// <summary>
+        /// Validating newly added emailId whether it is already exists in database or not
+        /// </summary>
+        /// <param name="EmailAddress">changed email address</param>
+        /// <returns>Returing a boolean result of whether the newly added email id already exists or not</returns>
+        public JsonResult NewEmailValidation(string EmailAddress)
+        {
+            bool isNewEmailExists = m_userRepository.IsMailDuplication(EmailAddress);
+            if (isNewEmailExists == false)
+                return Json(false);
+            else
+                return Json(true);
+        }
+
+
+        #endregion
+
+    }
+}

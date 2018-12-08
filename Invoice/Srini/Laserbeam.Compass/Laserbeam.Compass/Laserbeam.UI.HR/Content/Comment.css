@@ -1,0 +1,12 @@
+﻿ .divcomment .k-editable-area {
+	height: 100px!important;
+}
+
+.divcomment .k-content {
+	height: 100px!important;
+}
+
+.divcomment .k-dropdown-wrap .k-input {
+	text-align: left!important;
+	padding-left: 0px
+}

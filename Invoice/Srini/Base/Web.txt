@@ -1,0 +1,78 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<configuration>
+  <configSections>
+    <section name="entityFramework" type="System.Data.Entity.Internal.ConfigFile.EntityFrameworkSection, EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" requirePermission="false" />
+  </configSections>
+  <location path="." inheritInChildApplications="false">
+    <connectionStrings>
+      <add name="CompMasterEntities" connectionString="metadata=res://*/CompMasterEntities.csdl|res://*/CompMasterEntities.ssdl|res://*/CompMasterEntities.msl;provider=System.Data.SqlClient;provider connection string=&quot;data source=192.168.1.113;initial catalog=LBS_CompMaster;user id=sa;password=LBS@17;MultipleActiveResultSets=True;App=EntityFramework&quot;" providerName="System.Data.EntityClient" />
+      <add name="CompTenant" connectionString="data source=vPMOhiinLP+yM6sOcMoVWQ==;initial catalog=M4ho9rw0wg2akw3FbjfNwA==;persist security info=True;user id=PLQmHqERAps=;password=4iJzXm+Hm5c=;App=Tenant" providerName="provider=System.Data.SqlClient" />
+    </connectionStrings>
+    <appSettings>
+      <add key="webpages:Version" value="3.0.0.0" />
+      <add key="webpages:Enabled" value="false" />
+      <add key="PreserveLoginUrl" value="true" />
+      <add key="ClientValidationEnabled" value="true" />
+      <add key="UnobtrusiveJavaScriptEnabled" value="true" />
+      <add key="ApplicationID" value="cGF5c2NhbGVhcGk=" />
+      <add key="SecretKey" value="aW50ZXJhdGlvbmZvcnBheXNjYWxld2ViYXBp" />
+      <add key="ValidRequestTime" value="15" />
+      <add key="TenantCreationBackupDatabase" value="Essential_DEV" />
+      <add key="TenantCreationBCCMailAddress" value="hari.c@laserbm.net" />
+      <add key="AllowSameDomain" value="YES" />
+      <add key="ReCaptchaValidation" value="YES" />
+      
+      <add key="tenantCreationBaseUrl" value="http://localhost:63525/" />
+      <add key="compassInstanceBaseUrl" value="http://localhost:60268/" />
+      <add key="SaveLogoPath" value="D:\TFS-Source\Compass\Laserbeam.Compass\Laserbeam.UI.HR\Images\Logo" />
+      <add key="ReCaptchaSecretKey" value="6LeJyEMUAAAAAOyoB24xiCwjzI_7KjuJ4ir2sZFf" />
+      <add key="ReCaptchaSiteKey" value="6LeJyEMUAAAAAIrS_6SfHknsQEMdJ171RY6-ccui" />
+    </appSettings>
+
+    <entityFramework>
+      <defaultConnectionFactory type="System.Data.Entity.Infrastructure.LocalDbConnectionFactory, EntityFramework">
+        <parameters>
+          <parameter value="mssqllocaldb" />
+        </parameters>
+      </defaultConnectionFactory>
+      <providers>
+        <provider invariantName="System.Data.SqlClient" type="System.Data.Entity.SqlServer.SqlProviderServices, EntityFramework.SqlServer" />
+      </providers>
+    </entityFramework>
+    <system.web>
+      <compilation debug="true" targetFramework="4.5" />
+      <httpRuntime targetFramework="4.5" />
+    </system.web>
+    <system.net>
+      <mailSettings>
+        <smtp deliveryMethod="Network" from="support@laserbm.com">
+          <network host="email-smtp.us-east-1.amazonaws.com" port="587" userName="AKIAJPWTF6XXLIXACEHA" password="AnR0RvY98a6K5/R0kdi8aH1r6Qx+CzY+JjZB8qsyRUuI" enableSsl="true" defaultCredentials="false" />
+        </smtp>
+      </mailSettings>
+    </system.net>
+  </location>
+  <runtime>
+    <assemblyBinding xmlns="urn:schemas-microsoft-com:asm.v1">
+      <dependentAssembly>
+        <assemblyIdentity name="WebGrease" publicKeyToken="31bf3856ad364e35" culture="neutral" />
+        <bindingRedirect oldVersion="0.0.0.0-1.5.2.14234" newVersion="1.5.2.14234" />
+      </dependentAssembly>
+      <dependentAssembly>
+        <assemblyIdentity name="Newtonsoft.Json" publicKeyToken="30ad4fe6b2a6aeed" culture="neutral" />
+        <bindingRedirect oldVersion="0.0.0.0-6.0.0.0" newVersion="6.0.0.0" />
+      </dependentAssembly>
+      <dependentAssembly>
+        <assemblyIdentity name="System.Web.Helpers" publicKeyToken="31bf3856ad364e35" />
+        <bindingRedirect oldVersion="1.0.0.0-3.0.0.0" newVersion="3.0.0.0" />
+      </dependentAssembly>
+      <dependentAssembly>
+        <assemblyIdentity name="System.Web.WebPages" publicKeyToken="31bf3856ad364e35" />
+        <bindingRedirect oldVersion="1.0.0.0-3.0.0.0" newVersion="3.0.0.0" />
+      </dependentAssembly>
+      <dependentAssembly>
+        <assemblyIdentity name="System.Web.Mvc" publicKeyToken="31bf3856ad364e35" />
+        <bindingRedirect oldVersion="1.0.0.0-5.2.3.0" newVersion="5.2.3.0" />
+      </dependentAssembly>
+    </assemblyBinding>
+  </runtime>
+</configuration>

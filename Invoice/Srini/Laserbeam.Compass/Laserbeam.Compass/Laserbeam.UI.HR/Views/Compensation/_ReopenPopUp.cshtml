@@ -1,0 +1,95 @@
+﻿@using Laserbeam.BusinessObject.Common.MeritBusinussObjects;
+<style type="text/css">
+    #grdReopenReportees .selected {
+        background-color: #FFEFBC !important;
+        color: black !important;
+    }
+
+    #grdReopenReportees .k-grid .k-header {
+        display: none;
+    }
+.closeiconsection{
+float: right;
+right: 54px;
+position: relative;
+z-index: 9999;
+top: 5px;
+cursor:pointer;
+}
+</style>
+@Html.AntiForgeryToken()
+<div class="modal-dialog width-seventy" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h4 class="modal-title modaltitle" id="myModalLabel"><i class="fa fa-frown-o blacktext titlesmile"></i> Reopen reviews</h4>
+        </div>
+        <div class="modal-body">
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="quotetxt">
+                         To reopen the reviews, SELECT the checkbox by employees and click on Reopen button. You have to enter the comments to reopen reviews.
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="closeiconsection" id="reopenClear"><span><i class="fa fa-close"></i></span></div>
+                    <div class="form-group">
+                        <div class="input-group">
+                            @(Html.Kendo().AutoComplete().Name("reopenEmployeedetails")
+                    .DataTextField("EmployeeID").Placeholder("Search by Employee Name or Employee ID")
+            .Filter(FilterType.Contains)
+                    .DataSource(datasource =>
+                    {
+                        datasource.Read(read =>
+                        {
+                            read.Action("GetReopenEmployeeSearchData", "Compensation").Data("GetReOpenReporteesParam").Type(HttpVerbs.Post);
+                        }).ServerFiltering(false);
+                    }).HtmlAttributes(new { @class = "form-control", id = "reopenEmployeedetails" })
+                .Events(events => events.Select("onSelect_reopenEmployeeSearch"))
+                            )
+                            <div class="input-group-addon"><i class="fa fa-search"></i></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            @(Html.Kendo().Grid<SubmitReporteesModel>().Name("grdReopenReportees")
+                        .Columns(columns =>
+                        {
+                        columns.Bound(m => m.EmpJobNum).Hidden();
+                        columns.Template(@<text></text>)
+                                .ClientTemplate("<span><input title='Reject' type='checkbox' id='indReopenChkbox'></input></span>")
+                                .HtmlAttributes(new { style = "text-align:left !important;" }).HeaderTemplate("<label style='width:19px !important'><input type='checkbox' title='Check All' id='reopenChkAll'></input></label>");
+            columns.Bound(m => m.EmployeeName).Title("Employee Name").HtmlAttributes(new { @class = "orangetxt" });
+            columns.Template(@<text></text>).ClientTemplate("<label class='leftcommenttext'>Send to </label> <img src='../../images/paperplanered.png' alt='' /> <br/>");
+                            columns.Bound(m => m.NextLevelManagerName).Title("Previous Level Manager Name");
+
+
+                        })
+                                                        .DataSource(datasource => datasource.Ajax().ServerOperation(false)
+                                                        .Model(model => model.Id(p => p.EmpJobNum))
+                                                        .Read(read => read.Action("_GetReopenReportees", "Compensation").Data("GetReOpenReporteesParam"))//.PageSize(10)
+                                                                .Model(model => { model.Id(id => id.EmpJobNum); }))//.Pageable(x => x.PageSizes(false))
+                                                                        .Sortable().Resizable(resize => resize.Columns(true))
+                                                                                           .Scrollable(scrollable => scrollable.Height(165)).Events(x => x.DataBound("reopenGridDataBound"))
+            )
+
+            <div class="row top-pad">
+                <div class="col-md-12 overallcomment">
+                    <textarea id="reopenComment" class="form-control" placeholder="This is an overall comment. Comments entered here will be send to the next level manager through email" rows="3" cols="5"></textarea>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <div class="row nomargin">
+                <div class="col-md-12">
+                    <button type="button" class="btn btn-cancel" data-dismiss="modal" id="btnCancelReopen"><i class="fa fa-ban"></i> Cancel</button>
+                    <button type="button" id="btnReopenSelectedEmployees" class="btn btn-info prim-btn btn-reopen"><i class="fa fa-frown-o smilegreen"></i> Reopen Reviews</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

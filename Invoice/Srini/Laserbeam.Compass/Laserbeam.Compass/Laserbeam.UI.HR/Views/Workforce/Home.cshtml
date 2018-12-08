@@ -1,0 +1,183 @@
+﻿@model Laserbeam.UI.HR.Models.WorkforceModel
+@using Laserbeam.Constant.HR;
+@{
+    Layout = "~/Views/Shared/_SiteLayout.cshtml";
+}
+<link href="~/Content/Workforce.css" rel="stylesheet" />
+<script type="text/javascript" src="~/Scripts/workForce.js"></script>
+<script type="text/javascript">
+    var ruleConfiguration =  @Html.Raw(Json.Encode(Model.RuleConfiguration));
+    var RatingRange=@Html.Raw(Json.Encode(Model.RatingRange.ToArray()));
+    var meritPageConstants = {
+        LumpSumTypeAutoCalcWithOutOverride:'@MeritConstants.LumpSumTypeAutoCalcWithOutOverride',
+        LumpSumTypeAutoCalcWithOverride:'@MeritConstants.LumpSumTypeAutoCalcWithOverride',
+        LumpSumTypeNoAutoCalc:'@MeritConstants.LumpSumTypeNoAutoCalc',
+        LumpSumTypeNoAutoCalc:'@MeritConstants.LumpSumTypeNoAutoCalc'
+    };
+    clearData=('@ViewBag.ClearData'=='True')?true:false;
+</script>
+<div>
+    @Html.Hidden("hdnNewSalary")
+    @Html.Hidden("hdnNewHrlyRate")
+    @Html.Hidden("hdnNewCompRatio")
+    @Html.Hidden("hdnCompRatio")
+    @Html.Hidden("hdnErrorType", "")
+    @Html.Hidden("hdnBudgetProrationFactor", "")
+    @Html.AntiForgeryToken()
+    <div class="row">
+        <div class="col-md-12">
+            <div class="row">
+                <div class="col-md-12 noleftrightpad">
+                    <div class="col-md-3 top-pad">
+                        <div class="mainheading mainheading1">Workforce</div>
+                    </div>
+                    <div class="col-md-9" id="divTileData"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!--text for choose business entities-->
+
+    <div class="row top-pad">
+        <div class="col-sm-12 col-md-12" style="display:none;" id="infoTxt1">
+            <div class="col-sm-12 col-md-12 alert alert-info alertinfo alert-dismissible" role="alert">
+                <div class="infocircletxt"><i class="fa fa-info-circle infobluecircle"></i></div>
+                <div id="divHomeinfoTxt1" class="infotxtt">
+                    Admins and Superadmin have access to this section. You can tailor the employee data template beside the data elements that are mandatory for data processing. Data elements displayed are based on increase components selected from
+                    <br /> <span style="color:#0070c9;font-size:15px;">Rules >> Select Compensation Components</span>
+                </div>
+                <div class="dismissbtn"><button id="btnHomeinfotxtt1close" type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>
+            </div>
+        </div>
+    </div>
+    <!--end text for choose business entities-->
+    <!--text for Data correction-->
+    <div class="row">
+        <div class="col-sm-12 col-md-12" style="display:none;" id="infoTxt2">
+            <div class="col-sm-12 col-md-12 alert alert-info alertinfo alert-dismissible" role="alert">
+                <div class="infocircletxt"><i class="fa fa-info-circle infobluecircle"></i></div>
+                <div id="divHomeinfoTxt2" class="infotxtt">
+                    Admins and Superadmin have access to this section. To add an employee, enter all required information and click save. To modify employee information, search an employee by entering employee name or ID in search text box.
+                </div>
+                <div class="dismissbtn"><button id="btnHomeinfotxtt2close" type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>
+            </div>
+        </div>
+    </div>
+    <!--end text for Data correction-->
+    <div class="row top-pad" data-spy="affix" data-offset-top="150">
+        <div class="col-md-8 col-sm-8">
+            <ul class="nav nav-tabs" role="tablist">
+                <li role="presentation" class="active"><a id="ChooseFields" href="#chooseFields" aria-controls="home" role="tab" data-toggle="tab">Modify Data Elements</a></li>
+                <li role="presentation"><a href="#uploadData" id="UploadData" aria-controls="profile" role="tab" data-toggle="tab">Upload Data</a></li>
+                <li role="presentation" id="liErrorMessage" style="display:@(ViewBag.EmployeeErrorDataCount > 0 ? "block" : "none")"><a href="#errorMessage" id="idErrorMessage" onclick="bindErrorDataList();" aria-controls="errormessage" role="tab" data-toggle="tab">Error Message</a></li>
+                <li role="presentation"><a href="#dataCorrect" id="idDataCorrect" aria-controls="datacorrect" role="tab" data-toggle="tab">Data Correction</a></li>
+            </ul>
+        </div>
+        <div class="col-md-4 col-sm-4 text-right">
+            <button type="button" class="btn btn-cleardata" style="display:none !important" id="idClearAllData" data-toggle="modal" data-target="#cleardata"><i class="fa fa-trash"></i> Clear all data</button>
+            <button id="btnWorkForceSave" type="button" class="btn btn-info prim-btn">@*<i class="fa fa-floppy-o" aria-hidden="true"></i>*@ Save</button>
+            <button id="btnErrorDataCorrectionEmployee" class="btn btn-info prim-btn" type="button" style="display:none !important" onclick="addOrUpdateEmployeeErrorDetails();">@*<i class="fa fa-download" aria-hidden="true"></i>*@ Save</button>
+            <button id="btnDataCorrectionEmployee" class="btn btn-info prim-btn" type="button" style="display:none !important" onclick="addOrUpdateEmployeeDetails();">@*<i class="fa fa-download" aria-hidden="true"></i>*@ Save</button>
+            <!--tootltip save button-->
+            <!--end tootltip save button-->
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="tab-content">
+                <div role="tabpanel" class="tab-pane active" id="chooseFields">
+                    @{Html.RenderPartial("~/Views/WorkForce/_ChooseFields.cshtml");}
+                </div>
+                <div role="tabpanel" class="tab-pane" id="uploadData">
+                    @{Html.RenderAction("_UploadData", "WorkForce");}
+                </div>
+
+
+                <!--Error Message Begins-->
+                <div role="tabpanel" class="tab-pane" id="errorMessage">
+                    <div class="row">
+                        <div class="pull-right padrt15"><button id="btnWorkForceErrorExport" onclick="getEmployeeErrorListExport();" type="button" class="btn btn-info prim-btn">Download Excel to Fix</button></div>
+                    </div>
+                    <div class="ErrorDiv">
+                        <div class="row top-pad">
+                            <div id="divHomeerromassage" class="col-md-12 mainheading text-center">
+                                Error Message
+                            </div>
+                            <div id="divHomeerromassagecontent1" class="col-md-12 para">
+                                Hold Up! We found some issues in excel file
+                            </div>
+                        </div>
+                        <div class="row voffset2">
+                            <div id="errorFiles" class="col-md-12 text-center" style="color:red !important">
+                            </div>
+                        </div>
+                        <div class="row voffset2">
+                            <div class="col-md-12">
+                                <div id="divHomeerromassagecontent2" class="error-patch"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> There are few things you must fix in order to upload your excel file</div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12 voffset2">
+                                <div id="divHomegrdEmployeeDataError" class="table-responsive">
+                                    @(Html.Kendo().Grid<Laserbeam.BusinessObject.Common.TemplateErrorListModel>()
+                                    .Name("grdEmployeeDataError")
+                                    .Scrollable(s => s.Enabled(true).Height(200))
+                                    .HtmlAttributes(new { style = "margin:25px !important" })
+                                    .Columns(columns =>
+                                    {
+                                        columns.Bound(x => x.Error).HtmlAttributes(new { style = "text-align:left;" }).Title("Error");
+                                        columns.Bound(x => x.AffectedData).HtmlAttributes(new { style = "text-align:left;" }).Title("Affected Records");
+                                        columns.Template(@<text></text>).ClientTemplate("#=(HowToFix!=null) ? HowToFix : ''#<a id='lnkErrorData'>&nbsp; Click Here</a>").HtmlAttributes(new { style = "text-align:left;" }).Title("How to fix");
+
+                                    }).AutoBind(false).DataSource(datasource => datasource.Ajax()
+                                    .Read(read => read.Action("GetEmployeeDataErrorList", "Workforce").Data("additionalParameterInfo")).ServerOperation(false)).Events(x => x.DataBound("employeeDataErrorDataBound")))
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div role="tabpanel" class="tab-pane" id="dataCorrect"></div>
+                <div id="dc-items" class="modal fade" role="dialog"></div>
+                <div id="divErrorFiles" class="modal fade" role="dialog">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-body">
+                                <div class="row top-pad">
+                                    <div id="divhomediverrorfileserroemessage" class="col-md-12 mainheading text-center">
+                                        Error Message
+                                    </div>
+                                    <div id="divhomediverrorfileserroemessagecontent" class="col-md-12 para">Hold Up! We found some issues in excel file</div>
+                                </div>
+                                <div class="row voffset2">
+                                    <div id="invalidTemplates" class="col-md-12 text-center" style="color:red !important">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal fade in" id="cleardata" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header re-set">
+                                @*<img src="/Images/clear-icon.png" alt="">*@ <i class="icon-clear-icon big25" aria-hidden="true"></i> Clear all data
+                            </div>
+                            <div class="modal-body">
+                                <div id="divhomecleardataAlertmessage" class="textsec">Alert: Clearing will remove employee data, workflow data, exchange rate data, performance rating and other data within compass cloud.<br>This operation cannot be reversed. Ensure you are working on a copy of the original database or have a backup of the original database.</div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" id="btn-Cancel" class="btn btn-cancel" data-dismiss="modal"><i class="fa fa-ban"></i> Cancel</button>
+                                <button type="button" class="btn btn-info prim-btn" id="btnClearAllData">Execute clear all data</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

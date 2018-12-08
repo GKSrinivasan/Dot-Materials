@@ -1,0 +1,197 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="BIZ_DEVModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="AppUser">
+    <Key>
+      <PropertyRef Name="AppUserPK" />
+    </Key>
+    <Property Name="AppUserPK" Type="Decimal" Precision="18" Scale="0" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserID" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="UserName" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="FirstName" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="LastName" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="Email" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="Passkey" Type="Binary" MaxLength="500" FixedLength="false" />
+    <Property Name="Logged" Type="Decimal" Precision="18" Scale="0" />
+    <Property Name="UserRole" Type="Int16" />
+    <Property Name="LoginAttempt" Type="Int16" />
+    <Property Name="Lastlogin" Type="DateTime" Precision="3" />
+    <Property Name="Lastlogout" Type="DateTime" Precision="3" />
+    <Property Name="UserStatus" Type="Int16" />
+    <Property Name="ContactNo" Type="Decimal" Precision="18" Scale="0" />
+  </EntityType>
+  <EntityType Name="CommonCode">
+    <Key>
+      <PropertyRef Name="CommonCodePK" />
+    </Key>
+    <Property Name="CommonCodePK" Type="Decimal" Precision="18" Scale="0" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CodeType" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Name="CodeID" Type="Byte" />
+    <Property Name="Code" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="IsActive" Type="Boolean" />
+  </EntityType>
+  <EntityType Name="UserRole">
+    <Key>
+      <PropertyRef Name="UserRolePK" />
+    </Key>
+    <Property Name="UserRolePK" Type="Byte" Nullable="false" />
+    <Property Name="UserRole1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="IsActive" Type="Boolean" Nullable="false" />
+  </EntityType>
+  <EntityContainer Name="BIZ_DEVEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="AppUsers" EntityType="Self.AppUser" />
+    <EntitySet Name="CommonCodes" EntityType="Self.CommonCode" />
+    <EntitySet Name="UserRoles" EntityType="Self.UserRole" />
+    <EntitySet Name="Employees" EntityType="BIZ_DEVModel.Employee" />
+    <FunctionImport Name="USP_GET_UserGridDate" ReturnType="Collection(BIZ_DEVModel.USP_GET_UserGridDate_Result)" />
+    <EntitySet Name="GroupMasters" EntityType="BIZ_DEVModel.GroupMaster" />
+    <EntitySet Name="CompanyLocations" EntityType="BIZ_DEVModel.CompanyLocation" />
+    <EntitySet Name="Currencies" EntityType="BIZ_DEVModel.Currency" />
+    <EntitySet Name="Vendors" EntityType="BIZ_DEVModel.Vendor" />
+    <EntitySet Name="Customers" EntityType="BIZ_DEVModel.Customer" />
+  </EntityContainer>
+  <EntityType Name="Employee">
+    <Key>
+      <PropertyRef Name="EmployeePK" />
+    </Key>
+    <Property Name="EmployeePK" Type="Decimal" Nullable="false" Precision="18" Scale="0" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="EmployeeID" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="EmployedDate" Type="DateTime" Precision="3" />
+    <Property Name="FirstName" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="LastName" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="Email" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="PhoneNo" Type="Decimal" Precision="18" Scale="0" />
+    <Property Name="Addressline1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Addressline2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Statecode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="country" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Name="pincode" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Name="DOB" Type="DateTime" Precision="3" />
+    <Property Name="IDType" Type="Byte" />
+    <Property Name="ReferenceID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="DeptType" Type="Int16" />
+    <Property Name="Designation" Type="Int16" />
+    <Property Name="Location" Type="Int16" />
+    <Property Name="ManagerEmpFK" Type="Decimal" Precision="18" Scale="0" />
+    <Property Name="ContactName" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="ContactPhoneNo" Type="Decimal" Precision="18" Scale="0" />
+    <Property Name="ISAppUser" Type="Boolean" />
+    <Property Name="AppuserFK" Type="Decimal" Precision="18" Scale="0" />
+    <Property Name="EmployeeName" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <ComplexType Name="USP_GET_UserGridDate_Result">
+    <Property Type="Decimal" Name="UserNum" Nullable="true" Precision="18" Scale="0" />
+    <Property Type="String" Name="EmployeeName" Nullable="true" MaxLength="250" />
+    <Property Type="DateTime" Name="DOB" Nullable="true" Precision="23" />
+    <Property Type="String" Name="Email" Nullable="true" MaxLength="250" />
+    <Property Type="String" Name="UserRole" Nullable="false" MaxLength="1" />
+    <Property Type="String" Name="UserStatus" Nullable="false" MaxLength="1" />
+    <Property Type="Decimal" Name="PhoneNo" Nullable="true" Precision="18" Scale="0" />
+    <Property Type="String" Name="Address" Nullable="true" MaxLength="235" />
+    <Property Type="String" Name="Department" Nullable="false" MaxLength="1" />
+    <Property Type="String" Name="Designation" Nullable="false" MaxLength="1" />
+    <Property Type="String" Name="Manager" Nullable="false" MaxLength="1" />
+    <Property Type="Boolean" Name="IsUser" Nullable="true" />
+  </ComplexType>
+  <EntityType Name="GroupMaster">
+    <Key>
+      <PropertyRef Name="GroupMasterPK" />
+    </Key>
+    <Property Name="GroupMasterPK" Type="Int16" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CompanyFK" Type="Int16" />
+    <Property Name="GroupName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="TopGroupFK" Type="Int16" />
+    <Property Name="StatementType" Type="Byte" />
+    <Property Name="Statementpart" Type="Byte" />
+    <Property Name="Groupprefix" Type="Int16" />
+    <Property Name="Displaysequence" Type="Int16" />
+    <Property Name="Createdby" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+    <Property Name="Updatedby" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="CompanyLocation">
+    <Key>
+      <PropertyRef Name="CompanyLocationPK" />
+    </Key>
+    <Property Name="CompanyLocationPK" Type="Int16" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CompanyFK" Type="Int16" />
+    <Property Name="Location_Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Usage" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Name="Addressline1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Addressline2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Statecode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="country" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Name="pincode" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Name="Email" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="PhoneNo" Type="Decimal" Precision="18" Scale="0" />
+    <Property Name="Reg_No" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="OccupancyType" Type="Byte" />
+    <Property Name="Started_Date" Type="DateTime" Precision="3" />
+    <Property Name="IsActive" Type="Boolean" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Currency">
+    <Key>
+      <PropertyRef Name="CurrencyPK" />
+    </Key>
+    <Property Name="CurrencyPK" Type="Byte" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Currency1" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Currency_Symbol" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Name="Decimal_Name" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Name="IsActive" Type="Boolean" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Vendor">
+    <Key>
+      <PropertyRef Name="VendorPK" />
+    </Key>
+    <Property Name="VendorPK" Type="Decimal" Nullable="false" Precision="18" Scale="0" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CompanyFK" Type="Int16" />
+    <Property Name="VendorName" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="BusnType" Type="Byte" />
+    <Property Name="Tax_No" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="Addressline1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Addressline2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Statecode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="country" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Name="pincode" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Name="Email" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="PhoneNo" Type="Decimal" Precision="18" Scale="0" />
+    <Property Name="CurrencyPK" Type="Byte" />
+    <Property Name="CreatedLocationfk" Type="Int16" />
+    <Property Name="ContactName1" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="Contact1Extn" Type="Decimal" Precision="18" Scale="0" />
+    <Property Name="Contact1PhoneNo" Type="Decimal" Precision="18" Scale="0" />
+    <Property Name="ContactName2" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="Contact2Extn" Type="Decimal" Precision="18" Scale="0" />
+    <Property Name="Contact2PhoneNo" Type="Decimal" Precision="18" Scale="0" />
+    <Property Name="Created_Date" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="Customer">
+    <Key>
+      <PropertyRef Name="CustomerPK" />
+    </Key>
+    <Property Name="CustomerPK" Type="Decimal" Nullable="false" Precision="18" Scale="0" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CompanyFK" Type="Int16" />
+    <Property Name="FirstName" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="false" />
+    <Property Name="LastName" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="BusnType" Type="Byte" />
+    <Property Name="Tax_No" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="Addressline1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Addressline2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Statecode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="country" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Name="pincode" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Name="Email" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="PhoneNo" Type="Decimal" Precision="18" Scale="0" />
+    <Property Name="MobileNo" Type="Decimal" Precision="18" Scale="0" />
+    <Property Name="Gender" Type="Byte" />
+    <Property Name="DOB" Type="DateTime" Precision="3" />
+    <Property Name="IDType" Type="Byte" />
+    <Property Name="ReferenceID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="CreatedLocationfk" Type="Int16" />
+    <Property Name="Created_Date" Type="DateTime" Precision="3" />
+  </EntityType>
+</Schema>

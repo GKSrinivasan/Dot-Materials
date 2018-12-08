@@ -1,0 +1,137 @@
+﻿@model Laserbeam.BusinessObject.Common.UserManagementEmailDetails
+@using Laserbeam.BusinessObject.Common;
+<style>
+    .k-tool-icon {
+        /*text-align:center !important;*/
+    }
+
+    #divSendRemainderNotification .k-grid-content {
+        height: 250px !important;
+    }
+</style>
+
+@*<script type="text/javascript">
+    $(document).ready(function () {
+        $("#sendReminderClearFilter").hide();
+    });
+    $("#chkBoxSelectAll").on("click", function (e) {
+        if (this.checked) {
+            $("#chkBox input[type=checkbox]").each(function () {
+                this.checked = true;
+            });
+        }
+        else {
+            $("#chkBox input[type=checkbox]").each(function () {
+                this.checked = false;
+            });
+        }
+    });
+</script>*@
+
+<div role="dialog" class="modal-dialog mailpopup">
+    <div>
+        <div class="modal-content reminder">
+            <div class="modal-header">
+                <h3 class="modal-title">Reminder Notification</h3>
+            </div>
+
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <span class="short-desc">This section allows you to modify subject & content and select users. The below content will be sent to the selected users.</span>
+                    </div>
+                    <div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 col-sm-12 col-xs-12">
+                        <h4 class="lt-txt">Email description</h4>
+                        <div class="subtitle1 bottom-pad">Subject</div>
+                        <form class="form-horizontal" method="post" action="" role="form">
+
+                            <div class="form-group nomargin bottom-pad">
+                                <div class="col-md-12">
+                                    @Html.TextBox("emailReminderSubject", Model.EmailSubject, new { @class ="form-control"})
+                                </div>
+
+                            </div>
+
+                            <div class="subtitle1 bottom-pad">Content</div>
+                            <div class="form-group bottom-pad">
+                                <div class="col-md-12">
+                                    <div>
+                                        @(Html.Kendo().EditorFor(model => model.EmailBody).Name("emailReminderEditor")
+                                        .Value(MvcHtmlString.Create(HttpUtility.HtmlDecode(Model.EmailBody)).ToString())
+                                        .HtmlAttributes(new { @countid = "DescriptionCharacterCount", @class = "descClass", id = "emailReminderEditor", })
+                                        .Tools(tools => tools.Clear().Formatting().Bold().Italic().Underline().JustifyLeft().JustifyCenter().JustifyRight().InsertUnorderedList().InsertOrderedList().Indent()))
+
+                                    </div>
+
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class="col-md-6 col-sm-12 col-xs-12">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h4>User List</h4>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="text-right">
+                                    <button class="btn btn-bordered dropdown-toggle" id="sendReminderFilter" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"><img src="../../Images/filter-icon.png" alt=""> Filter</button>
+                                    <button class="btn btn-bordered dropdown-toggle" id="sendReminderClearFilter" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"><img src="../../Images/filter-icon.png" alt=""> Clear</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="divSendRemainderNotification">
+                            @(Html.Kendo().Grid<SendReminderNotificationModel>().Name("grdSendReminderNotification").HtmlAttributes(new { style = "height:auto!important" })
+                                .Events(x => x.DataBound("sendReminderBound"))
+                                .Columns(columns =>
+                                {
+                                    columns.Template(@<text></text>)
+                                .ClientTemplate("<input type='checkbox' name='chkValue' id='chkBox' #=IsMessageSent ? checked='checked' : ''# ></input>")
+                                .HtmlAttributes(new { id = "chkBox" })
+                                .HeaderHtmlAttributes(new { id = "chkBoxHeader", style = "word-wrap: break-word" })
+                                .HeaderTemplate("<input type='checkbox' id='chkBoxSelectAll' /> ")
+                                .Width("10%");
+
+                                    columns.Template(@<text></text>)
+                                .ClientTemplate("#=UserId#")
+                                .HtmlAttributes(new { id = "chkBox", style = " text-align:center; " })
+                                .Title("Email").Visible(false).Width("30%")
+                                .HtmlAttributes(new { style = "text-align: left !important" });
+                                    columns.Bound(m => m.EmailAddress).Title("Email").HtmlAttributes(new { id = "sendReminderEmailAddress" }).Width("40%");
+                                    columns.Bound(m => m.Role).Title("Role").HtmlAttributes(new { id = "sendReminderRole" }).Width("20%");
+                                })
+                                        .DataSource(dataSource => dataSource.Ajax()
+                                        .Model(model => model.Id(p => p.UserId))
+                                        .Read(read => read.Action("GetYetToLoginUsersList", "UserManagement").Data("additionalParamInfo"))
+                                        .Model(model => { model.Id(id => id.UserId); })).Pageable(m => m.PageSizes(false))
+                                        .Sortable().Resizable(resize => resize.Columns(false))
+                                        .Scrollable(s => s.Enabled(true))
+                            )
+                        </div>
+                    </div>
+                </div>
+
+                @(Html.Kendo().Window().Name("EmailFilterSortPopup").Title("Filter/Sort").Visible(false).Width(710).Height(270).Modal(true))
+
+            </div>
+
+            <div class="modal-footer">
+                <div>
+                    <button id="cancelSendEmailReminder" type="button" class="btn cancel-btn" onclick="cancelSendEmailReminder();">
+                        <span class="fa fa-ban"></span> Cancel
+                    </button>
+                    <button id="sendEmailReminder" type="button" class="btn prim-btn">
+                        <span class="fa fa-envelope-o"></span> Send Email
+                    </button>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>

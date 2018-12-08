@@ -1,0 +1,302 @@
+﻿  <!-- Modal -->
+@model Laserbeam.BusinessObject.Common.BudgetProration
+
+
+@*<script type="text/javascript">
+
+    var startDateData;// =; Model.ProrateStartDate;
+    var endDateData;// = Model.ProrateEndDate;
+
+    var isMerit = false;
+    $.validator.unobtrusive.adapters.add(
+    'notequalto', ['other'], function (options) {
+        options.rules['notEqualTo'] = "[name='" + options.params.other + "']";
+        if (options.message) {
+            options.messages['notEqualTo'] = options.message;
+        }
+    });
+
+    $.validator.addMethod('notEqualTo', function (value, element, param) {
+        return this.optional(element) || value != $(param).val();
+    }, '');
+
+    $.validator.setDefaults({
+        showErrors: function (errorMap, errorList) {
+            $.each(this.successList, function (index, value) {
+                $(value).parent().removeClass("has-error");
+                return $(value).popover("hide");
+            });
+            return $.each(errorList, function (index, value) {
+                var _popover;
+                _popover = $(value.element).popover({
+                    trigger: "manual",
+                    placement: "bottom",
+                    content: value.message,
+                    template: "<div class=\"popover\"><div class=\"arrow\"></div><div class=\"popover-inner\"><div class=\"popover-content\"><span class=\"glyphicon glyphicon-hand-right\"></span><p></p></div></div></div>"
+                });
+                $(value.element).parent().addClass("has-error");
+                _popover.data("bs.popover").options.content = value.message;
+                return $(value.element).popover("show");
+            });
+        }
+    });
+
+
+    $(document).on("keydown", "#txtProrationDatesPerMonth", function (e) {
+        if ($('input:radio[name=duration]:checked').val() == undefined || $('input:radio[name=duration]:checked').val() == "") {
+            if (e.keyCode == 9)
+                $(this).trigger('blur');
+        }
+    });
+
+
+    $(document).on("keydown", "#txtProrationDuration", function (e) {
+        if ($('input:radio[name=duration]:checked').val() == undefined || $('input:radio[name=duration]:checked').val() == "") {
+            if (e.keyCode == 9)
+                $(this).trigger('blur');
+        }
+    });
+
+    $(document).ready(function () {
+        $.validator.unobtrusive.parse(document);
+        setValidation();
+
+        $("#txtProrationDatesPerMonth").keypress(function (e) {
+            if (String.fromCharCode(e.keyCode).match(/[^0-9]/g)) return false;
+        });
+
+        $("#txtProrationDuration").keypress(function (e) {
+            if (String.fromCharCode(e.keyCode).match(/[^0-9]/g)) return false;
+        });
+    });
+
+    function setValidation() {
+        $(".input-validation-error").parent().removeClass('has-success').addClass("has-error");
+        $("div.validation-summary-errors").has("li:visible").addClass("alert-block alert-danger");
+
+        //$('form').data('validator').settings.onfocusout = function (element) {
+        //    $(element).valid();
+        //};
+    }
+    function prorationStartDateChange(e) {
+        var a = e.sender._oldText;
+
+        $("#processStartDateValue").val(a);
+        var EndDate = $("#prorationEndDate").data("kendoDatePicker")._oldText;
+        $("#processEndDateValue").val(EndDate);
+        isProrationChanged = true;
+    }
+    function prorationEndDateChange(e) {
+        var a = e.sender._oldText;
+        $("#processEndDateValue").val(a);
+        var StartDate = $("#prorationStartDate").data("kendoDatePicker")._oldText;
+        $("#processStartDateValue").val(StartDate);
+        isProrationChanged = true;
+    }
+    $(document).on("change", "#prorationDaily", function (e) {
+        var StartDate = $("#prorationStartDate").data("kendoDatePicker")._oldText;
+        $("#processStartDateValue").val(StartDate);
+        var EndDate = $("#prorationEndDate").data("kendoDatePicker")._oldText;
+        $("#processEndDateValue").val(EndDate);
+    });
+</script>*@
+
+@using (Ajax.BeginForm("_Proration", "BudgetPlan", new AjaxOptions { HttpMethod = "POST",OnSuccess="onSavePromotion" }, new { id = "form", @class = "form-sec" }))
+{
+    @Html.AntiForgeryToken()
+    <div class="modal-dialog commentmodal" role="document" id="RenderProration">
+        <div class="modal-content">
+            <div class="modal-header">
+
+                @Html.Hidden("processStartDateValue", Model.ProrateStartDate)
+                @Html.Hidden("processEndDateValue", Model.ProrateEndDate)
+                @Html.Hidden("prorationType",Model.ProrationType)
+                @Html.Hidden("isMerit","false")
+
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Set Prorate Rule</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row nomargin proratepopup">
+                    <div class="col-md-12">
+                        <div class="row titleproration">
+                            <div class="col-md-12 bottom-pad titleproration1">
+                                Prorate increase for employees with hire/last pay change date falling between
+                            </div>
+                            <div class="col-md-12">
+                                <span class="input-group pull-left">
+                                    @*<input type="date" id="myDate" value="2014-02-09" />*@
+                                    @*@Html.TextBoxFor(a => a.ProrateStartDate, new { @type = "date", autofocus = true, placeholder = Html.DisplayNameFor(a => a.ProrateStartDate) })*@
+                                    @(Html.Kendo().DatePickerFor(m => m.ProrateStartDate).Format("MM/dd/yyyy")
+              .Name("prorationStartDate")
+                      .Value(Model.ProrateStartDate).Events(m => m.Change("prorationStartDateChange"))
+              .HtmlAttributes(new { style = "width: 100%", type = "text" })
+                                    )
+
+                                </span>
+                                <span class="andsec pull-left">to</span>
+                                <span class="input-group pull-left">
+                                    @(Html.Kendo().DatePickerFor(m => m.ProrateEndDate).Format("MM/dd/yyyy")
+                      .Name("prorationEndDate")
+      .Value(Model.ProrateEndDate).Events(m => m.Change("prorationEndDateChange"))
+              .HtmlAttributes(new { style = "width: 100%", type = "text" })
+                                    )
+
+                                </span>
+                            </div>
+                        </div>
+                        <div class="row top-pad titleproration">
+                            <div class="col-md-12 titleproration1">
+                                Select the type of prorate method from the option given
+                            </div>
+                            <div class="col-md-5">
+                                <div class="btn-group proratemtd" role="group" aria-label="...">
+                                    <div class="register-switch">
+                                        @*@Html.RadioButtonFor(model => model.ProrationType, "D", new { @Class = "register-switch-input" })
+                                            <label for="prorationDaily" class="register-switch-label">Daily</label>
+                                            @Html.RadioButtonFor(model => model.ProrationType, "W", new { @Class = "register-switch-input" })
+                                            <label for="prorationWeekly" class="register-switch-label">Weekly</label>
+                                            @Html.RadioButtonFor(model => model.ProrationType, "M", new { @Class = "register-switch-input" })
+                                            <label for="prorationMonthly" class="register-switch-label">Monthly</label>*@
+
+                                        <input type="radio" name="duration" value="D" id="prorationDaily" class="register-switch-input" checked="@(Model.ProrationType == "Daily" ? true : false)">
+                                        <label for="prorationDaily" class="register-switch-label">Daily</label>
+                                        <input type="radio" name="duration" value="W" id="prorationWeekly" class="register-switch-input" checked="@(Model.ProrationType == "Weekly" ? true : false)">
+                                        <label for="prorationWeekly" class="register-switch-label">Weekly</label>
+                                        <input type="radio" name="duration" value="M" id="prorationMonthly" class="register-switch-input" checked="@(Model.ProrationType == "Monthly" ? true : false)">
+                                        <label for="prorationMonthly" class="register-switch-label">Monthly</label>
+
+
+                                    </div>
+
+
+
+
+
+
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="row top-pad titleproration">
+                            <div class="col-md-12 bottom-pad titleproration1">
+                                Input calendar duration, expressed in (365 days / 52 weeks / 12 months)
+                            </div>
+                            <div class="col-md-5">
+                                @*<input type="text" class="form-control" value="@Model.ProrationDuration" id="txtProrationDuration" />*@
+                                @Html.TextBoxFor(a => a.ProrationDuration, new { @class = "form-control form-border", autofocus = true, placeholder = Html.DisplayNameFor(a => a.ProrationDuration), id = "txtProrationDuration" })
+                            </div>
+                            <div class="col-md-12 smtoppad italicgrey">
+                                <span>Example :<span id="prorationSample"></span> , only enter number</span>
+                            </div>
+                        </div>
+                        <div class="row top-pad titleproration">
+                            <div class="col-md-12 bottom-pad titleproration1">
+                                No. of days an employee should have worked in a given calendar month to include that month
+                            </div>
+                            <div class="col-md-5">
+                                @*<input type="text" class="form-control" value="@Model.ProrationDatesPerMonth" id="txtProrationDays" />*@
+                                @Html.TextBoxFor(a => a.ProrationDatesPerMonth, new { @class = "form-control form-border", autofocus = true, placeholder = Html.DisplayNameFor(a => a.ProrationDatesPerMonth), id = "txtProrationDatesPerMonth" })
+                            </div>
+                            <div class="col-md-12 smtoppad italicgrey">
+                                Example : 16 days, only enter number
+                            </div>
+                            <div class="col-md-12" style="color: red;" id="datePerMonth"></div>                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <div class="col-md-7">
+                    <div class="checkbox checkbox-primary checkboxnopad checktxt text-left">
+                        <input id="meritChkBox" type="checkbox">
+                        <label for="meritChkBox">
+                            Apply the same prorate rule for <span class="boldfont">Merit Increase</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="col-md-5 text-right">
+                    <button type="button" class="btn btn-cancel" id="prorationCancel"><i class="fa fa-ban"></i> Cancel</button>
+                    <button type="submit" class="btn btn-blue">Save</button>
+                </div>
+                @*id="prorationSave"*@
+            </div>
+        </div>
+    </div>
+}
+@*<script type="text/javascript">
+    // var prorationType = '@Model.ProrationType';
+    //var startDateData;// =; Model.ProrateStartDate;
+    //var endDateData;// = Model.ProrateEndDate;
+
+    //var isMerit = false;
+
+    //$("#form").submit(function (e) {
+    //    if ($("#txtProrationDatesPerMonth").val() == "" && $("#prorationType").val() == "Monthly")
+    //    {
+    //        $("#datePerMonth").html("Please Enter Your Proration Dates Per Month");
+    //        return false;
+    //    }       
+    //});
+
+    //$("#txtProrationDatesPerMonth").on("keypress", function (e) {
+    //    if (e.charCode >= 48 && e.charCode <= 57)
+    //        $("#datePerMonth").html("");
+    //});
+
+    //$.validator.unobtrusive.adapters.add(
+    //'notequalto', ['other'], function (options) {
+    //    options.rules['notEqualTo'] = "[name='" + options.params.other + "']";
+    //    if (options.message) {
+    //        options.messages['notEqualTo'] = options.message;
+    //    }
+    //});
+
+    //$.validator.addMethod('notEqualTo', function (value, element, param) {
+    //    return this.optional(element) || value != $(param).val();
+    //}, '');
+
+    //$.validator.setDefaults({
+    //    showErrors: function (errorMap, errorList) {
+    //        $.each(this.successList, function (index, value) {
+    //            $(value).parent().removeClass("has-error");
+    //            return $(value).popover("hide");
+    //        });
+    //        return $.each(errorList, function (index, value) {
+    //            var _popover;
+    //            _popover = $(value.element).popover({
+    //                trigger: "manual",
+    //                placement: "right",
+    //                content: value.message,
+    //                template: "<div class=\"popover\"><div class=\"arrow\"></div><div class=\"popover-inner\"><div class=\"popover-content\"><span class=\"glyphicon glyphicon-hand-right\"></span><p></p></div></div></div>"
+    //            });
+    //            $(value.element).parent().addClass("has-error");
+    //            _popover.data("bs.popover").options.content = value.message;
+    //            return $(value.element).popover("show");
+    //        });
+    //    }
+    //});
+    //$(document).ready(function () {
+    //    $.validator.unobtrusive.parse(document);
+    //    setValidation();
+    //});
+
+    //function setValidation() {
+    //    $(".input-validation-error").parent().removeClass('has-success').addClass("has-error");
+    //    $("div.validation-summary-errors").has("li:visible").addClass("alert-block alert-danger");
+    //}
+    //function prorationStartDateChange() {
+    //    startDateData = $("#processStartDate").val();
+
+    //    isProrationChanged = true;
+    //}
+    //function prorationEndDateChange() {
+    //    endDateData = $("#prorationEndDate").val();
+    //    isProrationChanged = true;
+    //}
+</script>*@
+
+
+

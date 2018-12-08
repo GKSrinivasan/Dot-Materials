@@ -1,0 +1,362 @@
+﻿@model Laserbeam.BusinessObject.Common.EmployeeTitleModel
+@using Laserbeam.Resource.HR.CommonResources;
+@using Laserbeam.BusinessObject.Common;
+@*<ul>*@
+<style type="text/css">
+    #downArrowLogin:hover {
+        cursor: pointer;
+    }
+    /*.modal-backdrop {
+       z-index:9 !important;
+    }*/
+</style>
+<script type="text/javascript">
+    var userRole = '@Model.UserRole';
+    $(document).ready(function () {
+        (userRole != "Super Admin") ? $("#profileSection").hide() : $("#profileSection").show();
+    });
+
+    $(document).on("click", "#logoutArrow", function (e) {
+        window.location.href = '../Account/LogOut';
+    });
+    $(document).on("click", "#profileHome", function (e) {
+        window.location.href = '../Profile/Home';
+    });
+    $(document).on("click", "[id$=lnkChat]", function () {
+        $.ajax({
+            url: "../Chatbox/_CompChat",
+            success: function (result) {
+                $("#ChatBoxPopup").html(result);
+                $("#modal-1").modal('show');
+                $(".modal-backdrop").addClass("display-none");
+            }
+        });
+    });
+
+</script>
+@Html.AntiForgeryToken()
+<li class="questsec">
+    <div class="row">
+        <div>
+            <span id="lnkHelpDocuments" class="rightborders" style="display:none;">
+                <i class="fa fa-question-circle-o"></i>
+
+            </span>
+        </div>
+    </div>
+
+</li>
+<li class="notification-section" id="lnkMyNotification" style="display:@(ViewContext.GetNotificationStatus() == true ? "inline" : "none");">
+
+    <a role="presentation" class="dropdown" id="lnkNotification" data-placement="bottom" data-toggle="Notificationpopover1" type="button" data-html="true" href="#">
+
+        @if (Model.ChatUnreadCount > 0)
+        {
+            <span id="UnredCount" class="label chat-label-red" style="display:none;">@Model.ChatUnreadCount</span>
+        }
+        <i id="lnkChat" class="fa fa-comments-o commenticon" aria-hidden="true" style="display:none;"></i>
+
+        <i class="fa fa-bell-o bellicon dropdown-toggle" href="#notification" data-toggle="dropdown" style="cursor:pointer;display:none;" aria-hidden="true"></i>
+        <span class="badge badge-red" style="display:none;"> 3 </span>
+    </a>
+
+    <!--Notification Menu Starts-->
+    <div id="notification">
+        <ul class="dropdown-menu menubox">
+            <div class="menubox-header">
+                <h5><i class="fa fa-bell-o" aria-hidden="true"></i> Notifications</h5>
+            </div>
+
+            <div class="daysec">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="col-md-3 bordersec"></div>
+                        <div class="col-md-6 datesec text-center">Wednesday - July 12, 2017</div>
+                        <div class="col-md-3 bordersec"></div>
+                    </div>
+                </div>
+            </div>
+
+
+            <ul class="notificaion-content">
+                <li>
+                    <div class="clink">
+                        <div class="ldiv orange"><i class="fa fa-paper-plane" aria-hidden="true"></i></div>
+                        <div class="rdiv">5 employees in your team to be submitted for approval  </div>
+                        <div class="rdiv-rt"><span class="ur"></span></div>
+
+                        <div class="cperiod">
+                            <div class="row">
+                                <div class="col-md-5"><i class="fa fa-clock-o" aria-hidden="true"></i> 2 minutes ago</div>
+                                <div class="col-md-7 text-right sender">Kirubanandan Swaminathan</div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+
+                <li>
+                    <div class="clink">
+                        <div class="ldiv orange"><i class="fa fa-paper-plane" aria-hidden="true"></i></div>
+                        <div class="rdiv">5 employees in <strong>Uma devi’s</strong> team to be submitted for approval <span class="ur"></span> </div>
+
+                        <div class="cperiod">
+                            <div class="row">
+                                <div class="col-md-5"><i class="fa fa-clock-o" aria-hidden="true"></i> 2 hours ago</div>
+                                <div class="col-md-7 text-right sender">Harihara Subramaniyan</div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+
+                <li>
+                    <div class="clink">
+                        <div class="note-cont">
+                            <div class="ldiv green"><i class="icon-smiley-o2" aria-hidden="true"></i></div>
+                            <div class="rdiv">10 employees in <strong>Aishvarya Gunasekar’s</strong> team to be reviewed </div>
+                            <div class="rdiv-rt"><span class="ur"></span></div>
+                        </div>
+
+                        <div class="cperiod">
+                            <div class="row">
+                                <div class="col-md-5"><i class="fa fa-clock-o" aria-hidden="true"></i> 4 hours ago</div>
+                                <div class="col-md-7 text-right sender"> Friedrick Augustus Johann</div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="clink-read">
+                        <div class="ldiv green"><i class="icon-smiley-o2" aria-hidden="true"></i></div>
+                        <div class="rdiv">5 employees in <strong>Kirubanandhan’s</strong> team to be reviewed </div>
+
+                        <div class="cperiod">
+                            <div class="row">
+                                <div class="col-md-5"><i class="fa fa-clock-o" aria-hidden="true"></i> 11 hours ago</div>
+                                <div class="col-md-7 text-right sender">Parama Sidha Suriya Varman</div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li>
+
+                <li>
+                    <div class="clink-read">
+                        <div class="ldiv red"><i class="icon-frown-o2" aria-hidden="true"></i></div>
+                        <div class="rdiv">10 employees in <strong>Rajitha’s</strong> team to be reviewed that has been reopened by Naveen </div>
+
+                        <div class="cperiod">
+                            <div class="row">
+                                <div class="col-md-5"><i class="fa fa-clock-o" aria-hidden="true"></i> 14 hours ago</div>
+                                <div class="col-md-7 text-right sender">Umadevi Kumaraswami</div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+
+
+            <div class="menubox-footer">
+                <!--<span><input type="checkbox"><h6>Mark all as read</h6></span>-->
+                <h6>Mark all as read</h6>
+                <span class="footerbox-txt mr15"><a href="" id="hide">See All <i class="fa fa-angle-double-right" aria-hidden="true"></i></a></span>
+            </div>
+        </ul>
+    </div>
+    <!--Notification Menu Ends-->
+</li>
+<div class="modal fade" id="mgrTreePopup" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"></div>
+
+
+<li class="switchbutton">
+    <a href="#">
+@if (ViewContext.GetUserRole() == "Super Admin" && ViewContext.GetIsSampleData())
+{
+            <button type="button" class="btn btn-danger" id="btnSwitchManagerView" data-toggle="modal" data-target="#mgrTreePopup">
+                <i class="fa fa-retweet"></i>
+                <span id="switchBtnText">Switch to Manager View</span>
+            </button>
+        }
+
+        @if (ViewContext.GetEnableSwitchAdmin())
+        {
+            <button type="button" class="btn btn-danger" id="btnSwitchAdminView">
+                <i class="fa fa-retweet"></i>
+                <span id="switchBtnText">Switch to Admin View</span>
+            </button>
+        }
+    </a>
+</li>
+
+<li class="rightborders userprofilesection">
+    <div href="#" class="blutxt" id="downArrowLogin">
+        <div id="loginSlideToggle">
+            <span class="bluecircle">
+                @Model.UserNameShort
+            </span> @*@Model.UserName*@
+            <ul>
+                <li id="login">
+                    <div id="login-trigger" href="#">
+                        <div>
+                            <span class="fa fa-angle-down" style="font-size: 20px;color:#777;"></span>
+                        </div>
+                    </div>
+
+                    <div id="login-content" class="logincontentClass">
+
+                        <div class="row rowLoginCredentials nomargin">
+                            <div class="col-md-2 col-sm-2 text-center">
+                                <i class="fa fa-user-circle-o font_size_14"></i>
+                            </div>
+                            <div id="divuserTitleBarLoggedin" class="col-md-10 col-sm-10">
+                                Logged in as <span id="spanuserTitleBarLoggedin" style="color:chocolate"> @Model.UserRole</span>
+                            </div>
+                        </div>
+                        <div class="row rowLoginCredentials nomargin" style="display:none">
+                            <div class="col-md-2 col-sm-2">
+                                <i class="fa fa-adjust fauserplus font_size_14"></i>
+                            </div>
+                            <div class="col-md-10 col-sm-10">
+                                <select class="form-control">
+                                    <option>Available</option>
+                                    <option>Away</option>
+                                    <option>Vacation</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div id="profileSection" class="row rowLoginCredentials nomargin">
+                            <div id="profileHome" class="col-md-2 col-sm-2 text-center">
+                                <i class="fa fa-address-card-o font_size_14"></i>
+                            </div>
+                            <a id="profile" href="@Url.Action("Home","Profile")">
+                                <div class="col-md-10 col-sm-10 profiletxt">Profile</div>
+                            </a>
+                        </div>
+
+                        @*<div class="row rowLoginCredentials nomargin logoutsec">
+                                <div id="logoutArrow" class="col-md-2 col-sm-2">
+                                    <i class="fa fa-sign-out font_size_14 white"></i>
+                                </div>
+                                <a class="logout" href="@Url.Action("LogOut","Account")">
+                                    <div class="col-md-10 col-sm-10"> Log Out </div>
+                                </a>
+                            </div>*@
+                    </div>
+
+                </li>
+            </ul>
+        </div>
+    </div>
+</li>
+<li class="logoutsection" id="logoutArrow">
+    <a id="lnkuserTitleBarlogoutArrow" class="logout" href="@Url.Action("LogOut","Account")"><i class="fa fa-power-off" data-toggle="tooltip" data-placement="bottom" title="Logout"></i></a>
+</li>
+@*</ul>*@
+@*<div id="notificationPopoverContent" class="hide">
+        @if (Model.MyApprovals != null)
+        {
+            var CompApproval = Model.MyApprovals.Where(x => x.Module == "Compensation").Select(x => x).ToList();
+            var LTIPApproval = Model.MyApprovals.Where(x => x.Module == "LTIP").Select(x => x).ToList();
+            if (CompApproval.Count() != 0)
+            {
+                <div><b>Compensation</b> </div>
+                <ul id="menu1" class="msg_list nopadding" role="menu" style="max-height:150px!important;overflow-y:auto;overflow-x:hidden">
+
+                    @foreach (var item in CompApproval)
+                    {
+                        <li>
+                            <a class="clsPopover nopadding" onclick="onSelectNotification(@item.EmployeeNum,'@item.Module');" href="javascript:void(0);">
+                                <div class="row">
+                                    <div class="col-lg-2 col-md-2">
+                                        <span><input class="abbreviatedText text-center" value=@item.Abbreviation type="text" disabled="disabled" style=" width: 30px !important; height: 30px !important; color: white !important; padding-left:1px!important; margin-right: 7px;background-color:#c24646 !important;" /></span>
+                                    </div>
+                                    <div class="col-lg-9 col-md-9" style="padding-top:5px">
+                                        <span style="color:#c24646 !important">@item.EmployeeName (@item.EmployeeCount)</span>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                    }
+                </ul>
+            }
+            if (LTIPApproval.Count() != 0)
+            {
+                <div style="margin-top:5px!important"><b>LTIP </b></div>
+                <ul id="menu1" class="msg_list nopadding" role="menu" style="max-height:150px!important;overflow-y:auto;overflow-x:hidden">
+
+                    @foreach (var item in LTIPApproval)
+                    {
+                        <li>
+                            <a class="clsPopover nopadding" onclick="onSelectNotification(@item.EmployeeNum,'@item.Module');" href="javascript:void(0);">
+                                <div class="row">
+                                    <div class="col-lg-2 col-md-2">
+                                        <span><input class="abbreviatedText text-center" value=@item.Abbreviation type="text" disabled="disabled" style=" width: 30px !important; height: 30px !important;color: white !important; padding-left:1px!important; margin-right: 7px;background-color:#c24646 !important;" /></span>
+                                    </div>
+                                    <div class="col-lg-9 col-md-9" style="padding-top:5px">
+                                        <span style="color:#c24646 !important;">@item.EmployeeName (@item.EmployeeCount)</span>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                    }
+                </ul>
+            }
+        }
+    </div>*@
+
+
+<!--modal for switch to admin view-->
+@*<div class="modal fade modal-custom" id="AdminModal" tabindex="-1" role="dialog" aria-labelledby="AdminModal">
+        <div class="modal-dialog modal-sm" role="document" style="vertical-align:top;top:6%;float:right;right:14%;">
+            <div class="col-md-3 col-md-offset-9  modal-content text-center popovermodal">
+                <div class="pull-right"><button type="button" class="btn btn-closee" data-dismiss="modal">&times;</button></div>
+                <div><i class="fa fa-angle-double-up faa-bounce animated" aria-hidden="true" style="color: #f0ad4e;font-size: 25px;"></i></div>
+                Hi! You are in the Admin view. Click on the button for <span style="color:#0070c9;">Manager</span> view.
+            </div>
+        </div>
+    </div>*@
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        //ManagerViewPopOver();
+    });
+    function ManagerViewPopOver() {
+        setTimeout(function () {
+            $('#AdminModal').modal('show');
+        }, 5000);
+        $('#AdminModal').modal('hide');
+    }
+    $(document).on("click", "#btnSwitchManagerView", function (e) {
+        $.ajax({
+            url: '../Dashboard/SetSwitchUserSession',
+            type:"get",
+            data: { isAdmin: false },
+            success: function (res) {
+            },
+            error: function (e) {
+            }
+        });
+        $.ajax({
+            url: '../Dashboard/_ManagerViewPopup/',
+            type: 'GET',
+            cache: false,
+            success: function (result) {                
+                $("#mgrTreePopup").html(result);                              
+            }
+        });
+     //   $('div').removeClass('modal-backdrop');
+        //location.reload();
+    });
+    $(document).on("click", "#btnSwitchAdminView", function (e) {
+        $.ajax({
+            url: '../Dashboard/SetSwitchUserSession',
+            type:"get",
+            data: { isAdmin: true },
+            success: function (res) {
+            },
+            error: function (e) {
+            }
+        });
+        location.reload();
+    });
+
+</script>

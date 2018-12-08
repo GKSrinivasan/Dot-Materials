@@ -1,0 +1,46 @@
+﻿@using Laserbeam.BusinessObject.Common.AnalyticsBusinessObjects;
+<div class="col-md-12">
+        <div class="row">
+            <div id="IncreaseByDivision" style="height:350px;"></div>
+            <div style="margin-top:2% !important">
+                <div class="table-responsive left-pad12">
+                    @(Html.Kendo().Grid<MeritIncreasebyRatings>()
+                          .Name("meritincreasebydepartment")
+                    .HtmlAttributes(new { style = "text-align: center;" })
+                          .TableHtmlAttributes(new { style = "text-align: center;" })
+                          .Events(e => e.DataBound("DepartmentGridDataBound"))
+
+                  .Columns(columns =>
+                  {
+
+                      columns.Bound(m => m.DepartmentName)
+                          .Title("Department").HtmlAttributes(new { style = "text-align:left;" }).HeaderHtmlAttributes(new { style = "text-align: left;" }).Width(150);
+                      columns.Bound(m => m.CountValue)
+                          .Title("# of EEs").HeaderHtmlAttributes(new { style = "text-align: center;" }).Width(100);
+                      columns.Bound(m => m.CurrentSalaryAmount)
+                       .Title("CurrentSalary").HeaderHtmlAttributes(new { style = "text-align: center;" }).Width(150);
+                      columns.Bound(m => m.NewSalaryAmount)
+                          .Title("NewSalary").HeaderHtmlAttributes(new { style = "text-align: center;" }).Width(100);
+                      columns.Bound(m => m.BudgetAmount)
+                          .Title("Merit Budget").HeaderHtmlAttributes(new { style = "text-align: center;" }).Width(100);
+                      columns.Bound(m => m.SpentAmount)
+                          .Title("Total Spent").HeaderHtmlAttributes(new { style = "text-align: center;" }).Width(100);
+                      columns.Bound(m => m.AverageValue)
+                          .Title("Avg % of Increase").HeaderHtmlAttributes(new { style = "text-align: center;" }).Width(150);
+
+                  })
+                                               //.Pageable()
+                                               .Scrollable(s =>s.Height(150))
+                                               .DataSource(da => da.Ajax().Read(read => read.Action("GetMeritIncreaseByDepartment", "Analytics").Data("DataParams"))).HtmlAttributes(new { style = "font-family: 'segoeui';text-align: center !important;color: #6E6259 !important" })
+                    )
+                </div>
+            </div>
+        </div>
+</div>
+<script>
+
+    $(document).ready(function (e) {
+        //var grdReportees = $("#meritincreasebydepartment").data("kendoGrid");
+        //grdReportees.dataSource.read();
+    });
+</script>

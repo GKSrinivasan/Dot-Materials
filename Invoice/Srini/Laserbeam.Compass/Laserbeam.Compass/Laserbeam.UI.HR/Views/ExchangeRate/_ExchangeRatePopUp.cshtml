@@ -1,0 +1,103 @@
+﻿@*<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">*@
+@model Laserbeam.BusinessObject.Common.ExchangeRateData
+<div class="modal-dialog">
+    @using (Ajax.BeginForm("_ExchangeRatePopUp", "ExchangeRate", new AjaxOptions { HttpMethod = "POST" }, new { @class = "form-sec", id = "AddinngExchangeRateForm" }))
+    {
+        @Html.AntiForgeryToken();
+        @Html.HiddenFor(m => m.CurrencyCode);
+        @Html.HiddenFor(m => m.CultureCode);
+        @Html.HiddenFor(m => m.CurrencyCodeNum);
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    @*<button type="button" class="close" data-dismiss="modal" aria-label="Close" ><span aria-hidden="true">&times;</span></button>*@
+                    @if (Model.CurrencyCodeNum != 0)
+                {   <h4 class="modal-title" id="myModalLabel">Edit Currency</h4> }
+                else
+                {
+                        <h4 class="modal-title" id="myModalLabel">Add Currency</h4>
+                    }
+
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="row">
+                                <div class="col-md-3 exchangepopup">
+                                    <label>Currency</label>
+                                </div>
+                                <div class="col-md-6">
+                                    @*<input class="form-control" type="text" />*@
+                                    @if (Model.CurrencyCodeNum != 0)
+                                    {
+                                        @(Html.Kendo().ComboBox().AutoBind(false).Events(x => x.Change("currencyCodeChange"))
+                                            .Name("CurrencyCodeComboBox")
+                                            .DataTextField("CurrencyCode")
+                                            .DataValueField("CurrencyCodeNum")
+                                            .Value(Model.CurrencyCode != null ? Model.CurrencyCode.ToString() : "")
+                                            .HtmlAttributes(new { style = "width:100%;", id = "CurrencyCodeComboBox", @readonly = "readonly" })
+                                            .DataSource(data => data.Read(read =>
+                                            {
+                                                read.Action("GetCurrencyCode", "ExchangeRate");
+                                            }))
+                                        )
+                                        <span class="orangetext" id="mandate_EditcurrencyCode"></span>
+                                    }
+                                    else
+                                    {
+                                        @Html.TextBoxFor(a => a.CurrencyCode, new { @class = "form-control form-border", id = "addCurrencyCode", autofocus = true, placeholder = Html.DisplayNameFor(a => a.CurrencyCode), onchange = "currencyCodeValidation();", onkeypress = "return ValidateCurrencyCode(event);" })
+                                        <span class="orangetext" id="mandate_CurrencyCode"></span>
+                                    }
+                                </div>
+                            </div>
+                            <div class="row top-pad">
+                                <div class="col-md-3 exchangepopup">
+                                    <label>Conversion Rate</label>
+                                </div>
+                                <div class="col-md-6">
+                                    @if (ViewBag.BaseCurrency == Model.CurrencyCode)
+                                    {
+                                        @Html.TextBoxFor(a => a.ExchangeRate, new { @class = "form-control form-border", id = "addExchangeRate", autofocus = true, placeholder = Html.DisplayNameFor(a => a.ExchangeRate), onchange = "ExchangeRateValidation();", @readonly = "true" })
+                                    }
+                                    else
+                                    {
+                                        @Html.TextBoxFor(a => a.ExchangeRate, new { @class = "form-control form-border", id = "addExchangeRate", autofocus = true, placeholder = Html.DisplayNameFor(a => a.ExchangeRate), onchange = "ExchangeRateValidation();" })
+                                    }
+                                    <span class="orangetext" id="mandate_ExchangeRate"></span>
+                                </div>
+                            </div>
+                            <div class="row top-pad">
+                                <div class="col-md-3 exchangepopup">
+                                    <label>Culture Code</label>
+                                </div>
+                                <div class="col-md-6">
+                                    @(Html.Kendo().ComboBox().AutoBind(false).Events(x => x.Change("currencyCultureChange"))
+        .Name("cultureComboBox")
+                .DataTextField("CultureCode")
+                .DataValueField("CultureCodeNum")
+.Value(Model.CultureCode != null ? Model.CultureCode.ToString() : "")
+        .HtmlAttributes(new { style = "width: 100%;" })
+                .DataSource(data => data.Read(read =>
+                {
+                    read.Action("GetCultureCode", "ExchangeRate").Data("additionalParamInfo").Type(HttpVerbs.Post);
+                }))
+
+                                    )
+                                    <span class="orangetext" id="mandate_CultureCode"></span>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="btneditexchangerateclose" class="btn btn-cancel" onclick="closeAfterExchangeRateAdded1();"><i class="fa fa-ban"></i> Cancel</button>
+                    <button type="button" id="addExchangeRateBtn" class="btn btn-info prim-btn">Save</button>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+
+

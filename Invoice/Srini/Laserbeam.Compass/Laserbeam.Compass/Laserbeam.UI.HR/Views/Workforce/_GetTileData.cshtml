@@ -1,0 +1,65 @@
+﻿@model Laserbeam.BusinessObject.Common.WorkForceTileData
+
+@if (Model.TotalEmployees != "0" && Model.TotalEmployees != null)
+{
+    <div class="col-md-3 col-sm-6 mobilebottommargin">
+        <div class="padlr">
+            <div id="wiz-content">
+                <a id="lnkgettiledatatotalempcountexport" href="#" onclick="getAllEmployeesExport();">
+                    <div class="row whitebg nomargin space redbrdr">
+                        <div class="col-md-12 col-sm-12 col-xs-12 formtitle formtitle1">Total Employees</div>
+                        <div class="col-md-12 col-sm-12 col-xs-12 lgtxt text-center" id="totalCount">
+                            <div id="divgettiledatatotalempcountvalue" class="dwnld"><span class="fa fa-cloud-download" aria-hidden="true"></span></div>
+                            @Html.DisplayFor(x => x.TotalEmployees)
+                        </div>
+                        <div id="overlay"><div class="big50"><i class="icon-dwnld-icon dwnld-xy icon-blue" aria-hidden="true"></i></div></div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3 col-sm-6 mobilebottommargin">
+        <div class="padlr">
+            <div class="row whitebg nomargin space bluebrdr">
+                <div class="col-md-12 col-sm-12 col-xs-12 formtitle formtitle1">Total Salary</div>
+                <div class="col-md-12 col-sm-12 col-xs-12 lgtxt text-center" id="totalCount">
+                    <div id="divgettiledatatotalempsalaryvalue">@Html.DisplayFor(x => x.TotalEmployeesSalary)</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    if (Model.TotalEmployees != Model.TotalMeritEligibleEmployees)
+    {
+        <div class="col-md-3 col-sm-6 mobilebottommargin">
+            <div class="padlr">
+                <div id="wiz-content">
+                    <a id="lnkgettiledatatotalmeriteligibleempexport" href="#" onclick="getMeritEligibleEmployeesExport();">
+                        <div class="row whitebg nomargin space redbrdr">
+                            <div class="col-md-12 col-sm-12 col-xs-12 formtitle formtitle1">Total Merit Eligible Employees</div>
+                            <div class="col-md-12 col-sm-12 col-xs-12 lgtxt text-center" id="totalCount">
+                                <div id="divgettiledatatotalmeriteligibleempvalue" class="dwnld"><span class="fa fa-cloud-download" aria-hidden="true"></span></div>
+                                @Html.DisplayFor(x => x.TotalMeritEligibleEmployees)
+                            </div>
+                            <div id="overlay"><div class="big50"><i class="icon-dwnld-icon dwnld-xy icon-blue" aria-hidden="true"></i></div></div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3 col-sm-6 mobilebottommargin">
+            <div class="padlr">
+                <div class="row whitebg nomargin space bluebrdr">
+                    <div class="col-md-12 col-sm-12 col-xs-12 formtitle formtitle1">Total Merit Eligible Salary</div>
+                    <div class="col-md-12 col-sm-12 col-xs-12 lgtxt text-center" id="totalCount">
+                        <div id="divgettiledatatotalmeriteligibleempsalaryvalue">
+                            @Html.DisplayFor(x => x.TotalMeritEligibleEmployeesSalary)
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+
+}

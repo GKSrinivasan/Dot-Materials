@@ -1,0 +1,67 @@
+﻿@model List<Laserbeam.BusinessObject.Common.LevelWiseApprovalDetails>
+
+@{ 
+    var DistinctRejectedManagers = Model.Where(x => x.IsReopen == 1).Select(x=>x.ManagerNum).ToList().Distinct();
+    var DistinctApprovalManagers = Model.Where(x => x.IsApprove == 1).Select(x => x.ManagerNum).ToList().Distinct();
+    var DistinctApprovedManagers = Model.Where(x => x.IsApproved == 1).Select(x => x.ManagerNum).ToList().Distinct();
+    var DistinctYetToSubmitManagers = Model.Where(x => x.YetToStart == 1).Select(x => x.ManagerNum).ToList().Distinct();
+    var RejectedManagers = Model.Where(x => x.IsReopen == 1).ToList();
+    var ApprovalManagers = Model.Where(x => x.IsApprove == 1).ToList();
+    var ApprovedManagers = Model.Where(x => x.IsApproved == 1).ToList();
+    var YetToSubmitManagers = Model.Where(x => x.YetToStart == 1).ToList();
+}
+
+@foreach (var item in DistinctYetToSubmitManagers)
+{
+    <span class="pop-header">
+        Yet to Submit @YetToSubmitManagers.Where(x => x.ManagerNum == item).Select(x => x.ManagerName).FirstOrDefault();
+    </span>
+    <ol class="poplist">
+        @foreach (var item1 in YetToSubmitManagers.Where(x => x.ManagerNum == item))
+        {
+            <li>@item1.EmployeeName</li>
+        }
+    </ol>
+}
+
+@foreach (var item in DistinctApprovedManagers)
+{
+    <span class="pop-header">
+        Approved by @ApprovedManagers.Where(x => x.ManagerNum == item).Select(x => x.ManagerName).FirstOrDefault();
+    </span>
+    <ol class="poplist">
+        @foreach (var item1 in ApprovedManagers.Where(x => x.ManagerNum == item))
+        {
+            <li>@item1.EmployeeName</li>
+        }
+    </ol>
+}
+
+@foreach (var item in DistinctApprovalManagers)
+{
+    <span class="pop-header">
+        Pending Approval by @ApprovalManagers.Where(x => x.ManagerNum == item).Select(x => x.ManagerName).FirstOrDefault();
+    </span>
+    <ol class="poplist">
+        @foreach (var item1 in ApprovalManagers.Where(x => x.ManagerNum == item))
+        {
+            <li>@item1.EmployeeName</li>
+        }
+    </ol>
+}
+
+
+@foreach (var item in DistinctRejectedManagers)
+{
+    <span class="pop-header">
+        Rejected by @RejectedManagers.Where(x => x.ManagerNum == item).Select(x => x.ManagerName).FirstOrDefault();
+    </span>
+    <ol class="poplist">
+        @foreach (var item1 in RejectedManagers.Where(x => x.ManagerNum == item))
+        {
+        <li>@item1.EmployeeName</li>
+        }
+    </ol>
+}
+
+        

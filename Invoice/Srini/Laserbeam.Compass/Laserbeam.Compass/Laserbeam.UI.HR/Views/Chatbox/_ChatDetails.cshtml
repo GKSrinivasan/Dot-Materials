@@ -1,0 +1,354 @@
+﻿@model List<Laserbeam.BusinessObject.Common.ChatDetails>
+<style>
+    .displayNone{
+        display:none;
+    }
+
+    .fileUpload {
+        position: relative;
+        overflow: hidden;
+    }
+        .fileUpload input.upload {
+            position: absolute;
+            top: 0;
+            right: 0;
+            margin: 0;
+            padding: 0;
+            font-size: 20px;
+            cursor: pointer;
+            opacity: 0;
+            filter: alpha(opacity=0);
+        }
+</style>
+<script>
+    var selectedUserNum ;
+    var selectedUserName;
+    var selectedUserStatus;
+    function ChatUser() {
+        var userSessionId = "";
+        var userToken = "";
+        var userApiKey = "";
+        var userSession;
+        this.initChatUser = function (apiKey, sessionId, token) {
+            userApiKey = apiKey;
+            userSessionId = sessionId;
+            userToken = token;
+        }
+        this.getSessionId = function () { return userSessionId; }
+        this.getToken = function () { return userToken; }
+        this.getApiKey = function () { return userApiKey; }
+        this.setUserSession = function (session) { userSession = session; }
+        this.getUserSession = function () { return userSession; }
+    }
+    var user = new ChatUser();
+
+    $(document).ready(function (e)
+    {
+        selectedUserNum=@ViewBag.selectedUserNum;
+        selectedUserName='@ViewBag.selectedUserName';
+        selectedUserStatus= @ViewBag.chatStatus;
+        user.initChatUser(@ViewBag.ApiKey, '@ViewBag.SessionId', '@ViewBag.Token');
+        if (OT.checkSystemRequirements() == 1) {
+            var session = OT.initSession(user.getApiKey(), user.getSessionId());
+            var subscriberProperties = { insertMode: 'append' };
+            session.on("signal", function (event) {
+                var data = event.from.data.split(',');
+                var userNum = data[0].split('=')[1];
+                if(parseInt(userNum)==selectedUserNum)
+                {
+                    refreshChathistory(selectedUserNum,selectedUserName,"");
+                    setTimeout(function(){$('#chats').scrollTop($('#chats')[0].scrollHeight);},100);
+                }
+                else{
+                    managerRefresh();
+                }
+            });
+            user.setUserSession(session);
+            var session = user.getUserSession();
+            session.connect(user.getToken(), function (error) {
+            });
+        }
+    });
+
+    $(document).on("mouseover","#mouseOverTag",function(e){
+        if(this.childNodes[1].childNodes[3].childNodes[1]!=undefined)
+        {
+            var button=this.childNodes[1].childNodes[3].childNodes[1].childNodes[1];
+            button.attributes[0].value="";
+        }
+    });
+    $(document).on("mouseout","#mouseOverTag",function(e){
+        if(this.childNodes[1].childNodes[3].childNodes[1]!=undefined)
+        {
+            var button=this.childNodes[1].childNodes[3].childNodes[1].childNodes[1];
+            button.attributes[0].value="displayNone";
+        }
+    });
+
+
+    $(document).on("keydown", "#chatInput",function (e) {
+        if (e.keyCode == 13 && OT.checkSystemRequirements() == 1) {
+            var session = user.getUserSession();
+            var text = this.value;
+            this.value = "";
+            if(text!="")
+            {
+                session.signal({ data: text }, function (error) {
+                    if (error) {
+                    }
+                    else {
+                        // Checking whether FormData is available in browser
+                        if (window.FormData !== undefined) {
+
+                            var fileUpload = $("#btnUpload").get(0);
+                            var files = fileUpload.files;
+                            var fileData = new FormData();
+                            for (var i = 0; i < files.length; i++) {
+                                fileData.append(files[i].name, files[i]);
+                                fileData.append(files[i].name, files[i],selectedUserNum);
+                            }
+                            if( files.length>0)
+                            {
+                                $.ajax({
+                                    url: '../Chatbox/_UploadAttachment',
+                                    type: "POST",
+                                    contentType: false, // Not to set any content header
+                                    processData: false, // Not to process data
+                                    async:false,
+                                    data: fileData,
+                                    success: function (result) {
+                                        // $("#RenderChatData").html(result);
+                                        refreshChathistory(selectedUserNum, selectedUserName,"");
+                                        setTimeout(function(){$('#chats').scrollTop($('#chats')[0].scrollHeight);},100);
+                                    },
+                                });
+                            }
+                            else{
+                                $.ajax({
+                                    url: '../Chatbox/UpdateChat',
+                                    data: { loggedInUserNum:@ViewBag.loggedInUserNum,loggedInUserName:'@ViewBag.loggedInUserName', selectedUserNum:selectedUserNum, selectedUserName:selectedUserName, chatStatus: selectedUserStatus, chat: text },
+                                    type: "post",
+                                    async: false,
+                                    cache: false,
+                                    success: function (result) {
+                                        $("#RenderChatData").html(result);
+                                        $('#chats').scrollTop($('#chats')[0].scrollHeight);
+                                    }
+                                });
+                            }
+                        }
+                        else {
+                            alert("FormData is not supported.");
+                        }
+                    }
+                });
+            }
+        }
+    });
+    $(document).on("click", "#chatSend",function (e) {
+        var session = user.getUserSession();
+        var text = $("#chatInput")[0].value;
+        $("#chatInput")[0].value = "";
+        if(text!="")
+        {
+            session.signal({ data: text }, function (error) {
+                if (error) {
+                }
+                else {
+                    // Checking whether FormData is available in browser
+                    if (window.FormData !== undefined) {
+
+                        var fileUpload = $("#btnUpload").get(0);
+                        var files = fileUpload.files;
+                        var fileData = new FormData();
+                        for (var i = 0; i < files.length; i++) {
+                            fileData.append(files[i].name, files[i]);
+                            fileData.append(files[i].name, files[i],selectedUserNum);
+                        }
+                        if( files.length>0)
+                        {
+                            $.ajax({
+                                url: '../Chatbox/_UploadAttachment',
+                                type: "POST",
+                                contentType: false, // Not to set any content header
+                                processData: false, // Not to process data
+                                data: fileData,
+                                async:false,
+                                success: function (result) {
+                                    //$("#RenderChatData").html(result);
+                                    refreshChathistory(selectedUserNum, selectedUserName,"");
+                                    setTimeout(function(){$('#chats').scrollTop($('#chats')[0].scrollHeight);},100);
+                                },
+                            });
+                        }
+                        else{
+                            $.ajax({
+                                url: '../Chatbox/UpdateChat',
+                                data: { loggedInUserNum:@ViewBag.loggedInUserNum,loggedInUserName:'@ViewBag.loggedInUserName', selectedUserNum:selectedUserNum, selectedUserName:selectedUserName, chatStatus: selectedUserStatus, chat: text },
+                                type: "post",
+                                async: false,
+                                cache: false,
+                                success: function (result) {
+                                    $("#RenderChatData").html(result);
+                                    $('#chats').scrollTop($('#chats')[0].scrollHeight);
+                                }
+                            });
+                        }
+                    }
+                    else {
+                        alert("FormData is not supported.");
+                    }
+                }
+            });
+        }
+    });
+
+    $(document).on("change","#btnUpload",function(e){
+        $("#chatInput")[0].value=this.value;
+        $("#chatInput")[0].focus();
+    });
+    function FileDownload(FileNum,FileName,PathName)
+    {
+        window.location = '../Chatbox/DownloadAttachment?FileNum=' + FileNum+'&FileName='+FileName+'&PathName='+PathName;
+    }
+
+    $(document).on("keydown", "#ChatSearch",function (e) {
+        if (e.keyCode == 13) {
+            //$(document).on("change", "#ChatSearch",function () {
+            var text=$(this).val();
+            refreshChathistory(selectedUserNum, selectedUserName,text)
+            $("#ChatSearch")[0].focus();
+        }
+    });
+</script>
+<div class="modal-body nopad">
+    <div class="row portlet light bordered">
+        <div class="col-md-12 portlet-title">
+            <div class="col-md-6 caption">
+                <span class="caption-subject font-hide">
+                    <span class="bluecircle">@ViewBag.selectedUserShortName</span>
+                    <a class="namediv">@ViewBag.selectedUserName</a><i style="padding-left:3px;" class="@(ViewBag.chatStatus == 0 ?"fa fa-circle greystatus rightpad10":ViewBag.chatStatus == 1 ? "fa fa-circle greenstatus rightpad10" : ViewBag.chatStatus == 2 ? "fa fa-circle redstatus rightpad10" : "fa fa-circle orangestatus rightpad10")"></i>
+                </span>
+            </div>
+            <div class="col-md-6 actions text-right">
+                @*<button type="button" class="btn btn-call btnvoicecall"> <i class="fa fa-phone"></i></button>
+                <button type="button" class="btn btn-call btnvideocall"> <i class="fa fa-video-camera"></i></button>*@
+                <div class="portlet-input input-inline">
+                    <div class="input-icon padleft">
+                        <input id="ChatSearch" type="text" class="form-control input-circle incircle" placeholder="Search by keywords">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="portlet-body" id="chats">
+            <div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto; height: auto;">
+                <div class="scroller" style="height: auto; overflow: hidden; width: auto;" data-always-visible="1" data-rail-visible1="1" data-initialized="1">
+                    @if (ViewBag.Count == 1)
+                    {
+                        foreach (var group in Model.GroupBy(x => x.CreatedDate.Value.ToShortDateString()))
+                        {
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="col-md-4 bordersec"></div>
+                                    <div class="col-md-4 datesec text-center">
+                                        @(Convert.ToDateTime(group.Key).ToLongDateString())
+                                    </div>
+                                    <div class="col-md-4 bordersec"></div>
+                                </div>
+                            </div>
+                            foreach (var item in group)
+                            {
+                                <div class="row top-pad bottomborder">
+                                    <div class="col-md-12">
+                                        @if (item.SenderUserShortName != null)
+                                        {
+                                            <div class="col-md-1 noleftrightpad textfilled text-center">
+                                                <a href="#">@item.SenderUserShortName</a>
+                                            </div>}
+                                        <div class="col-md-11" id="mouseOverTag">
+                                            <div class="row">
+                                                <div class="col-md-6 bottom-pad mynametoppad">
+                                                    <a href="#" class="blockblack">
+                                                        @item.SenderUserName
+                                                    </a>
+                                                    <span>@(item.CreatedDate != null ? item.CreatedDate.Value.ToShortTimeString() : "")</span>
+                                                </div>
+                                                @if (ViewBag.loggedInUserNum == item.SenderUserNum)
+                                                {
+                                                    <div class="col-md-6 text-right sharestarlink">
+                                                        <div id="Tagdiv" class="btn-groups pull-right">
+                                                            <button class="displayNone" id="btnTag" data-toggle="tooltip" data-placement="left" title="Tag"><i class="fa fa-tags"></i></button>
+                                                        </div>
+                                                    </div>
+                                                }
+                                            </div>
+                                            @if (item.FileType == 2)
+                                            {
+                                                <div class="row">
+                                                    <div class="col-md-12 uploaditem">
+                                                        <img class="img-responsive" src=@item.FilePath alt="" />
+                                                        <a onclick="FileDownload(@item.ChatDetailNum,'@item.FileName','@item.Attachment')">@item.FileName</a>
+                                                    </div>
+                                                </div>
+                                            }
+                                            else if (item.FileType == 3)
+                                            {
+                                                <div class="row">
+                                                    <div class="col-md-12 top-pad">
+                                                        <p>@item.Chat</p>
+                                                    </div>
+                                                </div>
+                                            }
+                                            else if (item.FileType == 1)
+                                            {
+                                                <div id="Attachment" class="row">
+                                                    <div class="col-md-12 top-pad">
+                                                        <i class="@(item.FileName.Contains(".xl") ? "fa fa-file-excel-o" : item.FileName.Contains(".pdf") ? "fa fa-file-pdf-o" : item.FileName.Contains(".docx") ? "fa fa-file-word-o" : "fa fa-file-archive-o")" aria-hidden="true"></i><a id="lnkAttachment" onclick="FileDownload(@item.ChatDetailNum,'@item.FileName','@item.Attachment')">@item.FileName</a>
+                                                    </div>
+                                                </div>
+
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        }
+                    }
+                </div>
+            </div>
+
+
+        </div>
+        <div class="row chatsec nomargin" id="sendsection">
+            @*<div class="col-md-1">
+                    <button type="button" class="btn btn-groupcall" id="btnUpload"> <i class="fa fa-paperclip"></i></button>
+                    <input type="file" class="fa fa-paperclip" style="display:none;" id="inpUpload"/>
+                </div>*@
+            <div class="col-md-2 col-lg-1 fileUpload">
+                <button type="button" class="btn btn-groupcall"> <i class="fa fa-paperclip"></i></button>
+                <input id="btnUpload" type="file" class="upload" />
+            </div>
+            <div class="col-md-8 col-lg-10 chat-form noleftpad norightpad">
+                <div class="input-cont">
+                    <i class="fa fa-smile-o smileicon"></i>
+                    <input id="chatInput" class="form-control" type="text" placeholder="Type a message here..." />
+                </div>
+                <div class="btn-cont">
+                    @*<span class="arrow"> </span>
+                        <a href="" class="btn blue icn-only">
+                            <i class="fa fa-microphone"></i>
+                        </a>*@
+                    <div class="col-md-1">
+                        <button type="button" id="chatSend" class="btn btn-groupcall1"> <i class="fa fa-send"></i></button>
+                    </div>
+                </div>
+
+
+            </div>
+            @*<div class="col-md-2 col-lg-1 text-right">
+                <button type="button" id="chatSend" class="btn btn-groupcall1"> <i class="fa fa-send"></i></button>
+            </div>*@
+        </div>
+    </div>
+</div>

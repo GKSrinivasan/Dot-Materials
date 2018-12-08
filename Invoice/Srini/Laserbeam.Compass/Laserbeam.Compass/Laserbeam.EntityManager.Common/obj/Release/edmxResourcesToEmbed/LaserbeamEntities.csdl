@@ -1,0 +1,3052 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="LaserbeamEntities" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+  <EntityContainer Name="LaserbeamEntitiesContainer1" annotation:LazyLoadingEnabled="false">
+    <FunctionImport Name="fn_GetAbbreviation" IsComposable="true" ReturnType="Collection(String)">
+      <Parameter Name="sep" Mode="In" Type="String" />
+      <Parameter Name="s" Mode="In" Type="String" />
+    </FunctionImport>
+    <EntitySet Name="AppEmails" EntityType="LaserbeamEntities.AppEmail" />
+    <EntitySet Name="AppExportScripts" EntityType="LaserbeamEntities.AppExportScript" />
+    <EntitySet Name="AppMenus" EntityType="LaserbeamEntities.AppMenu" />
+    <EntitySet Name="AppMessages" EntityType="LaserbeamEntities.AppMessage" />
+    <EntitySet Name="AppScripts" EntityType="LaserbeamEntities.AppScript" />
+    <EntitySet Name="AppSettings" EntityType="LaserbeamEntities.AppSetting" />
+    <EntitySet Name="AppTables" EntityType="LaserbeamEntities.AppTable" />
+    <EntitySet Name="AppUserRoles" EntityType="LaserbeamEntities.AppUserRole" />
+    <EntitySet Name="AppUserStatus" EntityType="LaserbeamEntities.AppUserStatu" />
+    <EntitySet Name="BonusTypes" EntityType="LaserbeamEntities.BonusType" />
+    <EntitySet Name="BusinessUnits" EntityType="LaserbeamEntities.BusinessUnit" />
+    <EntitySet Name="BusSettings" EntityType="LaserbeamEntities.BusSetting" />
+    <EntitySet Name="Categories" EntityType="LaserbeamEntities.Category" />
+    <EntitySet Name="Companies" EntityType="LaserbeamEntities.Company" />
+    <EntitySet Name="CompensationTypes" EntityType="LaserbeamEntities.CompensationType" />
+    <EntitySet Name="CostCenters" EntityType="LaserbeamEntities.CostCenter" />
+    <EntitySet Name="Countries" EntityType="LaserbeamEntities.Country" />
+    <EntitySet Name="Currencies" EntityType="LaserbeamEntities.Currency" />
+    <EntitySet Name="DateFormats" EntityType="LaserbeamEntities.DateFormat" />
+    <EntitySet Name="DecimalTypes" EntityType="LaserbeamEntities.DecimalType" />
+    <EntitySet Name="Departments" EntityType="LaserbeamEntities.Department" />
+    <EntitySet Name="Divisions" EntityType="LaserbeamEntities.Division" />
+    <EntitySet Name="EmailTrackers" EntityType="LaserbeamEntities.EmailTracker" />
+    <EntitySet Name="EmployeeClasses" EntityType="LaserbeamEntities.EmployeeClass" />
+    <EntitySet Name="EntityCodes" EntityType="LaserbeamEntities.EntityCode" />
+    <EntitySet Name="Ethnicities" EntityType="LaserbeamEntities.Ethnicity" />
+    <EntitySet Name="ExchangeRates" EntityType="LaserbeamEntities.ExchangeRate" />
+    <EntitySet Name="Families" EntityType="LaserbeamEntities.Family" />
+    <EntitySet Name="Grades" EntityType="LaserbeamEntities.Grade" />
+    <EntitySet Name="GroupTypes" EntityType="LaserbeamEntities.GroupType" />
+    <EntitySet Name="InitiativesLinks" EntityType="LaserbeamEntities.InitiativesLink" />
+    <EntitySet Name="Jobs" EntityType="LaserbeamEntities.Job" />
+    <EntitySet Name="JobStatus" EntityType="LaserbeamEntities.JobStatu" />
+    <EntitySet Name="Locations" EntityType="LaserbeamEntities.Location" />
+    <EntitySet Name="MetaColumns" EntityType="LaserbeamEntities.MetaColumn" />
+    <EntitySet Name="MetaTables" EntityType="LaserbeamEntities.MetaTable" />
+    <EntitySet Name="MetaXmlTemplates" EntityType="LaserbeamEntities.MetaXmlTemplate" />
+    <EntitySet Name="Modules" EntityType="LaserbeamEntities.Module" />
+    <EntitySet Name="Operators" EntityType="LaserbeamEntities.Operator" />
+    <EntitySet Name="OrgGroupCriterias" EntityType="LaserbeamEntities.OrgGroupCriteria" />
+    <EntitySet Name="PayGroups" EntityType="LaserbeamEntities.PayGroup" />
+    <EntitySet Name="Programs" EntityType="LaserbeamEntities.Program" />
+    <EntitySet Name="Ratings" EntityType="LaserbeamEntities.Rating" />
+    <EntitySet Name="ReviewTypes" EntityType="LaserbeamEntities.ReviewType" />
+    <EntitySet Name="RoundingTypes" EntityType="LaserbeamEntities.RoundingType" />
+    <EntitySet Name="States" EntityType="LaserbeamEntities.State" />
+    <EntitySet Name="SubFamilies" EntityType="LaserbeamEntities.SubFamily" />
+    <EntitySet Name="SubStatus" EntityType="LaserbeamEntities.SubStatu" />
+    <EntitySet Name="UserAppUrlTrackers" EntityType="LaserbeamEntities.UserAppUrlTracker" />
+    <EntitySet Name="UserQueries" EntityType="LaserbeamEntities.UserQuery" />
+    <EntitySet Name="XmlProcesses" EntityType="LaserbeamEntities.XmlProcess" />
+    <EntitySet Name="AppUsers" EntityType="LaserbeamEntities.AppUser" />
+    <EntitySet Name="Budgets" EntityType="LaserbeamEntities.Budget" />
+    <EntitySet Name="DailyTasks" EntityType="LaserbeamEntities.DailyTask" />
+    <EntitySet Name="Employees" EntityType="LaserbeamEntities.Employee" />
+    <EntitySet Name="EmployeeApprovalDetails" EntityType="LaserbeamEntities.EmployeeApprovalDetail" />
+    <EntitySet Name="EmployeeCompAdjustments" EntityType="LaserbeamEntities.EmployeeCompAdjustment" />
+    <EntitySet Name="EmployeeCompApprovalComments" EntityType="LaserbeamEntities.EmployeeCompApprovalComment" />
+    <EntitySet Name="EmployeeCompApprovalLevels" EntityType="LaserbeamEntities.EmployeeCompApprovalLevel" />
+    <EntitySet Name="EmployeeCompApprovalRequests" EntityType="LaserbeamEntities.EmployeeCompApprovalRequest" />
+    <EntitySet Name="EmployeeCompApprovalStatus" EntityType="LaserbeamEntities.EmployeeCompApprovalStatu" />
+    <EntitySet Name="EmployeeCompComments" EntityType="LaserbeamEntities.EmployeeCompComment" />
+    <EntitySet Name="EmployeeCompCommentStatus" EntityType="LaserbeamEntities.EmployeeCompCommentStatu" />
+    <EntitySet Name="EmployeeCompMarkets" EntityType="LaserbeamEntities.EmployeeCompMarket" />
+    <EntitySet Name="EmployeeCompMerits" EntityType="LaserbeamEntities.EmployeeCompMerit" />
+    <EntitySet Name="EmployeeCompNews" EntityType="LaserbeamEntities.EmployeeCompNew" />
+    <EntitySet Name="EmployeeCompPromotions" EntityType="LaserbeamEntities.EmployeeCompPromotion" />
+    <EntitySet Name="EmployeeCompRatings" EntityType="LaserbeamEntities.EmployeeCompRating" />
+    <EntitySet Name="EmployeeDetailsCorrections" EntityType="LaserbeamEntities.EmployeeDetailsCorrection" />
+    <EntitySet Name="EmployeeGroups" EntityType="LaserbeamEntities.EmployeeGroup" />
+    <EntitySet Name="EmployeeGroupInclusionExclusions" EntityType="LaserbeamEntities.EmployeeGroupInclusionExclusion" />
+    <EntitySet Name="EmployeeInclusionAndExclusions" EntityType="LaserbeamEntities.EmployeeInclusionAndExclusion" />
+    <EntitySet Name="EmployeeJobs" EntityType="LaserbeamEntities.EmployeeJob" />
+    <EntitySet Name="EmployeeMoreInfoes" EntityType="LaserbeamEntities.EmployeeMoreInfo" />
+    <EntitySet Name="EmployeeWorkFlowChanges" EntityType="LaserbeamEntities.EmployeeWorkFlowChanx" />
+    <EntitySet Name="EmployeeWorkflowCommentStatus" EntityType="LaserbeamEntities.EmployeeWorkflowCommentStatu" />
+    <EntitySet Name="FeedBacks" EntityType="LaserbeamEntities.FeedBack" />
+    <EntitySet Name="ManagerRelations" EntityType="LaserbeamEntities.ManagerRelation" />
+    <EntitySet Name="OrgGroups" EntityType="LaserbeamEntities.OrgGroup" />
+    <EntitySet Name="OrgGroupAssignedCriterias" EntityType="LaserbeamEntities.OrgGroupAssignedCriteria" />
+    <EntitySet Name="OrgGroupDetails" EntityType="LaserbeamEntities.OrgGroupDetail" />
+    <EntitySet Name="OrgGroupTypes" EntityType="LaserbeamEntities.OrgGroupType" />
+    <EntitySet Name="ProxyGroups" EntityType="LaserbeamEntities.ProxyGroup" />
+    <EntitySet Name="ProxyManagers" EntityType="LaserbeamEntities.ProxyManager" />
+    <EntitySet Name="ProxyPopulationAccesses" EntityType="LaserbeamEntities.ProxyPopulationAccess" />
+    <EntitySet Name="ProxyScripts" EntityType="LaserbeamEntities.ProxyScript" />
+    <EntitySet Name="TriggerEmails" EntityType="LaserbeamEntities.TriggerEmail" />
+    <EntitySet Name="UserMenus" EntityType="LaserbeamEntities.UserMenu" />
+    <EntitySet Name="UserMessages" EntityType="LaserbeamEntities.UserMessage" />
+    <EntitySet Name="UserPopulations" EntityType="LaserbeamEntities.UserPopulation" />
+    <EntitySet Name="PivotedEmployeeCompApprovalLevels" EntityType="LaserbeamEntities.PivotedEmployeeCompApprovalLevel" />
+    <AssociationSet Name="fk_UserMessage_AppMessage" Association="LaserbeamEntities.fk_UserMessage_AppMessage">
+      <End Role="AppMessage" EntitySet="AppMessages" />
+      <End Role="UserMessage" EntitySet="UserMessages" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ProxyScript_AppScript" Association="LaserbeamEntities.FK_ProxyScript_AppScript">
+      <End Role="AppScript" EntitySet="AppScripts" />
+      <End Role="ProxyScript" EntitySet="ProxyScripts" />
+    </AssociationSet>
+    <AssociationSet Name="fk_AppUser_AppUserRole" Association="LaserbeamEntities.fk_AppUser_AppUserRole">
+      <End Role="AppUserRole" EntitySet="AppUserRoles" />
+      <End Role="AppUser" EntitySet="AppUsers" />
+    </AssociationSet>
+    <AssociationSet Name="fk1_AppUser_AppUserStatus" Association="LaserbeamEntities.fk1_AppUser_AppUserStatus">
+      <End Role="AppUserStatu" EntitySet="AppUserStatus" />
+      <End Role="AppUser" EntitySet="AppUsers" />
+    </AssociationSet>
+    <AssociationSet Name="fk4_EmployeeJob_BonusTypeNum" Association="LaserbeamEntities.fk4_EmployeeJob_BonusTypeNum">
+      <End Role="BonusType" EntitySet="BonusTypes" />
+      <End Role="EmployeeJob" EntitySet="EmployeeJobs" />
+    </AssociationSet>
+    <AssociationSet Name="fk5_EmployeeJob_BusinessUnitNum" Association="LaserbeamEntities.fk5_EmployeeJob_BusinessUnitNum">
+      <End Role="BusinessUnit" EntitySet="BusinessUnits" />
+      <End Role="EmployeeJob" EntitySet="EmployeeJobs" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Budget_CompensationType" Association="LaserbeamEntities.FK_Budget_CompensationType">
+      <End Role="CompensationType" EntitySet="CompensationTypes" />
+      <End Role="Budget" EntitySet="Budgets" />
+    </AssociationSet>
+    <AssociationSet Name="fk7_EmployeeJob_CountryNum" Association="LaserbeamEntities.fk7_EmployeeJob_CountryNum">
+      <End Role="Country" EntitySet="Countries" />
+      <End Role="EmployeeJob" EntitySet="EmployeeJobs" />
+    </AssociationSet>
+    <AssociationSet Name="FK__ExchangeR__Curre__469D7149" Association="LaserbeamEntities.FK__ExchangeR__Curre__469D7149">
+      <End Role="Currency" EntitySet="Currencies" />
+      <End Role="ExchangeRate" EntitySet="ExchangeRates" />
+    </AssociationSet>
+    <AssociationSet Name="FK__ExchangeR__Curre__66B53B20" Association="LaserbeamEntities.FK__ExchangeR__Curre__66B53B20">
+      <End Role="Currency" EntitySet="Currencies" />
+      <End Role="ExchangeRate" EntitySet="ExchangeRates" />
+    </AssociationSet>
+    <AssociationSet Name="FK_EmployeeJob_Currency" Association="LaserbeamEntities.FK_EmployeeJob_Currency">
+      <End Role="Currency" EntitySet="Currencies" />
+      <End Role="EmployeeJob" EntitySet="EmployeeJobs" />
+    </AssociationSet>
+    <AssociationSet Name="fk9_EmployeeJob_DepartmentNum" Association="LaserbeamEntities.fk9_EmployeeJob_DepartmentNum">
+      <End Role="Department" EntitySet="Departments" />
+      <End Role="EmployeeJob" EntitySet="EmployeeJobs" />
+    </AssociationSet>
+    <AssociationSet Name="fk6_EmployeeJob_DivisionNum" Association="LaserbeamEntities.fk6_EmployeeJob_DivisionNum">
+      <End Role="Division" EntitySet="Divisions" />
+      <End Role="EmployeeJob" EntitySet="EmployeeJobs" />
+    </AssociationSet>
+    <AssociationSet Name="fk12_EmployeeJob_ClassNum" Association="LaserbeamEntities.fk12_EmployeeJob_ClassNum">
+      <End Role="EmployeeClass" EntitySet="EmployeeClasses" />
+      <End Role="EmployeeJob" EntitySet="EmployeeJobs" />
+    </AssociationSet>
+    <AssociationSet Name="fk8_EmployeeJob_EntityCodeNum" Association="LaserbeamEntities.fk8_EmployeeJob_EntityCodeNum">
+      <End Role="EntityCode" EntitySet="EntityCodes" />
+      <End Role="EmployeeJob" EntitySet="EmployeeJobs" />
+    </AssociationSet>
+    <AssociationSet Name="FK_EmployeeJob_Grade" Association="LaserbeamEntities.FK_EmployeeJob_Grade">
+      <End Role="Grade" EntitySet="Grades" />
+      <End Role="EmployeeJob" EntitySet="EmployeeJobs" />
+    </AssociationSet>
+    <AssociationSet Name="fk_OrgGroupType_GroupType" Association="LaserbeamEntities.fk_OrgGroupType_GroupType">
+      <End Role="GroupType" EntitySet="GroupTypes" />
+      <End Role="OrgGroupType" EntitySet="OrgGroupTypes" />
+    </AssociationSet>
+    <AssociationSet Name="fk_EmployeeJob_Job" Association="LaserbeamEntities.fk_EmployeeJob_Job">
+      <End Role="Job" EntitySet="Jobs" />
+      <End Role="EmployeeJob" EntitySet="EmployeeJobs" />
+    </AssociationSet>
+    <AssociationSet Name="FK_EmployeeJob_Location" Association="LaserbeamEntities.FK_EmployeeJob_Location">
+      <End Role="Location" EntitySet="Locations" />
+      <End Role="EmployeeJob" EntitySet="EmployeeJobs" />
+    </AssociationSet>
+    <AssociationSet Name="FK__EmployeeC__Modul__4B399FE2" Association="LaserbeamEntities.FK__EmployeeC__Modul__4B399FE2">
+      <End Role="Module" EntitySet="Modules" />
+      <End Role="EmployeeCompApprovalLevel" EntitySet="EmployeeCompApprovalLevels" />
+    </AssociationSet>
+    <AssociationSet Name="FK__EmployeeC__Modul__4C2DC41B" Association="LaserbeamEntities.FK__EmployeeC__Modul__4C2DC41B">
+      <End Role="Module" EntitySet="Modules" />
+      <End Role="EmployeeCompApprovalLevel" EntitySet="EmployeeCompApprovalLevels" />
+    </AssociationSet>
+    <AssociationSet Name="FK4_ProxyGroup_Module" Association="LaserbeamEntities.FK4_ProxyGroup_Module">
+      <End Role="Module" EntitySet="Modules" />
+      <End Role="ProxyGroup" EntitySet="ProxyGroups" />
+    </AssociationSet>
+    <AssociationSet Name="FK4_ProxyManager_Module" Association="LaserbeamEntities.FK4_ProxyManager_Module">
+      <End Role="Module" EntitySet="Modules" />
+      <End Role="ProxyManager" EntitySet="ProxyManagers" />
+    </AssociationSet>
+    <AssociationSet Name="FK_OrGGroupAssignedCriteria_OrgGroupCriteria" Association="LaserbeamEntities.FK_OrGGroupAssignedCriteria_OrgGroupCriteria">
+      <End Role="OrgGroupCriteria" EntitySet="OrgGroupCriterias" />
+      <End Role="OrgGroupAssignedCriteria" EntitySet="OrgGroupAssignedCriterias" />
+    </AssociationSet>
+    <AssociationSet Name="fk10_EmployeeJob_PayGroupNum" Association="LaserbeamEntities.fk10_EmployeeJob_PayGroupNum">
+      <End Role="PayGroup" EntitySet="PayGroups" />
+      <End Role="EmployeeJob" EntitySet="EmployeeJobs" />
+    </AssociationSet>
+    <AssociationSet Name="fk_EmployeeJob_ProgramNum" Association="LaserbeamEntities.fk_EmployeeJob_ProgramNum">
+      <End Role="Program" EntitySet="Programs" />
+      <End Role="EmployeeJob" EntitySet="EmployeeJobs" />
+    </AssociationSet>
+    <AssociationSet Name="fk_EmployeeCompRating_BonusPerformanceRating" Association="LaserbeamEntities.fk_EmployeeCompRating_BonusPerformanceRating">
+      <End Role="Rating" EntitySet="Ratings" />
+      <End Role="EmployeeCompRating" EntitySet="EmployeeCompRatings" />
+    </AssociationSet>
+    <AssociationSet Name="fk_EmployeeCompRating_MeritPerformanceRating" Association="LaserbeamEntities.fk_EmployeeCompRating_MeritPerformanceRating">
+      <End Role="Rating" EntitySet="Ratings" />
+      <End Role="EmployeeCompRating" EntitySet="EmployeeCompRatings" />
+    </AssociationSet>
+    <AssociationSet Name="FK_EmployeeJob_ReviewType" Association="LaserbeamEntities.FK_EmployeeJob_ReviewType">
+      <End Role="ReviewType" EntitySet="ReviewTypes" />
+      <End Role="EmployeeJob" EntitySet="EmployeeJobs" />
+    </AssociationSet>
+    <AssociationSet Name="FK_EmployeeJob_State" Association="LaserbeamEntities.FK_EmployeeJob_State">
+      <End Role="State" EntitySet="States" />
+      <End Role="EmployeeJob" EntitySet="EmployeeJobs" />
+    </AssociationSet>
+    <AssociationSet Name="fk11_EmployeeJob_EmployeeSubStatusNum" Association="LaserbeamEntities.fk11_EmployeeJob_EmployeeSubStatusNum">
+      <End Role="SubStatu" EntitySet="SubStatus" />
+      <End Role="EmployeeJob" EntitySet="EmployeeJobs" />
+    </AssociationSet>
+    <AssociationSet Name="fk_AppUser_EmployeeNum" Association="LaserbeamEntities.fk_AppUser_EmployeeNum">
+      <End Role="Employee" EntitySet="Employees" />
+      <End Role="AppUser" EntitySet="AppUsers" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AppUser_UserNum" Association="LaserbeamEntities.FK_AppUser_UserNum">
+      <End Role="AppUser" EntitySet="AppUsers" />
+      <End Role="DailyTask" EntitySet="DailyTasks" />
+    </AssociationSet>
+    <AssociationSet Name="fk_EmployeeApprovalDetails_AppUser" Association="LaserbeamEntities.fk_EmployeeApprovalDetails_AppUser">
+      <End Role="AppUser" EntitySet="AppUsers" />
+      <End Role="EmployeeApprovalDetail" EntitySet="EmployeeApprovalDetails" />
+    </AssociationSet>
+    <AssociationSet Name="fk_EmployeeCompComments_AppUserCreatedBy" Association="LaserbeamEntities.fk_EmployeeCompComments_AppUserCreatedBy">
+      <End Role="AppUser" EntitySet="AppUsers" />
+      <End Role="EmployeeCompComment" EntitySet="EmployeeCompComments" />
+    </AssociationSet>
+    <AssociationSet Name="fk_EmployeeCompComments_AppUserUpdatedBy" Association="LaserbeamEntities.fk_EmployeeCompComments_AppUserUpdatedBy">
+      <End Role="AppUser" EntitySet="AppUsers" />
+      <End Role="EmployeeCompComment" EntitySet="EmployeeCompComments" />
+    </AssociationSet>
+    <AssociationSet Name="fk_EmployeeCompCommentStatus_AppUser" Association="LaserbeamEntities.fk_EmployeeCompCommentStatus_AppUser">
+      <End Role="AppUser" EntitySet="AppUsers" />
+      <End Role="EmployeeCompCommentStatu" EntitySet="EmployeeCompCommentStatus" />
+    </AssociationSet>
+    <AssociationSet Name="fk_EmployeeWorkflowCommentStatus_AppUser" Association="LaserbeamEntities.fk_EmployeeWorkflowCommentStatus_AppUser">
+      <End Role="AppUser" EntitySet="AppUsers" />
+      <End Role="EmployeeWorkflowCommentStatu" EntitySet="EmployeeWorkflowCommentStatus" />
+    </AssociationSet>
+    <AssociationSet Name="fk_FeedBack_AppUser" Association="LaserbeamEntities.fk_FeedBack_AppUser">
+      <End Role="AppUser" EntitySet="AppUsers" />
+      <End Role="FeedBack" EntitySet="FeedBacks" />
+    </AssociationSet>
+    <AssociationSet Name="FK_fk4_Budget_AppUser" Association="LaserbeamEntities.FK_fk4_Budget_AppUser">
+      <End Role="AppUser" EntitySet="AppUsers" />
+      <End Role="Budget" EntitySet="Budgets" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ProxyGroup_AppUser" Association="LaserbeamEntities.FK_ProxyGroup_AppUser">
+      <End Role="AppUser" EntitySet="AppUsers" />
+      <End Role="ProxyGroup" EntitySet="ProxyGroups" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ProxyManager_AppUser" Association="LaserbeamEntities.FK_ProxyManager_AppUser">
+      <End Role="AppUser" EntitySet="AppUsers" />
+      <End Role="ProxyManager" EntitySet="ProxyManagers" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ProxyScript_AppUser" Association="LaserbeamEntities.FK_ProxyScript_AppUser">
+      <End Role="AppUser" EntitySet="AppUsers" />
+      <End Role="ProxyScript" EntitySet="ProxyScripts" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserMenu_AppUser" Association="LaserbeamEntities.FK_UserMenu_AppUser">
+      <End Role="AppUser" EntitySet="AppUsers" />
+      <End Role="UserMenu" EntitySet="UserMenus" />
+    </AssociationSet>
+    <AssociationSet Name="fk_UserMessage_AppUser" Association="LaserbeamEntities.fk_UserMessage_AppUser">
+      <End Role="AppUser" EntitySet="AppUsers" />
+      <End Role="UserMessage" EntitySet="UserMessages" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Budget_EmployeeJob" Association="LaserbeamEntities.FK_Budget_EmployeeJob">
+      <End Role="EmployeeJob" EntitySet="EmployeeJobs" />
+      <End Role="Budget" EntitySet="Budgets" />
+    </AssociationSet>
+    <AssociationSet Name="FK_EmployeeGroup_Employee" Association="LaserbeamEntities.FK_EmployeeGroup_Employee">
+      <End Role="Employee" EntitySet="Employees" />
+      <End Role="EmployeeGroup" EntitySet="EmployeeGroups" />
+    </AssociationSet>
+    <AssociationSet Name="FK_EmployeeGroupInclusionExclusion_Employee" Association="LaserbeamEntities.FK_EmployeeGroupInclusionExclusion_Employee">
+      <End Role="Employee" EntitySet="Employees" />
+      <End Role="EmployeeGroupInclusionExclusion" EntitySet="EmployeeGroupInclusionExclusions" />
+    </AssociationSet>
+    <AssociationSet Name="FK_EmployeeInclusionAndExclusion_Employee" Association="LaserbeamEntities.FK_EmployeeInclusionAndExclusion_Employee">
+      <End Role="Employee" EntitySet="Employees" />
+      <End Role="EmployeeInclusionAndExclusion" EntitySet="EmployeeInclusionAndExclusions" />
+    </AssociationSet>
+    <AssociationSet Name="fk_EmployeeJob_Employee" Association="LaserbeamEntities.fk_EmployeeJob_Employee">
+      <End Role="Employee" EntitySet="Employees" />
+      <End Role="EmployeeJob" EntitySet="EmployeeJobs" />
+    </AssociationSet>
+    <AssociationSet Name="fk_EmployeeJob_Employee_Managernum" Association="LaserbeamEntities.fk_EmployeeJob_Employee_Managernum">
+      <End Role="Employee" EntitySet="Employees" />
+      <End Role="EmployeeJob" EntitySet="EmployeeJobs" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ManagerRelation_Employee" Association="LaserbeamEntities.FK_ManagerRelation_Employee">
+      <End Role="Employee" EntitySet="Employees" />
+      <End Role="ManagerRelation" EntitySet="ManagerRelations" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ProxyManager_Employee" Association="LaserbeamEntities.FK_ProxyManager_Employee">
+      <End Role="Employee" EntitySet="Employees" />
+      <End Role="ProxyManager" EntitySet="ProxyManagers" />
+    </AssociationSet>
+    <AssociationSet Name="fk_EmployeeWorkflowCommentStatus_EmployeeCompComment" Association="LaserbeamEntities.fk_EmployeeWorkflowCommentStatus_EmployeeCompComment">
+      <End Role="EmployeeApprovalDetail" EntitySet="EmployeeApprovalDetails" />
+      <End Role="EmployeeWorkflowCommentStatu" EntitySet="EmployeeWorkflowCommentStatus" />
+    </AssociationSet>
+    <AssociationSet Name="FK_EmployeeCompAdjustment_EmployeeJob" Association="LaserbeamEntities.FK_EmployeeCompAdjustment_EmployeeJob">
+      <End Role="EmployeeJob" EntitySet="EmployeeJobs" />
+      <End Role="EmployeeCompAdjustment" EntitySet="EmployeeCompAdjustments" />
+    </AssociationSet>
+    <AssociationSet Name="FK_EmployeeCompApprovalComments_EmployeeJob" Association="LaserbeamEntities.FK_EmployeeCompApprovalComments_EmployeeJob">
+      <End Role="EmployeeJob" EntitySet="EmployeeJobs" />
+      <End Role="EmployeeCompApprovalComment" EntitySet="EmployeeCompApprovalComments" />
+    </AssociationSet>
+    <AssociationSet Name="FK00_EmployeeCompApprovalLevel_EmployeeJob" Association="LaserbeamEntities.FK00_EmployeeCompApprovalLevel_EmployeeJob">
+      <End Role="EmployeeJob" EntitySet="EmployeeJobs" />
+      <End Role="EmployeeCompApprovalLevel" EntitySet="EmployeeCompApprovalLevels" />
+    </AssociationSet>
+    <AssociationSet Name="FK01_EmployeeCompApprovalLevel_AppMgrOneEmpNum" Association="LaserbeamEntities.FK01_EmployeeCompApprovalLevel_AppMgrOneEmpNum">
+      <End Role="EmployeeJob" EntitySet="EmployeeJobs" />
+      <End Role="EmployeeCompApprovalLevel" EntitySet="EmployeeCompApprovalLevels" />
+    </AssociationSet>
+    <AssociationSet Name="FK02_EmployeeCompApprovalLevel_AppMgrTwoEmpNum" Association="LaserbeamEntities.FK02_EmployeeCompApprovalLevel_AppMgrTwoEmpNum">
+      <End Role="EmployeeJob" EntitySet="EmployeeJobs" />
+      <End Role="EmployeeCompApprovalLevel" EntitySet="EmployeeCompApprovalLevels" />
+    </AssociationSet>
+    <AssociationSet Name="FK03_EmployeeCompApprovalLevel_AppMgrThreeEmpNum" Association="LaserbeamEntities.FK03_EmployeeCompApprovalLevel_AppMgrThreeEmpNum">
+      <End Role="EmployeeJob" EntitySet="EmployeeJobs" />
+      <End Role="EmployeeCompApprovalLevel" EntitySet="EmployeeCompApprovalLevels" />
+    </AssociationSet>
+    <AssociationSet Name="FK04_EmployeeCompApprovalLevel_AppMgrFourEmpNum" Association="LaserbeamEntities.FK04_EmployeeCompApprovalLevel_AppMgrFourEmpNum">
+      <End Role="EmployeeJob" EntitySet="EmployeeJobs" />
+      <End Role="EmployeeCompApprovalLevel" EntitySet="EmployeeCompApprovalLevels" />
+    </AssociationSet>
+    <AssociationSet Name="FK05_EmployeeCompApprovalLevel_AppMgrFiveEmpNum" Association="LaserbeamEntities.FK05_EmployeeCompApprovalLevel_AppMgrFiveEmpNum">
+      <End Role="EmployeeJob" EntitySet="EmployeeJobs" />
+      <End Role="EmployeeCompApprovalLevel" EntitySet="EmployeeCompApprovalLevels" />
+    </AssociationSet>
+    <AssociationSet Name="FK06_EmployeeCompApprovalLevel_AppMgrSixEmpNum" Association="LaserbeamEntities.FK06_EmployeeCompApprovalLevel_AppMgrSixEmpNum">
+      <End Role="EmployeeJob" EntitySet="EmployeeJobs" />
+      <End Role="EmployeeCompApprovalLevel" EntitySet="EmployeeCompApprovalLevels" />
+    </AssociationSet>
+    <AssociationSet Name="FK07_EmployeeCompApprovalLevel_AppMgrSevenEmpNum" Association="LaserbeamEntities.FK07_EmployeeCompApprovalLevel_AppMgrSevenEmpNum">
+      <End Role="EmployeeJob" EntitySet="EmployeeJobs" />
+      <End Role="EmployeeCompApprovalLevel" EntitySet="EmployeeCompApprovalLevels" />
+    </AssociationSet>
+    <AssociationSet Name="FK08_EmployeeCompApprovalLevel_AppMgrEightEmpNum" Association="LaserbeamEntities.FK08_EmployeeCompApprovalLevel_AppMgrEightEmpNum">
+      <End Role="EmployeeJob" EntitySet="EmployeeJobs" />
+      <End Role="EmployeeCompApprovalLevel" EntitySet="EmployeeCompApprovalLevels" />
+    </AssociationSet>
+    <AssociationSet Name="FK09_EmployeeCompApprovalLevel_AppMgrNineEmpNum" Association="LaserbeamEntities.FK09_EmployeeCompApprovalLevel_AppMgrNineEmpNum">
+      <End Role="EmployeeJob" EntitySet="EmployeeJobs" />
+      <End Role="EmployeeCompApprovalLevel" EntitySet="EmployeeCompApprovalLevels" />
+    </AssociationSet>
+    <AssociationSet Name="FK10_EmployeeCompApprovalLevel_AppMgrTenEmpNum" Association="LaserbeamEntities.FK10_EmployeeCompApprovalLevel_AppMgrTenEmpNum">
+      <End Role="EmployeeJob" EntitySet="EmployeeJobs" />
+      <End Role="EmployeeCompApprovalLevel" EntitySet="EmployeeCompApprovalLevels" />
+    </AssociationSet>
+    <AssociationSet Name="FK_EmployeeCompApprovalStatus_EmployeeJob" Association="LaserbeamEntities.FK_EmployeeCompApprovalStatus_EmployeeJob">
+      <End Role="EmployeeJob" EntitySet="EmployeeJobs" />
+      <End Role="EmployeeCompApprovalStatu" EntitySet="EmployeeCompApprovalStatus" />
+    </AssociationSet>
+    <AssociationSet Name="FK_EmployeeCompComments_EmployeeJob" Association="LaserbeamEntities.FK_EmployeeCompComments_EmployeeJob">
+      <End Role="EmployeeJob" EntitySet="EmployeeJobs" />
+      <End Role="EmployeeCompComment" EntitySet="EmployeeCompComments" />
+    </AssociationSet>
+    <AssociationSet Name="fk_EmployeeCompCommentStatus_EmployeeCompComment" Association="LaserbeamEntities.fk_EmployeeCompCommentStatus_EmployeeCompComment">
+      <End Role="EmployeeCompComment" EntitySet="EmployeeCompComments" />
+      <End Role="EmployeeCompCommentStatu" EntitySet="EmployeeCompCommentStatus" />
+    </AssociationSet>
+    <AssociationSet Name="FK_EmployeeCompMarket_EmployeeJob" Association="LaserbeamEntities.FK_EmployeeCompMarket_EmployeeJob">
+      <End Role="EmployeeJob" EntitySet="EmployeeJobs" />
+      <End Role="EmployeeCompMarket" EntitySet="EmployeeCompMarkets" />
+    </AssociationSet>
+    <AssociationSet Name="FK_EmployeeCompMerit_EmployeeJob" Association="LaserbeamEntities.FK_EmployeeCompMerit_EmployeeJob">
+      <End Role="EmployeeJob" EntitySet="EmployeeJobs" />
+      <End Role="EmployeeCompMerit" EntitySet="EmployeeCompMerits" />
+    </AssociationSet>
+    <AssociationSet Name="FK_EmployeeCompNew_EmployeeJob" Association="LaserbeamEntities.FK_EmployeeCompNew_EmployeeJob">
+      <End Role="EmployeeJob" EntitySet="EmployeeJobs" />
+      <End Role="EmployeeCompNew" EntitySet="EmployeeCompNews" />
+    </AssociationSet>
+    <AssociationSet Name="FK_EmployeeCompPromotion_EmployeeJob" Association="LaserbeamEntities.FK_EmployeeCompPromotion_EmployeeJob">
+      <End Role="EmployeeJob" EntitySet="EmployeeJobs" />
+      <End Role="EmployeeCompPromotion" EntitySet="EmployeeCompPromotions" />
+    </AssociationSet>
+    <AssociationSet Name="FK_EmployeeCompRating_EmployeeJob" Association="LaserbeamEntities.FK_EmployeeCompRating_EmployeeJob">
+      <End Role="EmployeeJob" EntitySet="EmployeeJobs" />
+      <End Role="EmployeeCompRating" EntitySet="EmployeeCompRatings" />
+    </AssociationSet>
+    <AssociationSet Name="FK_EmployeeGroup_OrgGroup" Association="LaserbeamEntities.FK_EmployeeGroup_OrgGroup">
+      <End Role="OrgGroup" EntitySet="OrgGroups" />
+      <End Role="EmployeeGroup" EntitySet="EmployeeGroups" />
+    </AssociationSet>
+    <AssociationSet Name="FK_EmployeeGroupInclusionExclusion_OrgGroup" Association="LaserbeamEntities.FK_EmployeeGroupInclusionExclusion_OrgGroup">
+      <End Role="OrgGroup" EntitySet="OrgGroups" />
+      <End Role="EmployeeGroupInclusionExclusion" EntitySet="EmployeeGroupInclusionExclusions" />
+    </AssociationSet>
+    <AssociationSet Name="FK_OrGGroupAssignedCriteria_OrGGroup" Association="LaserbeamEntities.FK_OrGGroupAssignedCriteria_OrGGroup">
+      <End Role="OrgGroup" EntitySet="OrgGroups" />
+      <End Role="OrgGroupAssignedCriteria" EntitySet="OrgGroupAssignedCriterias" />
+    </AssociationSet>
+    <AssociationSet Name="FK_OrgGroupDetail_OrgGroup" Association="LaserbeamEntities.FK_OrgGroupDetail_OrgGroup">
+      <End Role="OrgGroup" EntitySet="OrgGroups" />
+      <End Role="OrgGroupDetail" EntitySet="OrgGroupDetails" />
+    </AssociationSet>
+    <AssociationSet Name="fk_OrgGroupType_OrgGroup" Association="LaserbeamEntities.fk_OrgGroupType_OrgGroup">
+      <End Role="OrgGroup" EntitySet="OrgGroups" />
+      <End Role="OrgGroupType" EntitySet="OrgGroupTypes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ProxyGroup_OrgGroup" Association="LaserbeamEntities.FK_ProxyGroup_OrgGroup">
+      <End Role="OrgGroup" EntitySet="OrgGroups" />
+      <End Role="ProxyGroup" EntitySet="ProxyGroups" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ProxyPopulationAccess_OrgGroup" Association="LaserbeamEntities.FK_ProxyPopulationAccess_OrgGroup">
+      <End Role="OrgGroup" EntitySet="OrgGroups" />
+      <End Role="ProxyPopulationAccess" EntitySet="ProxyPopulationAccesses" />
+    </AssociationSet>
+    <EntitySet Name="Teams" EntityType="LaserbeamEntities.Team" />
+    <EntitySet Name="SupportTasks" EntityType="LaserbeamEntities.SupportTask" />
+    <AssociationSet Name="FK_SupportTasks_Team_TeamNum" Association="LaserbeamEntities.FK_SupportTasks_Team_TeamNum">
+      <End Role="Team" EntitySet="Teams" />
+      <End Role="SupportTask" EntitySet="SupportTasks" />
+    </AssociationSet>
+    <EntitySet Name="SupportTaskComments" EntityType="LaserbeamEntities.SupportTaskComment" />
+    <AssociationSet Name="fk_SupportTaskComments_AppUserCreatedBy" Association="LaserbeamEntities.fk_SupportTaskComments_AppUserCreatedBy">
+      <End Role="AppUser" EntitySet="AppUsers" />
+      <End Role="SupportTaskComment" EntitySet="SupportTaskComments" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SupportTasks_SupportTaskNum" Association="LaserbeamEntities.FK_SupportTasks_SupportTaskNum">
+      <End Role="SupportTask" EntitySet="SupportTasks" />
+      <End Role="SupportTaskComment" EntitySet="SupportTaskComments" />
+    </AssociationSet>
+    <EntitySet Name="ChatUserStatus1" EntityType="LaserbeamEntities.ChatUserStatus" />
+    <EntitySet Name="ChatDetails" EntityType="LaserbeamEntities.ChatDetail" />
+    <EntitySet Name="ChatSessionDetails" EntityType="LaserbeamEntities.ChatSessionDetail" />
+    <EntitySet Name="MarketPayRanges" EntityType="LaserbeamEntities.MarketPayRange" />
+    <EntitySet Name="EmployeeCompBonus" EntityType="LaserbeamEntities.EmployeeCompBonu" />
+    <AssociationSet Name="FK_EmployeeCompBonus_EmployeeJob" Association="LaserbeamEntities.FK_EmployeeCompBonus_EmployeeJob">
+      <End Role="EmployeeJob" EntitySet="EmployeeJobs" />
+      <End Role="EmployeeCompBonu" EntitySet="EmployeeCompBonus" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="AppEmail">
+    <Key>
+      <PropertyRef Name="AppEmailID" />
+    </Key>
+    <Property Name="AppEmailID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="EmailSubject" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="EmailBody" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="EmailScript" Type="String" MaxLength="4000" FixedLength="false" Unicode="false" />
+    <Property Name="EmailDescr" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
+    <Property Name="Active" Type="Boolean" Nullable="false" />
+    <Property Name="EmailOrderby" Type="Byte" />
+    <Property Name="EmailKey" Type="String" MaxLength="800" FixedLength="false" Unicode="true" />
+    <Property Name="UserTemplate" Type="Boolean" />
+    <Property Name="UpdatedBy" Type="Int32" />
+    <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="AppExportScript">
+    <Key>
+      <PropertyRef Name="AppExportScriptID" />
+    </Key>
+    <Property Name="AppExportScriptID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ExportName" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="ExportScript" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Active" Type="Boolean" />
+  </EntityType>
+  <EntityType Name="AppMenu">
+    <Key>
+      <PropertyRef Name="AppMenuID" />
+    </Key>
+    <Property Name="AppMenuID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="MenuName" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="MenuParentNum" Type="Int32" />
+    <Property Name="MenuLinks" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="MenuOrderBy" Type="Int32" />
+    <Property Name="menuid" Type="String" MaxLength="255" FixedLength="true" Unicode="true" />
+    <Property Name="AdminLinks" Type="Boolean" Nullable="false" />
+    <Property Name="Active" Type="Boolean" Nullable="false" />
+  </EntityType>
+  <EntityType Name="AppMessage">
+    <Key>
+      <PropertyRef Name="AppMessageID" />
+    </Key>
+    <Property Name="AppMessageID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="MessageSubject" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="MessageBody" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="MessageScript" Type="String" MaxLength="4000" FixedLength="false" Unicode="false" />
+    <Property Name="MessageDescr" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
+    <Property Name="MessageType" Type="Boolean" Nullable="false" />
+    <Property Name="Active" Type="Boolean" Nullable="false" />
+    <Property Name="MessageOrderby" Type="Byte" />
+    <Property Name="UpdatedBy" Type="Int32" />
+    <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="UserMessages" Relationship="LaserbeamEntities.fk_UserMessage_AppMessage" FromRole="AppMessage" ToRole="UserMessage" />
+  </EntityType>
+  <EntityType Name="AppScript">
+    <Key>
+      <PropertyRef Name="AppScriptID" />
+    </Key>
+    <Property Name="AppScriptID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ScriptName" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="Script" Type="String" Nullable="false" MaxLength="2000" FixedLength="false" Unicode="false" />
+    <Property Name="ScriptDescr" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
+    <Property Name="ScriptGroup" Type="Byte" Nullable="false" />
+    <Property Name="ScriptOrderBy" Type="Byte" />
+    <Property Name="Active" Type="Boolean" />
+    <NavigationProperty Name="ProxyScripts" Relationship="LaserbeamEntities.FK_ProxyScript_AppScript" FromRole="AppScript" ToRole="ProxyScript" />
+  </EntityType>
+  <EntityType Name="AppSetting">
+    <Key>
+      <PropertyRef Name="AppSettingNum" />
+    </Key>
+    <Property Name="AppSettingNum" Type="Byte" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="AppSettingID" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="AppSettingValue" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
+    <Property Name="AppSettingDescr" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
+    <Property Name="UpdatedBy" Type="Int32" />
+    <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="AppTable">
+    <Key>
+      <PropertyRef Name="AppTableID" />
+    </Key>
+    <Property Name="AppTableID" Type="Byte" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TableName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="TableDescr" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
+    <Property Name="TableType" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+    <Property Name="IsInsertEnabled" Type="Boolean" Nullable="false" />
+    <Property Name="Active" Type="Boolean" Nullable="false" />
+  </EntityType>
+  <EntityType Name="AppUserRole">
+    <Key>
+      <PropertyRef Name="UserRoleNum" />
+    </Key>
+    <Property Name="UserRoleNum" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserRole" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="KeyName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="Active" Type="Boolean" />
+    <NavigationProperty Name="AppUsers" Relationship="LaserbeamEntities.fk_AppUser_AppUserRole" FromRole="AppUserRole" ToRole="AppUser" />
+  </EntityType>
+  <EntityType Name="AppUserStatu">
+    <Key>
+      <PropertyRef Name="AppUserStatusID" />
+    </Key>
+    <Property Name="AppUserStatusID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserStatus" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="AppUsers" Relationship="LaserbeamEntities.fk1_AppUser_AppUserStatus" FromRole="AppUserStatu" ToRole="AppUser" />
+  </EntityType>
+  <EntityType Name="BonusType">
+    <Key>
+      <PropertyRef Name="BonusTypeNum" />
+    </Key>
+    <Property Name="BonusTypeNum" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="BonusTypeCode" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="BonusTypeDescr" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="Active" Type="Boolean" />
+    <NavigationProperty Name="EmployeeJobs" Relationship="LaserbeamEntities.fk4_EmployeeJob_BonusTypeNum" FromRole="BonusType" ToRole="EmployeeJob" />
+  </EntityType>
+  <EntityType Name="BusinessUnit">
+    <Key>
+      <PropertyRef Name="BusinessUnitNum" />
+    </Key>
+    <Property Name="BusinessUnitNum" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="BusinessUnitCode" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="BusinessUnitDescr" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="Active" Type="Boolean" />
+    <NavigationProperty Name="EmployeeJobs" Relationship="LaserbeamEntities.fk5_EmployeeJob_BusinessUnitNum" FromRole="BusinessUnit" ToRole="EmployeeJob" />
+  </EntityType>
+  <EntityType Name="BusSetting">
+    <Key>
+      <PropertyRef Name="BusSettingID" />
+    </Key>
+    <Property Name="BusSettingID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="KeyId" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="KeyValue" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="KeyDataValue" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="Descr" Type="String" Nullable="false" MaxLength="2000" FixedLength="false" Unicode="false" />
+    <Property Name="IsChanged" Type="Boolean" />
+    <Property Name="UpdatedBy" Type="Int32" />
+    <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="Category">
+    <Key>
+      <PropertyRef Name="CategoryNum" />
+    </Key>
+    <Property Name="CategoryNum" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CategoryCode" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="CategoryDescr" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="Active" Type="Boolean" />
+  </EntityType>
+  <EntityType Name="Company">
+    <Key>
+      <PropertyRef Name="CompanyNum" />
+    </Key>
+    <Property Name="CompanyNum" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CompanyCode" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="CompanyDescr" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="Active" Type="Boolean" />
+  </EntityType>
+  <EntityType Name="CompensationType">
+    <Key>
+      <PropertyRef Name="CompensationTypeNum" />
+    </Key>
+    <Property Name="CompensationTypeNum" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CompensationTypeShortName" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="true" />
+    <Property Name="CompensationTypeDescr" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="CompensationTransactionReference" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="Active" Type="Boolean" />
+    <NavigationProperty Name="Budgets" Relationship="LaserbeamEntities.FK_Budget_CompensationType" FromRole="CompensationType" ToRole="Budget" />
+  </EntityType>
+  <EntityType Name="CostCenter">
+    <Key>
+      <PropertyRef Name="CostCenterNum" />
+    </Key>
+    <Property Name="CostCenterNum" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CostCenterCode" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="CostCenterDescr" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="Active" Type="Boolean" />
+  </EntityType>
+  <EntityType Name="Country">
+    <Key>
+      <PropertyRef Name="CountryNum" />
+    </Key>
+    <Property Name="CountryNum" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Country1" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="Active" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="EmployeeJobs" Relationship="LaserbeamEntities.fk7_EmployeeJob_CountryNum" FromRole="Country" ToRole="EmployeeJob" />
+  </EntityType>
+  <EntityType Name="Currency">
+    <Key>
+      <PropertyRef Name="CurrencyCodeNum" />
+    </Key>
+    <Property Name="CurrencyCodeNum" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CurrencyCode" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="CurrencyCodeDescr" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="CultureCode" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="Active" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="ExchangeRates" Relationship="LaserbeamEntities.FK__ExchangeR__Curre__469D7149" FromRole="Currency" ToRole="ExchangeRate" />
+    <NavigationProperty Name="ExchangeRates1" Relationship="LaserbeamEntities.FK__ExchangeR__Curre__66B53B20" FromRole="Currency" ToRole="ExchangeRate" />
+    <NavigationProperty Name="EmployeeJobs" Relationship="LaserbeamEntities.FK_EmployeeJob_Currency" FromRole="Currency" ToRole="EmployeeJob" />
+  </EntityType>
+  <EntityType Name="DateFormat">
+    <Key>
+      <PropertyRef Name="DateFormatNum" />
+    </Key>
+    <Property Name="DateFormatNum" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FormatType" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="OrderBy" Type="Int32" />
+    <Property Name="Active" Type="Boolean" />
+  </EntityType>
+  <EntityType Name="DecimalType">
+    <Key>
+      <PropertyRef Name="DecimalTypeId" />
+    </Key>
+    <Property Name="DecimalTypeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="DecimalTypeKey" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="DecimalTypeValue" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="Type" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="Active" Type="Boolean" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Department">
+    <Key>
+      <PropertyRef Name="DepartmentNum" />
+    </Key>
+    <Property Name="DepartmentNum" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="DepartmentCode" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="DepartmentDescr" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="Active" Type="Boolean" />
+    <NavigationProperty Name="EmployeeJobs" Relationship="LaserbeamEntities.fk9_EmployeeJob_DepartmentNum" FromRole="Department" ToRole="EmployeeJob" />
+  </EntityType>
+  <EntityType Name="Division">
+    <Key>
+      <PropertyRef Name="DivisionNum" />
+    </Key>
+    <Property Name="DivisionNum" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="DivisionCode" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="DivisionDescr" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="Active" Type="Boolean" />
+    <NavigationProperty Name="EmployeeJobs" Relationship="LaserbeamEntities.fk6_EmployeeJob_DivisionNum" FromRole="Division" ToRole="EmployeeJob" />
+  </EntityType>
+  <EntityType Name="EmailTracker">
+    <Key>
+      <PropertyRef Name="EmailTrackerID" />
+    </Key>
+    <Property Name="ClientUserID" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="FromEmail" Type="String" MaxLength="320" FixedLength="false" Unicode="true" />
+    <Property Name="ToEmail" Type="String" MaxLength="320" FixedLength="false" Unicode="true" />
+    <Property Name="AppEmailID" Type="Int32" Nullable="false" />
+    <Property Name="Success" Type="Boolean" Nullable="false" />
+    <Property Name="ErrorDescription" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
+    <Property Name="EmailTrackerID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UpdatedBy" Type="Int32" />
+    <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="EmployeeClass">
+    <Key>
+      <PropertyRef Name="ClassNum" />
+    </Key>
+    <Property Name="ClassNum" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ClassCode" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="ClassDescr" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="Active" Type="Boolean" />
+    <NavigationProperty Name="EmployeeJobs" Relationship="LaserbeamEntities.fk12_EmployeeJob_ClassNum" FromRole="EmployeeClass" ToRole="EmployeeJob" />
+  </EntityType>
+  <EntityType Name="EntityCode">
+    <Key>
+      <PropertyRef Name="EntityCodeNum" />
+    </Key>
+    <Property Name="EntityCodeNum" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="EntityCodeCode" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="EntityCodeDescr" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="Active" Type="Boolean" />
+    <NavigationProperty Name="EmployeeJobs" Relationship="LaserbeamEntities.fk8_EmployeeJob_EntityCodeNum" FromRole="EntityCode" ToRole="EmployeeJob" />
+  </EntityType>
+  <EntityType Name="Ethnicity">
+    <Key>
+      <PropertyRef Name="EthnicityNum" />
+    </Key>
+    <Property Name="EthnicityNum" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="EthnicityCode" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="EthnicityDescr" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="Active" Type="Boolean" />
+  </EntityType>
+  <EntityType Name="ExchangeRate">
+    <Key>
+      <PropertyRef Name="ExchangeRateNum" />
+    </Key>
+    <Property Name="ExchangeRateNum" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CurrencyCodeNum" Type="Int32" Nullable="false" />
+    <Property Name="MeritExchangeRate" Type="Decimal" Precision="15" Scale="8" />
+    <Property Name="BonusExchangeRate" Type="Decimal" Precision="15" Scale="8" />
+    <Property Name="Active" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="Currency" Relationship="LaserbeamEntities.FK__ExchangeR__Curre__469D7149" FromRole="ExchangeRate" ToRole="Currency" />
+    <NavigationProperty Name="Currency1" Relationship="LaserbeamEntities.FK__ExchangeR__Curre__66B53B20" FromRole="ExchangeRate" ToRole="Currency" />
+  </EntityType>
+  <EntityType Name="Family">
+    <Key>
+      <PropertyRef Name="FamilyNum" />
+    </Key>
+    <Property Name="FamilyNum" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FamilyCode" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="FamilyDescr" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="Active" Type="Boolean" />
+  </EntityType>
+  <EntityType Name="Grade">
+    <Key>
+      <PropertyRef Name="GradeNum" />
+    </Key>
+    <Property Name="GradeNum" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="GradeCode" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="GradeDescr" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="GradeOrder" Type="Int32" />
+    <Property Name="Active" Type="Boolean" />
+    <NavigationProperty Name="EmployeeJobs" Relationship="LaserbeamEntities.FK_EmployeeJob_Grade" FromRole="Grade" ToRole="EmployeeJob" />
+  </EntityType>
+  <EntityType Name="GroupType">
+    <Key>
+      <PropertyRef Name="GroupTypeNum" />
+    </Key>
+    <Property Name="GroupTypeNum" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="GroupTypeName" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="Active" Type="Boolean" />
+    <NavigationProperty Name="OrgGroupTypes" Relationship="LaserbeamEntities.fk_OrgGroupType_GroupType" FromRole="GroupType" ToRole="OrgGroupType" />
+  </EntityType>
+  <EntityType Name="InitiativesLink">
+    <Key>
+      <PropertyRef Name="InitiativesLinkNum" />
+    </Key>
+    <Property Name="InitiativesLinkNum" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="LinkName" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="StartDate" Type="DateTime" Precision="3" />
+    <Property Name="EndDate" Type="DateTime" Precision="3" />
+    <Property Name="Status" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="URL" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="IsManagerView" Type="Boolean" Nullable="false" />
+    <Property Name="ActionName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="ControllerName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="AppMenuID" Type="Int32" />
+    <Property Name="Description" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="OrderBy" Type="Int32" />
+    <Property Name="IsActive" Type="Boolean" />
+  </EntityType>
+  <EntityType Name="Job">
+    <Key>
+      <PropertyRef Name="JobNum" />
+    </Key>
+    <Property Name="JobNum" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="JobCode" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="JobDescr" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="GradeNum" Type="Int32" />
+    <Property Name="Active" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="EmployeeJobs" Relationship="LaserbeamEntities.fk_EmployeeJob_Job" FromRole="Job" ToRole="EmployeeJob" />
+  </EntityType>
+  <EntityType Name="JobStatu">
+    <Key>
+      <PropertyRef Name="JobStatusNum" />
+    </Key>
+    <Property Name="JobStatusNum" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="JobStatusCode" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="JobStatusDescr" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="Active" Type="Boolean" />
+  </EntityType>
+  <EntityType Name="Location">
+    <Key>
+      <PropertyRef Name="LocationNum" />
+    </Key>
+    <Property Name="LocationNum" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Location1" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="CountryNum" Type="Int32" Nullable="false" />
+    <Property Name="LocationCode" Type="Int32" />
+    <Property Name="Active" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="EmployeeJobs" Relationship="LaserbeamEntities.FK_EmployeeJob_Location" FromRole="Location" ToRole="EmployeeJob" />
+  </EntityType>
+  <EntityType Name="MetaColumn">
+    <Key>
+      <PropertyRef Name="MetaColumnID" />
+    </Key>
+    <Property Name="MetaColumnID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FieldName" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="ActualColumnName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="GeneralAliasName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="TemplateAliasName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="MasterDisplay" Type="Boolean" Nullable="false" />
+    <Property Name="PopupDisplay" Type="Boolean" Nullable="false" />
+    <Property Name="GridDisplay" Type="Boolean" Nullable="false" />
+    <Property Name="FilterDisplay" Type="Boolean" Nullable="false" />
+    <Property Name="ExportDisplay" Type="Boolean" Nullable="false" />
+    <Property Name="TemplateDisplay" Type="Boolean" Nullable="false" />
+    <Property Name="IsMandate" Type="Boolean" Nullable="false" />
+    <Property Name="IsTemplate" Type="Boolean" Nullable="false" />
+    <Property Name="PopupDisplayDefaultValue" Type="Boolean" Nullable="false" />
+    <Property Name="GridDisplayDefaultValue" Type="Boolean" Nullable="false" />
+    <Property Name="FilterDisplayDefaultValue" Type="Boolean" Nullable="false" />
+    <Property Name="ExportDisplayDefaultValue" Type="Boolean" Nullable="false" />
+    <Property Name="TemplateDisplayDefaultValue" Type="Boolean" Nullable="false" />
+    <Property Name="IsMandateDefaultValue" Type="Boolean" />
+    <Property Name="IsTemplateDefaultValue" Type="Boolean" />
+    <Property Name="FunctionalGroup" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="TableName" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="TableKeyColumnName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="SampleData" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="DataLength" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="DataFormat" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="FieldDescription" Type="String" MaxLength="4000" FixedLength="false" Unicode="false" />
+    <Property Name="RowOrder" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="TemplateRowOrder" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="ControlType" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="PlaceHolder" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="ControlFormat" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="FieldInformation" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="UpdatedBy" Type="Int32" />
+    <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+    <Property Name="RuleConfigurationKeyGroup" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="MetaTable">
+    <Key>
+      <PropertyRef Name="MetaTableID" />
+    </Key>
+    <Property Name="MetaTableID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="MetaTableName" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="Active" Type="Boolean" Nullable="false" />
+  </EntityType>
+  <EntityType Name="MetaXmlTemplate">
+    <Key>
+      <PropertyRef Name="MetaXmlTemplateNum" />
+    </Key>
+    <Property Name="MetaXmlTemplateNum" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TemplateName" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="TemplateSchemaName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="TemplateTableName" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="TemplateFileName" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="TemplateSchemaPath" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
+    <Property Name="TemplateXMLpath" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
+    <Property Name="TemplateDownloadpath" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
+    <Property Name="Active" Type="Boolean" />
+    <Property Name="ExecutionOrder" Type="Int32" />
+    <Property Name="TableName" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="Module">
+    <Key>
+      <PropertyRef Name="ModuleNum" />
+    </Key>
+    <Property Name="ModuleNum" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ModuleName" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="ModuleKey" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="IsWorkflow" Type="Boolean" Nullable="false" />
+    <Property Name="Active" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="EmployeeCompApprovalLevels" Relationship="LaserbeamEntities.FK__EmployeeC__Modul__4B399FE2" FromRole="Module" ToRole="EmployeeCompApprovalLevel" />
+    <NavigationProperty Name="EmployeeCompApprovalLevels1" Relationship="LaserbeamEntities.FK__EmployeeC__Modul__4C2DC41B" FromRole="Module" ToRole="EmployeeCompApprovalLevel" />
+    <NavigationProperty Name="ProxyGroups" Relationship="LaserbeamEntities.FK4_ProxyGroup_Module" FromRole="Module" ToRole="ProxyGroup" />
+    <NavigationProperty Name="ProxyManagers" Relationship="LaserbeamEntities.FK4_ProxyManager_Module" FromRole="Module" ToRole="ProxyManager" />
+  </EntityType>
+  <EntityType Name="Operator">
+    <Key>
+      <PropertyRef Name="OperatorNum" />
+    </Key>
+    <Property Name="OperatorNum" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="OperatorText" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="OperatorValue" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="OrgGroupCriteria">
+    <Key>
+      <PropertyRef Name="OrgGroupCriteriaID" />
+    </Key>
+    <Property Name="OrgGroupCriteriaID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CriteriaName" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="CriteriaOrderBy" Type="Byte" Nullable="false" />
+    <Property Name="Active" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="OrgGroupAssignedCriterias" Relationship="LaserbeamEntities.FK_OrGGroupAssignedCriteria_OrgGroupCriteria" FromRole="OrgGroupCriteria" ToRole="OrgGroupAssignedCriteria" />
+  </EntityType>
+  <EntityType Name="PayGroup">
+    <Key>
+      <PropertyRef Name="PayGroupNum" />
+    </Key>
+    <Property Name="PayGroupNum" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="PayGroupCode" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="PayGroupDescr" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="Active" Type="Boolean" />
+    <NavigationProperty Name="EmployeeJobs" Relationship="LaserbeamEntities.fk10_EmployeeJob_PayGroupNum" FromRole="PayGroup" ToRole="EmployeeJob" />
+  </EntityType>
+  <EntityType Name="Program">
+    <Key>
+      <PropertyRef Name="ProgramNum" />
+    </Key>
+    <Property Name="ProgramNum" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ProgramCode" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="ProgramDescr" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="Active" Type="Boolean" />
+    <NavigationProperty Name="EmployeeJobs" Relationship="LaserbeamEntities.fk_EmployeeJob_ProgramNum" FromRole="Program" ToRole="EmployeeJob" />
+  </EntityType>
+  <EntityType Name="Rating">
+    <Key>
+      <PropertyRef Name="RatingNum" />
+    </Key>
+    <Property Name="RatingNum" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="RatingID" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="RatingDescr" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="RatingType" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="IsCommentMandatory" Type="Boolean" />
+    <Property Name="RatingDetailDescr" Type="String" MaxLength="4000" FixedLength="false" Unicode="false" />
+    <Property Name="HighRange" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="LowRange" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="RatingOrder" Type="Int32" />
+    <Property Name="UpdatedBy" Type="Int32" />
+    <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="EmployeeCompRatings" Relationship="LaserbeamEntities.fk_EmployeeCompRating_BonusPerformanceRating" FromRole="Rating" ToRole="EmployeeCompRating" />
+    <NavigationProperty Name="EmployeeCompRatings1" Relationship="LaserbeamEntities.fk_EmployeeCompRating_MeritPerformanceRating" FromRole="Rating" ToRole="EmployeeCompRating" />
+    <Property Name="MinRange" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="MaxRange" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="RatingRange" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="ReviewType">
+    <Key>
+      <PropertyRef Name="ReviewTypeNum" />
+    </Key>
+    <Property Name="ReviewTypeNum" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ReviewTypeDescr" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="EmployeeJobs" Relationship="LaserbeamEntities.FK_EmployeeJob_ReviewType" FromRole="ReviewType" ToRole="EmployeeJob" />
+  </EntityType>
+  <EntityType Name="RoundingType">
+    <Key>
+      <PropertyRef Name="RoundingTypeId" />
+    </Key>
+    <Property Name="RoundingTypeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="RoundTypeKey" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="RoundTypeValue" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="Active" Type="Boolean" Nullable="false" />
+  </EntityType>
+  <EntityType Name="State">
+    <Key>
+      <PropertyRef Name="StateNum" />
+    </Key>
+    <Property Name="StateNum" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CountryNum" Type="Int32" Nullable="false" />
+    <Property Name="StateName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="EmployeeJobs" Relationship="LaserbeamEntities.FK_EmployeeJob_State" FromRole="State" ToRole="EmployeeJob" />
+  </EntityType>
+  <EntityType Name="SubFamily">
+    <Key>
+      <PropertyRef Name="SubFamilyNum" />
+    </Key>
+    <Property Name="SubFamilyNum" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="SubFamilyCode" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="SubFamilyDescr" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="Active" Type="Boolean" />
+  </EntityType>
+  <EntityType Name="SubStatu">
+    <Key>
+      <PropertyRef Name="SubStatusNum" />
+    </Key>
+    <Property Name="SubStatusNum" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="SubStatusCode" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="SubStatusDescr" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="Active" Type="Boolean" />
+    <NavigationProperty Name="EmployeeJobs" Relationship="LaserbeamEntities.fk11_EmployeeJob_EmployeeSubStatusNum" FromRole="SubStatu" ToRole="EmployeeJob" />
+  </EntityType>
+  <EntityType Name="UserAppUrlTracker">
+    <Key>
+      <PropertyRef Name="UserAppUrlTrackerID" />
+    </Key>
+    <Property Name="UserAppUrlTrackerID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ClientUserID" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="SecretKey" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="RequestTimeStamp" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="EncryptedMagicKey" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+    <Property Name="SiteUrl" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+    <Property Name="IsEncrypted" Type="Boolean" />
+  </EntityType>
+  <EntityType Name="UserQuery">
+    <Key>
+      <PropertyRef Name="UserQueryNum" />
+    </Key>
+    <Property Name="UserQueryNum" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserQueryName" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="SavedQuery" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="UserNum" Type="Int32" />
+  </EntityType>
+  <EntityType Name="XmlProcess">
+    <Key>
+      <PropertyRef Name="XmlProcessNum" />
+    </Key>
+    <Property Name="XmlProcessNum" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserNum" Type="Int32" />
+    <Property Name="ProcessDate" Type="DateTime" Precision="3" />
+    <Property Name="XmlFilename" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="SheetName" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="FileSourcePath" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="ValidateStatus" Type="Int32" />
+    <Property Name="ProcessStatus" Type="Int32" />
+    <Property Name="RecordCount" Type="Int32" />
+    <Property Name="MetaXmlTemplateNum" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="AppUser">
+    <Key>
+      <PropertyRef Name="UserNum" />
+    </Key>
+    <Property Name="UserNum" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="EmployeeNum" Type="Int32" />
+    <Property Name="UserID" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="EmployeeID" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="LoginID" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="UserName" Type="String" Nullable="false" MaxLength="1500" FixedLength="false" Unicode="true" />
+    <Property Name="FirstName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="LastName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="PreferredName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="UserPassword" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="DefaultPassword" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="EmailID" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="ProxyID" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="UserGroup" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="UserRoleNum" Type="Int32" Nullable="false" />
+    <Property Name="FailedLoginAttempts" Type="Int32" />
+    <Property Name="LastLoginDt" Type="DateTime" Precision="3" />
+    <Property Name="LastLogOutDt" Type="DateTime" Precision="3" />
+    <Property Name="AppUserStatusID" Type="Int32" />
+    <Property Name="XMLProcessID" Type="Int32" />
+    <Property Name="SSOLastLoginDate" Type="DateTime" Precision="3" />
+    <Property Name="SSOLastLogOutDate" Type="DateTime" Precision="3" />
+    <Property Name="ApplicationSessionID" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="DefaultPasswordExpired" Type="Boolean" />
+    <Property Name="SecretKey" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="MarkAsDelete" Type="Boolean" Nullable="false" />
+    <Property Name="LockedDate" Type="DateTime" Precision="3" />
+    <Property Name="MailDeliveryStatus" Type="Boolean" />
+    <Property Name="MailDeliveryDate" Type="DateTime" Precision="3" />
+    <Property Name="IsWizardExpired" Type="Boolean" />
+    <Property Name="WizardStepsCompleted" Type="Int32" />
+    <Property Name="UpdatedBy" Type="Int32" />
+    <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="AppUserRole" Relationship="LaserbeamEntities.fk_AppUser_AppUserRole" FromRole="AppUser" ToRole="AppUserRole" />
+    <NavigationProperty Name="AppUserStatu" Relationship="LaserbeamEntities.fk1_AppUser_AppUserStatus" FromRole="AppUser" ToRole="AppUserStatu" />
+    <NavigationProperty Name="Employee" Relationship="LaserbeamEntities.fk_AppUser_EmployeeNum" FromRole="AppUser" ToRole="Employee" />
+    <NavigationProperty Name="DailyTasks" Relationship="LaserbeamEntities.FK_AppUser_UserNum" FromRole="AppUser" ToRole="DailyTask" />
+    <NavigationProperty Name="EmployeeApprovalDetails" Relationship="LaserbeamEntities.fk_EmployeeApprovalDetails_AppUser" FromRole="AppUser" ToRole="EmployeeApprovalDetail" />
+    <NavigationProperty Name="EmployeeCompComments" Relationship="LaserbeamEntities.fk_EmployeeCompComments_AppUserCreatedBy" FromRole="AppUser" ToRole="EmployeeCompComment" />
+    <NavigationProperty Name="EmployeeCompComments1" Relationship="LaserbeamEntities.fk_EmployeeCompComments_AppUserUpdatedBy" FromRole="AppUser" ToRole="EmployeeCompComment" />
+    <NavigationProperty Name="EmployeeCompCommentStatus" Relationship="LaserbeamEntities.fk_EmployeeCompCommentStatus_AppUser" FromRole="AppUser" ToRole="EmployeeCompCommentStatu" />
+    <NavigationProperty Name="EmployeeWorkflowCommentStatus" Relationship="LaserbeamEntities.fk_EmployeeWorkflowCommentStatus_AppUser" FromRole="AppUser" ToRole="EmployeeWorkflowCommentStatu" />
+    <NavigationProperty Name="FeedBacks" Relationship="LaserbeamEntities.fk_FeedBack_AppUser" FromRole="AppUser" ToRole="FeedBack" />
+    <NavigationProperty Name="Budgets" Relationship="LaserbeamEntities.FK_fk4_Budget_AppUser" FromRole="AppUser" ToRole="Budget" />
+    <NavigationProperty Name="ProxyGroups" Relationship="LaserbeamEntities.FK_ProxyGroup_AppUser" FromRole="AppUser" ToRole="ProxyGroup" />
+    <NavigationProperty Name="ProxyManagers" Relationship="LaserbeamEntities.FK_ProxyManager_AppUser" FromRole="AppUser" ToRole="ProxyManager" />
+    <NavigationProperty Name="ProxyScripts" Relationship="LaserbeamEntities.FK_ProxyScript_AppUser" FromRole="AppUser" ToRole="ProxyScript" />
+    <NavigationProperty Name="UserMenus" Relationship="LaserbeamEntities.FK_UserMenu_AppUser" FromRole="AppUser" ToRole="UserMenu" />
+    <NavigationProperty Name="UserMessages" Relationship="LaserbeamEntities.fk_UserMessage_AppUser" FromRole="AppUser" ToRole="UserMessage" />
+    <Property Name="IsDefaultUser" Type="Boolean" />
+    <NavigationProperty Name="SupportTaskComments" Relationship="LaserbeamEntities.fk_SupportTaskComments_AppUserCreatedBy" FromRole="AppUser" ToRole="SupportTaskComment" />
+    <Property Name="ChatStatus" Type="Int32" />
+    <Property Name="IsLoggedIn" Type="Boolean" />
+    <Property Name="IsAdminAccess" Type="Boolean" />
+    <Property Name="AdminUserNum" Type="Int32" />
+    <Property Name="AdminEmpNum" Type="Int32" />
+  </EntityType>
+  <EntityType Name="Budget">
+    <Key>
+      <PropertyRef Name="BudgetNum" />
+    </Key>
+    <Property Name="BudgetNum" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="EmpJobNum" Type="Int32" Nullable="false" />
+    <Property Name="CompensationTypeNum" Type="Int32" Nullable="false" />
+    <Property Name="Budget1" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+    <Property Name="Spent" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+    <Property Name="LTIPBudget" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="LTIPSpent" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="UpdatedBy" Type="Int32" />
+    <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+    <Property Name="PromotionSpent" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+    <Property Name="AdjustmentSpent" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+    <Property Name="LumpSumSpent" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="BonusBudget" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="BonusSpent" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="BudgetPct" Type="Decimal" Precision="6" Scale="2" />
+    <Property Name="ProratedBudget" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="ProratedBudgetPct" Type="Decimal" Precision="6" Scale="2" />
+    <Property Name="BudgetProration" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="AdjustedBudget" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="AdjustedBudgetPct" Type="Decimal" Precision="6" Scale="2" />
+    <NavigationProperty Name="CompensationType" Relationship="LaserbeamEntities.FK_Budget_CompensationType" FromRole="Budget" ToRole="CompensationType" />
+    <NavigationProperty Name="AppUser" Relationship="LaserbeamEntities.FK_fk4_Budget_AppUser" FromRole="Budget" ToRole="AppUser" />
+    <NavigationProperty Name="EmployeeJob" Relationship="LaserbeamEntities.FK_Budget_EmployeeJob" FromRole="Budget" ToRole="EmployeeJob" />
+  </EntityType>
+  <EntityType Name="DailyTask">
+    <Key>
+      <PropertyRef Name="TaskNum" />
+    </Key>
+    <Property Name="TaskNum" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserNum" Type="Int32" Nullable="false" />
+    <Property Name="TaskTitle" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="TaskDescr" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+    <Property Name="Active" Type="Boolean" />
+    <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+    <Property Name="TaskCompleted" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="AppUser" Relationship="LaserbeamEntities.FK_AppUser_UserNum" FromRole="DailyTask" ToRole="AppUser" />
+    <Property Name="TaskCompletedDate" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="Employee">
+    <Key>
+      <PropertyRef Name="EmployeeNum" />
+    </Key>
+    <Property Name="EmployeeNum" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="EmployeeID" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="MyHRID" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="EmployeeName" Type="String" MaxLength="1500" FixedLength="false" Unicode="true" />
+    <Property Name="LastName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="FirstName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="MiddleInitial" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="PreferredName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="DateofBirth" Type="DateTime" Precision="3" />
+    <Property Name="HireDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="EmailAddress" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="BasicPH" Type="Int32" />
+    <Property Name="Gender" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="Ethnicity" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="Age" Type="Int32" />
+    <Property Name="SortOrderEmployeeName" Type="String" MaxLength="1500" FixedLength="false" Unicode="true" />
+    <Property Name="TerminationDate" Type="DateTime" Precision="3" />
+    <Property Name="UpdatedBy" Type="Int32" />
+    <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="AppUsers" Relationship="LaserbeamEntities.fk_AppUser_EmployeeNum" FromRole="Employee" ToRole="AppUser" />
+    <NavigationProperty Name="EmployeeGroups" Relationship="LaserbeamEntities.FK_EmployeeGroup_Employee" FromRole="Employee" ToRole="EmployeeGroup" />
+    <NavigationProperty Name="EmployeeGroupInclusionExclusions" Relationship="LaserbeamEntities.FK_EmployeeGroupInclusionExclusion_Employee" FromRole="Employee" ToRole="EmployeeGroupInclusionExclusion" />
+    <NavigationProperty Name="EmployeeInclusionAndExclusions" Relationship="LaserbeamEntities.FK_EmployeeInclusionAndExclusion_Employee" FromRole="Employee" ToRole="EmployeeInclusionAndExclusion" />
+    <NavigationProperty Name="EmployeeJobs" Relationship="LaserbeamEntities.fk_EmployeeJob_Employee" FromRole="Employee" ToRole="EmployeeJob" />
+    <NavigationProperty Name="EmployeeJobs1" Relationship="LaserbeamEntities.fk_EmployeeJob_Employee_Managernum" FromRole="Employee" ToRole="EmployeeJob" />
+    <NavigationProperty Name="ManagerRelations" Relationship="LaserbeamEntities.FK_ManagerRelation_Employee" FromRole="Employee" ToRole="ManagerRelation" />
+    <NavigationProperty Name="ProxyManagers" Relationship="LaserbeamEntities.FK_ProxyManager_Employee" FromRole="Employee" ToRole="ProxyManager" />
+  </EntityType>
+  <EntityType Name="EmployeeApprovalDetail">
+    <Key>
+      <PropertyRef Name="EmployeeApprovalDetailNum" />
+    </Key>
+    <Property Name="EmployeeApprovalDetailNum" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="EmpJobNum" Type="Int32" Nullable="false" />
+    <Property Name="ApprovedManager" Type="Int32" />
+    <Property Name="ApprovedLevel" Type="Int32" />
+    <Property Name="ApprovalStatus" Type="Byte" />
+    <Property Name="Comments" Type="String" MaxLength="4000" FixedLength="false" Unicode="false" />
+    <Property Name="ModuleNum" Type="Int32" />
+    <Property Name="UpdatedBy" Type="Int32" />
+    <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="AppUser" Relationship="LaserbeamEntities.fk_EmployeeApprovalDetails_AppUser" FromRole="EmployeeApprovalDetail" ToRole="AppUser" />
+    <NavigationProperty Name="EmployeeWorkflowCommentStatus" Relationship="LaserbeamEntities.fk_EmployeeWorkflowCommentStatus_EmployeeCompComment" FromRole="EmployeeApprovalDetail" ToRole="EmployeeWorkflowCommentStatu" />
+  </EntityType>
+  <EntityType Name="EmployeeCompAdjustment">
+    <Key>
+      <PropertyRef Name="EmpJobNum" />
+    </Key>
+    <Property Name="EmployeeCompAdjustmentNum" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="EmpJobNum" Type="Int32" Nullable="false" />
+    <Property Name="AdjustmentRange" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Name="AdjustmentPct" Type="Decimal" Precision="6" Scale="2" />
+    <Property Name="AdjustmentAmt" Type="Decimal" Precision="19" Scale="8" />
+    <Property Name="HrlyAdjustmentAmt" Type="Decimal" Precision="19" Scale="8" />
+    <Property Name="EffectiveDate" Type="DateTime" Precision="3" />
+    <Property Name="AdjustmentPH" Type="Int32" />
+    <Property Name="Eligibility" Type="Boolean" Nullable="false" />
+    <Property Name="UpdatedBy" Type="Int32" />
+    <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="EmployeeJob" Relationship="LaserbeamEntities.FK_EmployeeCompAdjustment_EmployeeJob" FromRole="EmployeeCompAdjustment" ToRole="EmployeeJob" />
+  </EntityType>
+  <EntityType Name="EmployeeCompApprovalComment">
+    <Key>
+      <PropertyRef Name="EmpJobNum" />
+    </Key>
+    <Property Name="EmployeeCompApprovalCommentsNum" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="EmpJobNum" Type="Int32" Nullable="false" />
+    <Property Name="Comments" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="UpdatedBy" Type="Int32" Nullable="false" />
+    <Property Name="UpdatedDate" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="EmployeeJob" Relationship="LaserbeamEntities.FK_EmployeeCompApprovalComments_EmployeeJob" FromRole="EmployeeCompApprovalComment" ToRole="EmployeeJob" />
+  </EntityType>
+  <EntityType Name="EmployeeCompApprovalLevel">
+    <Key>
+      <PropertyRef Name="EmpJobNum" />
+      <PropertyRef Name="ModuleNum" />
+    </Key>
+    <Property Name="EmployeeCompApprovalLevelNum" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="EmpJobNum" Type="Int32" Nullable="false" />
+    <Property Name="AppMgrOneEmpNum" Type="Int32" />
+    <Property Name="AppMgrTwoEmpNum" Type="Int32" />
+    <Property Name="AppMgrThreeEmpNum" Type="Int32" />
+    <Property Name="AppMgrFourEmpNum" Type="Int32" />
+    <Property Name="AppMgrFiveEmpNum" Type="Int32" />
+    <Property Name="AppMgrSixEmpNum" Type="Int32" />
+    <Property Name="AppMgrSevenEmpNum" Type="Int32" />
+    <Property Name="AppMgrEightEmpNum" Type="Int32" />
+    <Property Name="AppMgrNineEmpNum" Type="Int32" />
+    <Property Name="AppMgrTenEmpNum" Type="Int32" />
+    <Property Name="ModuleNum" Type="Int32" Nullable="false" />
+    <Property Name="UpdatedBy" Type="Int32" />
+    <Property Name="UpdatedDate" Type="DateTime" Precision="0" />
+    <NavigationProperty Name="Module" Relationship="LaserbeamEntities.FK__EmployeeC__Modul__4B399FE2" FromRole="EmployeeCompApprovalLevel" ToRole="Module" />
+    <NavigationProperty Name="Module1" Relationship="LaserbeamEntities.FK__EmployeeC__Modul__4C2DC41B" FromRole="EmployeeCompApprovalLevel" ToRole="Module" />
+    <NavigationProperty Name="EmployeeJob" Relationship="LaserbeamEntities.FK00_EmployeeCompApprovalLevel_EmployeeJob" FromRole="EmployeeCompApprovalLevel" ToRole="EmployeeJob" />
+    <NavigationProperty Name="EmployeeJob1" Relationship="LaserbeamEntities.FK01_EmployeeCompApprovalLevel_AppMgrOneEmpNum" FromRole="EmployeeCompApprovalLevel" ToRole="EmployeeJob" />
+    <NavigationProperty Name="EmployeeJob2" Relationship="LaserbeamEntities.FK02_EmployeeCompApprovalLevel_AppMgrTwoEmpNum" FromRole="EmployeeCompApprovalLevel" ToRole="EmployeeJob" />
+    <NavigationProperty Name="EmployeeJob3" Relationship="LaserbeamEntities.FK03_EmployeeCompApprovalLevel_AppMgrThreeEmpNum" FromRole="EmployeeCompApprovalLevel" ToRole="EmployeeJob" />
+    <NavigationProperty Name="EmployeeJob4" Relationship="LaserbeamEntities.FK04_EmployeeCompApprovalLevel_AppMgrFourEmpNum" FromRole="EmployeeCompApprovalLevel" ToRole="EmployeeJob" />
+    <NavigationProperty Name="EmployeeJob5" Relationship="LaserbeamEntities.FK05_EmployeeCompApprovalLevel_AppMgrFiveEmpNum" FromRole="EmployeeCompApprovalLevel" ToRole="EmployeeJob" />
+    <NavigationProperty Name="EmployeeJob6" Relationship="LaserbeamEntities.FK06_EmployeeCompApprovalLevel_AppMgrSixEmpNum" FromRole="EmployeeCompApprovalLevel" ToRole="EmployeeJob" />
+    <NavigationProperty Name="EmployeeJob7" Relationship="LaserbeamEntities.FK07_EmployeeCompApprovalLevel_AppMgrSevenEmpNum" FromRole="EmployeeCompApprovalLevel" ToRole="EmployeeJob" />
+    <NavigationProperty Name="EmployeeJob8" Relationship="LaserbeamEntities.FK08_EmployeeCompApprovalLevel_AppMgrEightEmpNum" FromRole="EmployeeCompApprovalLevel" ToRole="EmployeeJob" />
+    <NavigationProperty Name="EmployeeJob9" Relationship="LaserbeamEntities.FK09_EmployeeCompApprovalLevel_AppMgrNineEmpNum" FromRole="EmployeeCompApprovalLevel" ToRole="EmployeeJob" />
+    <NavigationProperty Name="EmployeeJob10" Relationship="LaserbeamEntities.FK10_EmployeeCompApprovalLevel_AppMgrTenEmpNum" FromRole="EmployeeCompApprovalLevel" ToRole="EmployeeJob" />
+  </EntityType>
+  <EntityType Name="EmployeeCompApprovalRequest">
+    <Key>
+      <PropertyRef Name="EmployeeCompApprovalRequestNum" />
+    </Key>
+    <Property Name="EmployeeCompApprovalRequestNum" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="EmpJobNum" Type="Int32" Nullable="false" />
+    <Property Name="UserNum" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="EmployeeCompApprovalStatu">
+    <Key>
+      <PropertyRef Name="EmpJobNum" />
+    </Key>
+    <Property Name="EmployeeCompApprovalStatusNum" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="EmpJobNum" Type="Int32" Nullable="false" />
+    <Property Name="CurrentApprovalStatus" Type="Int32" />
+    <Property Name="CurrentApprovedMgrNum" Type="Int32" />
+    <Property Name="CurrentApprovedMgrLevel" Type="Int32" />
+    <Property Name="PreviousLevelMgrNum" Type="Int32" />
+    <Property Name="PreviousApprovedMgrLevel" Type="Int32" />
+    <Property Name="NextLevelMgrNum" Type="Int32" />
+    <Property Name="NextApproverLevel" Type="Int32" />
+    <Property Name="FirstLevelMgrNum" Type="Int32" />
+    <Property Name="TopLevelMgrNum" Type="Int32" />
+    <Property Name="TopMgrLevel" Type="Int32" />
+    <Property Name="UpdatedBy" Type="Int32" />
+    <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="EmployeeJob" Relationship="LaserbeamEntities.FK_EmployeeCompApprovalStatus_EmployeeJob" FromRole="EmployeeCompApprovalStatu" ToRole="EmployeeJob" />
+  </EntityType>
+  <EntityType Name="EmployeeCompComment">
+    <Key>
+      <PropertyRef Name="EmployeeCompCommentsNum" />
+    </Key>
+    <Property Name="EmployeeCompCommentsNum" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="EmpJobNum" Type="Int32" Nullable="false" />
+    <Property Name="CompensationTypeNum" Type="Int32" Nullable="false" />
+    <Property Name="Comments" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="CreatedBy" Type="Int32" Nullable="false" />
+    <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="UpdatedBy" Type="Int32" />
+    <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="AppUser" Relationship="LaserbeamEntities.fk_EmployeeCompComments_AppUserCreatedBy" FromRole="EmployeeCompComment" ToRole="AppUser" />
+    <NavigationProperty Name="AppUser1" Relationship="LaserbeamEntities.fk_EmployeeCompComments_AppUserUpdatedBy" FromRole="EmployeeCompComment" ToRole="AppUser" />
+    <NavigationProperty Name="EmployeeJob" Relationship="LaserbeamEntities.FK_EmployeeCompComments_EmployeeJob" FromRole="EmployeeCompComment" ToRole="EmployeeJob" />
+    <NavigationProperty Name="EmployeeCompCommentStatus" Relationship="LaserbeamEntities.fk_EmployeeCompCommentStatus_EmployeeCompComment" FromRole="EmployeeCompComment" ToRole="EmployeeCompCommentStatu" />
+  </EntityType>
+  <EntityType Name="EmployeeCompCommentStatu">
+    <Key>
+      <PropertyRef Name="EmployeeCompCommentStatusId" />
+    </Key>
+    <Property Name="EmployeeCompCommentStatusId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CommentNum" Type="Int32" Nullable="false" />
+    <Property Name="UserNum" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="AppUser" Relationship="LaserbeamEntities.fk_EmployeeCompCommentStatus_AppUser" FromRole="EmployeeCompCommentStatu" ToRole="AppUser" />
+    <NavigationProperty Name="EmployeeCompComment" Relationship="LaserbeamEntities.fk_EmployeeCompCommentStatus_EmployeeCompComment" FromRole="EmployeeCompCommentStatu" ToRole="EmployeeCompComment" />
+  </EntityType>
+  <EntityType Name="EmployeeCompMarket">
+    <Key>
+      <PropertyRef Name="EmpJobNum" />
+    </Key>
+    <Property Name="EmployeeCompMarketNum" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="EmpJobNum" Type="Int32" Nullable="false" />
+    <Property Name="MktQ1" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="MktQ2" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="MktQ3" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="MktQ4" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="MktQ5" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="MktMin" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="MktMid" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="MktMax" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="HrlyMktQ1" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="HrlyMktQ2" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="HrlyMktQ3" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="HrlyMktQ4" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="HrlyMktQ5" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="HrlyMktMin" Type="Decimal" Precision="20" Scale="8" />
+    <Property Name="HrlyMktMid" Type="Decimal" Precision="20" Scale="8" />
+    <Property Name="HrlyMktMax" Type="Decimal" Precision="20" Scale="8" />
+    <Property Name="UpdatedBy" Type="Int32" />
+    <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+    <Property Name="NewMktMin" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="NewMktMid" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="NewMktMax" Type="Decimal" Precision="19" Scale="4" />
+    <NavigationProperty Name="EmployeeJob" Relationship="LaserbeamEntities.FK_EmployeeCompMarket_EmployeeJob" FromRole="EmployeeCompMarket" ToRole="EmployeeJob" />
+    <Property Name="HrlyNewMktMin" Type="Decimal" Precision="20" Scale="8" />
+    <Property Name="HrlyNewMktMid" Type="Decimal" Precision="20" Scale="8" />
+    <Property Name="HrlyNewMktMax" Type="Decimal" Precision="20" Scale="8" />
+  </EntityType>
+  <EntityType Name="EmployeeCompMerit">
+    <Key>
+      <PropertyRef Name="EmpJobNum" />
+    </Key>
+    <Property Name="EmployeeCompMeritNum" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="EmpJobNum" Type="Int32" Nullable="false" />
+    <Property Name="CompaRatio" Type="Decimal" Precision="6" Scale="2" />
+    <Property Name="PositionInQuartile" Type="Decimal" Precision="6" Scale="2" />
+    <Property Name="EmployeeQuartile" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="CurrentAnnualSalary" Type="Decimal" Precision="14" Scale="2" />
+    <Property Name="HrlySalary" Type="Decimal" Precision="19" Scale="8" />
+    <Property Name="ActualWorkHrs" Type="Decimal" Precision="6" Scale="2" />
+    <Property Name="MeritRange" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="TargetMeritPct" Type="Decimal" Precision="6" Scale="2" />
+    <Property Name="TargetMeritAmt" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="MeritPCT" Type="Decimal" Precision="6" Scale="2" />
+    <Property Name="MeritAmt" Type="Decimal" Precision="19" Scale="8" />
+    <Property Name="HrlyMeritAmt" Type="Decimal" Precision="19" Scale="8" />
+    <Property Name="LumpSumAmt" Type="Decimal" Precision="19" Scale="8" />
+    <Property Name="LumpSumPCT" Type="Decimal" Precision="6" Scale="2" />
+    <Property Name="HrlyLumpSumAmt" Type="Decimal" Precision="19" Scale="8" />
+    <Property Name="EffectiveDate" Type="DateTime" Precision="3" />
+    <Property Name="MeritPH" Type="Decimal" Precision="6" Scale="2" />
+    <Property Name="Eligibility" Type="Boolean" Nullable="false" />
+    <Property Name="MeritRangeExceed" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Name="ProRatedPCT" Type="Decimal" Precision="6" Scale="2" />
+    <Property Name="ProRation" Type="Decimal" Precision="8" Scale="5" />
+    <Property Name="ProRatedAmt" Type="Decimal" Precision="19" Scale="8" />
+    <Property Name="IncrType" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="LastIncrDate" Type="DateTime" Precision="3" />
+    <Property Name="TotalWorkHrs" Type="Decimal" Precision="6" Scale="2" />
+    <Property Name="CurrentAnnualizedSalary" Type="Decimal" Precision="14" Scale="2" />
+    <Property Name="MandatoryIncrease" Type="Decimal" Precision="7" Scale="2" />
+    <Property Name="LastPayChangeReason" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="MeritProrationDate" Type="DateTime" Precision="3" />
+    <Property Name="LumpSumEffectiveDate" Type="DateTime" Precision="3" />
+    <Property Name="FTE" Type="Decimal" Precision="16" Scale="8" />
+    <Property Name="UpdatedBy" Type="Int32" />
+    <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="EmployeeJob" Relationship="LaserbeamEntities.FK_EmployeeCompMerit_EmployeeJob" FromRole="EmployeeCompMerit" ToRole="EmployeeJob" />
+  </EntityType>
+  <EntityType Name="EmployeeCompNew">
+    <Key>
+      <PropertyRef Name="EmpJobNum" />
+    </Key>
+    <Property Name="EmployeeCompNewNum" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="EmpJobNum" Type="Int32" Nullable="false" />
+    <Property Name="NewSalary" Type="Decimal" Precision="19" Scale="8" />
+    <Property Name="SalaryEffectiveDate" Type="DateTime" Precision="3" />
+    <Property Name="HrlyNewSalary" Type="Decimal" Precision="19" Scale="8" />
+    <Property Name="NewCompaRatio" Type="Decimal" Precision="6" Scale="2" />
+    <Property Name="NewQuartile" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+    <Property Name="TotalNewComp" Type="Decimal" Precision="19" Scale="8" />
+    <Property Name="SalaryReasonCode" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
+    <Property Name="CompCompleted" Type="Boolean" Nullable="false" />
+    <Property Name="ExceedCommentProvided" Type="Boolean" Nullable="false" />
+    <Property Name="UpdatedBy" Type="Int32" />
+    <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="EmployeeJob" Relationship="LaserbeamEntities.FK_EmployeeCompNew_EmployeeJob" FromRole="EmployeeCompNew" ToRole="EmployeeJob" />
+  </EntityType>
+  <EntityType Name="EmployeeCompPromotion">
+    <Key>
+      <PropertyRef Name="EmpJobNum" />
+    </Key>
+    <Property Name="EmployeeCompPromotionNum" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="EmpJobNum" Type="Int32" Nullable="false" />
+    <Property Name="PromotionRange" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Name="PromotionPct" Type="Decimal" Precision="6" Scale="2" />
+    <Property Name="PromotionAmt" Type="Decimal" Precision="19" Scale="8" />
+    <Property Name="HrlyPromotionAmt" Type="Decimal" Precision="19" Scale="8" />
+    <Property Name="EffectiveDate" Type="DateTime" Precision="3" />
+    <Property Name="NewJobNum" Type="Int32" />
+    <Property Name="PromotionPH" Type="Int32" />
+    <Property Name="Eligibility" Type="Boolean" Nullable="false" />
+    <Property Name="PromotionRequest" Type="Boolean" />
+    <Property Name="NewGrade" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="LastPromotionDate" Type="DateTime" Precision="3" />
+    <Property Name="UpdatedBy" Type="Int32" />
+    <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="EmployeeJob" Relationship="LaserbeamEntities.FK_EmployeeCompPromotion_EmployeeJob" FromRole="EmployeeCompPromotion" ToRole="EmployeeJob" />
+  </EntityType>
+  <EntityType Name="EmployeeCompRating">
+    <Key>
+      <PropertyRef Name="EmpJobNum" />
+    </Key>
+    <Property Name="EmployeeCompRatingNum" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="EmpJobNum" Type="Int32" Nullable="false" />
+    <Property Name="MeritPerformanceRating" Type="Int32" />
+    <Property Name="BonusPerformanceRating" Type="Int32" />
+    <Property Name="OtherPerformanceRating" Type="Int32" />
+    <Property Name="UpdatedBy" Type="Int32" />
+    <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Rating" Relationship="LaserbeamEntities.fk_EmployeeCompRating_BonusPerformanceRating" FromRole="EmployeeCompRating" ToRole="Rating" />
+    <NavigationProperty Name="Rating1" Relationship="LaserbeamEntities.fk_EmployeeCompRating_MeritPerformanceRating" FromRole="EmployeeCompRating" ToRole="Rating" />
+    <NavigationProperty Name="EmployeeJob" Relationship="LaserbeamEntities.FK_EmployeeCompRating_EmployeeJob" FromRole="EmployeeCompRating" ToRole="EmployeeJob" />
+  </EntityType>
+  <EntityType Name="EmployeeDetailsCorrection">
+    <Key>
+      <PropertyRef Name="EmployeeDataCorrectionNum" />
+    </Key>
+    <Property Name="EmployeeDataCorrectionNum" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="EmployeeID" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="FirstName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="MiddleName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="LastName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="PreferredName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="Gender" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="JobCode" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="JobTitle" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="CurrentGrade" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="BusinessUnit" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="Function" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="Department" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="EmployeeClass" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="PayrollStatus" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="FLSAStatus" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="EmployeeStatus" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="FTE" Type="Decimal" Precision="8" Scale="5" />
+    <Property Name="ActualWorkHours" Type="Int32" />
+    <Property Name="TotalWorkHours" Type="Int32" />
+    <Property Name="WorkCountry" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="WorkLocation" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="HireDate" Type="DateTime" Precision="3" />
+    <Property Name="TerminationDate" Type="DateTime" Precision="3" />
+    <Property Name="SupervisorID" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="EmailAddress" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="PayCurrency" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="LastPayChangeDate" Type="DateTime" Precision="3" />
+    <Property Name="LastPayChangeReason" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="CurrentHourlyRate" Type="Decimal" Precision="19" Scale="5" />
+    <Property Name="CurrentAnnualizedSalary" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="CurrentAnnualSalary" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="PayrollSource" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="SalaryMin" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="SalaryMid" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="SalaryMax" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="MeritProrationDate" Type="DateTime" Precision="3" />
+    <Property Name="MeritProrationFactor" Type="Decimal" Precision="8" Scale="5" />
+    <Property Name="MeritPerformanceRating" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="MeritEligible" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="MeritPct" Type="Decimal" Precision="5" Scale="2" />
+    <Property Name="MeritAmount" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="MeritIncreaseGuideline" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="MeritEffectiveDate" Type="DateTime" Precision="3" />
+    <Property Name="LumpSumPct" Type="Decimal" Precision="5" Scale="2" />
+    <Property Name="LumpSumAmount" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="LumpsumEffectiveDate" Type="DateTime" Precision="3" />
+    <Property Name="PromotionEligible" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="PromotionPct" Type="Decimal" Precision="5" Scale="2" />
+    <Property Name="PromotionAmount" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="PromoteTo" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="LastPromotionDate" Type="DateTime" Precision="3" />
+    <Property Name="PromotionEffectiveDate" Type="DateTime" Precision="3" />
+    <Property Name="AdjustmentEligible" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="AdjustmentPct" Type="Decimal" Precision="5" Scale="2" />
+    <Property Name="AdjustmentAmount" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="AdjustmentEffectiveDate" Type="DateTime" Precision="3" />
+    <Property Name="NewSalary" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="NewHourlyRate" Type="Decimal" Precision="18" Scale="5" />
+    <Property Name="Comparatio" Type="Decimal" Precision="8" Scale="5" />
+    <Property Name="NewComparatio" Type="Decimal" Precision="8" Scale="5" />
+    <Property Name="MoreInfo1" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="MoreInfo2" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="MoreInfo3" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="MoreInfo4" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="MoreInfo5" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="MoreInfo6" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="MoreInfo7" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="MoreInfo8" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="MoreInfo9" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="MoreInfo10" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="MoreInfo11" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="MoreInfo12" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="MoreInfo13" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="MoreInfo14" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="MoreInfo15" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="MoreInfo16" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="MoreInfo17" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="MoreInfo18" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="MoreInfo19" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="MoreInfo20" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="MoreInfo21" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="MoreInfo22" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="MoreInfo23" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="UserNum" Type="Int32" />
+  </EntityType>
+  <EntityType Name="EmployeeGroup">
+    <Key>
+      <PropertyRef Name="EmployeeGroupID" />
+    </Key>
+    <Property Name="EmployeeGroupID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="OrgGroupID" Type="Int32" Nullable="false" />
+    <Property Name="EmployeeNum" Type="Int32" Nullable="false" />
+    <Property Name="UpdatedBy" Type="Int32" />
+    <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Employee" Relationship="LaserbeamEntities.FK_EmployeeGroup_Employee" FromRole="EmployeeGroup" ToRole="Employee" />
+    <NavigationProperty Name="OrgGroup" Relationship="LaserbeamEntities.FK_EmployeeGroup_OrgGroup" FromRole="EmployeeGroup" ToRole="OrgGroup" />
+  </EntityType>
+  <EntityType Name="EmployeeGroupInclusionExclusion">
+    <Key>
+      <PropertyRef Name="GroupInclusionExclusionID" />
+    </Key>
+    <Property Name="GroupInclusionExclusionID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="OrgGroupID" Type="Int32" Nullable="false" />
+    <Property Name="EmployeeNum" Type="Int32" Nullable="false" />
+    <Property Name="IsIncludedExcluded" Type="Boolean" />
+    <Property Name="UpdatedBy" Type="Int32" />
+    <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Employee" Relationship="LaserbeamEntities.FK_EmployeeGroupInclusionExclusion_Employee" FromRole="EmployeeGroupInclusionExclusion" ToRole="Employee" />
+    <NavigationProperty Name="OrgGroup" Relationship="LaserbeamEntities.FK_EmployeeGroupInclusionExclusion_OrgGroup" FromRole="EmployeeGroupInclusionExclusion" ToRole="OrgGroup" />
+  </EntityType>
+  <EntityType Name="EmployeeInclusionAndExclusion">
+    <Key>
+      <PropertyRef Name="EmployeeInclusionAndExclusionNum" />
+    </Key>
+    <Property Name="EmployeeInclusionAndExclusionNum" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="EmployeeNum" Type="Int32" Nullable="false" />
+    <Property Name="IsInclusion" Type="Boolean" />
+    <Property Name="GroupTypeNum" Type="Int32" />
+    <Property Name="UpdatedBy" Type="Int32" />
+    <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Employee" Relationship="LaserbeamEntities.FK_EmployeeInclusionAndExclusion_Employee" FromRole="EmployeeInclusionAndExclusion" ToRole="Employee" />
+  </EntityType>
+  <EntityType Name="EmployeeJob">
+    <Key>
+      <PropertyRef Name="EmpJobNum" />
+    </Key>
+    <Property Name="EmpJobNum" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="EmployeeNum" Type="Int32" Nullable="false" />
+    <Property Name="JobYear" Type="Int32" Nullable="false" />
+    <Property Name="ManagerNum" Type="Int32" />
+    <Property Name="CurrencyCodeNum" Type="Int32" />
+    <Property Name="JobStatus" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
+    <Property Name="FLSAPct" Type="Decimal" Precision="6" Scale="2" />
+    <Property Name="CountryCodeNum" Type="Int32" />
+    <Property Name="City" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="JobNum" Type="Int32" />
+    <Property Name="ReviewTypeNum" Type="Int32" />
+    <Property Name="EmpFunction" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="LocationNum" Type="Int32" />
+    <Property Name="StateNum" Type="Int32" />
+    <Property Name="GradeNum" Type="Int32" />
+    <Property Name="BonusTypeNum" Type="Int32" />
+    <Property Name="BusinessUnitNum" Type="Int32" />
+    <Property Name="DivisionNum" Type="Int32" />
+    <Property Name="CountryNum" Type="Int32" />
+    <Property Name="EntityCodeNum" Type="Int32" />
+    <Property Name="DepartmentNum" Type="Int32" />
+    <Property Name="PayGroupNum" Type="Int32" />
+    <Property Name="EmployeeSubStatusNum" Type="Int32" />
+    <Property Name="EmployeeType" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="ProgramNum" Type="Int32" />
+    <Property Name="ClassNum" Type="Int32" />
+    <Property Name="FileNumber" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="PayFrequency" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="UpdatedBy" Type="Int32" />
+    <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="BonusType" Relationship="LaserbeamEntities.fk4_EmployeeJob_BonusTypeNum" FromRole="EmployeeJob" ToRole="BonusType" />
+    <NavigationProperty Name="BusinessUnit" Relationship="LaserbeamEntities.fk5_EmployeeJob_BusinessUnitNum" FromRole="EmployeeJob" ToRole="BusinessUnit" />
+    <NavigationProperty Name="Country" Relationship="LaserbeamEntities.fk7_EmployeeJob_CountryNum" FromRole="EmployeeJob" ToRole="Country" />
+    <NavigationProperty Name="Currency" Relationship="LaserbeamEntities.FK_EmployeeJob_Currency" FromRole="EmployeeJob" ToRole="Currency" />
+    <NavigationProperty Name="Department" Relationship="LaserbeamEntities.fk9_EmployeeJob_DepartmentNum" FromRole="EmployeeJob" ToRole="Department" />
+    <NavigationProperty Name="Division" Relationship="LaserbeamEntities.fk6_EmployeeJob_DivisionNum" FromRole="EmployeeJob" ToRole="Division" />
+    <NavigationProperty Name="EmployeeClass" Relationship="LaserbeamEntities.fk12_EmployeeJob_ClassNum" FromRole="EmployeeJob" ToRole="EmployeeClass" />
+    <NavigationProperty Name="EntityCode" Relationship="LaserbeamEntities.fk8_EmployeeJob_EntityCodeNum" FromRole="EmployeeJob" ToRole="EntityCode" />
+    <NavigationProperty Name="Grade" Relationship="LaserbeamEntities.FK_EmployeeJob_Grade" FromRole="EmployeeJob" ToRole="Grade" />
+    <NavigationProperty Name="Job" Relationship="LaserbeamEntities.fk_EmployeeJob_Job" FromRole="EmployeeJob" ToRole="Job" />
+    <NavigationProperty Name="Location" Relationship="LaserbeamEntities.FK_EmployeeJob_Location" FromRole="EmployeeJob" ToRole="Location" />
+    <NavigationProperty Name="PayGroup" Relationship="LaserbeamEntities.fk10_EmployeeJob_PayGroupNum" FromRole="EmployeeJob" ToRole="PayGroup" />
+    <NavigationProperty Name="Program" Relationship="LaserbeamEntities.fk_EmployeeJob_ProgramNum" FromRole="EmployeeJob" ToRole="Program" />
+    <NavigationProperty Name="ReviewType" Relationship="LaserbeamEntities.FK_EmployeeJob_ReviewType" FromRole="EmployeeJob" ToRole="ReviewType" />
+    <NavigationProperty Name="State" Relationship="LaserbeamEntities.FK_EmployeeJob_State" FromRole="EmployeeJob" ToRole="State" />
+    <NavigationProperty Name="SubStatu" Relationship="LaserbeamEntities.fk11_EmployeeJob_EmployeeSubStatusNum" FromRole="EmployeeJob" ToRole="SubStatu" />
+    <NavigationProperty Name="Budgets" Relationship="LaserbeamEntities.FK_Budget_EmployeeJob" FromRole="EmployeeJob" ToRole="Budget" />
+    <NavigationProperty Name="Employee" Relationship="LaserbeamEntities.fk_EmployeeJob_Employee" FromRole="EmployeeJob" ToRole="Employee" />
+    <NavigationProperty Name="Employee1" Relationship="LaserbeamEntities.fk_EmployeeJob_Employee_Managernum" FromRole="EmployeeJob" ToRole="Employee" />
+    <NavigationProperty Name="EmployeeCompAdjustment" Relationship="LaserbeamEntities.FK_EmployeeCompAdjustment_EmployeeJob" FromRole="EmployeeJob" ToRole="EmployeeCompAdjustment" />
+    <NavigationProperty Name="EmployeeCompApprovalComment" Relationship="LaserbeamEntities.FK_EmployeeCompApprovalComments_EmployeeJob" FromRole="EmployeeJob" ToRole="EmployeeCompApprovalComment" />
+    <NavigationProperty Name="EmployeeCompApprovalLevels" Relationship="LaserbeamEntities.FK00_EmployeeCompApprovalLevel_EmployeeJob" FromRole="EmployeeJob" ToRole="EmployeeCompApprovalLevel" />
+    <NavigationProperty Name="EmployeeCompApprovalLevels1" Relationship="LaserbeamEntities.FK01_EmployeeCompApprovalLevel_AppMgrOneEmpNum" FromRole="EmployeeJob" ToRole="EmployeeCompApprovalLevel" />
+    <NavigationProperty Name="EmployeeCompApprovalLevels2" Relationship="LaserbeamEntities.FK02_EmployeeCompApprovalLevel_AppMgrTwoEmpNum" FromRole="EmployeeJob" ToRole="EmployeeCompApprovalLevel" />
+    <NavigationProperty Name="EmployeeCompApprovalLevels3" Relationship="LaserbeamEntities.FK03_EmployeeCompApprovalLevel_AppMgrThreeEmpNum" FromRole="EmployeeJob" ToRole="EmployeeCompApprovalLevel" />
+    <NavigationProperty Name="EmployeeCompApprovalLevels4" Relationship="LaserbeamEntities.FK04_EmployeeCompApprovalLevel_AppMgrFourEmpNum" FromRole="EmployeeJob" ToRole="EmployeeCompApprovalLevel" />
+    <NavigationProperty Name="EmployeeCompApprovalLevels5" Relationship="LaserbeamEntities.FK05_EmployeeCompApprovalLevel_AppMgrFiveEmpNum" FromRole="EmployeeJob" ToRole="EmployeeCompApprovalLevel" />
+    <NavigationProperty Name="EmployeeCompApprovalLevels6" Relationship="LaserbeamEntities.FK06_EmployeeCompApprovalLevel_AppMgrSixEmpNum" FromRole="EmployeeJob" ToRole="EmployeeCompApprovalLevel" />
+    <NavigationProperty Name="EmployeeCompApprovalLevels7" Relationship="LaserbeamEntities.FK07_EmployeeCompApprovalLevel_AppMgrSevenEmpNum" FromRole="EmployeeJob" ToRole="EmployeeCompApprovalLevel" />
+    <NavigationProperty Name="EmployeeCompApprovalLevels8" Relationship="LaserbeamEntities.FK08_EmployeeCompApprovalLevel_AppMgrEightEmpNum" FromRole="EmployeeJob" ToRole="EmployeeCompApprovalLevel" />
+    <NavigationProperty Name="EmployeeCompApprovalLevels9" Relationship="LaserbeamEntities.FK09_EmployeeCompApprovalLevel_AppMgrNineEmpNum" FromRole="EmployeeJob" ToRole="EmployeeCompApprovalLevel" />
+    <NavigationProperty Name="EmployeeCompApprovalLevels10" Relationship="LaserbeamEntities.FK10_EmployeeCompApprovalLevel_AppMgrTenEmpNum" FromRole="EmployeeJob" ToRole="EmployeeCompApprovalLevel" />
+    <NavigationProperty Name="EmployeeCompApprovalStatu" Relationship="LaserbeamEntities.FK_EmployeeCompApprovalStatus_EmployeeJob" FromRole="EmployeeJob" ToRole="EmployeeCompApprovalStatu" />
+    <NavigationProperty Name="EmployeeCompComments" Relationship="LaserbeamEntities.FK_EmployeeCompComments_EmployeeJob" FromRole="EmployeeJob" ToRole="EmployeeCompComment" />
+    <NavigationProperty Name="EmployeeCompMarket" Relationship="LaserbeamEntities.FK_EmployeeCompMarket_EmployeeJob" FromRole="EmployeeJob" ToRole="EmployeeCompMarket" />
+    <NavigationProperty Name="EmployeeCompMerit" Relationship="LaserbeamEntities.FK_EmployeeCompMerit_EmployeeJob" FromRole="EmployeeJob" ToRole="EmployeeCompMerit" />
+    <NavigationProperty Name="EmployeeCompNew" Relationship="LaserbeamEntities.FK_EmployeeCompNew_EmployeeJob" FromRole="EmployeeJob" ToRole="EmployeeCompNew" />
+    <NavigationProperty Name="EmployeeCompPromotion" Relationship="LaserbeamEntities.FK_EmployeeCompPromotion_EmployeeJob" FromRole="EmployeeJob" ToRole="EmployeeCompPromotion" />
+    <NavigationProperty Name="EmployeeCompRating" Relationship="LaserbeamEntities.FK_EmployeeCompRating_EmployeeJob" FromRole="EmployeeJob" ToRole="EmployeeCompRating" />
+    <NavigationProperty Name="EmployeeCompBonu" Relationship="LaserbeamEntities.FK_EmployeeCompBonus_EmployeeJob" FromRole="EmployeeJob" ToRole="EmployeeCompBonu" />
+  </EntityType>
+  <EntityType Name="EmployeeMoreInfo">
+    <Key>
+      <PropertyRef Name="EmployeeMoreInfoNum" />
+    </Key>
+    <Property Name="EmployeeMoreInfoNum" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="EmpJobNum" Type="Int32" Nullable="false" />
+    <Property Name="MoreInfo1" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="MoreInfo2" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="MoreInfo3" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="MoreInfo4" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="MoreInfo5" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="MoreInfo6" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="MoreInfo7" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="MoreInfo8" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="MoreInfo9" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="MoreInfo10" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="MoreInfo11" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="MoreInfo12" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="MoreInfo13" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="MoreInfo14" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="MoreInfo15" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="MoreInfo16" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="MoreInfo17" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="MoreInfo18" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="MoreInfo19" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="MoreInfo20" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="MoreInfo21" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="MoreInfo22" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="MoreInfo23" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="EmployeeWorkFlowChanx">
+    <Key>
+      <PropertyRef Name="EmployeeCompApprovalNum" />
+    </Key>
+    <Property Name="EmployeeCompApprovalNum" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="EmpJobNum" Type="Int32" Nullable="false" />
+    <Property Name="UserNum" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="EmployeeWorkflowCommentStatu">
+    <Key>
+      <PropertyRef Name="EmployeeWorkflowCommentStatusId" />
+    </Key>
+    <Property Name="EmployeeWorkflowCommentStatusId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CommentNum" Type="Int32" Nullable="false" />
+    <Property Name="UserNum" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="AppUser" Relationship="LaserbeamEntities.fk_EmployeeWorkflowCommentStatus_AppUser" FromRole="EmployeeWorkflowCommentStatu" ToRole="AppUser" />
+    <NavigationProperty Name="EmployeeApprovalDetail" Relationship="LaserbeamEntities.fk_EmployeeWorkflowCommentStatus_EmployeeCompComment" FromRole="EmployeeWorkflowCommentStatu" ToRole="EmployeeApprovalDetail" />
+  </EntityType>
+  <EntityType Name="FeedBack">
+    <Key>
+      <PropertyRef Name="FeedBackNum" />
+    </Key>
+    <Property Name="FeedBackNum" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FeedBackModule" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="FeedBackComment" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+    <Property Name="UpdatedDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="UpdatedBy" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="AppUser" Relationship="LaserbeamEntities.fk_FeedBack_AppUser" FromRole="FeedBack" ToRole="AppUser" />
+  </EntityType>
+  <EntityType Name="ManagerRelation">
+    <Key>
+      <PropertyRef Name="Node" />
+    </Key>
+    <Property Name="Node" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="EmployeeNum" Type="Int32" Nullable="false" />
+    <Property Name="ParentNode" Type="Int32" />
+    <Property Name="Depth" Type="Byte" />
+    <Property Name="Lineage" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="ManagerNum" Type="Int32" />
+    <Property Name="ManagerLineage" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Employee" Relationship="LaserbeamEntities.FK_ManagerRelation_Employee" FromRole="ManagerRelation" ToRole="Employee" />
+  </EntityType>
+  <EntityType Name="OrgGroup">
+    <Key>
+      <PropertyRef Name="OrgGroupID" />
+    </Key>
+    <Property Name="OrgGroupID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="GroupName" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="Active" Type="Boolean" Nullable="false" />
+    <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+    <Property Name="UpdatedBy" Type="Int32" />
+    <Property Name="CreatedBy" Type="Int32" />
+    <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="EmployeeGroups" Relationship="LaserbeamEntities.FK_EmployeeGroup_OrgGroup" FromRole="OrgGroup" ToRole="EmployeeGroup" />
+    <NavigationProperty Name="EmployeeGroupInclusionExclusions" Relationship="LaserbeamEntities.FK_EmployeeGroupInclusionExclusion_OrgGroup" FromRole="OrgGroup" ToRole="EmployeeGroupInclusionExclusion" />
+    <NavigationProperty Name="OrgGroupAssignedCriterias" Relationship="LaserbeamEntities.FK_OrGGroupAssignedCriteria_OrGGroup" FromRole="OrgGroup" ToRole="OrgGroupAssignedCriteria" />
+    <NavigationProperty Name="OrgGroupDetails" Relationship="LaserbeamEntities.FK_OrgGroupDetail_OrgGroup" FromRole="OrgGroup" ToRole="OrgGroupDetail" />
+    <NavigationProperty Name="OrgGroupTypes" Relationship="LaserbeamEntities.fk_OrgGroupType_OrgGroup" FromRole="OrgGroup" ToRole="OrgGroupType" />
+    <NavigationProperty Name="ProxyGroups" Relationship="LaserbeamEntities.FK_ProxyGroup_OrgGroup" FromRole="OrgGroup" ToRole="ProxyGroup" />
+    <NavigationProperty Name="ProxyPopulationAccesses" Relationship="LaserbeamEntities.FK_ProxyPopulationAccess_OrgGroup" FromRole="OrgGroup" ToRole="ProxyPopulationAccess" />
+  </EntityType>
+  <EntityType Name="OrgGroupAssignedCriteria">
+    <Key>
+      <PropertyRef Name="OrGGroupAssignedCriteriaID" />
+    </Key>
+    <Property Name="OrGGroupAssignedCriteriaID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="OrgGroupID" Type="Int32" Nullable="false" />
+    <Property Name="OrgGroupCriteriaID" Type="Int32" Nullable="false" />
+    <Property Name="UpdatedBy" Type="Int32" />
+    <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="OrgGroupCriteria" Relationship="LaserbeamEntities.FK_OrGGroupAssignedCriteria_OrgGroupCriteria" FromRole="OrgGroupAssignedCriteria" ToRole="OrgGroupCriteria" />
+    <NavigationProperty Name="OrgGroup" Relationship="LaserbeamEntities.FK_OrGGroupAssignedCriteria_OrGGroup" FromRole="OrgGroupAssignedCriteria" ToRole="OrgGroup" />
+  </EntityType>
+  <EntityType Name="OrgGroupDetail">
+    <Key>
+      <PropertyRef Name="OrgGroupDetailID" />
+    </Key>
+    <Property Name="OrgGroupDetailID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="OrgGroupID" Type="Int32" Nullable="false" />
+    <Property Name="OrgGroupCriteriaID" Type="Int32" Nullable="false" />
+    <Property Name="CriteriaDataValue" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="Active" Type="Boolean" Nullable="false" />
+    <Property Name="UpdatedBy" Type="Int32" />
+    <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="OrgGroup" Relationship="LaserbeamEntities.FK_OrgGroupDetail_OrgGroup" FromRole="OrgGroupDetail" ToRole="OrgGroup" />
+  </EntityType>
+  <EntityType Name="OrgGroupType">
+    <Key>
+      <PropertyRef Name="OrgGroupTypeID" />
+    </Key>
+    <Property Name="OrgGroupTypeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="OrgGroupID" Type="Int32" />
+    <Property Name="GroupTypeNum" Type="Int32" />
+    <Property Name="UpdatedBy" Type="Int32" />
+    <NavigationProperty Name="GroupType" Relationship="LaserbeamEntities.fk_OrgGroupType_GroupType" FromRole="OrgGroupType" ToRole="GroupType" />
+    <NavigationProperty Name="OrgGroup" Relationship="LaserbeamEntities.fk_OrgGroupType_OrgGroup" FromRole="OrgGroupType" ToRole="OrgGroup" />
+  </EntityType>
+  <EntityType Name="ProxyGroup">
+    <Key>
+      <PropertyRef Name="ProxyGroupID" />
+    </Key>
+    <Property Name="ProxyGroupID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="OrgGroupID" Type="Int32" Nullable="false" />
+    <Property Name="UserID" Type="Int32" Nullable="false" />
+    <Property Name="IsReadOnly" Type="Boolean" Nullable="false" />
+    <Property Name="UpdatedBy" Type="Int32" />
+    <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+    <Property Name="ModuleNum" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Module" Relationship="LaserbeamEntities.FK4_ProxyGroup_Module" FromRole="ProxyGroup" ToRole="Module" />
+    <NavigationProperty Name="AppUser" Relationship="LaserbeamEntities.FK_ProxyGroup_AppUser" FromRole="ProxyGroup" ToRole="AppUser" />
+    <NavigationProperty Name="OrgGroup" Relationship="LaserbeamEntities.FK_ProxyGroup_OrgGroup" FromRole="ProxyGroup" ToRole="OrgGroup" />
+  </EntityType>
+  <EntityType Name="ProxyManager">
+    <Key>
+      <PropertyRef Name="ProxyManagerID" />
+    </Key>
+    <Property Name="ProxyManagerID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ManagerID" Type="Int32" Nullable="false" />
+    <Property Name="UserID" Type="Int32" Nullable="false" />
+    <Property Name="UpdatedBy" Type="Int32" />
+    <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+    <Property Name="ModuleNum" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Module" Relationship="LaserbeamEntities.FK4_ProxyManager_Module" FromRole="ProxyManager" ToRole="Module" />
+    <NavigationProperty Name="AppUser" Relationship="LaserbeamEntities.FK_ProxyManager_AppUser" FromRole="ProxyManager" ToRole="AppUser" />
+    <NavigationProperty Name="Employee" Relationship="LaserbeamEntities.FK_ProxyManager_Employee" FromRole="ProxyManager" ToRole="Employee" />
+  </EntityType>
+  <EntityType Name="ProxyPopulationAccess">
+    <Key>
+      <PropertyRef Name="ProxyPopulationAccessID" />
+    </Key>
+    <Property Name="ProxyPopulationAccessID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="OrgGroupID" Type="Int32" Nullable="false" />
+    <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+    <Property Name="UpdatedBy" Type="Int32" />
+    <Property Name="UserNum" Type="Int32" />
+    <NavigationProperty Name="OrgGroup" Relationship="LaserbeamEntities.FK_ProxyPopulationAccess_OrgGroup" FromRole="ProxyPopulationAccess" ToRole="OrgGroup" />
+  </EntityType>
+  <EntityType Name="ProxyScript">
+    <Key>
+      <PropertyRef Name="ProxyScriptID" />
+    </Key>
+    <Property Name="ProxyScriptID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="AppScriptID" Type="Int32" Nullable="false" />
+    <Property Name="UserNum" Type="Int32" Nullable="false" />
+    <Property Name="UpdatedBy" Type="Int32" />
+    <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="AppScript" Relationship="LaserbeamEntities.FK_ProxyScript_AppScript" FromRole="ProxyScript" ToRole="AppScript" />
+    <NavigationProperty Name="AppUser" Relationship="LaserbeamEntities.FK_ProxyScript_AppUser" FromRole="ProxyScript" ToRole="AppUser" />
+  </EntityType>
+  <EntityType Name="TriggerEmail">
+    <Key>
+      <PropertyRef Name="TriggerEmailNum" />
+    </Key>
+    <Property Name="TriggerEmailNum" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ApprovalManagerEmpJobNum" Type="Int32" />
+    <Property Name="ApprovalManagerName" Type="String" MaxLength="1500" FixedLength="false" Unicode="true" />
+    <Property Name="RequesterEmpJobNum" Type="Int32" />
+    <Property Name="RequesterName" Type="String" MaxLength="1500" FixedLength="false" Unicode="true" />
+    <Property Name="EmailKey" Type="String" MaxLength="800" FixedLength="false" Unicode="true" />
+    <Property Name="FromEmail" Type="String" MaxLength="800" FixedLength="false" Unicode="true" />
+    <Property Name="ToEmail" Type="String" MaxLength="800" FixedLength="false" Unicode="true" />
+    <Property Name="EmailCC" Type="String" MaxLength="800" FixedLength="false" Unicode="true" />
+    <Property Name="EmailBCC" Type="String" MaxLength="800" FixedLength="false" Unicode="true" />
+    <Property Name="Comment" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="EmployeeName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="DirectManagerNum" Type="Int32" />
+    <Property Name="DirectManagerName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="InsertTime" Type="DateTime" Precision="3" />
+    <Property Name="EmailStatus" Type="Int32" />
+  </EntityType>
+  <EntityType Name="UserMenu">
+    <Key>
+      <PropertyRef Name="UserMenuID" />
+    </Key>
+    <Property Name="UserMenuID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="AppMenuID" Type="Int32" />
+    <Property Name="UserID" Type="Int32" />
+    <Property Name="ReadOnly" Type="Boolean" />
+    <Property Name="UpdatedBy" Type="Int32" />
+    <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="AppUser" Relationship="LaserbeamEntities.FK_UserMenu_AppUser" FromRole="UserMenu" ToRole="AppUser" />
+  </EntityType>
+  <EntityType Name="UserMessage">
+    <Key>
+      <PropertyRef Name="UserMessageNum" />
+    </Key>
+    <Property Name="UserMessageNum" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="AppMessageID" Type="Int32" Nullable="false" />
+    <Property Name="UserNum" Type="Int32" Nullable="false" />
+    <Property Name="UpdatedBy" Type="Int32" />
+    <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="AppMessage" Relationship="LaserbeamEntities.fk_UserMessage_AppMessage" FromRole="UserMessage" ToRole="AppMessage" />
+    <NavigationProperty Name="AppUser" Relationship="LaserbeamEntities.fk_UserMessage_AppUser" FromRole="UserMessage" ToRole="AppUser" />
+  </EntityType>
+  <EntityType Name="UserPopulation">
+    <Key>
+      <PropertyRef Name="LoggedinUserNum" />
+      <PropertyRef Name="EmployeeNum" />
+    </Key>
+    <Property Name="LoggedinUserNum" Type="Int32" Nullable="false" />
+    <Property Name="EmployeeNum" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="PivotedEmployeeCompApprovalLevel">
+    <Key>
+      <PropertyRef Name="KeyNum" />
+      <PropertyRef Name="EmpJobNum" />
+      <PropertyRef Name="ApprovalManager" />
+      <PropertyRef Name="ApprovalLevel" />
+    </Key>
+    <Property Name="KeyNum" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="EmpJobNum" Type="Int32" Nullable="false" />
+    <Property Name="ApprovalManager" Type="Int32" Nullable="false" />
+    <Property Name="ApprovalLevel" Type="Int32" Nullable="false" />
+    <Property Name="ModuleNum" Type="Int32" />
+    <Property Name="UpdatedBy" Type="Int32" />
+    <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+  </EntityType>
+  <Association Name="fk_UserMessage_AppMessage">
+    <End Type="LaserbeamEntities.AppMessage" Role="AppMessage" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="LaserbeamEntities.UserMessage" Role="UserMessage" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AppMessage">
+        <PropertyRef Name="AppMessageID" />
+      </Principal>
+      <Dependent Role="UserMessage">
+        <PropertyRef Name="AppMessageID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ProxyScript_AppScript">
+    <End Type="LaserbeamEntities.AppScript" Role="AppScript" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="LaserbeamEntities.ProxyScript" Role="ProxyScript" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AppScript">
+        <PropertyRef Name="AppScriptID" />
+      </Principal>
+      <Dependent Role="ProxyScript">
+        <PropertyRef Name="AppScriptID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_AppUser_AppUserRole">
+    <End Type="LaserbeamEntities.AppUserRole" Role="AppUserRole" Multiplicity="1" />
+    <End Type="LaserbeamEntities.AppUser" Role="AppUser" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AppUserRole">
+        <PropertyRef Name="UserRoleNum" />
+      </Principal>
+      <Dependent Role="AppUser">
+        <PropertyRef Name="UserRoleNum" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk1_AppUser_AppUserStatus">
+    <End Type="LaserbeamEntities.AppUserStatu" Role="AppUserStatu" Multiplicity="0..1" />
+    <End Type="LaserbeamEntities.AppUser" Role="AppUser" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AppUserStatu">
+        <PropertyRef Name="AppUserStatusID" />
+      </Principal>
+      <Dependent Role="AppUser">
+        <PropertyRef Name="AppUserStatusID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk4_EmployeeJob_BonusTypeNum">
+    <End Type="LaserbeamEntities.BonusType" Role="BonusType" Multiplicity="0..1" />
+    <End Type="LaserbeamEntities.EmployeeJob" Role="EmployeeJob" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="BonusType">
+        <PropertyRef Name="BonusTypeNum" />
+      </Principal>
+      <Dependent Role="EmployeeJob">
+        <PropertyRef Name="BonusTypeNum" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk5_EmployeeJob_BusinessUnitNum">
+    <End Type="LaserbeamEntities.BusinessUnit" Role="BusinessUnit" Multiplicity="0..1" />
+    <End Type="LaserbeamEntities.EmployeeJob" Role="EmployeeJob" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="BusinessUnit">
+        <PropertyRef Name="BusinessUnitNum" />
+      </Principal>
+      <Dependent Role="EmployeeJob">
+        <PropertyRef Name="BusinessUnitNum" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Budget_CompensationType">
+    <End Type="LaserbeamEntities.CompensationType" Role="CompensationType" Multiplicity="1" />
+    <End Type="LaserbeamEntities.Budget" Role="Budget" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CompensationType">
+        <PropertyRef Name="CompensationTypeNum" />
+      </Principal>
+      <Dependent Role="Budget">
+        <PropertyRef Name="CompensationTypeNum" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk7_EmployeeJob_CountryNum">
+    <End Type="LaserbeamEntities.Country" Role="Country" Multiplicity="0..1" />
+    <End Type="LaserbeamEntities.EmployeeJob" Role="EmployeeJob" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Country">
+        <PropertyRef Name="CountryNum" />
+      </Principal>
+      <Dependent Role="EmployeeJob">
+        <PropertyRef Name="CountryNum" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__ExchangeR__Curre__469D7149">
+    <End Type="LaserbeamEntities.Currency" Role="Currency" Multiplicity="1" />
+    <End Type="LaserbeamEntities.ExchangeRate" Role="ExchangeRate" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Currency">
+        <PropertyRef Name="CurrencyCodeNum" />
+      </Principal>
+      <Dependent Role="ExchangeRate">
+        <PropertyRef Name="CurrencyCodeNum" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__ExchangeR__Curre__66B53B20">
+    <End Type="LaserbeamEntities.Currency" Role="Currency" Multiplicity="1" />
+    <End Type="LaserbeamEntities.ExchangeRate" Role="ExchangeRate" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Currency">
+        <PropertyRef Name="CurrencyCodeNum" />
+      </Principal>
+      <Dependent Role="ExchangeRate">
+        <PropertyRef Name="CurrencyCodeNum" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_EmployeeJob_Currency">
+    <End Type="LaserbeamEntities.Currency" Role="Currency" Multiplicity="0..1" />
+    <End Type="LaserbeamEntities.EmployeeJob" Role="EmployeeJob" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Currency">
+        <PropertyRef Name="CurrencyCodeNum" />
+      </Principal>
+      <Dependent Role="EmployeeJob">
+        <PropertyRef Name="CurrencyCodeNum" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk9_EmployeeJob_DepartmentNum">
+    <End Type="LaserbeamEntities.Department" Role="Department" Multiplicity="0..1" />
+    <End Type="LaserbeamEntities.EmployeeJob" Role="EmployeeJob" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Department">
+        <PropertyRef Name="DepartmentNum" />
+      </Principal>
+      <Dependent Role="EmployeeJob">
+        <PropertyRef Name="DepartmentNum" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk6_EmployeeJob_DivisionNum">
+    <End Type="LaserbeamEntities.Division" Role="Division" Multiplicity="0..1" />
+    <End Type="LaserbeamEntities.EmployeeJob" Role="EmployeeJob" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Division">
+        <PropertyRef Name="DivisionNum" />
+      </Principal>
+      <Dependent Role="EmployeeJob">
+        <PropertyRef Name="DivisionNum" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk12_EmployeeJob_ClassNum">
+    <End Type="LaserbeamEntities.EmployeeClass" Role="EmployeeClass" Multiplicity="0..1" />
+    <End Type="LaserbeamEntities.EmployeeJob" Role="EmployeeJob" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="EmployeeClass">
+        <PropertyRef Name="ClassNum" />
+      </Principal>
+      <Dependent Role="EmployeeJob">
+        <PropertyRef Name="ClassNum" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk8_EmployeeJob_EntityCodeNum">
+    <End Type="LaserbeamEntities.EntityCode" Role="EntityCode" Multiplicity="0..1" />
+    <End Type="LaserbeamEntities.EmployeeJob" Role="EmployeeJob" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="EntityCode">
+        <PropertyRef Name="EntityCodeNum" />
+      </Principal>
+      <Dependent Role="EmployeeJob">
+        <PropertyRef Name="EntityCodeNum" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_EmployeeJob_Grade">
+    <End Type="LaserbeamEntities.Grade" Role="Grade" Multiplicity="0..1" />
+    <End Type="LaserbeamEntities.EmployeeJob" Role="EmployeeJob" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Grade">
+        <PropertyRef Name="GradeNum" />
+      </Principal>
+      <Dependent Role="EmployeeJob">
+        <PropertyRef Name="GradeNum" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_OrgGroupType_GroupType">
+    <End Type="LaserbeamEntities.GroupType" Role="GroupType" Multiplicity="0..1" />
+    <End Type="LaserbeamEntities.OrgGroupType" Role="OrgGroupType" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="GroupType">
+        <PropertyRef Name="GroupTypeNum" />
+      </Principal>
+      <Dependent Role="OrgGroupType">
+        <PropertyRef Name="GroupTypeNum" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_EmployeeJob_Job">
+    <End Type="LaserbeamEntities.Job" Role="Job" Multiplicity="0..1" />
+    <End Type="LaserbeamEntities.EmployeeJob" Role="EmployeeJob" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Job">
+        <PropertyRef Name="JobNum" />
+      </Principal>
+      <Dependent Role="EmployeeJob">
+        <PropertyRef Name="JobNum" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_EmployeeJob_Location">
+    <End Type="LaserbeamEntities.Location" Role="Location" Multiplicity="0..1" />
+    <End Type="LaserbeamEntities.EmployeeJob" Role="EmployeeJob" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Location">
+        <PropertyRef Name="LocationNum" />
+      </Principal>
+      <Dependent Role="EmployeeJob">
+        <PropertyRef Name="LocationNum" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__EmployeeC__Modul__4B399FE2">
+    <End Type="LaserbeamEntities.Module" Role="Module" Multiplicity="1" />
+    <End Type="LaserbeamEntities.EmployeeCompApprovalLevel" Role="EmployeeCompApprovalLevel" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Module">
+        <PropertyRef Name="ModuleNum" />
+      </Principal>
+      <Dependent Role="EmployeeCompApprovalLevel">
+        <PropertyRef Name="ModuleNum" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__EmployeeC__Modul__4C2DC41B">
+    <End Type="LaserbeamEntities.Module" Role="Module" Multiplicity="1" />
+    <End Type="LaserbeamEntities.EmployeeCompApprovalLevel" Role="EmployeeCompApprovalLevel" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Module">
+        <PropertyRef Name="ModuleNum" />
+      </Principal>
+      <Dependent Role="EmployeeCompApprovalLevel">
+        <PropertyRef Name="ModuleNum" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK4_ProxyGroup_Module">
+    <End Type="LaserbeamEntities.Module" Role="Module" Multiplicity="1" />
+    <End Type="LaserbeamEntities.ProxyGroup" Role="ProxyGroup" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Module">
+        <PropertyRef Name="ModuleNum" />
+      </Principal>
+      <Dependent Role="ProxyGroup">
+        <PropertyRef Name="ModuleNum" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK4_ProxyManager_Module">
+    <End Type="LaserbeamEntities.Module" Role="Module" Multiplicity="1" />
+    <End Type="LaserbeamEntities.ProxyManager" Role="ProxyManager" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Module">
+        <PropertyRef Name="ModuleNum" />
+      </Principal>
+      <Dependent Role="ProxyManager">
+        <PropertyRef Name="ModuleNum" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_OrGGroupAssignedCriteria_OrgGroupCriteria">
+    <End Type="LaserbeamEntities.OrgGroupCriteria" Role="OrgGroupCriteria" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="LaserbeamEntities.OrgGroupAssignedCriteria" Role="OrgGroupAssignedCriteria" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="OrgGroupCriteria">
+        <PropertyRef Name="OrgGroupCriteriaID" />
+      </Principal>
+      <Dependent Role="OrgGroupAssignedCriteria">
+        <PropertyRef Name="OrgGroupCriteriaID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk10_EmployeeJob_PayGroupNum">
+    <End Type="LaserbeamEntities.PayGroup" Role="PayGroup" Multiplicity="0..1" />
+    <End Type="LaserbeamEntities.EmployeeJob" Role="EmployeeJob" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PayGroup">
+        <PropertyRef Name="PayGroupNum" />
+      </Principal>
+      <Dependent Role="EmployeeJob">
+        <PropertyRef Name="PayGroupNum" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_EmployeeJob_ProgramNum">
+    <End Type="LaserbeamEntities.Program" Role="Program" Multiplicity="0..1" />
+    <End Type="LaserbeamEntities.EmployeeJob" Role="EmployeeJob" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Program">
+        <PropertyRef Name="ProgramNum" />
+      </Principal>
+      <Dependent Role="EmployeeJob">
+        <PropertyRef Name="ProgramNum" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_EmployeeCompRating_BonusPerformanceRating">
+    <End Type="LaserbeamEntities.Rating" Role="Rating" Multiplicity="0..1" />
+    <End Type="LaserbeamEntities.EmployeeCompRating" Role="EmployeeCompRating" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Rating">
+        <PropertyRef Name="RatingNum" />
+      </Principal>
+      <Dependent Role="EmployeeCompRating">
+        <PropertyRef Name="BonusPerformanceRating" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_EmployeeCompRating_MeritPerformanceRating">
+    <End Type="LaserbeamEntities.Rating" Role="Rating" Multiplicity="0..1" />
+    <End Type="LaserbeamEntities.EmployeeCompRating" Role="EmployeeCompRating" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Rating">
+        <PropertyRef Name="RatingNum" />
+      </Principal>
+      <Dependent Role="EmployeeCompRating">
+        <PropertyRef Name="MeritPerformanceRating" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_EmployeeJob_ReviewType">
+    <End Type="LaserbeamEntities.ReviewType" Role="ReviewType" Multiplicity="0..1" />
+    <End Type="LaserbeamEntities.EmployeeJob" Role="EmployeeJob" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ReviewType">
+        <PropertyRef Name="ReviewTypeNum" />
+      </Principal>
+      <Dependent Role="EmployeeJob">
+        <PropertyRef Name="ReviewTypeNum" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_EmployeeJob_State">
+    <End Type="LaserbeamEntities.State" Role="State" Multiplicity="0..1" />
+    <End Type="LaserbeamEntities.EmployeeJob" Role="EmployeeJob" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="State">
+        <PropertyRef Name="StateNum" />
+      </Principal>
+      <Dependent Role="EmployeeJob">
+        <PropertyRef Name="StateNum" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk11_EmployeeJob_EmployeeSubStatusNum">
+    <End Type="LaserbeamEntities.SubStatu" Role="SubStatu" Multiplicity="0..1" />
+    <End Type="LaserbeamEntities.EmployeeJob" Role="EmployeeJob" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SubStatu">
+        <PropertyRef Name="SubStatusNum" />
+      </Principal>
+      <Dependent Role="EmployeeJob">
+        <PropertyRef Name="EmployeeSubStatusNum" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_AppUser_EmployeeNum">
+    <End Type="LaserbeamEntities.Employee" Role="Employee" Multiplicity="0..1" />
+    <End Type="LaserbeamEntities.AppUser" Role="AppUser" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employee">
+        <PropertyRef Name="EmployeeNum" />
+      </Principal>
+      <Dependent Role="AppUser">
+        <PropertyRef Name="EmployeeNum" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AppUser_UserNum">
+    <End Type="LaserbeamEntities.AppUser" Role="AppUser" Multiplicity="1" />
+    <End Type="LaserbeamEntities.DailyTask" Role="DailyTask" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AppUser">
+        <PropertyRef Name="UserNum" />
+      </Principal>
+      <Dependent Role="DailyTask">
+        <PropertyRef Name="UserNum" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_EmployeeApprovalDetails_AppUser">
+    <End Type="LaserbeamEntities.AppUser" Role="AppUser" Multiplicity="0..1" />
+    <End Type="LaserbeamEntities.EmployeeApprovalDetail" Role="EmployeeApprovalDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AppUser">
+        <PropertyRef Name="UserNum" />
+      </Principal>
+      <Dependent Role="EmployeeApprovalDetail">
+        <PropertyRef Name="UpdatedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_EmployeeCompComments_AppUserCreatedBy">
+    <End Type="LaserbeamEntities.AppUser" Role="AppUser" Multiplicity="1" />
+    <End Type="LaserbeamEntities.EmployeeCompComment" Role="EmployeeCompComment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AppUser">
+        <PropertyRef Name="UserNum" />
+      </Principal>
+      <Dependent Role="EmployeeCompComment">
+        <PropertyRef Name="CreatedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_EmployeeCompComments_AppUserUpdatedBy">
+    <End Type="LaserbeamEntities.AppUser" Role="AppUser" Multiplicity="0..1" />
+    <End Type="LaserbeamEntities.EmployeeCompComment" Role="EmployeeCompComment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AppUser">
+        <PropertyRef Name="UserNum" />
+      </Principal>
+      <Dependent Role="EmployeeCompComment">
+        <PropertyRef Name="UpdatedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_EmployeeCompCommentStatus_AppUser">
+    <End Type="LaserbeamEntities.AppUser" Role="AppUser" Multiplicity="1" />
+    <End Type="LaserbeamEntities.EmployeeCompCommentStatu" Role="EmployeeCompCommentStatu" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AppUser">
+        <PropertyRef Name="UserNum" />
+      </Principal>
+      <Dependent Role="EmployeeCompCommentStatu">
+        <PropertyRef Name="UserNum" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_EmployeeWorkflowCommentStatus_AppUser">
+    <End Type="LaserbeamEntities.AppUser" Role="AppUser" Multiplicity="1" />
+    <End Type="LaserbeamEntities.EmployeeWorkflowCommentStatu" Role="EmployeeWorkflowCommentStatu" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AppUser">
+        <PropertyRef Name="UserNum" />
+      </Principal>
+      <Dependent Role="EmployeeWorkflowCommentStatu">
+        <PropertyRef Name="UserNum" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_FeedBack_AppUser">
+    <End Type="LaserbeamEntities.AppUser" Role="AppUser" Multiplicity="1" />
+    <End Type="LaserbeamEntities.FeedBack" Role="FeedBack" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AppUser">
+        <PropertyRef Name="UserNum" />
+      </Principal>
+      <Dependent Role="FeedBack">
+        <PropertyRef Name="UpdatedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_fk4_Budget_AppUser">
+    <End Type="LaserbeamEntities.AppUser" Role="AppUser" Multiplicity="0..1" />
+    <End Type="LaserbeamEntities.Budget" Role="Budget" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AppUser">
+        <PropertyRef Name="UserNum" />
+      </Principal>
+      <Dependent Role="Budget">
+        <PropertyRef Name="UpdatedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ProxyGroup_AppUser">
+    <End Type="LaserbeamEntities.AppUser" Role="AppUser" Multiplicity="1" />
+    <End Type="LaserbeamEntities.ProxyGroup" Role="ProxyGroup" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AppUser">
+        <PropertyRef Name="UserNum" />
+      </Principal>
+      <Dependent Role="ProxyGroup">
+        <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ProxyManager_AppUser">
+    <End Type="LaserbeamEntities.AppUser" Role="AppUser" Multiplicity="1" />
+    <End Type="LaserbeamEntities.ProxyManager" Role="ProxyManager" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AppUser">
+        <PropertyRef Name="UserNum" />
+      </Principal>
+      <Dependent Role="ProxyManager">
+        <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ProxyScript_AppUser">
+    <End Type="LaserbeamEntities.AppUser" Role="AppUser" Multiplicity="1" />
+    <End Type="LaserbeamEntities.ProxyScript" Role="ProxyScript" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AppUser">
+        <PropertyRef Name="UserNum" />
+      </Principal>
+      <Dependent Role="ProxyScript">
+        <PropertyRef Name="UserNum" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserMenu_AppUser">
+    <End Type="LaserbeamEntities.AppUser" Role="AppUser" Multiplicity="0..1" />
+    <End Type="LaserbeamEntities.UserMenu" Role="UserMenu" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AppUser">
+        <PropertyRef Name="UserNum" />
+      </Principal>
+      <Dependent Role="UserMenu">
+        <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_UserMessage_AppUser">
+    <End Type="LaserbeamEntities.AppUser" Role="AppUser" Multiplicity="1" />
+    <End Type="LaserbeamEntities.UserMessage" Role="UserMessage" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AppUser">
+        <PropertyRef Name="UserNum" />
+      </Principal>
+      <Dependent Role="UserMessage">
+        <PropertyRef Name="UserNum" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Budget_EmployeeJob">
+    <End Type="LaserbeamEntities.EmployeeJob" Role="EmployeeJob" Multiplicity="1" />
+    <End Type="LaserbeamEntities.Budget" Role="Budget" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="EmployeeJob">
+        <PropertyRef Name="EmpJobNum" />
+      </Principal>
+      <Dependent Role="Budget">
+        <PropertyRef Name="EmpJobNum" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_EmployeeGroup_Employee">
+    <End Type="LaserbeamEntities.Employee" Role="Employee" Multiplicity="1" />
+    <End Type="LaserbeamEntities.EmployeeGroup" Role="EmployeeGroup" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employee">
+        <PropertyRef Name="EmployeeNum" />
+      </Principal>
+      <Dependent Role="EmployeeGroup">
+        <PropertyRef Name="EmployeeNum" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_EmployeeGroupInclusionExclusion_Employee">
+    <End Type="LaserbeamEntities.Employee" Role="Employee" Multiplicity="1" />
+    <End Type="LaserbeamEntities.EmployeeGroupInclusionExclusion" Role="EmployeeGroupInclusionExclusion" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employee">
+        <PropertyRef Name="EmployeeNum" />
+      </Principal>
+      <Dependent Role="EmployeeGroupInclusionExclusion">
+        <PropertyRef Name="EmployeeNum" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_EmployeeInclusionAndExclusion_Employee">
+    <End Type="LaserbeamEntities.Employee" Role="Employee" Multiplicity="1" />
+    <End Type="LaserbeamEntities.EmployeeInclusionAndExclusion" Role="EmployeeInclusionAndExclusion" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employee">
+        <PropertyRef Name="EmployeeNum" />
+      </Principal>
+      <Dependent Role="EmployeeInclusionAndExclusion">
+        <PropertyRef Name="EmployeeNum" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_EmployeeJob_Employee">
+    <End Type="LaserbeamEntities.Employee" Role="Employee" Multiplicity="1" />
+    <End Type="LaserbeamEntities.EmployeeJob" Role="EmployeeJob" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employee">
+        <PropertyRef Name="EmployeeNum" />
+      </Principal>
+      <Dependent Role="EmployeeJob">
+        <PropertyRef Name="EmployeeNum" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_EmployeeJob_Employee_Managernum">
+    <End Type="LaserbeamEntities.Employee" Role="Employee" Multiplicity="0..1" />
+    <End Type="LaserbeamEntities.EmployeeJob" Role="EmployeeJob" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employee">
+        <PropertyRef Name="EmployeeNum" />
+      </Principal>
+      <Dependent Role="EmployeeJob">
+        <PropertyRef Name="ManagerNum" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ManagerRelation_Employee">
+    <End Type="LaserbeamEntities.Employee" Role="Employee" Multiplicity="1" />
+    <End Type="LaserbeamEntities.ManagerRelation" Role="ManagerRelation" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employee">
+        <PropertyRef Name="EmployeeNum" />
+      </Principal>
+      <Dependent Role="ManagerRelation">
+        <PropertyRef Name="EmployeeNum" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ProxyManager_Employee">
+    <End Type="LaserbeamEntities.Employee" Role="Employee" Multiplicity="1" />
+    <End Type="LaserbeamEntities.ProxyManager" Role="ProxyManager" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employee">
+        <PropertyRef Name="EmployeeNum" />
+      </Principal>
+      <Dependent Role="ProxyManager">
+        <PropertyRef Name="ManagerID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_EmployeeWorkflowCommentStatus_EmployeeCompComment">
+    <End Type="LaserbeamEntities.EmployeeApprovalDetail" Role="EmployeeApprovalDetail" Multiplicity="1" />
+    <End Type="LaserbeamEntities.EmployeeWorkflowCommentStatu" Role="EmployeeWorkflowCommentStatu" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="EmployeeApprovalDetail">
+        <PropertyRef Name="EmployeeApprovalDetailNum" />
+      </Principal>
+      <Dependent Role="EmployeeWorkflowCommentStatu">
+        <PropertyRef Name="CommentNum" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_EmployeeCompAdjustment_EmployeeJob">
+    <End Type="LaserbeamEntities.EmployeeJob" Role="EmployeeJob" Multiplicity="1" />
+    <End Type="LaserbeamEntities.EmployeeCompAdjustment" Role="EmployeeCompAdjustment" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="EmployeeJob">
+        <PropertyRef Name="EmpJobNum" />
+      </Principal>
+      <Dependent Role="EmployeeCompAdjustment">
+        <PropertyRef Name="EmpJobNum" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_EmployeeCompApprovalComments_EmployeeJob">
+    <End Type="LaserbeamEntities.EmployeeJob" Role="EmployeeJob" Multiplicity="1" />
+    <End Type="LaserbeamEntities.EmployeeCompApprovalComment" Role="EmployeeCompApprovalComment" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="EmployeeJob">
+        <PropertyRef Name="EmpJobNum" />
+      </Principal>
+      <Dependent Role="EmployeeCompApprovalComment">
+        <PropertyRef Name="EmpJobNum" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK00_EmployeeCompApprovalLevel_EmployeeJob">
+    <End Type="LaserbeamEntities.EmployeeJob" Role="EmployeeJob" Multiplicity="1" />
+    <End Type="LaserbeamEntities.EmployeeCompApprovalLevel" Role="EmployeeCompApprovalLevel" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="EmployeeJob">
+        <PropertyRef Name="EmpJobNum" />
+      </Principal>
+      <Dependent Role="EmployeeCompApprovalLevel">
+        <PropertyRef Name="EmpJobNum" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK01_EmployeeCompApprovalLevel_AppMgrOneEmpNum">
+    <End Type="LaserbeamEntities.EmployeeJob" Role="EmployeeJob" Multiplicity="0..1" />
+    <End Type="LaserbeamEntities.EmployeeCompApprovalLevel" Role="EmployeeCompApprovalLevel" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="EmployeeJob">
+        <PropertyRef Name="EmpJobNum" />
+      </Principal>
+      <Dependent Role="EmployeeCompApprovalLevel">
+        <PropertyRef Name="AppMgrOneEmpNum" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK02_EmployeeCompApprovalLevel_AppMgrTwoEmpNum">
+    <End Type="LaserbeamEntities.EmployeeJob" Role="EmployeeJob" Multiplicity="0..1" />
+    <End Type="LaserbeamEntities.EmployeeCompApprovalLevel" Role="EmployeeCompApprovalLevel" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="EmployeeJob">
+        <PropertyRef Name="EmpJobNum" />
+      </Principal>
+      <Dependent Role="EmployeeCompApprovalLevel">
+        <PropertyRef Name="AppMgrTwoEmpNum" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK03_EmployeeCompApprovalLevel_AppMgrThreeEmpNum">
+    <End Type="LaserbeamEntities.EmployeeJob" Role="EmployeeJob" Multiplicity="0..1" />
+    <End Type="LaserbeamEntities.EmployeeCompApprovalLevel" Role="EmployeeCompApprovalLevel" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="EmployeeJob">
+        <PropertyRef Name="EmpJobNum" />
+      </Principal>
+      <Dependent Role="EmployeeCompApprovalLevel">
+        <PropertyRef Name="AppMgrThreeEmpNum" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK04_EmployeeCompApprovalLevel_AppMgrFourEmpNum">
+    <End Type="LaserbeamEntities.EmployeeJob" Role="EmployeeJob" Multiplicity="0..1" />
+    <End Type="LaserbeamEntities.EmployeeCompApprovalLevel" Role="EmployeeCompApprovalLevel" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="EmployeeJob">
+        <PropertyRef Name="EmpJobNum" />
+      </Principal>
+      <Dependent Role="EmployeeCompApprovalLevel">
+        <PropertyRef Name="AppMgrFourEmpNum" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK05_EmployeeCompApprovalLevel_AppMgrFiveEmpNum">
+    <End Type="LaserbeamEntities.EmployeeJob" Role="EmployeeJob" Multiplicity="0..1" />
+    <End Type="LaserbeamEntities.EmployeeCompApprovalLevel" Role="EmployeeCompApprovalLevel" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="EmployeeJob">
+        <PropertyRef Name="EmpJobNum" />
+      </Principal>
+      <Dependent Role="EmployeeCompApprovalLevel">
+        <PropertyRef Name="AppMgrFiveEmpNum" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK06_EmployeeCompApprovalLevel_AppMgrSixEmpNum">
+    <End Type="LaserbeamEntities.EmployeeJob" Role="EmployeeJob" Multiplicity="0..1" />
+    <End Type="LaserbeamEntities.EmployeeCompApprovalLevel" Role="EmployeeCompApprovalLevel" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="EmployeeJob">
+        <PropertyRef Name="EmpJobNum" />
+      </Principal>
+      <Dependent Role="EmployeeCompApprovalLevel">
+        <PropertyRef Name="AppMgrSixEmpNum" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK07_EmployeeCompApprovalLevel_AppMgrSevenEmpNum">
+    <End Type="LaserbeamEntities.EmployeeJob" Role="EmployeeJob" Multiplicity="0..1" />
+    <End Type="LaserbeamEntities.EmployeeCompApprovalLevel" Role="EmployeeCompApprovalLevel" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="EmployeeJob">
+        <PropertyRef Name="EmpJobNum" />
+      </Principal>
+      <Dependent Role="EmployeeCompApprovalLevel">
+        <PropertyRef Name="AppMgrSevenEmpNum" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK08_EmployeeCompApprovalLevel_AppMgrEightEmpNum">
+    <End Type="LaserbeamEntities.EmployeeJob" Role="EmployeeJob" Multiplicity="0..1" />
+    <End Type="LaserbeamEntities.EmployeeCompApprovalLevel" Role="EmployeeCompApprovalLevel" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="EmployeeJob">
+        <PropertyRef Name="EmpJobNum" />
+      </Principal>
+      <Dependent Role="EmployeeCompApprovalLevel">
+        <PropertyRef Name="AppMgrEightEmpNum" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK09_EmployeeCompApprovalLevel_AppMgrNineEmpNum">
+    <End Type="LaserbeamEntities.EmployeeJob" Role="EmployeeJob" Multiplicity="0..1" />
+    <End Type="LaserbeamEntities.EmployeeCompApprovalLevel" Role="EmployeeCompApprovalLevel" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="EmployeeJob">
+        <PropertyRef Name="EmpJobNum" />
+      </Principal>
+      <Dependent Role="EmployeeCompApprovalLevel">
+        <PropertyRef Name="AppMgrNineEmpNum" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK10_EmployeeCompApprovalLevel_AppMgrTenEmpNum">
+    <End Type="LaserbeamEntities.EmployeeJob" Role="EmployeeJob" Multiplicity="0..1" />
+    <End Type="LaserbeamEntities.EmployeeCompApprovalLevel" Role="EmployeeCompApprovalLevel" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="EmployeeJob">
+        <PropertyRef Name="EmpJobNum" />
+      </Principal>
+      <Dependent Role="EmployeeCompApprovalLevel">
+        <PropertyRef Name="AppMgrTenEmpNum" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_EmployeeCompApprovalStatus_EmployeeJob">
+    <End Type="LaserbeamEntities.EmployeeJob" Role="EmployeeJob" Multiplicity="1" />
+    <End Type="LaserbeamEntities.EmployeeCompApprovalStatu" Role="EmployeeCompApprovalStatu" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="EmployeeJob">
+        <PropertyRef Name="EmpJobNum" />
+      </Principal>
+      <Dependent Role="EmployeeCompApprovalStatu">
+        <PropertyRef Name="EmpJobNum" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_EmployeeCompComments_EmployeeJob">
+    <End Type="LaserbeamEntities.EmployeeJob" Role="EmployeeJob" Multiplicity="1" />
+    <End Type="LaserbeamEntities.EmployeeCompComment" Role="EmployeeCompComment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="EmployeeJob">
+        <PropertyRef Name="EmpJobNum" />
+      </Principal>
+      <Dependent Role="EmployeeCompComment">
+        <PropertyRef Name="EmpJobNum" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_EmployeeCompCommentStatus_EmployeeCompComment">
+    <End Type="LaserbeamEntities.EmployeeCompComment" Role="EmployeeCompComment" Multiplicity="1" />
+    <End Type="LaserbeamEntities.EmployeeCompCommentStatu" Role="EmployeeCompCommentStatu" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="EmployeeCompComment">
+        <PropertyRef Name="EmployeeCompCommentsNum" />
+      </Principal>
+      <Dependent Role="EmployeeCompCommentStatu">
+        <PropertyRef Name="CommentNum" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_EmployeeCompMarket_EmployeeJob">
+    <End Type="LaserbeamEntities.EmployeeJob" Role="EmployeeJob" Multiplicity="1" />
+    <End Type="LaserbeamEntities.EmployeeCompMarket" Role="EmployeeCompMarket" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="EmployeeJob">
+        <PropertyRef Name="EmpJobNum" />
+      </Principal>
+      <Dependent Role="EmployeeCompMarket">
+        <PropertyRef Name="EmpJobNum" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_EmployeeCompMerit_EmployeeJob">
+    <End Type="LaserbeamEntities.EmployeeJob" Role="EmployeeJob" Multiplicity="1" />
+    <End Type="LaserbeamEntities.EmployeeCompMerit" Role="EmployeeCompMerit" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="EmployeeJob">
+        <PropertyRef Name="EmpJobNum" />
+      </Principal>
+      <Dependent Role="EmployeeCompMerit">
+        <PropertyRef Name="EmpJobNum" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_EmployeeCompNew_EmployeeJob">
+    <End Type="LaserbeamEntities.EmployeeJob" Role="EmployeeJob" Multiplicity="1" />
+    <End Type="LaserbeamEntities.EmployeeCompNew" Role="EmployeeCompNew" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="EmployeeJob">
+        <PropertyRef Name="EmpJobNum" />
+      </Principal>
+      <Dependent Role="EmployeeCompNew">
+        <PropertyRef Name="EmpJobNum" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_EmployeeCompPromotion_EmployeeJob">
+    <End Type="LaserbeamEntities.EmployeeJob" Role="EmployeeJob" Multiplicity="1" />
+    <End Type="LaserbeamEntities.EmployeeCompPromotion" Role="EmployeeCompPromotion" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="EmployeeJob">
+        <PropertyRef Name="EmpJobNum" />
+      </Principal>
+      <Dependent Role="EmployeeCompPromotion">
+        <PropertyRef Name="EmpJobNum" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_EmployeeCompRating_EmployeeJob">
+    <End Type="LaserbeamEntities.EmployeeJob" Role="EmployeeJob" Multiplicity="1" />
+    <End Type="LaserbeamEntities.EmployeeCompRating" Role="EmployeeCompRating" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="EmployeeJob">
+        <PropertyRef Name="EmpJobNum" />
+      </Principal>
+      <Dependent Role="EmployeeCompRating">
+        <PropertyRef Name="EmpJobNum" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_EmployeeGroup_OrgGroup">
+    <End Type="LaserbeamEntities.OrgGroup" Role="OrgGroup" Multiplicity="1" />
+    <End Type="LaserbeamEntities.EmployeeGroup" Role="EmployeeGroup" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="OrgGroup">
+        <PropertyRef Name="OrgGroupID" />
+      </Principal>
+      <Dependent Role="EmployeeGroup">
+        <PropertyRef Name="OrgGroupID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_EmployeeGroupInclusionExclusion_OrgGroup">
+    <End Type="LaserbeamEntities.OrgGroup" Role="OrgGroup" Multiplicity="1" />
+    <End Type="LaserbeamEntities.EmployeeGroupInclusionExclusion" Role="EmployeeGroupInclusionExclusion" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="OrgGroup">
+        <PropertyRef Name="OrgGroupID" />
+      </Principal>
+      <Dependent Role="EmployeeGroupInclusionExclusion">
+        <PropertyRef Name="OrgGroupID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_OrGGroupAssignedCriteria_OrGGroup">
+    <End Type="LaserbeamEntities.OrgGroup" Role="OrgGroup" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="LaserbeamEntities.OrgGroupAssignedCriteria" Role="OrgGroupAssignedCriteria" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="OrgGroup">
+        <PropertyRef Name="OrgGroupID" />
+      </Principal>
+      <Dependent Role="OrgGroupAssignedCriteria">
+        <PropertyRef Name="OrgGroupID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_OrgGroupDetail_OrgGroup">
+    <End Type="LaserbeamEntities.OrgGroup" Role="OrgGroup" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="LaserbeamEntities.OrgGroupDetail" Role="OrgGroupDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="OrgGroup">
+        <PropertyRef Name="OrgGroupID" />
+      </Principal>
+      <Dependent Role="OrgGroupDetail">
+        <PropertyRef Name="OrgGroupID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_OrgGroupType_OrgGroup">
+    <End Type="LaserbeamEntities.OrgGroup" Role="OrgGroup" Multiplicity="0..1" />
+    <End Type="LaserbeamEntities.OrgGroupType" Role="OrgGroupType" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="OrgGroup">
+        <PropertyRef Name="OrgGroupID" />
+      </Principal>
+      <Dependent Role="OrgGroupType">
+        <PropertyRef Name="OrgGroupID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ProxyGroup_OrgGroup">
+    <End Type="LaserbeamEntities.OrgGroup" Role="OrgGroup" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="LaserbeamEntities.ProxyGroup" Role="ProxyGroup" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="OrgGroup">
+        <PropertyRef Name="OrgGroupID" />
+      </Principal>
+      <Dependent Role="ProxyGroup">
+        <PropertyRef Name="OrgGroupID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ProxyPopulationAccess_OrgGroup">
+    <End Type="LaserbeamEntities.OrgGroup" Role="OrgGroup" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="LaserbeamEntities.ProxyPopulationAccess" Role="ProxyPopulationAccess" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="OrgGroup">
+        <PropertyRef Name="OrgGroupID" />
+      </Principal>
+      <Dependent Role="ProxyPopulationAccess">
+        <PropertyRef Name="OrgGroupID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="Team">
+    <Key>
+      <PropertyRef Name="TeamNum" />
+    </Key>
+    <Property Name="TeamNum" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TeamTitle" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="UpdatedBy" Type="Int32" />
+    <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="SupportTasks" Relationship="LaserbeamEntities.FK_SupportTasks_Team_TeamNum" FromRole="Team" ToRole="SupportTask" />
+  </EntityType>
+  <EntityType Name="SupportTask">
+    <Key>
+      <PropertyRef Name="SupportTaskNum" />
+    </Key>
+    <Property Name="SupportTaskNum" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TeamNum" Type="Int32" Nullable="false" />
+    <Property Name="StartDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="EndDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="TaskTitle" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="TaskDescription" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="TaskCreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="TaskUpdatedDate" Type="DateTime" Precision="3" />
+    <Property Name="UpdatedBy" Type="Int32" />
+    <NavigationProperty Name="Team" Relationship="LaserbeamEntities.FK_SupportTasks_Team_TeamNum" FromRole="SupportTask" ToRole="Team" />
+    <NavigationProperty Name="SupportTaskComments" Relationship="LaserbeamEntities.FK_SupportTasks_SupportTaskNum" FromRole="SupportTask" ToRole="SupportTaskComment" />
+    <Property Name="HoursSpent" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <Association Name="FK_SupportTasks_Team_TeamNum">
+    <End Type="LaserbeamEntities.Team" Role="Team" Multiplicity="1" />
+    <End Type="LaserbeamEntities.SupportTask" Role="SupportTask" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Team">
+        <PropertyRef Name="TeamNum" />
+      </Principal>
+      <Dependent Role="SupportTask">
+        <PropertyRef Name="TeamNum" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="SupportTaskComment">
+    <Key>
+      <PropertyRef Name="SupportTaskCommentsNum" />
+    </Key>
+    <Property Name="SupportTaskCommentsNum" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="SupportTaskNum" Type="Int32" Nullable="false" />
+    <Property Name="Comments" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="CreatedBy" Type="Int32" Nullable="false" />
+    <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="UpdatedBy" Type="Int32" />
+    <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="AppUser" Relationship="LaserbeamEntities.fk_SupportTaskComments_AppUserCreatedBy" FromRole="SupportTaskComment" ToRole="AppUser" />
+    <NavigationProperty Name="SupportTask" Relationship="LaserbeamEntities.FK_SupportTasks_SupportTaskNum" FromRole="SupportTaskComment" ToRole="SupportTask" />
+  </EntityType>
+  <Association Name="fk_SupportTaskComments_AppUserCreatedBy">
+    <End Type="LaserbeamEntities.AppUser" Role="AppUser" Multiplicity="1" />
+    <End Type="LaserbeamEntities.SupportTaskComment" Role="SupportTaskComment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AppUser">
+        <PropertyRef Name="UserNum" />
+      </Principal>
+      <Dependent Role="SupportTaskComment">
+        <PropertyRef Name="CreatedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SupportTasks_SupportTaskNum">
+    <End Type="LaserbeamEntities.SupportTask" Role="SupportTask" Multiplicity="1" />
+    <End Type="LaserbeamEntities.SupportTaskComment" Role="SupportTaskComment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SupportTask">
+        <PropertyRef Name="SupportTaskNum" />
+      </Principal>
+      <Dependent Role="SupportTaskComment">
+        <PropertyRef Name="SupportTaskNum" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="ChatUserStatus">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ChatStatus" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="ChatDetail">
+    <Key>
+      <PropertyRef Name="ChatDetailNum" />
+    </Key>
+    <Property Name="ChatDetailNum" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="SenderUserNum" Type="Int32" />
+    <Property Name="ReceiverUserNum" Type="Int32" />
+    <Property Name="Chat" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="ViewedStatus" Type="Boolean" />
+    <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+    <Property Name="Attachement" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="FileType" Type="Int32" />
+    <Property Name="FileName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="ChatSessionDetail">
+    <Key>
+      <PropertyRef Name="ChatSessionDetailNum" />
+    </Key>
+    <Property Name="ChatSessionDetailNum" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FromUserNum" Type="Int32" />
+    <Property Name="ToUserNum" Type="Int32" />
+    <Property Name="ChatSessionID" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Token" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="MarketPayRange">
+    <Key>
+      <PropertyRef Name="MarketPayRangeNum" />
+    </Key>
+    <Property Name="MarketPayRangeNum" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="JobNum" Type="Int32" />
+    <Property Name="GradeNum" Type="Int32" />
+    <Property Name="EmployeeNum" Type="Int32" />
+    <Property Name="CurrentMin" Type="Decimal" Precision="20" Scale="2" />
+    <Property Name="CurrentMid" Type="Decimal" Precision="20" Scale="4" />
+    <Property Name="CurrentMax" Type="Decimal" Precision="20" Scale="4" />
+    <Property Name="FutureMin" Type="Decimal" Precision="20" Scale="4" />
+    <Property Name="FutureMid" Type="Decimal" Precision="20" Scale="4" />
+    <Property Name="FutureMax" Type="Decimal" Precision="20" Scale="2" />
+    <Property Name="CreatedBy" Type="Int32" />
+    <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+    <Property Name="UpdatedBy" Type="Int32" />
+    <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+    <Property Name="HourlyCurrentMin" Type="Decimal" Precision="20" Scale="8" />
+    <Property Name="HourlyCurrentMid" Type="Decimal" Precision="20" Scale="8" />
+    <Property Name="HourlyCurrentMax" Type="Decimal" Precision="20" Scale="8" />
+    <Property Name="HourlyFutureMin" Type="Decimal" Precision="20" Scale="8" />
+    <Property Name="HourlyFutureMid" Type="Decimal" Precision="20" Scale="8" />
+    <Property Name="HourlyFutureMax" Type="Decimal" Precision="20" Scale="8" />
+  </EntityType>
+  <EntityType Name="EmployeeCompBonu">
+    <Key>
+      <PropertyRef Name="EmpJobNum" />
+    </Key>
+    <Property Name="EmployeeCompBonusNum" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="EmpJobNum" Type="Int32" Nullable="false" />
+    <Property Name="BonusPct" Type="Decimal" Precision="6" Scale="2" />
+    <Property Name="BonusAmt" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="BonusEligibility" Type="Boolean" />
+    <Property Name="BonusTargetPct" Type="Decimal" Precision="5" Scale="2" />
+    <Property Name="BonusTargetAmt" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="AdjustedBonusAmt" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="BonusEffectiveDate" Type="DateTime" Precision="3" />
+    <Property Name="BonusTeamAmt" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="BonusIOAmt" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="Payout" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="UpdatedBy" Type="Int32" />
+    <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="EmployeeJob" Relationship="LaserbeamEntities.FK_EmployeeCompBonus_EmployeeJob" FromRole="EmployeeCompBonu" ToRole="EmployeeJob" />
+  </EntityType>
+  <Association Name="FK_EmployeeCompBonus_EmployeeJob">
+    <End Type="LaserbeamEntities.EmployeeJob" Role="EmployeeJob" Multiplicity="1" />
+    <End Type="LaserbeamEntities.EmployeeCompBonu" Role="EmployeeCompBonu" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="EmployeeJob">
+        <PropertyRef Name="EmpJobNum" />
+      </Principal>
+      <Dependent Role="EmployeeCompBonu">
+        <PropertyRef Name="EmpJobNum" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

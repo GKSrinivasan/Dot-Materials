@@ -1,0 +1,114 @@
+﻿
+@model Laserbeam.BusinessObject.Common.EmployeeTitleModel
+@using Laserbeam.Resource.HR.CommonResources;
+@using Laserbeam.BusinessObject.Common;
+
+<style type="text/css">
+    #downArrowLogin:hover {
+        cursor: pointer;
+    }
+</style>
+<script type="text/javascript">
+    $(document).on("click", "#wizardLogoutArrow", function (e) {
+        window.location.href = '../Account/LogOut';
+    });
+</script>
+
+<li class="rightborders userprofilesection">
+    <div href="#" class="blutxt" id="downArrowLogin">
+        <div id="loginSlideToggle">
+            <span class="bluecircle">
+                @Model.UserNameShort
+            </span> @*@Model.UserName*@
+            <ul>
+                <li id="login">
+                    <div id="login-trigger" href="#">
+                        <div>
+                            <span class="fa fa-angle-down" style="font-size: 20px;color:#777;"></span>
+                        </div>
+                    </div>
+
+                    <div id="login-content" class="logincontentClass">
+
+
+                        <div class="row rowLoginCredentials nomargin">
+                            <div class="col-md-2">
+                                <i class="fa fa-user-circle-o font_size_14"></i>
+                            </div>
+                            <div id="divwizardTitleBarloggedin" class="col-md-10">
+                                Logged in as <span id="spanwizardTitleBarloggedin" style="color:chocolate"> @Model.UserRole</span>
+                            </div>
+                        </div>
+
+
+                        @*<div class="row rowLoginCredentials nomargin logoutsec">
+                            <div id="wizardLogoutArrow" class="col-md-2">
+                                <i class="fa fa-sign-out font_size_14 white"></i>
+                            </div>
+                            <a class="logout" href="@Url.Action("LogOut","Account")">
+                                <div class="col-md-10 col-sm-10"> Log Out </div>
+                            </a>
+                        </div>*@
+                    </div>
+
+                </li>
+            </ul>
+        </div>
+    </div>
+</li>
+<li class="logoutsection" id="logoutArrow">
+    <a id="lnkwizardTitleBarlogoutArrow" class="logout" href="@Url.Action("LogOut","Account")"><i class="fa fa-power-off" data-toggle="tooltip" data-placement="bottom" title="Logout"></i></a>
+</li>
+<div id="notificationPopoverContent" class="hide">
+    @if (Model.MyApprovals != null)
+    {
+        var CompApproval = Model.MyApprovals.Where(x => x.Module == "Compensation").Select(x => x).ToList();
+        var LTIPApproval = Model.MyApprovals.Where(x => x.Module == "LTIP").Select(x => x).ToList();
+        if (CompApproval.Count() != 0)
+        {
+            <div><b>Compensation</b> </div>
+            <ul id="menu1" class="msg_list nopadding" role="menu" style="max-height:150px!important;overflow-y:auto;overflow-x:hidden">
+
+                @foreach (var item in CompApproval)
+                {
+                    <li>
+                        <a class="clsPopover nopadding" onclick="onSelectNotification(@item.EmployeeNum,'@item.Module');" href="javascript:void(0);">
+                            <div class="row">
+                                <div class="col-lg-2 col-md-2">
+                                    <span><input class="abbreviatedText text-center" value=@item.Abbreviation type="text" disabled="disabled" style=" width:30px !important; height:30px !important; color:white !important; padding-left:1px!important; margin-right:7px;background-color:#c24646 !important;" /></span>
+                                </div>
+                                <div class="col-lg-9 col-md-9" style="padding-top:5px">
+                                    <span style="color:#c24646 !important">@item.EmployeeName (@item.EmployeeCount)</span>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                }
+            </ul>
+        }
+        if (LTIPApproval.Count() != 0)
+        {
+            <div style="margin-top:5px!important"><b>LTIP </b></div>
+            <ul id="menu1" class="msg_list nopadding" role="menu" style="max-height:150px!important;overflow-y:auto;overflow-x:hidden">
+
+                @foreach (var item in LTIPApproval)
+                {
+                    <li>
+                        <a class="clsPopover nopadding" onclick="onSelectNotification(@item.EmployeeNum,'@item.Module');" href="javascript:void(0);">
+                            <div class="row">
+                                <div class="col-lg-2 col-md-2">
+                                    <span><input class="abbreviatedText text-center" value=@item.Abbreviation type="text" disabled="disabled" style=" width:30px !important; height:30px !important;color:white !important; padding-left:1px!important; margin-right:7px;background-color:#c24646 !important;" /></span>
+                                </div>
+                                <div class="col-lg-9 col-md-9" style="padding-top:5px">
+                                    <span style="color:#c24646 !important;">@item.EmployeeName (@item.EmployeeCount)</span>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                }
+            </ul>
+        }
+    }
+</div>
+
+

@@ -1,0 +1,97 @@
+﻿@{
+    ViewBag.Title = "TimeoutPopup";
+    Layout = "~/Views/Shared/_SiteLayout.cshtml";
+}
+<link href="../../Content/dashboard.css" rel="stylesheet" />
+
+
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#timeoutPopup">
+    Timeout Popup
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="timeoutPopup" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-red">
+                <h3><span class="heading-toppad"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Automatic Session Logout</span></h3>
+            </div>
+            <div class="modal-body">
+                <div class="img-responsive text-center">
+                    @*<img src="~/Images/clock-icon.png">*@
+                    <img src="~/Images/compass-clock.gif">
+                </div>
+                @*<div class="big21b t-center">You will be logged Out in <span id="count-down"></span>. If the session expires, you will need to start over.</div>*@
+                <p class="big21b t-center">You will be logged Out in <span id="theTime" class="timeClass text-center"></span>. If the session expires, you will need to start over.</p>
+            </div>
+
+            
+
+            <div class="modal-footer">
+                <div class="session-btn" style="text-align:center;">
+                    <a href="#">Continue Session</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    var sec = 59;   //60 set the seconds
+    var min = 00;   //29 set the minutes
+    function refresh() {
+        sec = 59;
+        min = 00;
+    }
+
+    function countDown() {
+        sec--;
+        if (sec == -01) {
+            sec = 59;
+            min = min - 1;
+        }
+        else {
+            min = min;
+        }
+        if (sec <= 9) { sec = "0" + sec; }
+        time = (min <= 9 ? "0" + min : min) + ":" + sec + "";
+        if (document.getElementById('theTime')) { document.getElementById('theTime').innerHTML = time; }
+        if (document.getElementById('divCountDown')) {
+            var divCountDown = document.getElementById('divCountDown');
+            divCountDown.innerHTML = time;
+            if (min == '00' && sec == '59') {
+                OpenModelPopup();
+            }
+            if (sec <= 10) {
+                divCountDown.style.color = '#ff0000';
+            }
+
+            SD = window.setTimeout("countDown();", 1000);
+            if (min == '00' && sec == '00') {
+                window.location = "../Account/SSOLogIn";
+            }
+        }
+
+    }
+    window.onload = countDown;
+
+    function CloseModelPopup() {
+        $("#ModalPopupDiv").hide();
+        $("#MaskedDiv").hide();
+    }
+
+
+    function OpenModelPopup() {
+        $("#MaskedDiv").show();
+    }
+
+    function refreshPage() {
+        var divCountDown = document.getElementById('divCountDown');
+        divCountDown.style.color = '#000000';
+        CloseModelPopup();
+        refresh();
+        window.location = window.location;
+        return false;
+    }
+</script>

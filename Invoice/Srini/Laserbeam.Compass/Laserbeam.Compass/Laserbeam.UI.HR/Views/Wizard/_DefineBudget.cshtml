@@ -1,0 +1,49 @@
+﻿<script>
+    donutClass="p"+@(Math.Round(ViewBag.BudgetPct));
+    oldValue=@ViewBag.BudgetPct;
+</script>
+<div class="form-actions">
+    <div class="row">
+        <div class=" col-md-12 text-right" id="btnLevels">
+            <a href="javascript:;" class="btn default button-previous" id="btnChooseFields">
+                <i class="fa fa-angle-left"></i> Back
+            </a>
+            <a href="javascript:;" class="btn btn-outline green button-next" id="btnComplete">
+                Save &amp; Continue
+                <i class="fa fa-angle-right"></i>
+            </a>
+
+        </div>
+    </div>
+</div>
+<h3 class="block" style="padding-top:30px;padding-bottom:15px;">Set Budget %</h3>
+<div class="col-md-4 col-md-offset-4 text-center">
+    <div class="c100 p100 p@(Math.Round(ViewBag.BudgetPct)) big" id="wizardBudgetPctChart">
+        <span id="wizardBudgetPct">@ViewBag.BudgetPct%</span>
+        <div class="slice">
+            <div class="bar"></div>
+            <div class="fill"></div>
+        </div>
+    </div>
+</div>
+<div class="col-md-12">
+    <div class="form-group text-center font15">
+        Enter the <strong>budget</strong> percentage <input type="text" class="form-controlss text-right" style="padding:5px; width:50px;" id="budgetPct" value="@ViewBag.BudgetPct" /> %
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="col-md-8 col-md-offset-2 alert-info alertinfo" role="alert">
+        <div class="infocircletxt"><i class="fa fa-info-circle infobluecircle"></i></div>
+        <div style="width:93%;float:left;">
+            The budget will be calculated based on the budget % you enter in this section. <br /> Budget amount calculation = Current salary * budget % * proration factor (proration factor is configurable).<br /> Later you can modify the budget % in the budget plan section.
+        </div>
+    </div>
+</div>
+<div class="row">
+    <br /><br /><br />
+</div>
+
+
+

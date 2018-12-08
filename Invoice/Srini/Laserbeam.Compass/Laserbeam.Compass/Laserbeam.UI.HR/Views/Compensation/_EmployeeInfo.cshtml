@@ -1,0 +1,72 @@
+﻿@using Laserbeam.Resource.HR.CommonResources
+@model IEnumerable<Laserbeam.BusinessObject.Common.MeritBusinussObjects.EmployeeInfoDetails>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            if('@ViewBag.EmployeeStatus'=='Hourly')
+            {
+                $("#CurrSal").html(formatGridCurrency(@ViewBag.CurrentHourlySalary,'merit','hourly','@ViewBag.CultureCode')+"/hr");
+                $("#NewSal").html(formatGridCurrency(@ViewBag.NewHourlySalary,'merit','hourly','@ViewBag.CultureCode')+"/hr");
+                $("#TotalInc").html(formatGridCurrency(@ViewBag.TotalIncrease,'merit','hourly','@ViewBag.CultureCode')+"/hr");
+            }
+            else{
+                $("#CurrSal").html(formatGridCurrency(@ViewBag.CurrentSalary,'merit','annual','@ViewBag.CultureCode'));
+                $("#NewSal").html(formatGridCurrency(@ViewBag.NewSalary,'merit','annual','@ViewBag.CultureCode'));
+                $("#TotalInc").html(formatGridCurrency(@ViewBag.TotalIncrease,'merit','annual','@ViewBag.CultureCode'));
+            }
+            if ('@ViewBag.LumpSumEnable.ToString()' == "true")
+            {
+                $("#LumpSum").html(formatGridCurrency(@ViewBag.LumpSum, 'merit', 'annual', '@ViewBag.CultureCode'));
+            }
+        });
+
+</script>
+<div class="modal-dialog commentmodal" role="document" id="RenderEmployeeInfo">
+    <div class="modal-content">
+        <div class="row modal-body">
+            <div class="col-sm-4 col-md-3 employeebarleft">
+                <ul class="list-unstyled barlist">
+                    <li>Employee Info of<br /> <span id ="divInfoTitle"></span></li>
+                    <li>Current Pay<br /> <span id="CurrSal"></span></li>
+                    <li>Total Increase <br /> <span id="TotalInc"></span></li>
+                    <li>Total Increase Pct <br /> <span>@(ViewBag.TotalIncreasePct)%</span></li>
+                    <li>New Pay<br /> <span id="NewSal"></span></li>
+                    @if (ViewBag.LumpSumEnable.ToString() == "true")
+                    {
+                    <li>Lump Sum<br /> <span id="LumpSum"></span></li>
+                    }
+                </ul>
+            </div> 
+            <div class="col-sm-8 col-md-9 norightpad">
+                <div class="employeeclose"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>
+                <div class="employeegrid">
+                    @(Html.Kendo().Grid(Model)
+                            .Name("EmployeeGrid11")
+                            .HtmlAttributes(new { style = "text-align: left;color: #6E6259 !important;" })
+                            .Columns(columns =>
+                {
+                    columns.Bound(m => m.AliasName)
+                        .Title("EMPLOYEE INFO").HeaderHtmlAttributes(new
+                        {
+                            style = "text-align: left !important;"
+                        });
+                    columns.Bound(m => m.CurrentYear)
+                        .Title("CURRENT").HeaderHtmlAttributes(new
+                        {
+                            style = "text-align: left !important;"
+                        });
+                    columns.Bound(m => m.PreviousYear)
+                        .Title("PREVIOUS").HeaderHtmlAttributes(new
+                        {
+
+                            style = "text-align: left !important;"
+                        });
+                }).Scrollable(m => m.Enabled(true)))
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--dev code-->
+
+
+

@@ -1,0 +1,110 @@
+﻿
+@using Laserbeam.Resource.HR.CommonResources;
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Compass Rewards </title>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
+
+    @Styles.Render("~/Content/Common")
+    @Styles.Render("~/Content/SiteCommon")
+    @Scripts.Render("~/Scripts/Common")
+    @Scripts.Render("~/Scripts/SiteCommon")
+    @RenderSection("ScriptReference", false)
+    <link href="~/Content/TitleBar.css" rel="stylesheet" />
+    <link href="~/Content/icon-styles.css" rel="stylesheet" />
+    <script src="~/Scripts/TitleBar.min.js"></script>
+    <link rel="icon" type="image/png" sizes="192x192" href="~/Images/favicon.ico">
+    <script type="text/javascript">
+        var isBrowserClose = true;
+        var globalPageConstants = { GlobalWarningMessage: '@Html.Raw(GlobalResource.warningMessage)', GlobalSaveMessage: '@GlobalResource.MessageAlert' }
+    </script>
+
+</head>
+<body>
+
+    <div class="container-full topmargin">
+        <nav class="navbar navbar-default bluebg navbar-fixed-top">
+            <div class="container-fluid whiteebg">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                    <button id="btnsharedwizardlayouttogglenav" type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#menugrid" aria-expanded="false">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#">
+                        @*<img class="img-responsive" alt="" src='@Url.Content("~/Images/Logo/" + ViewContext.GetTenant() + ".jpg")' onerror="this.onerror=null;this.src='@Url.Content("~/Images/Logo/" + ViewContext.GetTenant() + ".png")';" height="60" />*@
+                        <img src="@Url.Content(ViewContext.GetTenantLogo())" class="img-responsive" alt="" height="60">
+                    </a>
+                        @*<a class="navbar-brand" href="#"><img src="~/Images/lb-logo.png" class="img-responsive" alt="logo"></a>*@
+</div>
+
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse" id="menugrid">
+              
+                    <div id="ajaxLoadingPanel" class="loadingdiv" style="margin: 0; padding: 0px; position: fixed; right: 0px; top: 0px !important; width: 100%; height: 100%; background-color: white; z-index: 33333; opacity: 1;">
+                        <img style="position: absolute;color: White;" src="~/Images/Loadingcogs.gif" />
+                    </div>
+                    <ul class="nav navbar-nav navbar-right">
+                        @{Html.RenderAction("GetTitleBarData", "Dashboard", new { moduleName = ViewContext.RouteData.Values["controller"].ToString() });}
+
+                    </ul>
+                </div><!-- /.navbar-collapse -->
+            </div><!-- /.container-fluid -->
+        </nav>
+
+    </div>
+
+    <!--alert msg-->
+    <div class="row nomargin">
+        <div class="col-md-12 neg-margin noleftpad norightpad" style="z-index:33333">
+            <div class="alert alert-success alert-dismissable fade in alerttoppad" id="successMessageDiv" style="display:none">
+                <a href="#" class="close" onclick="closeSaveWarning()">&times;</a>
+                <div id="idSuccessMessage"></div>
+            </div>
+            <div class="alert alert-warning alert-dismissable fade in alerttoppad" id="warningMessageDiv" style="display:none">
+                <a href="#" class="close" onclick="closeWarning()">&times;</a>
+                <div id="idwarningMessage"></div>
+            </div>
+            <div class="alert alert-danger alert-dismissable fade in alerttoppad" id="errorMessageDiv" style="display:none">
+                <a href="#" class="close" onclick="closeerrorWarning()">&times;</a>
+                <div id="iderrorMessage"></div>
+            </div>
+            <div class="alert alert-info alert-dismissable fade in alerttoppad" id="infoMessageDiv" style="display:none">
+                <a href="#" class="close" onclick="closeInfo()">&times;</a>
+                <div id="idinfoMessage"></div>
+            </div>
+        </div>
+    </div>
+
+    <!--alert msg end-->
+    <div class="content-section container-fluid">
+        @RenderBody()
+    </div>
+    <footer class="footer navbar-fixed-bottom">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-4 col-sm-4 col-xs-12 footer-left">
+                    &copy; Laserbeam Software. All Rights reserved.
+                </div>
+                <div class="col-md-4 col-sm-4 col-xs-12 text-center footer-middle">
+                    This page is best viewed with Microsoft Internet Explorer 11.0 or higher or Google Chrome.
+                </div>
+                <div class="col-md-4 col-sm-4 col-xs-12 text-right">
+                    Powered by <img src="~/Images/favicon.png" alt="logo" />
+                </div>
+            </div>
+        </div>
+    </footer>  
+ </body>
+</html>

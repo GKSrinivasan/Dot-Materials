@@ -1,0 +1,190 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="LBS_CompMasterModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="LaserbeamCompassMasterEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="AppUsers" EntityType="LBS_CompMasterModel.AppUser" />
+    <EntitySet Name="AppUserRoles" EntityType="LBS_CompMasterModel.AppUserRole" />
+    <EntitySet Name="AppUserStatus" EntityType="LBS_CompMasterModel.AppUserStatu" />
+    <EntitySet Name="Products" EntityType="LBS_CompMasterModel.Product" />
+    <EntitySet Name="Tenants" EntityType="LBS_CompMasterModel.Tenant" />
+    <EntitySet Name="TenantConnections" EntityType="LBS_CompMasterModel.TenantConnection" />
+    <EntitySet Name="TenantInformations" EntityType="LBS_CompMasterModel.TenantInformation" />
+    <AssociationSet Name="fk_AppUser_AppUserStatusNum" Association="LBS_CompMasterModel.fk_AppUser_AppUserStatusNum">
+      <End Role="AppUserStatu" EntitySet="AppUserStatus" />
+      <End Role="AppUser" EntitySet="AppUsers" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TenantConnection_ProductNum" Association="LBS_CompMasterModel.FK_TenantConnection_ProductNum">
+      <End Role="Product" EntitySet="Products" />
+      <End Role="TenantConnection" EntitySet="TenantConnections" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TenantConnection_TenantNum" Association="LBS_CompMasterModel.FK_TenantConnection_TenantNum">
+      <End Role="Tenant" EntitySet="Tenants" />
+      <End Role="TenantConnection" EntitySet="TenantConnections" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TenantInformation_TenantNum" Association="LBS_CompMasterModel.FK_TenantInformation_TenantNum">
+      <End Role="Tenant" EntitySet="Tenants" />
+      <End Role="TenantInformation" EntitySet="TenantInformations" />
+    </AssociationSet>
+    <EntitySet Name="TenantUsers" EntityType="LBS_CompMasterModel.TenantUser" />
+    <AssociationSet Name="fk_TenantUser_TenantNum" Association="LBS_CompMasterModel.fk_TenantUser_TenantNum">
+      <End Role="Tenant" EntitySet="Tenants" />
+      <End Role="TenantUser" EntitySet="TenantUsers" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="AppUser">
+    <Key>
+      <PropertyRef Name="UserNum" />
+    </Key>
+    <Property Name="UserNum" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="EmailAddress" Type="String" Nullable="false" MaxLength="320" FixedLength="false" Unicode="false" />
+    <Property Name="UserName" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="UserFirstName" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="UserLastName" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="UserPassword" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="SecretKey" Type="String" Nullable="false" MaxLength="38" FixedLength="false" Unicode="false" />
+    <Property Name="FailedLoginAttempts" Type="Byte" Nullable="false" />
+    <Property Name="AppUserRole" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="AppUserStatusNum" Type="Byte" Nullable="false" />
+    <Property Name="LastLoginDate" Type="DateTime" Precision="3" />
+    <Property Name="LastLogoutDate" Type="DateTime" Precision="3" />
+    <Property Name="TenantName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="CompanyName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="Country" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="PinCode" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="PhoneNumber" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Name="ExtensionNumber" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Name="IsTenantCreated" Type="Boolean" />
+    <NavigationProperty Name="AppUserStatu" Relationship="LBS_CompMasterModel.fk_AppUser_AppUserStatusNum" FromRole="AppUser" ToRole="AppUserStatu" />
+  </EntityType>
+  <EntityType Name="AppUserRole">
+    <Key>
+      <PropertyRef Name="AppUserRoleNum" />
+    </Key>
+    <Property Name="AppUserRoleNum" Type="Byte" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserRole" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="Active" Type="Boolean" Nullable="false" />
+  </EntityType>
+  <EntityType Name="AppUserStatu">
+    <Key>
+      <PropertyRef Name="AppUserStatusNum" />
+    </Key>
+    <Property Name="AppUserStatusNum" Type="Byte" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserStatus" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="AppUsers" Relationship="LBS_CompMasterModel.fk_AppUser_AppUserStatusNum" FromRole="AppUserStatu" ToRole="AppUser" />
+  </EntityType>
+  <EntityType Name="Product">
+    <Key>
+      <PropertyRef Name="ProductNum" />
+    </Key>
+    <Property Name="ProductNum" Type="Int16" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ProductName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="ProductURL" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="TenantConnections" Relationship="LBS_CompMasterModel.FK_TenantConnection_ProductNum" FromRole="Product" ToRole="TenantConnection" />
+  </EntityType>
+  <EntityType Name="Tenant">
+    <Key>
+      <PropertyRef Name="TenantNum" />
+    </Key>
+    <Property Name="TenantNum" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TenantURLName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="TenantConnection" Relationship="LBS_CompMasterModel.FK_TenantConnection_TenantNum" FromRole="Tenant" ToRole="TenantConnection" />
+    <NavigationProperty Name="TenantInformation" Relationship="LBS_CompMasterModel.FK_TenantInformation_TenantNum" FromRole="Tenant" ToRole="TenantInformation" />
+    <NavigationProperty Name="TenantUsers" Relationship="LBS_CompMasterModel.fk_TenantUser_TenantNum" FromRole="Tenant" ToRole="TenantUser" />
+  </EntityType>
+  <EntityType Name="TenantConnection">
+    <Key>
+      <PropertyRef Name="TenantNum" />
+    </Key>
+    <Property Name="TenantNum" Type="Int32" Nullable="false" />
+    <Property Name="ProductNum" Type="Int16" Nullable="false" />
+    <Property Name="DatabaseServer" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="DatabaseName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="DatabaseUserId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="DatabasePassword" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Product" Relationship="LBS_CompMasterModel.FK_TenantConnection_ProductNum" FromRole="TenantConnection" ToRole="Product" />
+    <NavigationProperty Name="Tenant" Relationship="LBS_CompMasterModel.FK_TenantConnection_TenantNum" FromRole="TenantConnection" ToRole="Tenant" />
+  </EntityType>
+  <EntityType Name="TenantInformation">
+    <Key>
+      <PropertyRef Name="TenantNum" />
+    </Key>
+    <Property Name="TenantNum" Type="Int32" Nullable="false" />
+    <Property Name="CompanyName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="CompanyAddress1" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="CompanyAddress2" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="State" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Country" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="PinCode" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="PhoneNumber" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Tenant" Relationship="LBS_CompMasterModel.FK_TenantInformation_TenantNum" FromRole="TenantInformation" ToRole="Tenant" />
+  </EntityType>
+  <Association Name="fk_AppUser_AppUserStatusNum">
+    <End Type="LBS_CompMasterModel.AppUserStatu" Role="AppUserStatu" Multiplicity="1" />
+    <End Type="LBS_CompMasterModel.AppUser" Role="AppUser" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AppUserStatu">
+        <PropertyRef Name="AppUserStatusNum" />
+      </Principal>
+      <Dependent Role="AppUser">
+        <PropertyRef Name="AppUserStatusNum" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TenantConnection_ProductNum">
+    <End Type="LBS_CompMasterModel.Product" Role="Product" Multiplicity="1" />
+    <End Type="LBS_CompMasterModel.TenantConnection" Role="TenantConnection" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Product">
+        <PropertyRef Name="ProductNum" />
+      </Principal>
+      <Dependent Role="TenantConnection">
+        <PropertyRef Name="ProductNum" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TenantConnection_TenantNum">
+    <End Type="LBS_CompMasterModel.Tenant" Role="Tenant" Multiplicity="1" />
+    <End Type="LBS_CompMasterModel.TenantConnection" Role="TenantConnection" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Tenant">
+        <PropertyRef Name="TenantNum" />
+      </Principal>
+      <Dependent Role="TenantConnection">
+        <PropertyRef Name="TenantNum" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TenantInformation_TenantNum">
+    <End Type="LBS_CompMasterModel.Tenant" Role="Tenant" Multiplicity="1" />
+    <End Type="LBS_CompMasterModel.TenantInformation" Role="TenantInformation" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Tenant">
+        <PropertyRef Name="TenantNum" />
+      </Principal>
+      <Dependent Role="TenantInformation">
+        <PropertyRef Name="TenantNum" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="TenantUser">
+    <Key>
+      <PropertyRef Name="TenantUserNum" />
+    </Key>
+    <Property Name="TenantUserNum" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserId" Type="String" Nullable="false" MaxLength="320" FixedLength="false" Unicode="false" />
+    <Property Name="TenantNum" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Tenant" Relationship="LBS_CompMasterModel.fk_TenantUser_TenantNum" FromRole="TenantUser" ToRole="Tenant" />
+  </EntityType>
+  <Association Name="fk_TenantUser_TenantNum">
+    <End Type="LBS_CompMasterModel.Tenant" Role="Tenant" Multiplicity="1" />
+    <End Type="LBS_CompMasterModel.TenantUser" Role="TenantUser" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Tenant">
+        <PropertyRef Name="TenantNum" />
+      </Principal>
+      <Dependent Role="TenantUser">
+        <PropertyRef Name="TenantNum" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

@@ -1,0 +1,140 @@
+﻿@model Laserbeam.BusinessObject.Common.ChatBoxModel
+<script>
+
+
+    function cmb_EmpListChange(e) {
+        $("[id*=chkEmployeeName_]").removeClass('red');
+        $("[id*=chkEmployeeName_]").closest("li").removeClass("chat-selected-item");
+        var UserDropDownList = $("#EmpList").data("kendoComboBox");
+        var dataItem = UserDropDownList.dataItem(UserDropDownList.select());
+        if (dataItem != null) {
+            $("#chkEmployeeName_" + dataItem.Usernum).addClass('red');
+            var container = $("#UserList"),
+            scrollTo = $("#chkEmployeeName_" + dataItem.Usernum);
+            container.animate({ scrollTop: scrollTo.offset().top - container.offset().top + container.scrollTop() });
+            $("#EmpList").data('kendoComboBox').value("");
+        }
+    }
+
+    function managerRefresh() {
+        $.ajax({
+            url: '../Chatbox/_ChatManagerDetails',
+            data: {},
+            async: true,
+            cache: false,
+            success: function (result) {
+                $("#RenderManagerDetails").html(result);
+            }
+        });
+    }
+
+    function chathistory(selectedUserNum, selectedUserName, e) {
+        $("[id*=chkEmployeeName_]").removeClass('red');
+        $("[id*=chkEmployeeName_]").closest("li").removeClass("chat-selected-item");
+        $(e).addClass('chat-selected-item');
+        $.ajax({
+            url: '../Chatbox/_ChatDetails',
+            data: { selectedUserNum: selectedUserNum, selectedUserName: selectedUserName,Chat:"" },
+            async: true,
+            cache: false,
+            success: function (result) {
+                $("#RenderChatData").html(result);
+                if (($("#UnredCount")[0]) != undefined) {
+                    var TotalChatUnreadCount = $("#UnredCount")["0"].innerText;
+                    if ((e.childNodes[1].childNodes[3].nextElementSibling) != null) {
+                        var ChatCount = e.childNodes[1].childNodes[3].nextElementSibling.innerText;
+                        e.childNodes[1].childNodes[3].nextElementSibling.className = '';
+                        e.childNodes[1].childNodes[3].nextElementSibling.innerHTML = '';
+                        e.childNodes[1].childNodes[3].nextElementSibling.innerText = '';
+                        var FinalChatCount = $("#UnredCount")["0"].innerText = TotalChatUnreadCount - ChatCount;
+                        if (FinalChatCount == "0") {
+                            $("#UnredCount")[0].className = '';
+                            $("#UnredCount")[0].innerText = '';
+                        }
+                    }
+                }
+            }
+        });
+    }
+
+    function refreshChathistory(selectedUserNum, selectedUserName,chat) {
+        $.ajax({
+            url: '../Chatbox/_ChatDetails',
+            data: { selectedUserNum: selectedUserNum, selectedUserName: selectedUserName,Chat:chat },
+            async: true,
+            cache: false,
+            success: function (result) {
+                $("#RenderChatData").html(result);
+                $('#chats').scrollTop($('#chats')[0].scrollHeight);
+                $("#ChatSearch")[0].value = chat;
+            }
+        });
+    }
+  
+
+    $("#ClearText").click(function () {
+        $("#EmpList").data('kendoComboBox').value("");
+    });
+    $(document).on("click", "#ChatReferesh", function (e) {
+        $("#ChatReferesh").addClass("fa-spin");
+        managerRefresh();
+    });
+</script>
+<div class="row top-pad">
+    <div class="col-md-12 searchtxtbox">
+        <i id="ClearText" class="fa fa-times clearicon" aria-hidden="true"></i>
+        @(Html.Kendo().ComboBox().Name("EmpList").DataTextField("UserName").DataValueField("UserNum").Placeholder("-Search by Name-")
+                                .Filter(FilterType.Contains).AutoBind(false).HtmlAttributes(new { style = "width:250px;text-align:left;" }).BindTo(Model.chatAccountModel)
+                                    .Events(e =>
+                                    {
+                                        e.Change("cmb_EmpListChange");
+                                    })
+        )
+    </div>
+</div>
+<div class="row top-pad">
+    <div class="col-md-12 nopad">
+        <ul class="list-unstyled leftlistsection">
+            <li class="chattitleleft">
+                people (@Model.chatAccountModel.Count())
+                <span id="ChatReferesh" class="fa fa-refresh" style="float:right;"></span>
+            </li>
+            <div id="UserList" style="height:350px;overflow-y:scroll">
+                @foreach (var item in Model.chatAccountModel)
+                {
+                    <li id="liManagerChat" onclick="chathistory(@item.Usernum,'@item.UserName',this)">
+                        <a href="#">
+                            <i class="@(item.UserStatus == 0 ?"fa fa-circle greystatus rightpad10":item.UserStatus == 1 ? "fa fa-circle greenstatus rightpad10" : item.UserStatus == 2 ? "fa fa-circle redstatus rightpad10" : "fa fa-circle orangestatus rightpad10")"></i> <label style="font-weight:normal;font-size:13px;" id="chkEmployeeName_@item.Usernum">@item.UserName</label>
+                            @if (item.unReadChatCount > 0)
+                            {
+                                <span id="idMsgCount"><span class="msgcount">@item.unReadChatCount</span></span>
+                            }
+                        </a>
+                    </li>
+                }
+            </div>
+        </ul>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function (e) {
+        $($("[id*=liManagerChat]")[0]).addClass('chat-selected-item');
+        if (($("#UnredCount")[0]) != undefined) {
+            var TotalChatCount = $("#UnredCount")[0].innerText;
+            if (($("#liManagerChat")["0"].childNodes[1].childNodes[1].nextSibling.nextElementSibling.nextElementSibling) != null) {
+                var SelectedChatCount = $("#liManagerChat")["0"].childNodes[1].childNodes[1].nextSibling.nextElementSibling.nextElementSibling.firstElementChild.innerText;
+                $("#liManagerChat")["0"].childNodes[1].childNodes[1].nextSibling.nextElementSibling.nextElementSibling.firstElementChild.innerText = '';
+                $("#liManagerChat")["0"].childNodes[1].childNodes[1].nextSibling.nextElementSibling.nextElementSibling.firstElementChild.className = '';
+                var FinalCount = $("#UnredCount")["0"].innerText = TotalChatCount - SelectedChatCount;
+                if (FinalCount == "0") {
+                    $("#UnredCount")[0].className = '';
+                    $("#UnredCount")[0].innerText = '';
+                }
+
+            }
+        }
+
+
+    });
+</script>

@@ -1,0 +1,28 @@
+﻿
+<div id="selectedFields" class="modal-dialog workforcePopup" role="document">
+    <div class="modal-content">
+        <!-- Modal workforce-error Begins-->
+        <div class="modal-header">
+            @*<button type="button" class="close" data-dismiss="modal"><i class="fa fa-times-circle" aria-hidden="true"></i></button>*@
+            <h4 class="modal-title">WorkForce DataFields</h4>
+        </div>
+        <div class="modal-body">
+            <div id="parent1">
+                @(Html.Kendo().Grid<Laserbeam.BusinessObject.Common.TemplateMetaColumns>()
+        .Name("grdSelectedTemplateDetails")
+            .Columns(columns =>
+                {
+                    columns.Bound(m => m.FunctionalGroup).Visible(false).Title("Functional Group");
+                    columns.Bound(m => m.FieldName).Title("Fields").HtmlAttributes(new { style = "word-wrap: break-word;" });
+                    columns.Bound(m => m.FieldDescription).Title("Field Description").HtmlAttributes(new { style = "word-wrap: break-word;" });
+                })
+                                  .DataSource(datasource => datasource.Ajax()
+                                  .Group(group => group.Add(o => o.FunctionalGroup))
+                                                          .Read(read => read.Action("GetSelectedTemplateColumnsList", "WorkForce").Data("additionalParameterInfo"))).Events(x => x.DataBound("selectedFieldsFunGrpNames"))
+                                  .Scrollable()
+                                  .AutoBind(true)
+                )
+            </div>
+        </div><!-- /.modal-content Ends-->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

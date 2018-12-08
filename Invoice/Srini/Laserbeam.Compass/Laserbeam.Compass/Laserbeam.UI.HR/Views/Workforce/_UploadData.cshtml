@@ -1,0 +1,65 @@
+﻿<div class="row top-pad">
+    <!-- Row Begins -->
+    <div class="col-md-12 mainheading text-center">
+        Upload Workforce
+    </div>
+    <div class="col-md-12 para">To "<span class="darkgrey">Add multiple Workforce records</span>" download, fill and upload the ‘Workforce template’ file.</div>
+</div>
+<div class="row top-pad nomargin">
+    <div class="col-md-5 col-md-offset-1 col-sm-6">
+        <div class="col-md-12 noleftpad">
+            <div class="dottedborder text-center">
+                <div><i class="icon-dwnld-icon icon-blue big60 " aria-hidden="true"></i> <span class="txt-center1"><a id="lnkworkforceuploaddata" href="#" onclick="downloadEmployeeData();">Download</a> the Workforce Template</span></div>
+                <div><i class="fa fa-question-circle-o fa-quest" aria-hidden="true"></i><a id="lnkworkforceknowabouttemplate" href="#" onclick="getSelectedFieldsList();">Click Here</a> to know about the template</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-5 col-sm-6">
+
+        <div id="drop-target" class="col-md-12 norightpad">
+            <div class="dottedborder1 text-center">
+                <div> <i class="icon-upld-icon icon-blue big60 " aria-hidden="true"></i><strong>Drag and Drop</strong> files here or <a id="pickfiles" href="javascript:;"> <span class="p500">Browse</span></a> to begin upload</div>
+                <div id="divFileArea" class="table table-striped">
+                </div>
+
+                <div class="text-right"><button type="button" id="pdata" class="btn btn-skyblue1">@*<img src="~/Images/pdata-icon.png" alt="" class="gap5px-right" />*@<i class="icon-pdata1 pdata big22" aria-hidden="true"></i> <span class="pdata-txt">Process Data</span></button></div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="col-lg-12 col-md-6, col-sm-6">
+        <div class="modal try fade" id="workforce-fields" tabindex="-1" role="dialog"></div>
+        <div class="col-lg-12 col-md-6, col-sm-6">
+            <div class="modal fade" id="workforce-error" tabindex="-1" role="dialog"></div>
+        </div>
+    </div>
+
+</div>
+<div class="row top-pad nomargin">
+    <div id="gridHeaderTxt" class="col-md-12 existtit">Existing Files</div>
+    <div id="employeeData" class="col-md-12">
+        @(Html.Kendo().Grid<Laserbeam.BusinessObject.Common.TemplateDataModel>()
+                                        .Name("grdEmployeeData")
+                                                .Events(e => e.DataBound("grdEmployeeLoadedDataBound"))
+                                //.Scrollable(s => s.Enabled(true).Height(400))
+                                .Columns(columns =>
+                                {
+                                columns.Template(@<text></text>).ClientTemplate("<a id='lnkXmlFileName'>#=XmlFileName#</a>").HtmlAttributes(new { style = "text-align:center;" }).Title("File Name").HeaderHtmlAttributes(new { style = "text-align:center;white-space: normal" });
+                                    columns.Template(@<text></text>).ClientTemplate("#=RecordCount#").HtmlAttributes(new { style = "text-align:center;" }).Title("Record Count").HeaderHtmlAttributes(new { style = "text-align:center;white-space: normal" });
+                                    columns.Template(@<text></text>).ClientTemplate("#=ProcessedCount#").HtmlAttributes(new { style = "text-align:center;" }).Title("Processed").HeaderHtmlAttributes(new { style = "text-align:center;white-space: normal" });
+                                    columns.Template(@<text></text>).ClientTemplate("#=ProcessDate#").HtmlAttributes(new { style = "text-align:center;" }).Title("Process Date").HeaderHtmlAttributes(new { style = "text-align:center;white-space: normal" });
+                                    columns.Template(@<text></text>).ClientTemplate("#=UserName#").HtmlAttributes(new { style = "text-align:center;" }).Title("User Name").HeaderHtmlAttributes(new { style = "text-align:center;white-space: normal" });
+                                    columns.Template(@<text></text>).ClientTemplate("<span class='glyphicon glyphicon-trash' title='Delete' ></span>").Title("Delete").HtmlAttributes(new { id = "btnDelete" });
+                                }).AutoBind(true)
+
+                                                                                                                                                      .DataSource(datasource => datasource
+                                                                                                                                                      .Ajax()
+                                                                                                                                                            .Read(read => read.Action("GetEmployeeLoadedDataDetails", "WorkForce").Data("additionalParameterInfo"))
+                                                                                                                                                      .ServerOperation(true)
+                                                                                                                                                      .PageSize(50))
+                                                                                                                                                      .Pageable()
+        )
+    </div>
+</div>

@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="BIZ_DEVModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="AppUser">
+    <Key>
+      <PropertyRef Name="AppUserPK" />
+    </Key>
+    <Property Name="AppUserPK" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserID" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="UserName" Type="varchar" MaxLength="500" Nullable="false" />
+    <Property Name="FirstName" Type="varchar" MaxLength="250" />
+    <Property Name="LastName" Type="varchar" MaxLength="250" />
+    <Property Name="Email" Type="varchar" MaxLength="250" />
+    <Property Name="Passkey" Type="varbinary" MaxLength="500" />
+    <Property Name="Logged" Type="numeric" Precision="18" Scale="0" />
+    <Property Name="UserRole" Type="tinyint" />
+    <Property Name="LoginAttempt" Type="tinyint" />
+    <Property Name="Lastlogin" Type="datetime" />
+    <Property Name="Lastlogout" Type="datetime" />
+    <Property Name="UserStatus" Type="tinyint" />
+  </EntityType>
+  <EntityType Name="CommonCode">
+    <Key>
+      <PropertyRef Name="CommonCodePK" />
+    </Key>
+    <Property Name="CommonCodePK" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CodeType" Type="varchar" MaxLength="15" />
+    <Property Name="CodeID" Type="tinyint" />
+    <Property Name="Code" Type="varchar" MaxLength="50" />
+    <Property Name="IsActive" Type="bit" />
+  </EntityType>
+  <EntityType Name="UserRole">
+    <Key>
+      <PropertyRef Name="UserRolePK" />
+    </Key>
+    <Property Name="UserRolePK" Type="tinyint" Nullable="false" />
+    <Property Name="UserRole" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="IsActive" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityContainer Name="BIZ_DEVModelStoreContainer">
+    <EntitySet Name="AppUser" EntityType="Self.AppUser" Schema="AppAdmin" store:Type="Tables" />
+    <EntitySet Name="CommonCode" EntityType="Self.CommonCode" Schema="Master" store:Type="Tables" />
+    <EntitySet Name="UserRole" EntityType="Self.UserRole" Schema="Master" store:Type="Tables" />
+  </EntityContainer>
+</Schema>

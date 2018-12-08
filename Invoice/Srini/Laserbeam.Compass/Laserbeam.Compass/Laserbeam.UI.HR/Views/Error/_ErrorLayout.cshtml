@@ -1,0 +1,80 @@
+﻿
+@*@{
+    Layout = null;
+}*@
+
+<!DOCTYPE html>
+<html style="background-color: white">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width" />
+    <title>Compass Rewards</title>
+    <link href="~/Content/Site.css" rel="stylesheet" />
+    <style type="text/css">
+        body{
+            background:transparent;
+        }
+        body, .fnts {
+            font-family: 'segoeui';
+        }
+
+        .img-padding {
+            padding: 30px 10px 0 10px;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .img-responsive,
+        .thumbnail > img,
+        .thumbnail a > img,
+        .carousel-inner > .item > img,
+        .carousel-inner > .item > a > img {
+            display: block;
+            max-width: 100%;
+            height: auto;
+        }
+
+
+        .big30 {
+            font-size: 30px;
+            color: #555;
+        }
+
+        .big21 {
+            padding-top: 15px;
+            font-size: 21px;
+            color: #fa6366;
+            padding-bottom: 10px;
+        }
+
+        .relogin-btn a, .relogin-btn a:hover, .relogin-btn a:focus {
+            font-size: 14px;
+            color: #fff;
+            text-decoration: none;
+            background: #00abf0;
+            padding: 6px 12px;
+            border-radius: 4px;
+        }
+        .relogin-btn{
+            padding-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="fnts">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="img-padding text-center">
+                    <div class="img-responsive">
+                        <img src="~/Images/techissues-bicon.png">
+                    </div>
+                    <div class="big30">Oops! Something wrong here...</div>
+                </div>
+            </div>
+        </div>
+        @RenderBody()
+    </div>
+</body>
+</html>

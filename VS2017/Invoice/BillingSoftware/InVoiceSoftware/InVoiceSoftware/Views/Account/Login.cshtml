@@ -1,0 +1,49 @@
+﻿@{ Layout = null;}
+@Styles.Render("~/Content/css")
+@Scripts.Render("~/bundles/modernizr")
+<html ng-app="myApp">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="~/Content/bootstrap.min.css">
+    <link rel="stylesheet" href="~/Content/font-awesome.min.css">
+    <link href="~/Content/Login.css" rel="stylesheet" />
+    <title>Login</title>
+</head>
+<body class="container body-content" ng-controller="AccountController as login" style="background-color:#237691">
+    <form class="form-group" id="loginForm" ng-submit="login()" name="myForm" novalidate autocomplete="off">
+        <div class="frame-container">
+            <div class="form-section">
+                <div class="logo-section"><img src="~/Images/login1.png" alt=""></div>
+                <div>
+                    <div class="input-section">
+                        <div class="email-section">
+                            <input type="text" ng-model="logUser.userID" name="UserID" placeholder="UserID" required value="" />
+                        </div>
+                        <div class="password-section">
+                            <input type="password" ng-model="logUser.password" name="Password" placeholder="Password" required value="" />
+
+                        </div>
+                        <div class="clear-fix"></div>
+                    </div>
+                    <button class="log-btn" ng-disabled="myForm.$invalid" type="submit" style="width:60%">Log In</button>
+                    <div class="error-section">
+                        <label id="errorMsg" class="message-block" style="display:none;text-align:center;"></label>
+                    </div>
+                    <div class="forget-section">
+                        <a href="#" class="f-link" id="lnkAccountLoginForgotPassword" ng-click="forgotPwd()">Forgot Password?</a>
+                    </div>
+                </div>
+            </div>
+            <div class="clear-fix"></div>
+        </div>
+    </form>
+        <script src="~/Scripts/angular.min.js"></script>
+        <script src="~/Scripts/AppScripts/Login.js"></script>
+        @Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/bootstrap")
+    </body>
+</html>
+
+

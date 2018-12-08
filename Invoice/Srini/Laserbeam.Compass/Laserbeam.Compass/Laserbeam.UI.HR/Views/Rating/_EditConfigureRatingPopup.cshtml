@@ -1,0 +1,151 @@
+﻿@model Laserbeam.UI.HR.Models.RatingViewModel
+<style>
+    ::-webkit-input-placeholder { /* WebKit, Blink, Edge */
+        font-style: italic;
+    }
+
+    :-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+        font-style: italic;
+    }
+
+    ::-moz-placeholder { /* Mozilla Firefox 19+ */
+        font-style: italic;
+    }
+
+    :-ms-input-placeholder { /* Internet Explorer 10-11 */
+        font-style: italic;
+    }
+
+    ::-ms-input-placeholder { /* Microsoft Edge */
+        font-style: italic;
+    }
+</style>
+
+<div class="modal-dialog">
+    @using (Ajax.BeginForm("_EditConfigureRatingPopup", "Rating", new AjaxOptions { HttpMethod = "Post" }, new { @class = " form-sec" }))
+    {
+        @Html.AntiForgeryToken()
+        <div class="modal-content">
+            <div class="modal-header">
+
+                @Html.HiddenFor(x => x.RatingNum, new { id = "hdnRatingNum" })
+                @if (Model.RatingDescription != null)
+                {
+                    <h4 class="modal-title" id="editRatingTitle">Edit/Modify Rating</h4>
+                }
+                else
+                {
+                    <h4 class="modal-title" id="addRatingTitle">Add Rating</h4>
+                }
+            </div>
+            <div class="modal-body">
+                <div class="row nomargin top-pad">
+                    <div class="row">
+                        <div class="col-md-4">
+                            Rating Description
+                        </div>
+                        <div class="col-md-6">
+                            @Html.TextBoxFor(a => a.RatingDescription, new { @class = "form-control form-border", placeholder = "Example 5 - Meets Expectation", id = "editRatingDescription" })
+                        </div>
+                    </div>
+
+
+                    <div class="row top-pad">
+                        <div class="col-md-4">
+                            Sort Order
+                        </div>
+                        <div class="col-md-6">
+                            @Html.TextBoxFor(a => a.RatingOrder, new { @class = "form-control form-border", placeholder = "Example: 1", id = "editSortingOrder", onkeypress = "return ValidateInt(event);" })
+                        </div>
+                    </div>
+                </div>
+                <div class="row top-pad">
+                    <div class="col-md-4">
+                        Min Range 
+                    </div>
+                    <div class="col-md-6">
+                        @Html.TextBoxFor(a => a.MinRange, new { @class = "form-control form-border", placeholder = "Example 1", id = "editScoreRangeLow"})
+                    </div>
+                </div>
+                <div class="row top-pad">
+                    <div class="col-md-4">
+                        Max Range 
+                    </div>
+                    <div class="col-md-6">
+                        @Html.TextBoxFor(a => a.MaxRange, new { @class = "form-control form-border", placeholder = "Example 10", id = "editScoreRangeHigh"})
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="row">
+                    <div class="col-md-12 text-right">
+                        <button type="button" id="CancelAddRatingButton" class="btn btn-cancel"><i class="fa fa-ban"></i> Cancel</button>
+                        <button type="submit" id="saveAddRatingButton" class="btn btn-info prim-btn">Save</button>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+
+    }
+</div>
+
+@*<script type="text/javascript">
+
+    $(document).ready(function () {
+        $.validator.unobtrusive.parse(document);
+        setValidation();
+    });
+    function setValidation() {
+        $(".input-validation-error").parent().removeClass('has-success').addClass("has-error");
+        $("div.validation-summary-errors").has("li:visible").addClass("alert-block alert-danger");
+
+        $('form').data('validator').settings.onfocusout = function (element) {
+            $(element).valid();
+        };
+    }
+    $(document).on("click", "#CancelAddRatingButton", function () {
+        $("#divRating").modal("hide");
+        $("#grdConfigureRating").data("kendoGrid").refresh();
+    });
+
+
+    $.validator.unobtrusive.adapters.add(
+    'notequalto', ['other'], function (options) {
+        options.rules['notEqualTo'] = "[name='" + options.params.other + "']";
+        if (options.message) {
+            options.messages['notEqualTo'] = options.message;
+        }
+    });
+
+    $.validator.addMethod('notEqualTo', function (value, element, param) {
+        return this.optional(element) || value != $(param).val();
+    }, '');
+
+    $.validator.setDefaults({
+        showErrors: function (errorMap, errorList) {
+            $.each(this.successList, function (index, value) {
+                $(value).parent().removeClass("has-error");
+                return $(value).popover("hide");
+            });
+            return $.each(errorList, function (index, value) {
+                var _popover;
+                _popover = $(value.element).popover({
+                    trigger: "manual",
+                    placement: "bottom",
+                    content: value.message,
+                    template: "<div class=\"popover\"><div class=\"arrow\"></div><div class=\"popover-inner\"><div class=\"popover-content\"><span class=\"glyphicon glyphicon-hand-right\"></span><p></p></div></div></div>"
+                });
+                $(value.element).parent().addClass("has-error");
+                _popover.data("bs.popover").options.content = value.message;
+                return $(value.element).popover("show");
+            });
+        }
+    });
+
+</script>*@
+
+
+
+

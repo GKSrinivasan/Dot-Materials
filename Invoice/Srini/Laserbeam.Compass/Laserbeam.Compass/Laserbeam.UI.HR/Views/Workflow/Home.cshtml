@@ -1,0 +1,740 @@
+﻿@using Laserbeam.Constant.HR;
+@Html.Hidden("hndOrgPageType", ViewPageType.Compensation)
+@model Laserbeam.UI.HR.Models.WorkflowModel
+@section ScriptReference{
+<link href="~/Content/Workflow.css" rel="stylesheet" />
+
+@*Start Treant.JS*@
+<script src="~/Scripts/OrgChart/raphael.js"></script>
+<script src="~/Scripts/OrgChart/Treant.js"></script>
+@*<script src="~/Scripts/OrgChart/collapsable.js"></script>*@
+<link rel="stylesheet" href="~/Content/OrgChart/Treant.css">
+<link rel="stylesheet" href="~/Content/OrgChart/connectors.css">
+@*<link rel="stylesheet" href="~/Content/OrgChart/collapsable.css">*@
+@*End Treant.JS*@
+
+@*Start Google*@
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+@*End Google*@
+
+@*Start Kendo*@
+<link href="~/Content/Kendo/kendo.common.min.css" rel="stylesheet" />
+<link href="~/Content/Kendo/kendo.default.min.css" rel="stylesheet" />
+<link href="~/Content/Kendo/kendo.default.mobile.min.css" rel="stylesheet" />
+@*<script src="~/Scripts/Kendo/kendo.all.min.js"></script>*@
+@*End Kendo*@
+<style type="text/css">
+    .uplodFile-icon {
+        width: 10%;
+        float: none;
+        font-size: 19px;
+        color: #ffcc00;
+    }
+
+    .file-content {
+        width: 85%;
+        float: left;
+    }
+
+    .file-remove {
+        width: 5%;
+        float: left;
+        color: #dbdbdb;
+        padding-top: 5px;
+        cursor: pointer;
+    }
+
+        .file-remove .fa {
+            vertical-align: middle;
+        }
+
+    li.k-file .file-wrapper .k-upload-action {
+        position: absolute;
+        top: 0;
+        right: 0;
+    }
+
+    .progress .progress-bar {
+        background-image: none;
+        background-color: #0173c7;
+        text-align: center;
+    }
+
+        .progress .progress-bar[aria-valuenow="0"] {
+            color: black;
+        }
+
+    .file-area .progress {
+        margin-bottom: 1px !important;
+        display: none;
+    }
+
+    .file-area .progress-bar {
+        font-size: 8px !important;
+        line-height: 0 !important;
+    }
+
+    .progress {
+        height: 10px !important;
+    }
+
+    .progress-bar {
+        padding-top: 5px !important;
+    }
+
+    .img-valign {
+        vertical-align: middle;
+        margin-bottom: 0.75em;
+    }
+
+    #grdWorkFlow td {
+        text-overflow: clip !important;
+    }
+</style>
+<script src="~/Scripts/Workflow.js"></script>
+<script type="text/javascript">
+        var preferredCulture = 'eN-US';
+        var defaultProcessNum = '@Model.ProcessNum';
+        var IsWorkFlowDataCustomized = '@Model.IsCustomized';
+        var WorkFlowLevel = '@Model.WorkFlowLevel';
+</script>
+}
+<!-- budget plan start -->
+@Html.AntiForgeryToken()
+<div class="container-fluid">
+    <div class="row">
+        <div class="row"><div id="divworkflowheader" class="col-md-12 mainheading mainheading1 top-pad">Workflow</div></div>
+    </div>
+    <div class="row top-pad" id="workflowSection">
+        <div class="col-sm-3 col-md-3 col-lg-3 modulespan noleftpad">
+            <span class="modulespantitle">Module</span>
+            @(Html.Kendo().DropDownList()
+                    .Name("ddlProcess")
+                            .HtmlAttributes(new { style = "width:75%", id = "ddlProcess" })
+                                    .DataTextField("Text").DataValueField("Value")
+                                    .Events(eve => eve.DataBound("ddlProcessDataBound"))
+            .DataSource(datasource =>
+            {
+                datasource
+                    .Read(read =>
+                    {
+                        read.Action("GetProcess", "Workflow").Data("additionalParam").Type(HttpVerbs.Post);
+
+                    });
+
+            })
+            )
+        </div>
+        <div class="col-sm-2 col-md-2 col-lg-2 workflowprocess">
+            <span class="titlespan">Workflow Process</span>
+            <span class="tooltip1">
+                <i class="fa fa-question-circle test" aria-hidden="true"></i>
+                <span class="tooltiptext"><span class="hc-btn">Hierarchy : </span>The workflow will be build based on the organization hierarchy. Whenever there is a change in the organization the workflow gets auto updated.<br /><span class="hc-btn">Custom : </span>You can define the workflow process.</span>
+            </span>
+        </div>
+        <div class="col-sm-3 col-md-3 col-lg-2 workflowhierarchy">
+            <div class="register-switch">
+                <input type="radio" name="CustomizeBtn" value="Hierarchy" id="hierarchyBtn" class="register-switch-input " checked="">
+                <label for="hierarchyBtn" class="register-switch-label">Hierarchy</label>
+                <input type="radio" name="CustomizeBtn" value="Custom" id="customBtn" class="register-switch-input">
+                <label for="customBtn" class="register-switch-label">Custom</label>
+            </div>
+        </div>
+        <div class="col-sm-4 col-md-4 col-lg-4 col-lg-offset-1 wrkflwlevel" id="wrkflwlevel" style="display:none">
+            <form class="form-inline">
+                <div class="form-group workflowlevel">
+                    <label>
+                        Select no. of levels you want for the approval process
+                    </label>
+                    @(Html.Kendo().DropDownListFor(s => s.WorkFlowLevel)
+                                      .Name("ddlWFLevels")
+                                      .DataTextField("Text")
+                                      .DataValueField("Value")
+                                      //.OptionLabel("-select-")
+                                      .BindTo(new List<SelectListItem>() {
+                                          new SelectListItem() {
+                                                          Text = "Level 1",
+                                                          Value = "1"
+                                                      },
+                                                      new SelectListItem() {
+                                              Text = "Level 2",
+                                              Value = "2"
+                                          },
+                                                      new SelectListItem() {
+                                              Text = "Level 3",
+                                              Value = "3"
+                                          },
+                                                      new SelectListItem() {
+                                                          Text = "Level 4",
+                                                          Value = "4"
+                                                      },
+
+                                                      new SelectListItem() {
+                                                          Text = "Level 5",
+                                                          Value = "5"
+                                                      },
+                                                       new SelectListItem() {
+                                                          Text = "Level 6",
+                                                          Value = "6"
+                                                      },
+                                                      new SelectListItem() {
+                                              Text = "Level 7",
+                                              Value = "7"
+                                          },
+                                                      new SelectListItem() {
+                                              Text = "Level 8",
+                                              Value = "8"
+                                          },
+                                                      new SelectListItem() {
+                                                          Text = "Level 9",
+                                                          Value = "9"
+                                                      },
+
+                                                      new SelectListItem() {
+                                                          Text = "Level 10",
+                                                          Value = "10"
+                                                      },
+
+                                      }).HtmlAttributes(new { style = "width:100%", onChange = "LevelChanged(this.id)" })
+                    )
+
+                </div>
+                <div class="italicgrey">
+                    Example: If you select level 3 from the drop down, the final level would be level 3. Therefore, it will not be more than 3 levels in the workflow
+                    <div class="egtext">
+                        Level 1&nbsp;&nbsp;&nbsp;<i class="fa fa-hand-o-right"></i>&nbsp;&nbsp;&nbsp; Level 2 &nbsp;&nbsp;&nbsp;<i class="fa fa-hand-o-right"></i>&nbsp;&nbsp;&nbsp; Level 3 Final Approval
+                    </div>
+                </div>
+
+            </form>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6 col-sm-6 noleftpad">
+            <ul class="nav nav-tabs" role="tablist">
+                <li role="presentation" class="active"><a href="#workflow" id="employeeListLnk" aria-controls="home" role="tab" data-toggle="tab">Employee List</a></li>
+                <li role="presentation" style="display:none;" id="uploadWfDataTab"><a id="uploadWFData" href="#uploadworkflow" aria-controls="profile" role="tab" data-toggle="tab">Upload Workflow Data</a></li>
+            </ul>
+        </div>
+        <div class="col-md-6 col-sm-6 text-right norightpad">
+            <div class="dropdown">
+                <button type="button" id="reloadBtn" class="btn btn-info btn-reload" style="display:none;">Auto-Populate Manager Hierarchy</button>
+                <button type="button" class="btn btn-info prim-btn" id="btnSave" style="display:none;">Save</button>
+                <button class="btn btn-bordered dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                    <img src="../../Images/more-v.png" class="top2pad" alt=""> Action
+                </button>
+                <ul class="dropdown-menu moreaction-btn more1" aria-labelledby="dropdownMenu1">
+                    <li id="filter"><a href="#"><i class="fa fa-filter"></i> Filter </a></li>
+                    <li id="btnClearFilter" style="display:none;"><a href="#"><i class="fa fa-filter"></i> Clear</a></li>
+                    <li id="btnWorkFlowExport"><a href="#"><i class="fa fa-file-excel-o"></i> Export</a></li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="col-md-12 nopad">
+            <!-- Nav tabs -->
+            <!-- Tab panes -->
+            <div class="tab-content">
+                <div role="tabpanel" class="tab-pane active" id="workflow">
+                    <div class="row nomargin">
+                        <div class="col-lg-3 col-lg-offset-9 col-md-4 col-md-offset-8 top-pad">
+                            <div class="register-switch">
+                                <input type="radio" name="empShow" value="EmployeeID" id="employeeID" class="register-switch-input" checked="">
+                                <label for="employeeID" class="register-switch-label">Employee ID</label>
+                                <input type="radio" name="empShow" value="EmployeeName" id="employeeName" class="register-switch-input">
+                                <label for="employeeName" class="register-switch-label">Employee Name</label>
+                            </div>
+                        </div>
+                        <div class="chart" id="OrganiseChart_Google"></div>
+                        <div class="chart" id="OrganiseChart-Kendo"></div>
+                        <div class="chart" id="OrganiseChart-trendJs"></div>
+                        <div class="col-md-12 table-responsive notopmargin b-pad" style="display:none;">
+                            @(Html.Kendo().Grid<Laserbeam.BusinessObject.Common.WorkFlowGrid>()
+                                .Name("grdWorkFlow")
+                                .Columns(columns =>
+                                {
+                                    columns.Bound(e => e.IsChanged).Visible(false);
+                                    columns.Bound(e => e.IsCssChanged).Visible(false);
+                                    columns.Bound(e => e.EmployeeID).Title("Employee ID").HeaderHtmlAttributes(new { style = "text-align:center; white-space: normal;width:110px; " })
+                                    .HtmlAttributes(new { style = " text-align:center;" });
+                                    columns.Bound(e => e.EmployeeName).Title("Employee Name").HtmlAttributes(new { style = "text-align:left; white-space: normal; width:135px;" }).HeaderHtmlAttributes(new { style = "text-align:left;white-space: normal; " });
+                                    columns.Template(@<text></text>).HeaderTemplate("Level 1 <div class='input-group sm-input'> <input id='AppMgrOneEmpNum' class='form-control' type='text' style = 'display:none;'/></div>").ClientTemplate("#=grdData(data,1)#").HtmlAttributes(new { id = "idtxtbox1", style = "text-align:left;" }).HeaderHtmlAttributes(new { style = "text-align:left;white-space: normal", onkeypress = "return ValidateAllTextBoxes(event);" });
+                                    columns.Template(@<text></text>).HeaderTemplate("Level 2 <div class='input-group sm-input'> <input id='AppMgrTwoEmpNum' class='form-control' type='text'  style = 'display:none;'/><div class='input-group-btn'> <button class='btn btn-small btn-defaultgray disableBtn2' id='deleteBtnTwo'style='display:none';> <span class='glyphicon glyphicon-trash'></span></button></div></div>").ClientTemplate("#=grdData(data,2)#").Title("Level 2").HtmlAttributes(new { id = "idtxtbox2", style = "text-align:left;" }).HeaderHtmlAttributes(new { style = "text-align:left;white-space: normal", onkeypress = "return ValidateAllTextBoxes(event);" });
+                                    columns.Template(@<text></text>).HeaderTemplate("Level 3 <div class='input-group sm-input'> <input id='AppMgrThreeEmpNum'  class='form-control'  type='text' style = 'display:none;'/><div class='input-group-btn'> <button class='btn btn-small btn-defaultgray disableBtn3' id='deleteBtnThree' style='display:none';> <span class='glyphicon glyphicon-trash'></span></button></div></div>").ClientTemplate("#=grdData(data,3)#").Title("Level 3").HtmlAttributes(new { id = "idtxtbox3", style = "text-align:left;" }).HeaderHtmlAttributes(new { style = "text-align:left;white-space: normal", onkeypress = "return ValidateAllTextBoxes(event);" });
+                                    columns.Template(@<text></text>).HeaderTemplate("Level 4 <div class='input-group sm-input'> <input id='AppMgrFourEmpNum'  class='form-control' type='text' style = 'display:none;'/><div class='input-group-btn'> <button class='btn btn-small btn-defaultgray disableBtn4' id='deleteBtnFour' style='display:none';> <span class='glyphicon glyphicon-trash'></span></button></div></div>").ClientTemplate("#=grdData(data,4)#").Title("Level 4").HtmlAttributes(new { id = "idtxtbox4", style = "text-align:left;" }).HeaderHtmlAttributes(new { style = "text-align:left;white-space: normal", onkeypress = "return ValidateAllTextBoxes(event);" });
+                                    columns.Template(@<text></text>).HeaderTemplate("Level 5 <div class='input-group sm-input'> <input id='AppMgrFiveEmpNum'  class='form-control' type='text' style = 'display:none;'/><div class='input-group-btn'> <button class='btn btn-small btn-defaultgray disableBtn5' id='deleteBtnFive' style='display:none';> <span class='glyphicon glyphicon-trash'></span></button></div></div>").ClientTemplate("#=grdData(data,5)#").Title("Level 5").HtmlAttributes(new { id = "idtxtbox5", style = "text-align:left;" }).HeaderHtmlAttributes(new { style = "text-align:left;white-space: normal", onkeypress = "return ValidateAllTextBoxes(event);" });
+                                    columns.Template(@<text></text>).HeaderTemplate("Level 6 <div class='input-group sm-input'> <input id='AppMgrSixEmpNum'  class='form-control' type='text' style = 'display:none;'/><div class='input-group-btn'> <button class='btn btn-small btn-defaultgray disableBtn6' id='deleteBtnSix' style='display:none';> <span class='glyphicon glyphicon-trash'></span></button></div></div>").ClientTemplate("#=grdData(data,6)#").Title("Level 6").HtmlAttributes(new { id = "idtxtbox6", style = "text-align:left;" }).HeaderHtmlAttributes(new { style = "text-align:left;white-space: normal", onkeypress = "return ValidateAllTextBoxes(event);" });
+                                    columns.Template(@<text></text>).HeaderTemplate("Level 7 <div class='input-group sm-input'> <input id='AppMgrSevenEmpNum'  class='form-control' type='text' style = 'display:none;'/><div class='input-group-btn'> <button class='btn btn-small btn-defaultgray disableBtn7' id='deleteBtnSeven' style='display:none';> <span class='glyphicon glyphicon-trash'></span></button></div></div>").ClientTemplate("#=grdData(data,7)#").Title("Level 7").HtmlAttributes(new { id = "idtxtbox7", style = "text-align:left;" }).HeaderHtmlAttributes(new { style = "text-align:left;white-space: normal", onkeypress = "return ValidateAllTextBoxes(event);" });
+                                    columns.Template(@<text></text>).HeaderTemplate("Level 8 <div class='input-group sm-input'> <input id='AppMgrEightEmpNum'  class='form-control' type='text' style = 'display:none;'/><div class='input-group-btn'> <button class='btn btn-small btn-defaultgray disableBtn8' id='deleteBtnEight' style='display:none';> <span class='glyphicon glyphicon-trash'></span></button></div></div>").ClientTemplate("#=grdData(data,8)#").Title("Level 8").HtmlAttributes(new { id = "idtxtbox8", style = "text-align:left;" }).HeaderHtmlAttributes(new { style = "text-align:left;white-space: normal", onkeypress = "return ValidateAllTextBoxes(event);" });
+                                    columns.Template(@<text></text>).HeaderTemplate("Level 9 <div class='input-group sm-input'> <input id='AppMgrNineEmpNum'  class='form-control' type='text' style = 'display:none;'/><div class='input-group-btn'> <button class='btn btn-small btn-defaultgray disableBtn9' id='deleteBtnNine' style='display:none';> <span class='glyphicon glyphicon-trash'></span></button></div></div>").ClientTemplate("#=grdData(data,9)#").Title("Level 9").HtmlAttributes(new { id = "idtxtbox9", style = "text-align:left;" }).HeaderHtmlAttributes(new { style = "text-align:left;white-space: normal", onkeypress = "return ValidateAllTextBoxes(event);" });
+                                    columns.Template(@<text></text>).HeaderTemplate("Level 10 <div class='input-group sm-input'> <input id='AppMgrTenEmpNum'  class='form-control' type='text' style = 'display:none;'/><div class='input-group-btn'> <button class='btn btn-small btn-defaultgray disableBtn10' id='deleteBtnTen' style='display:none';> <span class='glyphicon glyphicon-trash'></span></button></div></div>").ClientTemplate("#=grdData(data,10)#").Title("Level 10").HtmlAttributes(new { id = "idtxtbox10", style = "text-align:left;" }).HeaderHtmlAttributes(new { style = "text-align:left;white-space: normal", onkeypress = "return ValidateAllTextBoxes(event);" });
+
+                                }).AutoBind(true)
+
+                                                                                                                   .DataSource(datasource => datasource
+                                                                                                                   .Ajax().Model(m => { m.Id(n => n.EmployeeID); })
+                                                                                                                           .Sort(st =>
+                                                                                                                           {
+                                                                                                                               st.Add(e => e.EmployeeID).Ascending();
+                                                                                                                               st.Add(e => e.EmployeeName).Ascending();
+                                                                                                                           })
+                                                                                                                   .Read(read => read.Action("GetGridData", "Workflow").Data("AdditionalParameterInfo"))
+                                                                                                                   .ServerOperation(true)
+                                                                                                                   .PageSize(50)
+                                                                                                                   )
+                                                                                                                   .Events(x => x.DataBound("WorkFlowGridDataBound")).Pageable(p=>p.Enabled(true))
+                                                                                                                   .Sortable()
+                            )
+                        </div>
+                        @(Html.Kendo().Window().Name("wndFilterSort").Title("Filter/Sort").Visible(false).Width(710).Height(270).Modal(true))
+                    </div>
+
+                </div>
+                <div role="tabpanel" class="tab-pane" id="uploadworkflow">
+                    <div class="row top-pad">
+                        <!-- Row Begins -->
+                        <div class="col-md-12 mainheading text-center">
+                            Upload Workflow
+                        </div>
+                        <div class="col-md-12 para">To "<span class="blue">Add multiple Workflow records</span>" download, fill and upload the ‘Workflow template’ file.</div>
+                    </div>
+                    <div class="row top-pad nomargin">
+
+                        <div class="col-md-5 col-md-offset-1 col-sm-6">
+
+
+                            <div class="col-md-12">
+                                <div class="dottedborder text-center">
+                                    <div> <i class="icon-dwnld-icon icon-blue big60 " aria-hidden="true"></i> <a href="#" onclick="downloadApprovalData();">Download</a> the Workflow Template</div>
+                                    <div><i class="fa fa-question-circle-o fa-quest" aria-hidden="true"></i> <a data-toggle="modal" data-target="#workflowTemplate">Click Here</a> to know about the template</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-5 col-sm-6">
+                            <div class="col-md-12">
+                                <div class="dottedborder1 text-center" id="drop-zone">
+                                    <div> <i class="icon-upld-icon icon-blue big60 " aria-hidden="true"></i><strong>Drag and Drop</strong> files here or <a id="browsefiles" class="p500" href="javascript:;">Browse</a> to begin upload</div>
+                                    <div id="divFileArea" class="table table-striped">
+                                    </div>
+
+                                    <div class="text-right"><button type="button" id="approvalDataProcess" class="btn btn-skyblue1" data-toggle="modal"><i class="icon-pdata1 pdata big22" aria-hidden="true"></i> <span class="pdata-txt">Process Data</span></button></div>
+                                    <div class="text-left"><a href="#" id="workflowErrorListLink" onclick="getApprovalDataErrorList()" class="error-link red-link" style="display:none"> Error List</a> </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="gridHeaderTxt" class="col-md-12 top-pad existtit">Existing Files</div>
+                        <div class="col-md-12 top-pad">
+                            <div class="row">
+                                <div id="ApprovalData" class="col-md-12">
+                                    @(Html.Kendo().Grid<Laserbeam.BusinessObject.Common.TemplateDataModel>()
+                                        .Name("grdApprovalData")
+                                                .Events(e => e.DataBound("grdApprovalDataBound"))
+                                .Scrollable(s => s.Enabled(true).Height(400))
+                                .HtmlAttributes(new { style = "height:400px" })
+                                .Columns(columns =>
+                                {
+                                    columns.Template(@<text></text>).ClientTemplate("<a id='lnkXmlApprovalFileName'>#=XmlFileName#</a>").HtmlAttributes(new { style = "text-align:center;" }).Title("File Name").HeaderHtmlAttributes(new { style = "text-align:center;white-space: normal" });
+                                    columns.Template(@<text></text>).ClientTemplate("#=RecordCount#").HtmlAttributes(new { style = "text-align:center;" }).Title("Record Count").HeaderHtmlAttributes(new { style = "text-align:center;white-space: normal" });
+                                    columns.Template(@<text></text>).ClientTemplate("#=ProcessedCount#").HtmlAttributes(new { style = "text-align:center;" }).Title("Processed").HeaderHtmlAttributes(new { style = "text-align:center;white-space: normal" });
+                                    columns.Template(@<text></text>).ClientTemplate("#=ProcessDate#").HtmlAttributes(new { style = "text-align:center;" }).Title("Process Date").HeaderHtmlAttributes(new { style = "text-align:center;white-space: normal" });
+                                    columns.Template(@<text></text>).ClientTemplate("#=UserName#").HtmlAttributes(new { style = "text-align:center;" }).Title("User Name").HeaderHtmlAttributes(new { style = "text-align:center;white-space: normal" });
+                                    columns.Template(@<text></text>).ClientTemplate("<span class='glyphicon glyphicon-trash' title='Delete' ></span>").Title("Delete").HtmlAttributes(new { id = "btnDelete" });
+                                }).AutoBind(true)
+
+                                                                                                              .DataSource(datasource => datasource
+                                                                                                              .Ajax()
+                                                                                                                    .Read(read => read.Action("GetApprovalTemplateData", "Workflow").Data("additionalParam"))
+                                                                                                              .ServerOperation(true)
+                                                                                                              )
+                                    )
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-lg-12 col-md-6, col-sm-6">
+    <div class="col-lg-12 col-md-6, col-sm-6">
+        <div class="modal fade" id="approvalData-Error" tabindex="-1" role="dialog"></div>
+    </div>
+</div>
+
+<!--WorkFlow Template Begins-->
+<div class="modal fade" tabindex="-1" role="dialog" id="workflowTemplate">
+    <div class="modal-dialog workflow-popup" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                @*<button type="button" class="close" data-dismiss="modal" aria-label="Close"><i class="fa fa-times-circle" aria-hidden="true"></i></button>*@
+                <h4 class="modal-title">WorkFlow DataFields </h4>
+            </div>
+            <div class="modal-body">
+                <div class="table table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                        <th class="col-md-1">Entities</th>
+                        <th class="col-md-1">Sample Data</th>
+                        <th class="col-md-1">Data Length</th>
+                        <th class="col-md-1">Excel Data Format</th>
+                        <th class="col-md-3">Short Description</th>
+                        </thead>
+                        <tbody>
+
+                            <tr>
+                                <td>EmployeeID</td>
+                                <td>"00A576   adam  005167"</td>
+                                <td>255</td>
+                                <td>Text</td>
+                                <td>The workflow process is tied to each employee record using employee ID</td>
+                            </tr>
+
+                            <tr>
+                                <td>LevelOneManager</td>
+                                <td>2356</td>
+                                <td>255</td>
+                                <td>Text</td>
+                                <td>Direct manager's employee ID should be entered in this column. Employee ID given in this column can only submit the employee review for approval</td>
+                            </tr>
+
+                            <tr>
+                                <td>
+                                    LevelTwoManager
+                                </td>
+                                <td>
+                                    1234
+                                </td>
+                                <td>
+                                    255
+                                </td>
+                                <td>
+                                    Text
+                                </td>
+                                <td>
+                                    Level 2 approver's employee ID has to be entered in this column. Once Leve1 submits the review, Level 2 gets a notification to approve the recommendation
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>
+                                    LevelThreeManager
+                                </td>
+                                <td>
+                                    5434
+                                </td>
+                                <td>
+                                    255
+                                </td>
+                                <td>
+                                    Text
+                                </td>
+                                <td>
+                                    Level 3 approver's employee ID has to be entered in this column. Once Leve2 submits the review, Level 3 gets a notification to approve the recommendation
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>
+                                    LevelFourManager
+                                </td>
+                                <td>
+                                    35634
+                                </td>
+                                <td>
+                                    255
+                                </td>
+                                <td>
+                                    Text
+                                </td>
+                                <td>
+                                    Level 4 approver's employee ID has to be entered in this column. Once Leve4 submits the review, Level 5 gets a notification to approve the recommendation
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>
+                                    LevelFiveManager
+                                </td>
+                                <td>
+                                    436456
+                                </td>
+                                <td>
+                                    255
+                                </td>
+                                <td>
+                                    Text
+                                </td>
+                                <td>
+                                    Level 5 approver's employee ID has to be entered in this column. Once Leve5 submits the review, Level 6 gets a notification to approve the recommendation
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>
+                                    LevelSixManager
+                                </td>
+                                <td>
+                                    46456
+                                </td>
+                                <td>
+                                    255
+                                </td>
+                                <td>
+                                    Text
+                                </td>
+                                <td>
+                                    Level 6 approver's employee ID has to be entered in this column. Once Leve6 submits the review, Level 7 gets a notification to approve the recommendation
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>
+                                    LevelSevenManager
+                                </td>
+                                <td>
+                                    12354
+                                </td>
+                                <td>
+                                    255
+                                </td>
+                                <td>
+                                    Text
+                                </td>
+                                <td>
+                                    Level 7 approver's employee ID has to be entered in this column. Once Leve7 submits the review, Level 8 gets a notification to approve the recommendation
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>
+                                    LevelEightManager
+                                </td>
+                                <td>
+                                    4564
+                                </td>
+                                <td>
+                                    255
+                                </td>
+                                <td>
+                                    Text
+                                </td>
+                                <td>
+                                    Level 8 approver's employee ID has to be entered in this column. Once Leve1 submits the review, Level 4 gets a notification to approve the recommendation
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>
+                                    LevelNineManager
+                                </td>
+                                <td>
+                                    456
+                                </td>
+                                <td>
+                                    255
+                                </td>
+                                <td>
+                                    Text
+                                </td>
+                                <td>
+                                    Level 9 approver's employee ID has to be entered in this column. Once Leve9 submits the review, Level 10 gets a notification to approve the recommendation
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>
+                                    LevelTenManager
+                                </td>
+                                <td>
+                                    5345
+                                </td>
+                                <td>
+                                    255
+                                </td>
+                                <td>
+                                    Text
+                                </td>
+                                <td>
+                                    Level 10 approver's employee ID has to be entered in this column
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>Module</td>
+                                <td>RecommendIncrease</td>
+                                <td>255</td>
+                                <td>Text</td>
+                                <td>The workflow is tied to the module. RecommendIncrease module name should be given to all the employees in the module column to run the workflow process</td>
+                            </tr>
+
+
+
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            @*<div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>*@
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<!--WorkFlow Template Ends-->
+
+<div id="errorFiles" class="col-md-12 text-center" style="color:red !important">
+</div>
+<style>
+    .km-scroll-wrapper{
+        overflow:visible !important;
+    }
+</style>
+
+<script>
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+    })
+
+    //Start Google
+    google.charts.load('current', { packages: ["orgchart"] });    
+    function googleChart() {
+        var googleData = new google.visualization.DataTable();
+        googleData.addColumn('string', 'Name');
+        googleData.addColumn('string', 'Manager');
+        googleData.addColumn('string', 'ToolTip');
+        $.ajax({
+            url: "../Workflow/GetGoogleOrgChart",
+            type: "post",
+            success: function (response) {
+                for (var i = 0; i < response.length; i++) {
+                    var empName = response[i].Employee;
+                    var empID = response[i].empID;
+                    var mgrID = response[i].mgrID;
+                    var designation = response[i].designation;
+                    googleData.addRows([[{ v: empID, f: empName }, mgrID, designation]]);
+                }
+                var chart = new google.visualization.OrgChart(document.getElementById('OrganiseChart_Google'));
+                chart.draw(googleData, { allowHtml: true });
+            }
+        });
+    }
+    //End Google
+
+    //Start Treand.Js
+    var a = [];
+    config = {
+        container: "#OrganiseChart-trendJs",
+        levelSeparation: 45,
+        rootOrientation: "WEST",
+        nodeAlign: "BOTTOM",
+        connectors: {type: "step",style: {"stroke-width": 2}},
+        node: { HTMLclass: "big-commpany", collapsable: true}
+    };
+    simple_chart_config = [config];
+    function TreantChart() {
+        $.ajax({
+            url: "../Workflow/GetTreantOrgChart",
+            type: "post",
+            success: function (response) {
+                for (var i = 0; i < response.length; i++) {
+                    var empName = response[i].Employee;
+                    var node = parseInt(response[i].empID);
+                    var parentNode = parseInt((response[i].mgrID == "") ? 0 : response[i].mgrID);
+                    if (response[i].mgrID == 0) { a[node] = { text: { name: empName} }; }
+                    else { a[node] = { parent: a[parentNode], text: { name: empName} }; }
+                    simple_chart_config.push(a[node]);
+                }
+                new Treant(simple_chart_config);
+            }
+        });
+    }
+    //End Tread.Js
+
+    //Start Kendo
+    var KendoData;
+    function visualTemplate(options) {
+        var dataviz = kendo.dataviz;
+        var g = new dataviz.diagram.Group();
+        var dataItem = options.dataItem;
+        g.append(new dataviz.diagram.Rectangle({width: 150,height: 35,stroke: {width: 0},fill: "#1696d3"}));
+        g.append(new dataviz.diagram.TextBlock({text: dataItem.ManagerName,x: 20,y: 10,fill: "#fff"}));
+        return g;
+    }
+    function KendoChart() {
+        $("#OrganiseChart-Kendo").kendoDiagram({
+            dataSource: new kendo.data.HierarchicalDataSource({ data: KendoData, schema: { model: { children: "items" } } }),          
+            layout: {
+                //type: "layered"
+                type: "tree",
+                subtype: "right",
+                horizontalSeparation: 30,
+                verticalSeparation: 10
+            },
+            zoom:2,
+            shapeDefaults: { visual: visualTemplate },
+            connectionDefaults: { stroke: { color: "#979797", width: 2 } }
+        });
+        var diagram = $("#OrganiseChart-Kendo").getKendoDiagram();
+        diagram.bringIntoView(diagram.shapes);
+    }
+    function Kendo()
+    {
+        $.ajax({
+            url: "../Workflow/GetKendoOrgChart",
+            type: "POST",
+            cache: false,
+            success: function (dataValue) {
+                var datasource = getKendoChartHierarchialDataSource(dataValue, "ManagerNum", "ReportingManagerNum", "IsTreeTop", "RowNumber");
+                KendoData = datasource.options.data;
+                KendoChart();
+            }
+        });
+    }
+    function getKendoChartHierarchialDataSource(dataSource, keyColumn, parentKeyColumn, treeTopColumn, idColumn) {
+        var topNode = [];
+        var idText = (idColumn) ? idColumn : keyColumn;
+        if (dataSource.length > 0) {
+            $(dataSource).each(function (index, item) {
+                if (item[treeTopColumn] == true)
+                    topNode.push(appendKendoChartChildNode(dataSource, keyColumn, parentKeyColumn, item));
+            });
+        }
+        return new kendo.data.HierarchicalDataSource({
+            data: topNode,
+            schema: {
+                model: {
+                    id: idText,
+                    children: "items"
+                }
+            }
+        });
+    }
+    function appendKendoChartChildNode(dataSource, keyColumn, parentKeyColumn, node) {
+        if (node["MenuType"] == undefined || node["MenuType"] == 1) {
+            var childNodes = dataSource.filter(function (item) {
+                if (item[parentKeyColumn] == node[keyColumn])
+                    return item;
+            });
+            $(childNodes).each(function (index, item) {
+                appendKendoChartChildNode(dataSource, keyColumn, parentKeyColumn, item);
+            });
+            if (childNodes.length > 0) {
+                node.items = childNodes;
+            }
+        }
+        return node;
+    }
+    //End Kendo
+
+    $(document).ready(function () {
+        //google.charts.setOnLoadCallback(googleChart);
+        TreantChart();        
+        //Kendo();
+    });
+       
+</script>

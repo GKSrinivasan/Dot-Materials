@@ -1,0 +1,91 @@
+﻿<link href="~/Content/SignUp.css" rel="stylesheet"/>
+<html ng-app="myApp">
+<head>
+    <title>Sign Up</title>   
+</head>
+<body ng-controller="SignUpController as signUp">
+    <form class="form-group" id="tenantRegisterForm" ng-submit="signup()" name="myForm" novalidate >
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="row nomargin">
+                        <div class="col-md-8 col-md-offset-2 col-xs-12 col-lg-8 col-lg-offset-2 marginleft">
+                            <div class="row whitebg">
+                                <div class="col-md-12 col-sm-12 col-xs-12">
+                                    <div class="col-md-12 center">
+                                        <img src="~/Images/logo.png" class="logo" alt="logo" />
+                                    </div>
+                                    <div class="row top-pad"></div>
+                                    <div class="row top-pad">
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <div class="input-group">
+                                                <div class="input-group-addon noborder wbg"><span class="glyphicon glyphicon-user lgrey"></span><span class="mandatory">*</span></div>
+                                                <input class="form-control" type="text" id="UserFirstName" name="userFirstName" ng-model="user.FirstName" placeholder="First Name" required autofocus />
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 col-sm-6 col-xs-12 mobiletoppad">
+                                            <div class="input-group">
+                                                <div class="input-group-addon noborder wbg"><span class="glyphicon glyphicon-user lgrey"></span></div>
+                                                <input class="form-control" ng-model="user.LastName" id="UserLastName" name="userLastName" placeholder="Last Name" type="text" value="" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row nomobiletoppad">
+                                        <div class="col-md-6 col-sm-6 col-xs-12 mobiletoppad">
+                                            <div class="input-group">
+                                                <div class="input-group-addon noborder wbg"><span class="glyphicon glyphicon-phone"></span><span class="mandatory">*</span></div>
+                                                <input class="form-control" ng-model="user.PhoneNumber" ng-keydown="checkNumbers($event)" ng-minlength="10" ng-maxlength="10" required id="tenantRegisterphonenumber" name="PhoneNumber" placeholder="Contact Number" type="number" />
+                                                <span ng-show="myForm.PhoneNumber.$error.minlength" class="help-block orange">Name is too short.</span>
+                                                <span ng-show="myForm.PhoneNumber.$error.maxlength" class="help-block orange">Name is too long.</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 col-sm-6 col-xs-12 mobiletoppad">
+                                            <div class="input-group">
+                                                <div class="input-group-addon noborder wbg"><span class="glyphicon glyphicon-envelope"></span><span class="mandatory">*</span></div>
+                                                <input class="form-control" ng-model="user.EmailAddress" ng-keypress="emailChange()" required id="tenantRegisterEmailID" name="EmailAddress" placeholder="Office Email" type="email" value="" />
+                                                <span ng-show="myForm.EmailAddress.$invalid && !myForm.EmailAddress.$pristine" id="emailError" class="help-block orange">Enter a valid email.</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row nomobiletoppad">
+                                        <div class="col-md-6 col-sm-6 col-xs-12 mobiletoppad">
+                                            <div class="input-group">
+                                                <div class="input-group-addon noborder wbg"><span class="glyphicon glyphicon-user"></span><span class="mandatory">*</span></div>
+                                                <input class="form-control" ng-model="user.UserID" required id="UserID" name="UserID" placeholder="UserID" type="text" value="" />
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 col-sm-6 col-xs-12 mobiletoppad">
+                                            <div class="input-group">
+                                                <div class="input-group-addon noborder wbg"><span class="glyphicon glyphicon-home"></span><span class="mandatory">*</span></div>
+                                                <input class="form-control" ng-model="user.CompanyName" required id="CompanyName" name="CompanyName" placeholder="Company Name" type="text" value="" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row nomobiletoppad">
+                                        <div class="col-md-11 col-sm-11 col-xs-12 mobiletoppad">
+                                            <div class="input-group">
+                                                <div class="input-group-addon noborder wbg"><span class="glyphicon glyphicon-flag"></span><span class="mandatory">*</span></div>
+                                                <input class="form-control" ng-model="user.TenantName" required id="tenantname" name="TenantName" placeholder="Tenant Name" type="text" value="" ng-change="tenantChange()" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12 col-xs-12 center btnPad">
+                                        <span class="help-block orange" id="errorMsg" style="display:none">Tenant Already Exists, Please choose different tenant name.</span>
+                                    </div>
+                                    <div class="col-md-12 col-xs-12 center btnPad">
+                                        <button class="btn btn-blue" ng-disabled="myForm.$invalid" type="submit" id="signupBtn">Sign Up</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    <script src="~/Scripts/angular.min.js"></script>
+    <script src="~/Scripts/AngularJs/module.js"></script>
+</body>
+</html>
+
+

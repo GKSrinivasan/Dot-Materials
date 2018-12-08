@@ -1,0 +1,13 @@
+D:\TFS.111\Compass\Laserbeam.Compass\Laserbeam.DataManager.Interfaces.Common\bin\Debug\Laserbeam.DataManager.Interfaces.Common.dll
+D:\TFS.111\Compass\Laserbeam.Compass\Laserbeam.DataManager.Interfaces.Common\bin\Debug\Laserbeam.DataManager.Interfaces.Common.pdb
+D:\TFS.111\Compass\Laserbeam.Compass\Laserbeam.DataManager.Interfaces.Common\bin\Debug\Laserbeam.BusinessObject.Common.dll
+D:\TFS.111\Compass\Laserbeam.Compass\Laserbeam.DataManager.Interfaces.Common\bin\Debug\Laserbeam.Constant.HR.dll
+D:\TFS.111\Compass\Laserbeam.Compass\Laserbeam.DataManager.Interfaces.Common\bin\Debug\Laserbeam.EntityManager.TenantObjects.dll
+D:\TFS.111\Compass\Laserbeam.Compass\Laserbeam.DataManager.Interfaces.Common\bin\Debug\Laserbeam.Resource.HR.dll
+D:\TFS.111\Compass\Laserbeam.Compass\Laserbeam.DataManager.Interfaces.Common\bin\Debug\Laserbeam.BusinessObject.Common.pdb
+D:\TFS.111\Compass\Laserbeam.Compass\Laserbeam.DataManager.Interfaces.Common\bin\Debug\Laserbeam.Constant.HR.pdb
+D:\TFS.111\Compass\Laserbeam.Compass\Laserbeam.DataManager.Interfaces.Common\bin\Debug\Laserbeam.EntityManager.TenantObjects.pdb
+D:\TFS.111\Compass\Laserbeam.Compass\Laserbeam.DataManager.Interfaces.Common\bin\Debug\Laserbeam.Resource.HR.pdb
+D:\TFS.111\Compass\Laserbeam.Compass\Laserbeam.DataManager.Interfaces.Common\obj\Debug\Laserbeam.DataManager.Interfaces.Common.csprojResolveAssemblyReference.cache
+D:\TFS.111\Compass\Laserbeam.Compass\Laserbeam.DataManager.Interfaces.Common\obj\Debug\Laserbeam.DataManager.Interfaces.Common.dll
+D:\TFS.111\Compass\Laserbeam.Compass\Laserbeam.DataManager.Interfaces.Common\obj\Debug\Laserbeam.DataManager.Interfaces.Common.pdb

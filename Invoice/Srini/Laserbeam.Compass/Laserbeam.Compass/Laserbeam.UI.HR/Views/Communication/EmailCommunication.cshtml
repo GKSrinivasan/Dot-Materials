@@ -1,0 +1,196 @@
+﻿<style>
+    .k-grid-content {
+        width: 700px !important;
+        overflow-x: auto;
+        /*overflow-y:scroll;*/
+    }
+
+    .k-grid-header {
+        width: 683px !important;
+        overflow-x: auto;
+    }
+
+    #dashboardEmailUserGrid {
+        overflow-x: auto;
+    }
+</style>
+
+<script type="text/javascript">
+
+    function GetParamValue() {
+        var selectedtypeNum = $("#hndselectedtype").val();
+        var a = $("#hndvalue").val();
+        var token = $('input[name="__RequestVerificationToken"]').val();
+        return {
+            __RequestVerificationToken: token,
+            checkRole: selectedtypeNum == 1 ? "true" : "false",
+            userRoleNum: a
+        }
+    }
+
+    $(document).ready(function () {
+        BindEmailNotificationTreeview();
+        BindManageCommunicationTreeView();
+        $('#txtEmailNotificationKey').hide();
+        $('#editorRegion').hide();
+        $('#subjectName').hide();
+        $('#dashboardEmailUserGrid').hide();
+        $("#btnClearFilter").hide();
+        $('#divddlUserGrp').hide();
+    });
+
+    $("#checkBoxSelectAll").on("click", function (e) {
+        if (this.checked) {
+            $("#checkBox input[type=checkbox]").each(function () {
+                this.checked = true;
+            });
+        }
+        else {
+            $("#checkBox input[type=checkbox]").each(function () {
+                this.checked = false;
+            });
+        }
+    });
+
+    $("#btnEmailNotificationSend").on("click", function () {
+        var grid = $("#dashboardEmailUserGrid").data("kendoGrid");
+        var values = [];
+        var postData = [];
+        var rowIndexArray = [];
+        $("#checkBox input[type=checkbox]:checked").each(function (e) {
+            var rowItem = $(this).closest("tr");
+            var rowIndex = $(rowItem).index();
+            var rowData = grid._data[rowIndex];
+            row = $(this).closest("tr");
+            values.push(rowData);
+            rowIndexArray.push(rowIndex);
+        });
+        var emailBody = $("#emailnotificationEditor")[0].value;
+        var subject = $("#txtEmailNotificationKey")[0].value;
+        var emailId = appEmailId;
+        if (values.length == 0) {
+            alert('Select atleast one user');
+
+        }
+        else {
+            var token = $("input[name='__RequestVerificationToken']").val();
+            var emailData = JSON.parse(JSON.stringify(values));
+            $.ajax({
+                url: '../Communication/GetEmailDetails',
+                data: { __RequestVerificationToken: token, emailInfoList: emailData, templateID: emailId, subject: subject },
+                type: "POST",
+                success: function (data) {
+                    $("#checkBoxSelectAll").removeAttr('checked');
+                    var grid = $("#dashboardEmailUserGrid").data("kendoGrid");
+                    //grid.dataSource.pushUpdate(data.Data);
+                    Successmessage(data.Message);
+                    $('#dashboardEmailUserGrid').data('kendoGrid').dataSource.read();
+                }
+            });
+        }
+    });
+
+    function EmailNotificationBound() {
+        var grddashboardEmailUserGrid = $("#dashboardEmailUserGrid").data("kendoGrid");
+        if (grddashboardEmailUserGrid.dataSource._view.length == 0) {
+            var colCount = $("#dashboardEmailUserGrid").find('th').length;
+            $("#dashboardEmailUserGrid").find('tbody').append('<tr class="kendo-data-row"><td colspan="' + colCount + '" style="text-align:center;background-color:#6686C4;padding-top:30px"></td></tr>');
+            $("#dashboardEmailUserGrid").find('.k-grid-content tbody tr td').css("padding-top", 11).append('<b style="background-color:#6686C4 !important;color:white !important;">No Results Found!</b>');
+        }
+    }
+
+</script>
+@Html.AntiForgeryToken()
+<div id="communicationEmailNotification" class="bhoechie-tab-content active">
+    <div class="row top-pad nomargin tenbottompad">
+        <div class="col-sm-6 col-md-6 noleftpad">
+            <div class="row nomargin">
+                <div class="col-md-3">Configured email list</div>
+                <div class="col-md-9" id="ddlMessageCommunicationTemplateTree">
+                </div>
+            </div>
+
+            <div class="row nomargin top-pad">
+                <div id="subjectName" class="col-md-3">
+                    Subject
+                </div>
+                <div class="col-md-9">
+                    @Html.TextBox("select", "", new { id = "txtEmailNotificationKey", @class = "form-control", style = "background-color:white !important;" })
+                </div>
+            </div>
+            <div class="row top-pad nomargin">
+                <div class="col-md-12" id="editorRegion">
+                    @(Html.Kendo().Editor()
+                              .Name("emailnotificationEditor")
+                              .Value("")
+                              .HtmlAttributes(new { style = "height:253px;" }))
+                </div>
+
+            </div>
+        </div>
+
+        <div class="col-sm-6 col-md-6 col-lg-6 pull-right nopadding" id="divddlUserGrp">
+            <div class="row nomargin">
+                <div class="col-lg-12 col-sm-12 col-xs-12 distribute-moreaction">
+                    <div class="row">
+                        <div class="col-sm-5 col-md-6" id="searchid">
+                            <div id="ddlEmailNotificationTreeview"></div>
+                        </div>
+                        <div class="col-sm-7 col-md-6 text-right noleftpad">
+                            <div class="btn-group">
+                                <button id="btnEmailNotificationSend" type="button" class="btn btn-info prim-btn">
+                                    Send Email
+                                </button>
+                                <button type="button" class="btn btn-bordered dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <img src="../../Images/more-v.png" class="top2pad" alt=""> Action
+                                    @*<i class="icon-more-action-o morbtn-icon1 icon-grey big20" aria-hidden="true"></i>*@
+                                </button>
+                                <ul class="dropdown-menu moreaction-btn">
+                                    <li><a href="#" id="btnEmailNotificationExport" onclick="emailNotificationExport();"><i class="fa fa-file-excel-o"></i> Export</a></li>
+                                    <li><a href="#" id="filter"><i class="fa fa-filter"></i> Filter</a></li>
+                                    <li><a href="#" id="btnClearFilter" style="display: none !important;"><i class="fa fa-ban faban"></i> Clear</a></li>
+                                </ul>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-6 col-md-6 top-pad">
+            <div id="divEmailNotificationGrid">
+                @(Html.Kendo().Grid<Laserbeam.BusinessObject.Common.MessageModel>()
+                    .Name("dashboardEmailUserGrid")
+                    .TableHtmlAttributes(new { style = "border-bottom: 1px #ccc solid;" })
+                    .Scrollable(s => s.Enabled(true))
+                    .Columns(columns =>
+                    {
+                        columns.Template(@<text></text>)
+                    .ClientTemplate("<input type='checkbox' id='checkBox'></input>")
+                    .Width("5%").HtmlAttributes(new { id = "checkBox", style = " text-align:center; " })
+                    .HeaderHtmlAttributes(new { id = "chkBoxHeader", style = "text-align:center; " })
+                    .HeaderTemplate("<input type='checkbox' id='checkBoxSelectAll' /> ");
+
+                        //columns.Bound(r => r.UserID).Title("UserID").Width("10%");
+                        columns.Bound(r => r.UserName).Title("UserName").Width("15%");
+                        columns.Bound(r => r.EmailID).Title("EmailAddress").Width("20%");
+                        columns.Bound(r => r.Status).Title("LastEmailSent").HtmlAttributes(new { style = "text-align:center" }).HeaderHtmlAttributes(new { style = "text-align:center" }).Width("20%");
+                    })
+                    .DataSource(dataSource => dataSource.Ajax()
+                        .Read(read => read.Action("GetUserGridValues", "Communication")
+                        .Data("GetParamValue")).Batch(true).ServerOperation(false)
+                        .Model(m => m.Id(i => i.UserID))
+                    )
+                    .Events(x => x.DataBound("EmailNotificationBound"))
+                )
+            </div>
+            @(Html.Kendo().Window().Name("emailcommunicationFilter").Title("Filter/Sort").Visible(false).Width(710).Height(270).Modal(true))
+        </div>
+    </div>
+
+
+
+
+
+</div>

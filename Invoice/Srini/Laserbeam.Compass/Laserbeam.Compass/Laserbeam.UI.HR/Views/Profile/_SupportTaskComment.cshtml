@@ -1,0 +1,147 @@
+﻿@using Laserbeam.BusinessObject.Common
+@model IEnumerable<SupportTaskCommentsModel>
+<style type="text/css">
+    .removeScroll{
+        overflow-y :hidden !important;
+        height:none !important;
+    }
+</style>
+@*<div class="modal fade" id="myComment" tabindex="-1" role="dialog" aria-labelledby="myComment">*@
+<div class="modal-dialog commentmodal" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h4 class="modal-title" id="myModalLabel">Notes</h4>
+        </div>
+        <div class="modal-body commentbody">
+            <div class="row">
+                <div class="col-md-12 modalright removeScroll">
+                    @using (Ajax.BeginForm("SupportTaskComment", "Profile", new { commentKey = ViewBag.EmpJobNum }, new AjaxOptions { UpdateTargetId = "SupportTaskComment", HttpMethod = "POST" }, new { id = "frmSupportTaskComment" }))
+                    {
+                        @Html.AntiForgeryToken();
+                        @Html.Hidden("IsEditItem", false);
+                        @Html.Hidden("SupportTaskCommentsNum", 0);
+                        @Html.Hidden("SupportTaskNum",0 );
+                        if (Model != null && Model.Count() > 0)
+                        {
+
+                            <div role="tabpanel" class="tab-pane" id="taskComments" style="overflow-y: auto;overflow-x: hidden;display: block;height: 450px !important;">
+                                @foreach (var groupedItem in Model.GroupBy(s => (s.CreatedDate.ToLongDateString())))
+                                {
+
+                                <div class="row top-pad">
+                                    <div class="col-md-12">
+                                        <div class="col-md-4 bordersec"></div>
+                                        <div class="col-md-4 datesec text-center">
+                                            @(Convert.ToDateTime(groupedItem.Key).ToLocalTime().ToLongDateString())
+                                        </div>
+                                        <div class="col-md-4 bordersec"></div>
+                                    </div>
+                                </div>
+                                    foreach (var item in groupedItem)
+                                    {
+                                    @Html.HiddenFor(j => item.SupportTaskNum);
+                                    <div id="comment_@item.SupportTaskCommentsNum" class="row top-pad">
+                                        <div class="col-md-12">
+                                            <div class="col-md-1 noleftrightpad textfilled text-center">
+                                                <a href="#">@item.EmployeeNameShort</a>
+                                            </div>
+                                            <div class="col-md-11">
+                                                <div class="row">
+                                                    <div class="col-md-6 bottom-pad">
+                                                        <a href="#" class="blockblack">
+                                                            @item.EmployeeName
+                                                        </a>
+                                                        <span class="posted-date">@item.CreatedDate</span>
+                                                    </div>
+
+                                                    <div class="col-md-6 bottom-pad text-right">
+                                                        <ul class="list-unstyled list-inline edit-delete">
+
+                                                            <li><a class="editsec" id="btnCmtEdit_@item.SupportTaskCommentsNum" role="button" data-toggle="collapse" href="#cmtCollapse_@item.SupportTaskCommentsNum" onclick="cmtEditClick(@item.SupportTaskCommentsNum)" aria-expanded="false" data-myitemid="@(item.Comments)" aria-controls="collapseedit"><i class="fa fa-pencil" aria-hidden="true"></i></a></li>
+
+                                                            <li><a href="#" class="deletesec" data-mycommentitemid="@(item.SupportTaskCommentsNum)" id="btnCmtDelete_@item.SupportTaskCommentsNum" onclick="supportCommentDelete(@item.SupportTaskCommentsNum)"><i class="fa fa-trash-o" aria-hidden="true"></i></a></li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <div class="collapse" id="cmtCollapse_@item.SupportTaskCommentsNum">
+                                                    <div class="well nopad">
+                                                        <textarea class='form-control' id="commentEditBox_@item.SupportTaskCommentsNum"  row="7"></textarea>
+                                                    </div>
+                                                    <div class="btn-group pull-right" role="group" aria-label="...">
+                                                        <button type="button" class="btn btn-default" id="cmtSaveBtn_@item.SupportTaskCommentsNum" onclick="saveSupportComment(@item.SupportTaskCommentsNum)"><i class="fa fa-check"></i></button>
+                                                        <button type="button" class="btn btn-default" id="cmtCloseBtn_@item.SupportTaskCommentsNum" onclick="cancelSupportComment(@item.SupportTaskCommentsNum)"><i class="fa fa-close"></i></button>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <p id="cmtText_@item.SupportTaskCommentsNum">
+                                                            @item.Comments
+                                                            <span>
+                                                                @if (item.UpdatedDate != null)
+                                                                {
+                                                                    <span class="commentpagetooltip">
+                                                                        <span class="test">(Edited)</span>
+                                                                        <span class="tooltiptext">@item.UpdatedDate</span>
+                                                                    </span>
+                                                                }
+                                                            </span>
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    }
+                                }
+                            </div>
+                    }
+                    else
+                    {
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="img-padding text-center" style="padding:100px 10px !important;">
+                                <div class="img-responsive">
+                                    <img src="../../images/comment-bicon.png">
+                                </div>
+                                <div class="big30">You have no comments here</div>
+                                <div class="big21">Enter your comment in the below text box and tap on 'Add Comment' button</div>
+                            </div>
+                        </div>
+                    </div>
+                    }
+
+                    <div class="modal-footer col-md-12">
+                        @Html.TextArea("taskComment", "", new { id = "taskComment", maxlenth="2000", rows = "3", style = "width:100%;", onchange = "SetCommentChangeFlag();", placeholder = "Enter comments here" })
+
+                        <div class="top-pad">
+                            <button type="button" class="btn btn-cancel" data-dismiss="modal" id="btnsupportCmtclose"><i class="fa fa-ban"></i> Cancel</button>
+                            <button type="submit" class="btn btn-skyblue" id="btnCmtMandateSave">Add Comment</button>
+                        </div>
+                    </div>
+                    }
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+@*</div>*@
+@*<script>
+    $(document).ready(function () {
+    var date = new Date()
+    var offsetms = date.getTimezoneOffset() * 60 * 1000;
+    $('.posted-date').each(function () {
+            var text = $(this).html();
+            var serverDate = new Date(text);
+            serverDate = new Date(serverDate.valueOf() - offsetms);
+            $(this).html(serverDate.toLocaleTimeString());
+    });
+    $('.tooltiptext').each(function () {
+        var text = $(this).html();
+        var serverDate = new Date(text);
+        serverDate = new Date(serverDate.valueOf() - offsetms);
+        $(this).html(serverDate.toLocaleDateString() + " " + serverDate.toLocaleTimeString());
+    });
+});
+</script>*@

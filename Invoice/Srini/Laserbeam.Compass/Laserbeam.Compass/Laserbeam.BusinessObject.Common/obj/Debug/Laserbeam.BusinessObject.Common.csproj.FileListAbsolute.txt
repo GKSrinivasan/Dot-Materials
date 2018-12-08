@@ -1,0 +1,13 @@
+D:\TFS.111\Compass\Laserbeam.Compass\Laserbeam.BusinessObject.Common\bin\Debug\Laserbeam.BusinessObject.Common.dll
+D:\TFS.111\Compass\Laserbeam.Compass\Laserbeam.BusinessObject.Common\bin\Debug\Laserbeam.BusinessObject.Common.pdb
+D:\TFS.111\Compass\Laserbeam.Compass\Laserbeam.BusinessObject.Common\bin\Debug\Laserbeam.Constant.HR.dll
+D:\TFS.111\Compass\Laserbeam.Compass\Laserbeam.BusinessObject.Common\bin\Debug\Laserbeam.EntityManager.TenantObjects.dll
+D:\TFS.111\Compass\Laserbeam.Compass\Laserbeam.BusinessObject.Common\bin\Debug\Laserbeam.Resource.HR.dll
+D:\TFS.111\Compass\Laserbeam.Compass\Laserbeam.BusinessObject.Common\bin\Debug\System.Web.Mvc.dll
+D:\TFS.111\Compass\Laserbeam.Compass\Laserbeam.BusinessObject.Common\bin\Debug\Laserbeam.Constant.HR.pdb
+D:\TFS.111\Compass\Laserbeam.Compass\Laserbeam.BusinessObject.Common\bin\Debug\Laserbeam.EntityManager.TenantObjects.pdb
+D:\TFS.111\Compass\Laserbeam.Compass\Laserbeam.BusinessObject.Common\bin\Debug\Laserbeam.Resource.HR.pdb
+D:\TFS.111\Compass\Laserbeam.Compass\Laserbeam.BusinessObject.Common\bin\Debug\System.Web.Mvc.xml
+D:\TFS.111\Compass\Laserbeam.Compass\Laserbeam.BusinessObject.Common\obj\Debug\Laserbeam.BusinessObject.Common.csprojResolveAssemblyReference.cache
+D:\TFS.111\Compass\Laserbeam.Compass\Laserbeam.BusinessObject.Common\obj\Debug\Laserbeam.BusinessObject.Common.dll
+D:\TFS.111\Compass\Laserbeam.Compass\Laserbeam.BusinessObject.Common\obj\Debug\Laserbeam.BusinessObject.Common.pdb

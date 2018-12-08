@@ -1,0 +1,39 @@
+﻿@model List<Laserbeam.BusinessObject.Common.DailyTaskModel>
+@if (Model.Count() > 0)
+{
+    foreach (var item in Model)
+    {
+        DateTime CreateDate = Convert.ToDateTime(item.CreatedDate);
+        <div class="row" id="DailyTaskDiv@(item.TaskNum)">
+            <div class="col-md-12">
+                <div class="list-group to_do">
+                    <div class="col-md-9 col-xs-7 check-info left">
+                        <div class="checkbox checkbox-prime checkboxnopad dailytask@(item.TaskNum)">
+                            <input id="checkbox@(item.TaskNum)" type="checkbox" checked disabled>
+                            <label for="checkbox@(item.TaskNum)" title="Mark as completed">
+                                <div class="label task-content strikeout" id="typeName">@item.TaskDescr</div>
+                            </label>
+                            <div class="db_date task">
+                                @CreateDate.ToString("dd MMM, yyyy h:mm tt")
+                                @if (item.UpdatedDate != null)
+                                {
+                                    <a data-toggle="tooltip" data-placement="top" title="@item.UpdatedDate">(Edited)</a>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-xs-5 text-right action-buttons">
+                        <a href="#" class="edit-icon" onclick="onEditDailyTask(@(item.TaskNum))"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                        <a class="del-icon" onclick="onDeleteCompletedDailyTask(@(item.TaskNum))"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    }
+    <script>
+        $(document).ready(function () {
+            $('[data-toggle="tooltip"]').tooltip();
+        });
+    </script>
+}

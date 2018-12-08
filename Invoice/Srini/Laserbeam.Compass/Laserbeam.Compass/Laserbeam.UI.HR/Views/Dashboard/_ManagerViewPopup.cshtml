@@ -1,0 +1,272 @@
+﻿<style type="text/css">
+    .modal-header {
+        padding: 10px 0 10px 10px !important;
+    }
+
+    .modal-backdrop {
+        z-index: 1025 !important;
+    }
+
+    .modal-content {
+        height: 500px !important;
+    }
+
+    .modalopen {
+        overflow: auto;
+        padding-right: 0 !important;
+    }
+
+
+
+    span.k-in > span.highlight {
+        background: #fab301;
+    }
+
+    span.k-in {
+        font-size: 14px;
+    }
+
+    /*#ddlManagerTreePopupView .k-ext-treeview {
+        display: block !important;
+        border: 0px !important;
+        top: 17px;
+        height:auto;
+    }
+    #ddlManagerTreePopupView .k-header
+    {
+        display:none;
+    }
+    .k-icon {
+        line-height: 10;
+    }
+
+    #ddlCompManagerTreeView {
+        margin: 0 auto;
+        font-size: 10px;
+    }*/
+
+    .k-treeview-lines .k-top,
+    .k-treeview-lines .k-mid,
+    .k-treeview-lines .k-bot {
+        background-image: url('../../Content/Kendo/images/treeview-nodes.png') !important;
+    }
+
+    .k-treeview-lines .k-item {
+        background-image: url('../../Content/Kendo/images/treeview-line.png') !important;
+    }
+
+    .k-treeview-lines .k-last {
+        background-image: none;
+    }
+
+    .k-treeview-lines .k-top,
+    .k-treeview-lines .k-mid,
+    .k-treeview-lines .k-bot {
+        background-repeat: no-repeat;
+        margin-left: -16px;
+        padding-left: 16px;
+    }
+
+    .k-treeview-lines .k-top {
+        background-position: -91px 0;
+    }
+
+    .k-treeview-lines .k-bot {
+        background-position: -69px -22px;
+    }
+
+    .k-treeview-lines .k-mid {
+        background-position: -47px -44px;
+    }
+
+    .k-treeview-lines .k-last .k-top {
+        background-position: -25px -66px;
+    }
+
+    .k-treeview-lines .k-group .k-last .k-bot {
+        background-position: -69px -22px;
+    }
+
+    .k-treeview-lines .k-item {
+        background-repeat: no-repeat;
+    }
+
+    .k-treeview-lines .k-first {
+        background-repeat: no-repeat;
+        background-position: 0 16px;
+    }
+
+    .k-treeview > .k-group, .k-treeview .k-item > .k-group, .k-treeview .k-content {
+        font-size: 13px !important;
+    }
+    /*#ddlManagerTreePopupView .k-item {
+        width:90%;
+    }*/
+    /*#ddlManagerTreePopupView .k-state-default {
+        font-size: 15px !important;
+        width: 100% !important;
+        display:none !important;
+    }
+
+    #ddlManagerTreePopupView .k-dropdown {
+        width: 95% !important;
+    }
+
+    #ddlManagerTreePopupView .k-treeview {
+        width: 90% !important;
+        max-height: 445px !important;
+        height: inherit;
+    }*/
+    /*#ddlManagerTreePopupView .k-treeview {
+        width: 50% !important;
+    }*/
+</style>
+
+@Html.AntiForgeryToken()
+<div class="modal-dialog"  >
+    <div class="modal-content" >
+
+        <div class="modal-header" style="padding-right: 2px !important;">
+            <span class="modal-title" id="myModalLabel">Manager View Popup</span>
+            <button type="button" class="close" style="color:gray;background:none;padding-right:5px;" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        </div>
+
+        <div class="modal-body clearfix">
+
+            @*<div class="text-center">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="input-group mtree">
+                            <input type="text" id="ManagerTreesearch" class="form-control" placeholder="-- Search by Manager Name --">
+                            <span class="input-group-addon"><i class="fa fa-search" aria-hidden="true"></i></span>
+                        </div>
+                    </div>
+                </div>
+                <div id="divManagerTreePopupView" class="row"  style="height:370px; overflow-y:scroll;padding-left:2em!important;">
+                    <div class="col-md-12">
+                        <div class="text-left" style="padding-top:10px;">
+                            <div id="ddlManagerTreePopupView" data-content="Manager Tree"></div>
+                            <div style="height:10px;">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>*@
+            <div class="col-xs-12">
+                <div class="input-group mtree">
+                    <input type="text" id="ManagerTreesearchpopup" class="form-control" placeholder="-- Search by Manager Name --">
+                    <span class="input-group-addon"><i class="fa fa-search" aria-hidden="true"></i></span>
+                </div>
+            </div>
+            <div style="height:370px; overflow-y:scroll;padding-left:2em!important;">
+                <div id="divManagerTreePopupView" >
+                    <div id="ddlManagerTreePopupView" data-content="Manager Tree"></div>
+                    <div style="height:10px;"></div>
+                </div>
+            </div>
+
+    </div>
+</div>
+</div>
+<script type="text/javascript">
+    function BindCompTreeView() {
+        var token = $('input[name="__RequestVerificationToken"]').val();
+        $.ajax({
+            url: "../Compensation/GetCompManagerTreeData",
+        type: "POST",
+        data: { __RequestVerificationToken: token, managerNum: @ViewBag.EmployeeNum, pageType: 'Compensation' },
+            cache: false,
+            success: function (dataValue) {
+                var datasource = getTreeViewHierarchialDataSource(dataValue, "ManagerNum", "ReportingManagerNum", "IsTreeTop", "RowNumber");
+                var treeView = $("#ddlManagerTreePopupView").kendoTreeView({
+                    template: '#=highLightPopupTreeview(item.ManagerName)#',
+                        dataTextField: "ManagerName",
+                        dataValueField: "ManagerNum",
+                        loadOnDemand: false,
+                        dataSource: datasource,
+                        select: ddlCompManagerTreeOnSelect
+                }).data("kendoTreeView");
+                if (treeView != undefined) {
+                    treeView.expand(".k-item");
+                }
+            }
+        });
+    }
+
+    function highLightPopupTreeview(text, highlightText){
+        if (highlightText == undefined || highlightText == null || highlightText == "") return text;
+
+        var highlightTextLength = highlightText.length;
+        var p = text.toUpperCase().indexOf(highlightText.toUpperCase());
+
+        if (p < 0) return text;
+
+        var s1 = '', s2 = '';
+
+        var high = '<span class="highlight">' + text.substr(p, highlightTextLength) + '</span>';
+
+        if (p > 0) {
+            s1 = text.substr(0, p);
+        }
+
+        if (p + highlightTextLength < text.length) {
+            s2 = text.substring(p + highlightTextLength)
+        }
+
+        var result = s1 + high + s2;
+        return result;
+    }
+
+    $('#ManagerTreesearchpopup').on('keyup', function () {
+
+        $('span.k-in > span.highlight').each(function () {
+            $(this).parent().text($(this).parent().text());
+        });
+
+        if ($.trim($(this).val()) == '') {
+            $('#divManagerTreePopupView').scrollTop(0);
+        }
+        var term = this.value;
+        var tlen = term.length;
+        $('#ddlManagerTreePopupView span.k-in').each(function () {
+            $('#divManagerTreePopupView').scrollTop($('#ddlManagerTreePopupView').find('span.k-in:icontains("' + term + '")').offset().top);
+            var text = $(this).text();
+            var htmlValue = highLightPopupTreeview(text,term);
+            $(this).html(htmlValue);
+        });
+    });
+
+    function ddlCompManagerTreeOnSelect(e) {
+        var node = e.sender.dataItem(e.node);
+        $("#ManagerTreesearchpopup").val("");
+        var managerNum;
+        if (node.ManagerName == "My Organization") {
+            managerNum = node.LoggedInEmployeeNum;
+        }
+        else {
+            managerNum = node.ManagerNum;
+        }
+        onSelectNotification(managerNum, "Compensation");
+    }
+
+
+
+    function onSelectNotification(notifiedEmployeeNum, modulekey) {
+        $('#mgrTreePopup').modal('hide');
+        var i = 1;
+        var token = $('input[name="__RequestVerificationToken"]').val();
+
+        var form = $("<form action='" + '../' + modulekey + '/' + 'Home' + "' method='post'></form>")
+        form.append("<input type='text' name='__RequestVerificationToken' value='" + token + "' />");
+        form.append("<input type='text' name='notifiedEmployeeNum' value='" + notifiedEmployeeNum + "' />");
+        form.append("<input type='text' name='isMyApproval' value='" + i + "' />");
+        form.appendTo("body");
+        form.submit();
+        form.remove();
+    }
+
+    $(document).ready(function () {
+        BindCompTreeView();
+    });
+</script>
+

@@ -1,0 +1,27 @@
+﻿@{
+    ViewBag.Title = "Home";
+    Layout = "~/Views/Shared/_SiteLayout.cshtml";
+}
+<script src="~/Scripts/PageCustomization.js"></script>
+<link href="~/Content/PageCustomization.min.css" rel="stylesheet" />
+@Html.AntiForgeryToken()
+<div class="container-fluid">
+    <div class="row">
+        <div class="row"><div id="divcustomizeviewheader" class="col-md-12 mainheading mainheading1 top-pad">Customize View</div></div>
+    </div>
+
+    <div class="row top-pad">
+        <div class="col-sm-3 col-md-3 col-lg-2 noleftpad norightpad">
+            <ul class="nav nav-pills nav-stacked">
+                <li class="active"><a href="#tab_a" data-toggle="pill" id="lnkGridDisplay">Grid Display</a></li>
+                <li><a href="#tab_b" data-toggle="pill" id="lnkFilterDisplay">Filter Display</a></li>
+                <li><a href="#tab_c" data-toggle="pill" id="lnkExportDisplay">Export Display</a></li>
+                <li><a href="#tab_d" data-toggle="pill" id="lnkPopupDisplay">Popup Display</a></li>
+            </ul>
+        </div>
+        <div class="col-sm-9 col-md-9 col-lg-10 tabbableright" id="PageCustomization">
+            
+        </div>
+    </div>
+</div>
+

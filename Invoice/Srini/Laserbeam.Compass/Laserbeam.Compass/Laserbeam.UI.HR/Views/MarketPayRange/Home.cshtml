@@ -1,0 +1,290 @@
+﻿@model Laserbeam.BusinessObject.Common.MarketPayRangeModel
+@using Laserbeam.Constant.HR
+@{
+    ViewBag.Title = "Home";
+    Layout = "~/Views/Shared/_SiteLayout.cshtml";
+    string jobCodeChecked = "";
+    string gradeChecked = "";
+    string employeeChecked = "";
+    jobCodeChecked = Model.SelectedMarketPayRange == MarketPayRangeConstants.JobCode ? "checked" : "";
+    gradeChecked = Model.SelectedMarketPayRange == MarketPayRangeConstants.Grade ? "checked" : "";
+    employeeChecked = Model.SelectedMarketPayRange == MarketPayRangeConstants.ByEmployee ? "checked" : "";
+}
+<script src="~/Scripts/MarketPayRange.js"></script>
+<script type="text/javascript">
+    MarketPayRangeConstants = ["@MarketPayRangeConstants.JobCode", "@MarketPayRangeConstants.Grade", "@MarketPayRangeConstants.ByEmployee"];
+    $(document).ready(function () {
+        selectedMarketPayRange = '@Model.SelectedMarketPayRange';
+        $("#ajaxLoadingPanel").hide();
+    });
+
+</script>
+<style>
+    #ajaxLoadingPanel {
+        visibility: hidden !important;
+    }
+
+    .modal-dialog {
+        width: 45%;
+    }
+    .grid-content-border-right{
+        border-right: 1px solid #dbdbdb !important;
+    }
+    #MarketPayRangeReporteeGrid tbody tr
+    {
+        cursor:pointer !important;
+    }
+    #MarketPayRangeReporteeGrid tbody .k-state-selected a{
+        color:#FFF;
+    }
+</style>
+<link href="~/Content/MarketPayRange.min.css" rel="stylesheet" />
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="row"><div class="col-md-12 mainheading mainheading1 top-pad">Market Pay Range</div></div>
+    </div>
+    <div class="row top-pad">
+        <div class="col-md-3 col-lg-3 noleftpad">
+            <div class="register-switch">
+                <input type="radio" name="MarketPayRangeToggle" value="@MarketPayRangeConstants.JobCode" id="JobCode" class="register-switch-input" @jobCodeChecked>
+                <label for="JobCode" class="register-switch-label">Job Code</label>
+                <input type="radio" name="MarketPayRangeToggle" value="@MarketPayRangeConstants.Grade" id="Grade" class="register-switch-input" @gradeChecked>
+                <label for="Grade" class="register-switch-label">Grade</label>
+                <input type="radio" name="MarketPayRangeToggle" value="@MarketPayRangeConstants.ByEmployee" id="Employee" class="register-switch-input" @employeeChecked>
+                <label for="Employee" class="register-switch-label">By Employee</label>
+            </div>
+        </div>
+    </div>
+    <div class="row top-pad">
+        <div class="col-md-6 col-lg-6 noleftpad">
+            <ul class="nav nav-tabs ratingtab" role="tablist">
+                <li role="presentation" class="active" id="liMarketPayRangeList"><a href="#SalaryList" aria-controls="SalaryList" role="tab" data-toggle="tab">Market pay range list</a></li>
+                <li role="presentation" id="liMarketPayRangeData"><a href="#UploadSalary" aria-controls="UploadSalary" role="tab" data-toggle="tab">Upload market pay range</a></li>
+            </ul>
+        </div>
+        <div class="col-md-6 col-lg-6 text-right norightpad">            
+            <button type="button" id="btnAddMarketPayRange" class="btn btn-info prim-btn" @*data-toggle="modal" data-target="#AddMarketpayrange"*@ style="@(Model.SelectedMarketPayRange == MarketPayRangeConstants.ByEmployee ? "display:none" : "")">Add Market pay range</button>
+            <button class="btn btn-bordered" id="btnFilterMarketPayRange"><img src="../../Images/filter-icon.png" alt=""> Filter</button>
+            <button class="btn btn-bordered" id="btnClearFilterMarketPayRange" style="display:none"><img src="../../Images/filter-icon.png" alt="" > Clear</button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12 nopad">
+            <!-- Nav tabs -->
+            <!-- Tab panes -->
+            <div class="tab-content">
+                <div role="tabpanel" class="tab-pane active" id="SalaryList">
+                    <div class="row nomargin">
+                        <div class="col-md-12 nopad">
+                            <div id="diMarketPayRangeContent">
+                                @*@{Html.RenderAction("_Reportees", "MarketPayRange", new { selectedMarketPayRange = Model.SelectedMarketPayRange });}*@
+                                @{Html.RenderPartial("~/Views/MarketPayRange/_Reportees.cshtml", Model);}
+                            </div>
+                            @*<div class="table-responsive">
+                                    <table class="table table-condensed table-bordered generalconfigtbl">
+                                        <thead>
+                                            <tr>
+                                                <th style="vertical-align: middle;">Grade</th>
+                                                <th>Current Min<br />Annual / Hourly</th>
+                                                <th>Current Mid<br />Annual / Hourly</th>
+                                                <th>Current Max<br />Annual / Hourly</th>
+                                                <th>New Min<br />Annual / Hourly</th>
+                                                <th>New Mid<br />Annual / Hourly</th>
+                                                <th>New Max<br />Annual / Hourly</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr data-toggle="modal" data-target="#EditMarketpayrange">
+                                                <td>005</td>
+                                                <td>$50,000 / $25,768</td>
+                                                <td>$75,000 / $25,768</td>
+                                                <td>$90,000 / $25,768</td>
+                                                <td>$55,000 / $25,768</td>
+                                                <td>$85,000 / $25,768</td>
+                                                <td>$95,000 / $25,768</td>
+                                            </tr>
+                                            <tr data-toggle="modal" data-target="#EditMarketpayrange">
+                                                <td>008</td>
+                                                <td>$60,000 / $25,768</td>
+                                                <td>$65,000 / $25,768</td>
+                                                <td>$70,000 / $25,768</td>
+                                                <td>$65,000 / $25,768</td>
+                                                <td>$75,000 / $25,768</td>
+                                                <td>$85,000 / $25,768</td>
+                                            </tr>
+                                            <tr data-toggle="modal" data-target="#EditMarketpayrange">
+                                                <td>009</td>
+                                                <td>$60,000 / $25,768</td>
+                                                <td>$65,000 / $25,768</td>
+                                                <td>$70,000 / $25,768</td>
+                                                <td>$65,000 / $25,768</td>
+                                                <td>$75,000 / $25,768</td>
+                                                <td>$85,000 / $25,768</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>*@
+                        </div>
+                    </div>
+                </div>
+
+                <div role="tabpanel" class="tab-pane" id="UploadSalary">
+                    <div class="row top-pad">
+                        <!-- Row Begins -->
+                        <div class="col-md-12 mainheading text-center">
+                            Upload Market pay range
+                        </div>
+                        <div class="col-md-12 para">To "<span class="darkgrey">Add multiple Market pay range records</span>" download, fill and upload the ‘Workforce template’ file.</div>
+                    </div>
+                    <div class="row top-pad nomargin">
+                        <div class="col-md-5 col-md-offset-1 col-sm-6">
+                            <div class="col-md-12">
+                                <div class="dottedborder text-center">
+                                    <div><i class="icon-dwnld-icon icon-blue big60 " aria-hidden="true"></i> <span class="txt-center1"><a href="#">Download</a> the Market pay range template</span></div>
+                                    <div><i class="fa fa-question-circle-o fa-quest" aria-hidden="true"></i> <a href="#">Click Here</a> to know about the template</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-5 col-sm-6">
+                            <div id="drop-target" class="col-md-12">
+                                <div class="dottedborder1 text-center">
+                                    <div style="position: relative;"> <i class="icon-upld-icon icon-blue big60 " aria-hidden="true"></i><strong>Drag and Drop</strong> files here or <a id="pickfiles" href="javascript:;" style="position: relative; z-index: 1;"> <span class="p500">Browse</span></a> to begin upload</div>
+                                    <div class="text-right"><button type="button" id="pdata" class="btn btn-skyblue1" disabled="disabled"><i class="icon-pdata1 pdata big22" aria-hidden="true"></i> <span class="pdata-txt">Process Data</span></button></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div id="divAddMarketPayRangeModel">
+
+</div>
+
+<!-- Edit market pay range modal -->
+@*<div class="modal fade" id="EditMarketpayrange" tabindex="-1" role="dialog" aria-labelledby="EditMarketpayrange">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myModalLabel">Modify Market Pay Range</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-3 gradetit">
+                            Grade
+                        </div>
+                        <div class="col-md-9">
+                            <input class="form-control form-border" type="text" value="">
+                        </div>
+                    </div>
+                    <div class="row top-pad">
+                        <div class="col-md-12 titletxt">
+                            Current Range :
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">
+
+                        </div>
+                        <div class="col-md-3 blutxt">
+                            Min
+                        </div>
+                        <div class="col-md-3 blutxt">
+                            Mid
+                        </div>
+                        <div class="col-md-3 blutxt">
+                            Max
+                        </div>
+                    </div>
+                    <div class="row smallpadtop">
+                        <div class="col-md-3">
+                            Hourly
+                        </div>
+                        <div class="col-md-3">
+                            <input type="text" class="form-control" id="Currentminhr" placeholder="50,000">
+                        </div>
+                        <div class="col-md-3">
+                            <input type="text" class="form-control" id="Currentmidhr" placeholder="50,000">
+                        </div>
+                        <div class="col-md-3">
+                            <input type="text" class="form-control" id="Currentmaxhr" placeholder="50,000">
+                        </div>
+                    </div>
+                    <div class="row top-pad">
+                        <div class="col-md-3">
+                            Annual
+                        </div>
+                        <div class="col-md-3">
+                            <input type="text" class="form-control" id="Currentminannual" placeholder="50,000">
+                        </div>
+                        <div class="col-md-3">
+                            <input type="text" class="form-control" id="Currentmidannual" placeholder="50,000">
+                        </div>
+                        <div class="col-md-3">
+                            <input type="text" class="form-control" id="Currentmaxannual" placeholder="50,000">
+                        </div>
+                    </div>
+
+                    <div class="row top-pad">
+                        <div class="col-md-12 titletxt">
+                            New Range :
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">
+
+                        </div>
+                        <div class="col-md-3 blutxt">
+                            Min
+                        </div>
+                        <div class="col-md-3 blutxt">
+                            Mid
+                        </div>
+                        <div class="col-md-3 blutxt">
+                            Max
+                        </div>
+                    </div>
+                    <div class="row smallpadtop">
+                        <div class="col-md-3">
+                            Hourly
+                        </div>
+                        <div class="col-md-3">
+                            <input type="text" class="form-control" id="Newminhr" placeholder="50,000">
+                        </div>
+                        <div class="col-md-3">
+                            <input type="text" class="form-control" id="Newmidhr" placeholder="50,000">
+                        </div>
+                        <div class="col-md-3">
+                            <input type="text" class="form-control" id="Newmaxhr" placeholder="50,000">
+                        </div>
+                    </div>
+                    <div class="row top-pad">
+                        <div class="col-md-3">
+                            Annual
+                        </div>
+                        <div class="col-md-3">
+                            <input type="text" class="form-control" id="Newminannual" placeholder="50,000">
+                        </div>
+                        <div class="col-md-3">
+                            <input type="text" class="form-control" id="Newmidannual" placeholder="50,000">
+                        </div>
+                        <div class="col-md-3">
+                            <input type="text" class="form-control" id="Newmaxannual" placeholder="50,000">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-cancel" data-dismiss="modal"><i class="fa fa-ban"></i> Cancel</button>
+                    <button type="submit" class="btn btn-info prim-btn">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>*@
+
+@(Html.Kendo().Window().Name("MarketPayRangeFilterPopup").Width(700).Height(300).Modal(true).Visible(false).Actions(action => action.Close()))

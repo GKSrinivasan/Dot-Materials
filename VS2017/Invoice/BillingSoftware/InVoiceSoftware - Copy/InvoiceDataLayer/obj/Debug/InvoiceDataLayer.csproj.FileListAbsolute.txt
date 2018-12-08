@@ -1,0 +1,16 @@
+F:\VS2017\Invoice\BillingSoftware\InVoiceSoftware\InvoiceDataLayer\obj\Debug\InvoiceDataLayer.csprojResolveAssemblyReference.cache
+F:\VS2017\Invoice\BillingSoftware\InVoiceSoftware\InvoiceDataLayer\obj\Debug\InvoiceDataLayer.csproj.CoreCompileInputs.cache
+F:\VS2017\Invoice\BillingSoftware\InVoiceSoftware\InvoiceDataLayer\bin\Debug\InvoiceDataLayer.dll.config
+F:\VS2017\Invoice\BillingSoftware\InVoiceSoftware\InvoiceDataLayer\bin\Debug\InvoiceDataLayer.dll
+F:\VS2017\Invoice\BillingSoftware\InVoiceSoftware\InvoiceDataLayer\bin\Debug\InvoiceDataLayer.pdb
+F:\VS2017\Invoice\BillingSoftware\InVoiceSoftware\InvoiceDataLayer\bin\Debug\EntityFramework.dll
+F:\VS2017\Invoice\BillingSoftware\InVoiceSoftware\InvoiceDataLayer\bin\Debug\EntityFramework.SqlServer.dll
+F:\VS2017\Invoice\BillingSoftware\InVoiceSoftware\InvoiceDataLayer\bin\Debug\System.Security.Cryptography.Algorithms.dll
+F:\VS2017\Invoice\BillingSoftware\InVoiceSoftware\InvoiceDataLayer\bin\Debug\System.Security.Cryptography.Encoding.dll
+F:\VS2017\Invoice\BillingSoftware\InVoiceSoftware\InvoiceDataLayer\bin\Debug\System.Security.Cryptography.Primitives.dll
+F:\VS2017\Invoice\BillingSoftware\InVoiceSoftware\InvoiceDataLayer\bin\Debug\System.Security.Cryptography.X509Certificates.dll
+F:\VS2017\Invoice\BillingSoftware\InVoiceSoftware\InvoiceDataLayer\bin\Debug\EntityFramework.xml
+F:\VS2017\Invoice\BillingSoftware\InVoiceSoftware\InvoiceDataLayer\bin\Debug\EntityFramework.SqlServer.xml
+F:\VS2017\Invoice\BillingSoftware\InVoiceSoftware\InvoiceDataLayer\obj\Debug\InvoiceDataLayer.csproj.CopyComplete
+F:\VS2017\Invoice\BillingSoftware\InVoiceSoftware\InvoiceDataLayer\obj\Debug\InvoiceDataLayer.dll
+F:\VS2017\Invoice\BillingSoftware\InVoiceSoftware\InvoiceDataLayer\obj\Debug\InvoiceDataLayer.pdb

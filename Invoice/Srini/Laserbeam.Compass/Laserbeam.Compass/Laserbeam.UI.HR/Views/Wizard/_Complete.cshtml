@@ -1,0 +1,117 @@
+﻿@model  Laserbeam.BusinessObject.Common.BusSettingModel
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        var merit = '@Model.Merit';
+        var Promotion = '@Model.Promotion';
+        var Lumsum = '@Model.Lumpsum';
+        var Adjustment = '@Model.Adjustment';
+        var Workflow = '@Model.WorkFlow';
+        var Multicurr = '@Model.MultiCurrency';
+        var PerfRating = '@Model.RatingDisplay';
+
+        if (merit == "YES") $("#lblMerit").show();
+        else $("#lblMerit").hide();
+        if (Promotion == "YES") $("#lblPromotion").show();
+        else $("#lblPromotion").hide();
+        if (Lumsum == "YES") $("#lblLumsum").show();
+        else $("#lblLumsum").hide();
+        if (Adjustment == "YES") $("#lblAdjustment").show();
+        else $("#lblAdjustment").hide();
+        if (Workflow == "YES") $("#lblWorkFlow").show();
+        else $("#lblWorkFlow").hide();
+        if (Multicurr == "YES") $("#lblMultiCurrency").show();
+        else $("#lblMultiCurrency").hide();
+        if (PerfRating == "YES") $("#lblPerfRating").show();
+        else $("#lblPerfRating").hide();
+    });
+</script>
+<div class="form-actions">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="text-right" id="btnLevels">
+                <a href="javascript:;" class="btn default button-previous" id="btnBackToBudget">
+                    <i class="fa fa-chevron-left"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Tab6 Begins Here -->
+
+<style>
+    .btn-modify, .btn-modify:hover, .btn-modify:focus {
+        color: #00abf0;
+        font-size: 20px;
+        padding:0;
+        background:#fff;
+    }
+</style>
+
+<div class="row nomargin">
+    <div class="col-md-12 ovrvwsec">
+        <div class="col-md-6" style="margin-top:30px;">
+            <h1 class="block wizard-blue">Congratulations! @ViewBag.UserName </h1>
+            <h4 class="sm-block">You have completed the setup. For ease of use, we have preloaded the tool with training data.</h4>
+            <div class="text-center">
+                <div class="row" style="margin-top:30px;">
+                    <div class="col-md-6 col-xs-6 text-right">
+                        <button type="button" class="btn btn-txt text-center" id="btnLoadData">@*Click here to load data*@ <i class="fa fa-download"></i> Download training data</button>
+                    </div>
+                    <div class="col-md-6 col-xs-6 text-left">
+                        <a href="@Url.Action("DashboardView", "Dashboard")" class="btn btn-info1 text-center" id="btnSampleData">Start with training data</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6" style="border-left: 1px solid #ccc;">
+            <div class="row">
+                <div class="col-md-12 snapshottitle text-center">
+                    <span style="text-transform: uppercase;">Snapshot</span>
+                </div>
+            </div>
+            <div class="row whitesec">
+                <div class="col-md-12">
+                    <div class="row overviewfield">
+                        <div class="col-md-12 overviewtitle">
+                            <div class="numbersec"><img class="img-responsive" src="~/Images/tick-icon.png" /></div>
+                            <div class="snapshotmidsection">
+                                <span class="spaceabove"> Compensation Components</span>
+                                <div class="overviewcontent">
+                                    <label class="label label-primary" id="lblMerit">Merit</label>
+                                    <label class="label label-primary" id="lblPerfRating">Performance Rating</label>
+                                    <label class="label label-primary" id="lblLumsum">Lump Sum</label>
+                                    <label class="label label-primary" id="lblPromotion">Promotion</label>
+                                    <label class="label label-primary" id="lblAdjustment">Adjustment</label>
+                                    <label class="label label-primary" id="lblWorkFlow">Work Flow</label>
+                                    <label class="label label-primary" id="lblMultiCurrency">Multi Currency</label>
+                                </div>
+                            </div>
+                            <div class="Modifysection"><button type="button" class="btn btn-modify pull-right" id="btnModifyComponents"><i class="fa fa-pencil"></i></button></div>
+                        </div>
+                    </div>
+                    <div class="row overviewfield">
+                        <div class="col-md-12 overviewtitle">
+                            <div class="numbersec"><img class="img-responsive" src="~/Images/tick-icon.png" /></div>
+                            <div class="snapshotmidsection"><span class="spaceabove"> Rules configured successfully</span></div>
+                            <div class="Modifysection"><button type="button" class="btn btn-modify pull-right" id="btnModifyRules"><i class="fa fa-pencil"></i></button></div>
+                        </div>
+                    </div>
+                    <div class="row overviewfield">
+                        <div class="col-md-12 overviewtitle">
+                            <div class="numbersec"><img style="float:left;width:35px;margin-right: 10px;" src="~/Images/tick-icon.png" /></div>
+                            <div class="snapshotmidsection"><span class="spaceabove"> Budget defined successfully</span></div>
+                            <div class="Modifysection"><button type="button" class="btn btn-modify pull-right" id="btnModifyBudget"><i class="fa fa-pencil"></i></button></div>
+                        </div>
+                    </div>
+                    <br /><br /><br />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@*<a href="@Url.Action("Home", "Workforce")" type="button" class="btn btn-info1 btn-txt">Click here to load data</a>*@
+<div class="voffset3"><br /><br /></div>

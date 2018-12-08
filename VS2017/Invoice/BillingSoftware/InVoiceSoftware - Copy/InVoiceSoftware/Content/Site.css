@@ -1,0 +1,79 @@
+﻿body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+    font-family: Arial;
+    font-size: 14px;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+.center {
+    text-align: center;
+}
+
+.noborder {
+    border: none;
+    background: #fff;
+}
+
+.form-control {
+    border-top: none !important;
+    border-left: none !important;
+    border-right: none !important;
+    box-shadow: none !important;
+    border-radius: 0;
+    padding-left: 0px;
+    border-bottom: 1px solid #ccc !important;
+    height: 30px;
+}
+
+.top-pad {
+    padding-top: 10px;
+}
+
+.nomobiletoppad {
+    padding-top: 20px;
+}
+
+.wbg .glyphicon, .wbg .fa {
+    color: #00abf0;
+}
+
+.btn-blue, .btn-blue:hover, .btn-blue:focus {
+    background: #00abf0;
+    color: #fff;
+    font-size: 15px;
+    padding: 4px 18px;
+}
+
+.nomargin {
+    margin: 0;
+}
+
+.whitebg {
+    background: white;
+    border: 1px solid #d8dde6;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 1px 0px 10px #ccc;
+    border-radius: 4px;
+    margin-top: 15%;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {@import url('file:///F:\VS2017\Invoice\InvoiceApplication\InvoiceApplication\Content\SignUp.css');
+    max-width: 280px;
+}

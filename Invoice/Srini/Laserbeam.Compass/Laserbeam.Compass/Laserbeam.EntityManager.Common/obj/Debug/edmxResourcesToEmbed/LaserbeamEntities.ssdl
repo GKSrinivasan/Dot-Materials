@@ -1,0 +1,2920 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="LaserbeamEntities.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="AppEmail">
+    <Key>
+      <PropertyRef Name="AppEmailID" />
+    </Key>
+    <Property Name="AppEmailID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="EmailSubject" Type="varchar" MaxLength="500" Nullable="false" />
+    <Property Name="EmailBody" Type="varchar(max)" Nullable="false" />
+    <Property Name="EmailScript" Type="varchar" MaxLength="4000" />
+    <Property Name="EmailDescr" Type="varchar" MaxLength="2000" />
+    <Property Name="Active" Type="bit" Nullable="false" />
+    <Property Name="EmailOrderby" Type="tinyint" />
+    <Property Name="EmailKey" Type="nvarchar" MaxLength="800" />
+    <Property Name="UserTemplate" Type="bit" />
+    <Property Name="UpdatedBy" Type="int" />
+    <Property Name="UpdatedDate" Type="datetime" />
+  </EntityType>
+  <EntityType Name="AppExportScript">
+    <Key>
+      <PropertyRef Name="AppExportScriptID" />
+    </Key>
+    <Property Name="AppExportScriptID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ExportName" Type="nvarchar" MaxLength="500" Nullable="false" />
+    <Property Name="ExportScript" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Active" Type="bit" />
+  </EntityType>
+  <EntityType Name="AppMenu">
+    <Key>
+      <PropertyRef Name="AppMenuID" />
+    </Key>
+    <Property Name="AppMenuID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="MenuName" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="MenuParentNum" Type="int" />
+    <Property Name="MenuLinks" Type="varchar" MaxLength="255" />
+    <Property Name="MenuOrderBy" Type="int" />
+    <Property Name="menuid" Type="nchar" MaxLength="255" />
+    <Property Name="AdminLinks" Type="bit" Nullable="false" />
+    <Property Name="Active" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="AppMessage">
+    <Key>
+      <PropertyRef Name="AppMessageID" />
+    </Key>
+    <Property Name="AppMessageID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="MessageSubject" Type="varchar" MaxLength="500" Nullable="false" />
+    <Property Name="MessageBody" Type="varchar(max)" Nullable="false" />
+    <Property Name="MessageScript" Type="varchar" MaxLength="4000" />
+    <Property Name="MessageDescr" Type="varchar" MaxLength="2000" />
+    <Property Name="MessageType" Type="bit" Nullable="false" />
+    <Property Name="Active" Type="bit" Nullable="false" />
+    <Property Name="MessageOrderby" Type="tinyint" />
+    <Property Name="UpdatedBy" Type="int" />
+    <Property Name="UpdatedDate" Type="datetime" />
+  </EntityType>
+  <EntityType Name="AppScript">
+    <Key>
+      <PropertyRef Name="AppScriptID" />
+    </Key>
+    <Property Name="AppScriptID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ScriptName" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="Script" Type="varchar" MaxLength="2000" Nullable="false" />
+    <Property Name="ScriptDescr" Type="varchar" MaxLength="2000" />
+    <Property Name="ScriptGroup" Type="tinyint" Nullable="false" />
+    <Property Name="ScriptOrderBy" Type="tinyint" />
+    <Property Name="Active" Type="bit" />
+  </EntityType>
+  <EntityType Name="AppSetting">
+    <Key>
+      <PropertyRef Name="AppSettingNum" />
+    </Key>
+    <Property Name="AppSettingNum" Type="tinyint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="AppSettingID" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="AppSettingValue" Type="varchar" MaxLength="2000" />
+    <Property Name="AppSettingDescr" Type="varchar" MaxLength="2000" />
+    <Property Name="UpdatedBy" Type="int" />
+    <Property Name="UpdatedDate" Type="datetime" />
+  </EntityType>
+  <EntityType Name="AppTable">
+    <Key>
+      <PropertyRef Name="AppTableID" />
+    </Key>
+    <Property Name="AppTableID" Type="tinyint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TableName" Type="varchar" MaxLength="255" />
+    <Property Name="TableDescr" Type="varchar" MaxLength="2000" />
+    <Property Name="TableType" Type="varchar" MaxLength="1" />
+    <Property Name="IsInsertEnabled" Type="bit" Nullable="false" />
+    <Property Name="Active" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="AppUserRole">
+    <Key>
+      <PropertyRef Name="UserRoleNum" />
+    </Key>
+    <Property Name="UserRoleNum" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserRole" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="KeyName" Type="varchar" MaxLength="255" />
+    <Property Name="Active" Type="bit" />
+  </EntityType>
+  <EntityType Name="AppUserStatus">
+    <Key>
+      <PropertyRef Name="AppUserStatusID" />
+    </Key>
+    <Property Name="AppUserStatusID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserStatus" Type="nvarchar" MaxLength="255" Nullable="false" />
+  </EntityType>
+  <EntityType Name="BonusType">
+    <Key>
+      <PropertyRef Name="BonusTypeNum" />
+    </Key>
+    <Property Name="BonusTypeNum" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="BonusTypeCode" Type="varchar" MaxLength="255" />
+    <Property Name="BonusTypeDescr" Type="varchar" MaxLength="255" />
+    <Property Name="Active" Type="bit" />
+  </EntityType>
+  <EntityType Name="BusinessUnit">
+    <Key>
+      <PropertyRef Name="BusinessUnitNum" />
+    </Key>
+    <Property Name="BusinessUnitNum" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="BusinessUnitCode" Type="varchar" MaxLength="255" />
+    <Property Name="BusinessUnitDescr" Type="varchar" MaxLength="255" />
+    <Property Name="Active" Type="bit" />
+  </EntityType>
+  <EntityType Name="BusSetting">
+    <Key>
+      <PropertyRef Name="BusSettingID" />
+    </Key>
+    <Property Name="BusSettingID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="KeyId" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="KeyValue" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="KeyDataValue" Type="varchar" MaxLength="500" Nullable="false" />
+    <Property Name="Descr" Type="varchar" MaxLength="2000" Nullable="false" />
+    <Property Name="IsChanged" Type="bit" />
+    <Property Name="UpdatedBy" Type="int" />
+    <Property Name="UpdatedDate" Type="datetime" />
+  </EntityType>
+  <EntityType Name="Category">
+    <Key>
+      <PropertyRef Name="CategoryNum" />
+    </Key>
+    <Property Name="CategoryNum" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CategoryCode" Type="varchar" MaxLength="255" />
+    <Property Name="CategoryDescr" Type="varchar" MaxLength="255" />
+    <Property Name="Active" Type="bit" />
+  </EntityType>
+  <EntityType Name="ChatUserStatus">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ChatStatus" Type="nvarchar" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="Company">
+    <Key>
+      <PropertyRef Name="CompanyNum" />
+    </Key>
+    <Property Name="CompanyNum" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CompanyCode" Type="varchar" MaxLength="255" />
+    <Property Name="CompanyDescr" Type="varchar" MaxLength="255" />
+    <Property Name="Active" Type="bit" />
+  </EntityType>
+  <EntityType Name="CompensationType">
+    <Key>
+      <PropertyRef Name="CompensationTypeNum" />
+    </Key>
+    <Property Name="CompensationTypeNum" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CompensationTypeShortName" Type="nvarchar" MaxLength="15" Nullable="false" />
+    <Property Name="CompensationTypeDescr" Type="nvarchar" MaxLength="255" Nullable="false" />
+    <Property Name="CompensationTransactionReference" Type="nvarchar" MaxLength="255" />
+    <Property Name="Active" Type="bit" />
+  </EntityType>
+  <EntityType Name="CostCenter">
+    <Key>
+      <PropertyRef Name="CostCenterNum" />
+    </Key>
+    <Property Name="CostCenterNum" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CostCenterCode" Type="varchar" MaxLength="255" />
+    <Property Name="CostCenterDescr" Type="varchar" MaxLength="255" />
+    <Property Name="Active" Type="bit" />
+  </EntityType>
+  <EntityType Name="Country">
+    <Key>
+      <PropertyRef Name="CountryNum" />
+    </Key>
+    <Property Name="CountryNum" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Country" Type="nvarchar" MaxLength="255" Nullable="false" />
+    <Property Name="Active" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Currency">
+    <Key>
+      <PropertyRef Name="CurrencyCodeNum" />
+    </Key>
+    <Property Name="CurrencyCodeNum" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CurrencyCode" Type="varchar" MaxLength="255" />
+    <Property Name="CurrencyCodeDescr" Type="varchar" MaxLength="255" />
+    <Property Name="CultureCode" Type="varchar" MaxLength="255" />
+    <Property Name="Active" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="DateFormat">
+    <Key>
+      <PropertyRef Name="DateFormatNum" />
+    </Key>
+    <Property Name="DateFormatNum" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FormatType" Type="varchar" MaxLength="255" />
+    <Property Name="OrderBy" Type="int" />
+    <Property Name="Active" Type="bit" />
+  </EntityType>
+  <EntityType Name="DecimalType">
+    <Key>
+      <PropertyRef Name="DecimalTypeId" />
+    </Key>
+    <Property Name="DecimalTypeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DecimalTypeKey" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="DecimalTypeValue" Type="varchar" MaxLength="255" />
+    <Property Name="Type" Type="varchar" MaxLength="255" />
+    <Property Name="Active" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Department">
+    <Key>
+      <PropertyRef Name="DepartmentNum" />
+    </Key>
+    <Property Name="DepartmentNum" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DepartmentCode" Type="varchar" MaxLength="255" />
+    <Property Name="DepartmentDescr" Type="varchar" MaxLength="255" />
+    <Property Name="Active" Type="bit" />
+  </EntityType>
+  <EntityType Name="Division">
+    <Key>
+      <PropertyRef Name="DivisionNum" />
+    </Key>
+    <Property Name="DivisionNum" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DivisionCode" Type="varchar" MaxLength="255" />
+    <Property Name="DivisionDescr" Type="varchar" MaxLength="255" />
+    <Property Name="Active" Type="bit" />
+  </EntityType>
+  <EntityType Name="EmailTracker">
+    <Key>
+      <PropertyRef Name="EmailTrackerID" />
+    </Key>
+    <Property Name="ClientUserID" Type="nvarchar" MaxLength="255" Nullable="false" />
+    <Property Name="FromEmail" Type="nvarchar" MaxLength="320" />
+    <Property Name="ToEmail" Type="nvarchar" MaxLength="320" />
+    <Property Name="AppEmailID" Type="int" Nullable="false" />
+    <Property Name="Success" Type="bit" Nullable="false" />
+    <Property Name="ErrorDescription" Type="nvarchar" MaxLength="2000" />
+    <Property Name="EmailTrackerID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UpdatedBy" Type="int" />
+    <Property Name="UpdatedDate" Type="datetime" />
+  </EntityType>
+  <EntityType Name="EmployeeClass">
+    <Key>
+      <PropertyRef Name="ClassNum" />
+    </Key>
+    <Property Name="ClassNum" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ClassCode" Type="varchar" MaxLength="255" />
+    <Property Name="ClassDescr" Type="varchar" MaxLength="255" />
+    <Property Name="Active" Type="bit" />
+  </EntityType>
+  <EntityType Name="EntityCode">
+    <Key>
+      <PropertyRef Name="EntityCodeNum" />
+    </Key>
+    <Property Name="EntityCodeNum" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="EntityCodeCode" Type="varchar" MaxLength="255" />
+    <Property Name="EntityCodeDescr" Type="varchar" MaxLength="255" />
+    <Property Name="Active" Type="bit" />
+  </EntityType>
+  <EntityType Name="Ethnicity">
+    <Key>
+      <PropertyRef Name="EthnicityNum" />
+    </Key>
+    <Property Name="EthnicityNum" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="EthnicityCode" Type="varchar" MaxLength="255" />
+    <Property Name="EthnicityDescr" Type="varchar" MaxLength="255" />
+    <Property Name="Active" Type="bit" />
+  </EntityType>
+  <EntityType Name="ExchangeRate">
+    <Key>
+      <PropertyRef Name="ExchangeRateNum" />
+    </Key>
+    <Property Name="ExchangeRateNum" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CurrencyCodeNum" Type="int" Nullable="false" />
+    <Property Name="MeritExchangeRate" Type="decimal" Precision="15" Scale="8" />
+    <Property Name="BonusExchangeRate" Type="decimal" Precision="15" Scale="8" />
+    <Property Name="Active" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Family">
+    <Key>
+      <PropertyRef Name="FamilyNum" />
+    </Key>
+    <Property Name="FamilyNum" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FamilyCode" Type="varchar" MaxLength="255" />
+    <Property Name="FamilyDescr" Type="varchar" MaxLength="255" />
+    <Property Name="Active" Type="bit" />
+  </EntityType>
+  <EntityType Name="Grade">
+    <Key>
+      <PropertyRef Name="GradeNum" />
+    </Key>
+    <Property Name="GradeNum" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="GradeCode" Type="nvarchar" MaxLength="255" />
+    <Property Name="GradeDescr" Type="nvarchar" MaxLength="255" Nullable="false" />
+    <Property Name="GradeOrder" Type="int" />
+    <Property Name="Active" Type="bit" />
+  </EntityType>
+  <EntityType Name="GroupType">
+    <Key>
+      <PropertyRef Name="GroupTypeNum" />
+    </Key>
+    <Property Name="GroupTypeNum" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="GroupTypeName" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="Active" Type="bit" />
+  </EntityType>
+  <EntityType Name="InitiativesLink">
+    <Key>
+      <PropertyRef Name="InitiativesLinkNum" />
+    </Key>
+    <Property Name="InitiativesLinkNum" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="LinkName" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="StartDate" Type="datetime" />
+    <Property Name="EndDate" Type="datetime" />
+    <Property Name="Status" Type="varchar" MaxLength="255" />
+    <Property Name="URL" Type="varchar" MaxLength="500" />
+    <Property Name="IsManagerView" Type="bit" Nullable="false" />
+    <Property Name="ActionName" Type="varchar" MaxLength="255" />
+    <Property Name="ControllerName" Type="varchar" MaxLength="255" />
+    <Property Name="AppMenuID" Type="int" />
+    <Property Name="Description" Type="varchar" MaxLength="255" />
+    <Property Name="OrderBy" Type="int" />
+    <Property Name="IsActive" Type="bit" />
+  </EntityType>
+  <EntityType Name="Job">
+    <Key>
+      <PropertyRef Name="JobNum" />
+    </Key>
+    <Property Name="JobNum" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="JobCode" Type="nvarchar" MaxLength="255" />
+    <Property Name="JobDescr" Type="nvarchar" MaxLength="255" Nullable="false" />
+    <Property Name="GradeNum" Type="int" />
+    <Property Name="Active" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="JobStatus">
+    <Key>
+      <PropertyRef Name="JobStatusNum" />
+    </Key>
+    <Property Name="JobStatusNum" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="JobStatusCode" Type="varchar" MaxLength="255" />
+    <Property Name="JobStatusDescr" Type="varchar" MaxLength="255" />
+    <Property Name="Active" Type="bit" />
+  </EntityType>
+  <EntityType Name="Location">
+    <Key>
+      <PropertyRef Name="LocationNum" />
+    </Key>
+    <Property Name="LocationNum" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Location" Type="nvarchar" MaxLength="255" Nullable="false" />
+    <Property Name="CountryNum" Type="int" Nullable="false" />
+    <Property Name="LocationCode" Type="int" />
+    <Property Name="Active" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="MetaColumn">
+    <Key>
+      <PropertyRef Name="MetaColumnID" />
+    </Key>
+    <Property Name="MetaColumnID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FieldName" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="ActualColumnName" Type="varchar" MaxLength="255" />
+    <Property Name="GeneralAliasName" Type="varchar" MaxLength="255" />
+    <Property Name="TemplateAliasName" Type="varchar" MaxLength="255" />
+    <Property Name="MasterDisplay" Type="bit" Nullable="false" />
+    <Property Name="PopupDisplay" Type="bit" Nullable="false" />
+    <Property Name="GridDisplay" Type="bit" Nullable="false" />
+    <Property Name="FilterDisplay" Type="bit" Nullable="false" />
+    <Property Name="ExportDisplay" Type="bit" Nullable="false" />
+    <Property Name="TemplateDisplay" Type="bit" Nullable="false" />
+    <Property Name="IsMandate" Type="bit" Nullable="false" />
+    <Property Name="IsTemplate" Type="bit" Nullable="false" />
+    <Property Name="PopupDisplayDefaultValue" Type="bit" Nullable="false" />
+    <Property Name="GridDisplayDefaultValue" Type="bit" Nullable="false" />
+    <Property Name="FilterDisplayDefaultValue" Type="bit" Nullable="false" />
+    <Property Name="ExportDisplayDefaultValue" Type="bit" Nullable="false" />
+    <Property Name="TemplateDisplayDefaultValue" Type="bit" Nullable="false" />
+    <Property Name="IsMandateDefaultValue" Type="bit" />
+    <Property Name="IsTemplateDefaultValue" Type="bit" />
+    <Property Name="FunctionalGroup" Type="varchar" MaxLength="255" />
+    <Property Name="TableName" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="TableKeyColumnName" Type="varchar" MaxLength="255" />
+    <Property Name="SampleData" Type="varchar" MaxLength="255" />
+    <Property Name="DataLength" Type="varchar" MaxLength="255" />
+    <Property Name="DataFormat" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="FieldDescription" Type="varchar" MaxLength="4000" />
+    <Property Name="RowOrder" Type="varchar" MaxLength="255" />
+    <Property Name="TemplateRowOrder" Type="varchar" MaxLength="255" />
+    <Property Name="ControlType" Type="varchar" MaxLength="255" />
+    <Property Name="PlaceHolder" Type="varchar" MaxLength="255" />
+    <Property Name="ControlFormat" Type="varchar" MaxLength="255" />
+    <Property Name="FieldInformation" Type="varchar" MaxLength="500" />
+    <Property Name="UpdatedBy" Type="int" />
+    <Property Name="UpdatedDate" Type="datetime" />
+    <Property Name="RuleConfigurationKeyGroup" Type="varchar" MaxLength="255" />
+  </EntityType>
+  <EntityType Name="MetaTable">
+    <Key>
+      <PropertyRef Name="MetaTableID" />
+    </Key>
+    <Property Name="MetaTableID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="MetaTableName" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="Active" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="MetaXmlTemplate">
+    <Key>
+      <PropertyRef Name="MetaXmlTemplateNum" />
+    </Key>
+    <Property Name="MetaXmlTemplateNum" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TemplateName" Type="nvarchar" MaxLength="255" Nullable="false" />
+    <Property Name="TemplateSchemaName" Type="nvarchar" MaxLength="255" />
+    <Property Name="TemplateTableName" Type="nvarchar" MaxLength="255" Nullable="false" />
+    <Property Name="TemplateFileName" Type="nvarchar" MaxLength="255" Nullable="false" />
+    <Property Name="TemplateSchemaPath" Type="varchar" MaxLength="2000" />
+    <Property Name="TemplateXMLpath" Type="varchar" MaxLength="2000" />
+    <Property Name="TemplateDownloadpath" Type="varchar" MaxLength="2000" />
+    <Property Name="Active" Type="bit" />
+    <Property Name="ExecutionOrder" Type="int" />
+    <Property Name="TableName" Type="nvarchar" MaxLength="255" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Module">
+    <Key>
+      <PropertyRef Name="ModuleNum" />
+    </Key>
+    <Property Name="ModuleNum" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ModuleName" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="ModuleKey" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="IsWorkflow" Type="bit" Nullable="false" />
+    <Property Name="Active" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Operator">
+    <Key>
+      <PropertyRef Name="OperatorNum" />
+    </Key>
+    <Property Name="OperatorNum" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="OperatorText" Type="varchar" MaxLength="255" />
+    <Property Name="OperatorValue" Type="varchar" MaxLength="255" />
+  </EntityType>
+  <EntityType Name="OrgGroupCriteria">
+    <Key>
+      <PropertyRef Name="OrgGroupCriteriaID" />
+    </Key>
+    <Property Name="OrgGroupCriteriaID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CriteriaName" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="CriteriaOrderBy" Type="tinyint" Nullable="false" />
+    <Property Name="Active" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="PayGroup">
+    <Key>
+      <PropertyRef Name="PayGroupNum" />
+    </Key>
+    <Property Name="PayGroupNum" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="PayGroupCode" Type="varchar" MaxLength="255" />
+    <Property Name="PayGroupDescr" Type="varchar" MaxLength="255" />
+    <Property Name="Active" Type="bit" />
+  </EntityType>
+  <EntityType Name="Program">
+    <Key>
+      <PropertyRef Name="ProgramNum" />
+    </Key>
+    <Property Name="ProgramNum" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ProgramCode" Type="varchar" MaxLength="255" />
+    <Property Name="ProgramDescr" Type="varchar" MaxLength="255" />
+    <Property Name="Active" Type="bit" />
+  </EntityType>
+  <EntityType Name="Rating">
+    <Key>
+      <PropertyRef Name="RatingNum" />
+    </Key>
+    <Property Name="RatingNum" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="RatingID" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="RatingDescr" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="RatingType" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="IsCommentMandatory" Type="bit" />
+    <Property Name="RatingDetailDescr" Type="varchar" MaxLength="4000" />
+    <Property Name="HighRange" Type="varchar" MaxLength="255" />
+    <Property Name="LowRange" Type="varchar" MaxLength="255" />
+    <Property Name="RatingOrder" Type="int" />
+    <Property Name="UpdatedBy" Type="int" />
+    <Property Name="UpdatedDate" Type="datetime" />
+    <Property Name="MinRange" Type="varchar" MaxLength="255" />
+    <Property Name="MaxRange" Type="varchar" MaxLength="255" />
+    <Property Name="RatingRange" Type="varchar" MaxLength="255" />
+  </EntityType>
+  <EntityType Name="ReviewType">
+    <Key>
+      <PropertyRef Name="ReviewTypeNum" />
+    </Key>
+    <Property Name="ReviewTypeNum" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ReviewTypeDescr" Type="varchar" MaxLength="255" Nullable="false" />
+  </EntityType>
+  <EntityType Name="RoundingType">
+    <Key>
+      <PropertyRef Name="RoundingTypeId" />
+    </Key>
+    <Property Name="RoundingTypeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="RoundTypeKey" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="RoundTypeValue" Type="varchar" MaxLength="255" />
+    <Property Name="Active" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="State">
+    <Key>
+      <PropertyRef Name="StateNum" />
+    </Key>
+    <Property Name="StateNum" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CountryNum" Type="int" Nullable="false" />
+    <Property Name="StateName" Type="nvarchar" MaxLength="255" />
+  </EntityType>
+  <EntityType Name="SubFamily">
+    <Key>
+      <PropertyRef Name="SubFamilyNum" />
+    </Key>
+    <Property Name="SubFamilyNum" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="SubFamilyCode" Type="varchar" MaxLength="255" />
+    <Property Name="SubFamilyDescr" Type="varchar" MaxLength="255" />
+    <Property Name="Active" Type="bit" />
+  </EntityType>
+  <EntityType Name="SubStatus">
+    <Key>
+      <PropertyRef Name="SubStatusNum" />
+    </Key>
+    <Property Name="SubStatusNum" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="SubStatusCode" Type="varchar" MaxLength="255" />
+    <Property Name="SubStatusDescr" Type="varchar" MaxLength="255" />
+    <Property Name="Active" Type="bit" />
+  </EntityType>
+  <EntityType Name="Team">
+    <Key>
+      <PropertyRef Name="TeamNum" />
+    </Key>
+    <Property Name="TeamNum" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TeamTitle" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="UpdatedBy" Type="int" />
+    <Property Name="UpdatedDate" Type="datetime" />
+  </EntityType>
+  <EntityType Name="UserAppUrlTracker">
+    <Key>
+      <PropertyRef Name="UserAppUrlTrackerID" />
+    </Key>
+    <Property Name="UserAppUrlTrackerID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ClientUserID" Type="nvarchar" MaxLength="255" />
+    <Property Name="SecretKey" Type="varchar" MaxLength="255" />
+    <Property Name="RequestTimeStamp" Type="varchar" MaxLength="255" />
+    <Property Name="EncryptedMagicKey" Type="nvarchar" MaxLength="1000" />
+    <Property Name="SiteUrl" Type="nvarchar" MaxLength="1000" />
+    <Property Name="IsEncrypted" Type="bit" />
+  </EntityType>
+  <EntityType Name="UserQuery">
+    <Key>
+      <PropertyRef Name="UserQueryNum" />
+    </Key>
+    <Property Name="UserQueryNum" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserQueryName" Type="nvarchar" MaxLength="255" Nullable="false" />
+    <Property Name="SavedQuery" Type="nvarchar(max)" />
+    <Property Name="UserNum" Type="int" />
+  </EntityType>
+  <EntityType Name="XmlProcess">
+    <Key>
+      <PropertyRef Name="XmlProcessNum" />
+    </Key>
+    <Property Name="XmlProcessNum" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserNum" Type="int" />
+    <Property Name="ProcessDate" Type="datetime" />
+    <Property Name="XmlFilename" Type="nvarchar" MaxLength="255" Nullable="false" />
+    <Property Name="SheetName" Type="nvarchar" MaxLength="255" Nullable="false" />
+    <Property Name="FileSourcePath" Type="nvarchar" MaxLength="255" />
+    <Property Name="ValidateStatus" Type="int" />
+    <Property Name="ProcessStatus" Type="int" />
+    <Property Name="RecordCount" Type="int" />
+    <Property Name="MetaXmlTemplateNum" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="AppUser">
+    <Key>
+      <PropertyRef Name="UserNum" />
+    </Key>
+    <Property Name="UserNum" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="EmployeeNum" Type="int" />
+    <Property Name="UserID" Type="nvarchar" MaxLength="255" Nullable="false" />
+    <Property Name="EmployeeID" Type="nvarchar" MaxLength="255" />
+    <Property Name="LoginID" Type="nvarchar" MaxLength="255" Nullable="false" />
+    <Property Name="UserName" Type="nvarchar" MaxLength="1500" Nullable="false" />
+    <Property Name="FirstName" Type="nvarchar" MaxLength="255" />
+    <Property Name="LastName" Type="nvarchar" MaxLength="255" />
+    <Property Name="PreferredName" Type="varchar" MaxLength="255" />
+    <Property Name="UserPassword" Type="nvarchar" MaxLength="255" />
+    <Property Name="DefaultPassword" Type="nvarchar" MaxLength="255" />
+    <Property Name="EmailID" Type="nvarchar" MaxLength="255" Nullable="false" />
+    <Property Name="ProxyID" Type="varchar" MaxLength="255" />
+    <Property Name="UserGroup" Type="varchar" MaxLength="255" />
+    <Property Name="UserRoleNum" Type="int" Nullable="false" />
+    <Property Name="FailedLoginAttempts" Type="int" />
+    <Property Name="LastLoginDt" Type="datetime" />
+    <Property Name="LastLogOutDt" Type="datetime" />
+    <Property Name="AppUserStatusID" Type="int" />
+    <Property Name="XMLProcessID" Type="int" />
+    <Property Name="SSOLastLoginDate" Type="datetime" />
+    <Property Name="SSOLastLogOutDate" Type="datetime" />
+    <Property Name="ApplicationSessionID" Type="nvarchar" MaxLength="255" />
+    <Property Name="DefaultPasswordExpired" Type="bit" />
+    <Property Name="SecretKey" Type="varchar" MaxLength="255" />
+    <Property Name="MarkAsDelete" Type="bit" Nullable="false" />
+    <Property Name="LockedDate" Type="datetime" />
+    <Property Name="MailDeliveryStatus" Type="bit" />
+    <Property Name="MailDeliveryDate" Type="datetime" />
+    <Property Name="IsWizardExpired" Type="bit" />
+    <Property Name="WizardStepsCompleted" Type="int" />
+    <Property Name="UpdatedBy" Type="int" />
+    <Property Name="UpdatedDate" Type="datetime" />
+    <Property Name="IsDefaultUser" Type="bit" />
+    <Property Name="ChatStatus" Type="int" />
+    <Property Name="IsLoggedIn" Type="bit" />
+    <Property Name="IsAdminAccess" Type="bit" />
+    <Property Name="AdminUserNum" Type="int" />
+    <Property Name="AdminEmpNum" Type="int" />
+  </EntityType>
+  <EntityType Name="Budget">
+    <Key>
+      <PropertyRef Name="BudgetNum" />
+    </Key>
+    <Property Name="BudgetNum" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="EmpJobNum" Type="int" Nullable="false" />
+    <Property Name="CompensationTypeNum" Type="int" Nullable="false" />
+    <Property Name="Budget" Type="decimal" Precision="19" Scale="4" Nullable="false" />
+    <Property Name="Spent" Type="decimal" Precision="19" Scale="4" Nullable="false" />
+    <Property Name="LTIPBudget" Type="decimal" Precision="19" Scale="4" />
+    <Property Name="LTIPSpent" Type="decimal" Precision="19" Scale="4" />
+    <Property Name="UpdatedBy" Type="int" />
+    <Property Name="UpdatedDate" Type="datetime" />
+    <Property Name="PromotionSpent" Type="decimal" Precision="19" Scale="4" Nullable="false" />
+    <Property Name="AdjustmentSpent" Type="decimal" Precision="19" Scale="4" Nullable="false" />
+    <Property Name="LumpSumSpent" Type="decimal" Precision="19" Scale="4" />
+    <Property Name="BonusBudget" Type="decimal" Precision="19" Scale="4" />
+    <Property Name="BonusSpent" Type="decimal" Precision="19" Scale="4" />
+    <Property Name="BudgetPct" Type="decimal" Precision="6" Scale="2" />
+    <Property Name="ProratedBudget" Type="decimal" Precision="19" Scale="4" />
+    <Property Name="ProratedBudgetPct" Type="decimal" Precision="6" Scale="2" />
+    <Property Name="BudgetProration" Type="decimal" Precision="19" Scale="4" />
+    <Property Name="AdjustedBudget" Type="decimal" Precision="19" Scale="4" />
+    <Property Name="AdjustedBudgetPct" Type="decimal" Precision="6" Scale="2" />
+  </EntityType>
+  <EntityType Name="ChatDetails">
+    <Key>
+      <PropertyRef Name="ChatDetailNum" />
+    </Key>
+    <Property Name="ChatDetailNum" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="SenderUserNum" Type="int" />
+    <Property Name="ReceiverUserNum" Type="int" />
+    <Property Name="Chat" Type="nvarchar(max)" />
+    <Property Name="ViewedStatus" Type="bit" />
+    <Property Name="CreatedDate" Type="datetime" />
+    <Property Name="Attachement" Type="nvarchar(max)" />
+    <Property Name="FileType" Type="int" />
+    <Property Name="FileName" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="ChatSessionDetails">
+    <Key>
+      <PropertyRef Name="ChatSessionDetailNum" />
+    </Key>
+    <Property Name="ChatSessionDetailNum" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FromUserNum" Type="int" />
+    <Property Name="ToUserNum" Type="int" />
+    <Property Name="ChatSessionID" Type="nvarchar(max)" />
+    <Property Name="Token" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="DailyTask">
+    <Key>
+      <PropertyRef Name="TaskNum" />
+    </Key>
+    <Property Name="TaskNum" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserNum" Type="int" Nullable="false" />
+    <Property Name="TaskTitle" Type="nvarchar" MaxLength="50" />
+    <Property Name="TaskDescr" Type="nvarchar(max)" />
+    <Property Name="CreatedDate" Type="datetime" />
+    <Property Name="Active" Type="bit" />
+    <Property Name="UpdatedDate" Type="datetime" />
+    <Property Name="TaskCompleted" Type="bit" Nullable="false" />
+    <Property Name="TaskCompletedDate" Type="datetime" />
+  </EntityType>
+  <EntityType Name="Employee">
+    <Key>
+      <PropertyRef Name="EmployeeNum" />
+    </Key>
+    <Property Name="EmployeeNum" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="EmployeeID" Type="nvarchar" MaxLength="255" />
+    <Property Name="MyHRID" Type="nvarchar" MaxLength="255" />
+    <Property Name="EmployeeName" Type="nvarchar" MaxLength="1500" />
+    <Property Name="LastName" Type="nvarchar" MaxLength="255" />
+    <Property Name="FirstName" Type="nvarchar" MaxLength="255" />
+    <Property Name="MiddleInitial" Type="nvarchar" MaxLength="255" />
+    <Property Name="PreferredName" Type="nvarchar" MaxLength="255" />
+    <Property Name="DateofBirth" Type="datetime" />
+    <Property Name="HireDate" Type="datetime" Nullable="false" />
+    <Property Name="EmailAddress" Type="nvarchar" MaxLength="255" />
+    <Property Name="BasicPH" Type="int" />
+    <Property Name="Gender" Type="varchar" MaxLength="255" />
+    <Property Name="Ethnicity" Type="varchar" MaxLength="255" />
+    <Property Name="Age" Type="int" />
+    <Property Name="SortOrderEmployeeName" Type="nvarchar" MaxLength="1500" />
+    <Property Name="TerminationDate" Type="datetime" />
+    <Property Name="UpdatedBy" Type="int" />
+    <Property Name="UpdatedDate" Type="datetime" />
+  </EntityType>
+  <EntityType Name="EmployeeApprovalDetails">
+    <Key>
+      <PropertyRef Name="EmployeeApprovalDetailNum" />
+    </Key>
+    <Property Name="EmployeeApprovalDetailNum" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="EmpJobNum" Type="int" Nullable="false" />
+    <Property Name="ApprovedManager" Type="int" />
+    <Property Name="ApprovedLevel" Type="int" />
+    <Property Name="ApprovalStatus" Type="tinyint" />
+    <Property Name="Comments" Type="varchar" MaxLength="4000" />
+    <Property Name="ModuleNum" Type="int" />
+    <Property Name="UpdatedBy" Type="int" />
+    <Property Name="UpdatedDate" Type="datetime" />
+  </EntityType>
+  <EntityType Name="EmployeeCompAdjustment">
+    <Key>
+      <PropertyRef Name="EmpJobNum" />
+    </Key>
+    <Property Name="EmployeeCompAdjustmentNum" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="EmpJobNum" Type="int" Nullable="false" />
+    <Property Name="AdjustmentRange" Type="varchar" MaxLength="15" />
+    <Property Name="AdjustmentPct" Type="decimal" Precision="6" Scale="2" />
+    <Property Name="AdjustmentAmt" Type="decimal" Precision="19" Scale="8" />
+    <Property Name="HrlyAdjustmentAmt" Type="decimal" Precision="19" Scale="8" />
+    <Property Name="EffectiveDate" Type="datetime" />
+    <Property Name="AdjustmentPH" Type="int" />
+    <Property Name="Eligibility" Type="bit" Nullable="false" />
+    <Property Name="UpdatedBy" Type="int" />
+    <Property Name="UpdatedDate" Type="datetime" />
+  </EntityType>
+  <EntityType Name="EmployeeCompApprovalComment">
+    <Key>
+      <PropertyRef Name="EmpJobNum" />
+    </Key>
+    <Property Name="EmployeeCompApprovalCommentsNum" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="EmpJobNum" Type="int" Nullable="false" />
+    <Property Name="Comments" Type="nvarchar(max)" />
+    <Property Name="UpdatedBy" Type="int" Nullable="false" />
+    <Property Name="UpdatedDate" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="EmployeeCompApprovalLevel">
+    <Key>
+      <PropertyRef Name="EmpJobNum" />
+      <PropertyRef Name="ModuleNum" />
+    </Key>
+    <Property Name="EmployeeCompApprovalLevelNum" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="EmpJobNum" Type="int" Nullable="false" />
+    <Property Name="AppMgrOneEmpNum" Type="int" />
+    <Property Name="AppMgrTwoEmpNum" Type="int" />
+    <Property Name="AppMgrThreeEmpNum" Type="int" />
+    <Property Name="AppMgrFourEmpNum" Type="int" />
+    <Property Name="AppMgrFiveEmpNum" Type="int" />
+    <Property Name="AppMgrSixEmpNum" Type="int" />
+    <Property Name="AppMgrSevenEmpNum" Type="int" />
+    <Property Name="AppMgrEightEmpNum" Type="int" />
+    <Property Name="AppMgrNineEmpNum" Type="int" />
+    <Property Name="AppMgrTenEmpNum" Type="int" />
+    <Property Name="ModuleNum" Type="int" Nullable="false" />
+    <Property Name="UpdatedBy" Type="int" />
+    <Property Name="UpdatedDate" Type="smalldatetime" />
+  </EntityType>
+  <EntityType Name="EmployeeCompApprovalRequests">
+    <Key>
+      <PropertyRef Name="EmployeeCompApprovalRequestNum" />
+    </Key>
+    <Property Name="EmployeeCompApprovalRequestNum" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="EmpJobNum" Type="int" Nullable="false" />
+    <Property Name="UserNum" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="EmployeeCompApprovalStatus">
+    <Key>
+      <PropertyRef Name="EmpJobNum" />
+    </Key>
+    <Property Name="EmployeeCompApprovalStatusNum" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="EmpJobNum" Type="int" Nullable="false" />
+    <Property Name="CurrentApprovalStatus" Type="int" />
+    <Property Name="CurrentApprovedMgrNum" Type="int" />
+    <Property Name="CurrentApprovedMgrLevel" Type="int" />
+    <Property Name="PreviousLevelMgrNum" Type="int" />
+    <Property Name="PreviousApprovedMgrLevel" Type="int" />
+    <Property Name="NextLevelMgrNum" Type="int" />
+    <Property Name="NextApproverLevel" Type="int" />
+    <Property Name="FirstLevelMgrNum" Type="int" />
+    <Property Name="TopLevelMgrNum" Type="int" />
+    <Property Name="TopMgrLevel" Type="int" />
+    <Property Name="UpdatedBy" Type="int" />
+    <Property Name="UpdatedDate" Type="datetime" />
+  </EntityType>
+  <EntityType Name="EmployeeCompBonus">
+    <Key>
+      <PropertyRef Name="EmpJobNum" />
+    </Key>
+    <Property Name="EmployeeCompBonusNum" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="EmpJobNum" Type="int" Nullable="false" />
+    <Property Name="BonusPct" Type="decimal" Precision="6" Scale="2" />
+    <Property Name="BonusAmt" Type="decimal" Precision="19" Scale="4" />
+    <Property Name="BonusEligibility" Type="bit" />
+    <Property Name="BonusTargetPct" Type="decimal" Precision="5" Scale="2" />
+    <Property Name="BonusTargetAmt" Type="decimal" Precision="19" Scale="4" />
+    <Property Name="AdjustedBonusAmt" Type="decimal" Precision="19" Scale="4" />
+    <Property Name="BonusEffectiveDate" Type="datetime" />
+    <Property Name="BonusTeamAmt" Type="decimal" Precision="19" Scale="4" />
+    <Property Name="BonusIOAmt" Type="decimal" Precision="19" Scale="4" />
+    <Property Name="Payout" Type="decimal" Precision="19" Scale="4" />
+    <Property Name="UpdatedBy" Type="int" />
+    <Property Name="UpdatedDate" Type="datetime" />
+  </EntityType>
+  <EntityType Name="EmployeeCompComment">
+    <Key>
+      <PropertyRef Name="EmployeeCompCommentsNum" />
+    </Key>
+    <Property Name="EmployeeCompCommentsNum" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="EmpJobNum" Type="int" Nullable="false" />
+    <Property Name="CompensationTypeNum" Type="int" Nullable="false" />
+    <Property Name="Comments" Type="nvarchar(max)" />
+    <Property Name="CreatedBy" Type="int" Nullable="false" />
+    <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+    <Property Name="UpdatedBy" Type="int" />
+    <Property Name="UpdatedDate" Type="datetime" />
+  </EntityType>
+  <EntityType Name="EmployeeCompCommentStatus">
+    <Key>
+      <PropertyRef Name="EmployeeCompCommentStatusId" />
+    </Key>
+    <Property Name="EmployeeCompCommentStatusId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CommentNum" Type="int" Nullable="false" />
+    <Property Name="UserNum" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="EmployeeCompMarket">
+    <Key>
+      <PropertyRef Name="EmpJobNum" />
+    </Key>
+    <Property Name="EmployeeCompMarketNum" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="EmpJobNum" Type="int" Nullable="false" />
+    <Property Name="MktQ1" Type="decimal" Precision="19" Scale="4" />
+    <Property Name="MktQ2" Type="decimal" Precision="19" Scale="4" />
+    <Property Name="MktQ3" Type="decimal" Precision="19" Scale="4" />
+    <Property Name="MktQ4" Type="decimal" Precision="19" Scale="4" />
+    <Property Name="MktQ5" Type="decimal" Precision="19" Scale="4" />
+    <Property Name="MktMin" Type="decimal" Precision="19" Scale="4" />
+    <Property Name="MktMid" Type="decimal" Precision="19" Scale="4" />
+    <Property Name="MktMax" Type="decimal" Precision="19" Scale="4" />
+    <Property Name="HrlyMktQ1" Type="decimal" Precision="19" Scale="4" />
+    <Property Name="HrlyMktQ2" Type="decimal" Precision="19" Scale="4" />
+    <Property Name="HrlyMktQ3" Type="decimal" Precision="19" Scale="4" />
+    <Property Name="HrlyMktQ4" Type="decimal" Precision="19" Scale="4" />
+    <Property Name="HrlyMktQ5" Type="decimal" Precision="19" Scale="4" />
+    <Property Name="HrlyMktMin" Type="decimal" Precision="20" Scale="8" />
+    <Property Name="HrlyMktMid" Type="decimal" Precision="20" Scale="8" />
+    <Property Name="HrlyMktMax" Type="decimal" Precision="20" Scale="8" />
+    <Property Name="UpdatedBy" Type="int" />
+    <Property Name="UpdatedDate" Type="datetime" />
+    <Property Name="NewMktMin" Type="decimal" Precision="19" Scale="4" />
+    <Property Name="NewMktMid" Type="decimal" Precision="19" Scale="4" />
+    <Property Name="NewMktMax" Type="decimal" Precision="19" Scale="4" />
+    <Property Name="HrlyNewMktMin" Type="decimal" Precision="20" Scale="8" />
+    <Property Name="HrlyNewMktMid" Type="decimal" Precision="20" Scale="8" />
+    <Property Name="HrlyNewMktMax" Type="decimal" Precision="20" Scale="8" />
+  </EntityType>
+  <EntityType Name="EmployeeCompMerit">
+    <Key>
+      <PropertyRef Name="EmpJobNum" />
+    </Key>
+    <Property Name="EmployeeCompMeritNum" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="EmpJobNum" Type="int" Nullable="false" />
+    <Property Name="CompaRatio" Type="decimal" Precision="6" Scale="2" />
+    <Property Name="PositionInQuartile" Type="decimal" Precision="6" Scale="2" />
+    <Property Name="EmployeeQuartile" Type="nvarchar" MaxLength="50" />
+    <Property Name="CurrentAnnualSalary" Type="decimal" Precision="14" Scale="2" />
+    <Property Name="HrlySalary" Type="decimal" Precision="19" Scale="8" />
+    <Property Name="ActualWorkHrs" Type="decimal" Precision="6" Scale="2" />
+    <Property Name="MeritRange" Type="varchar" MaxLength="255" />
+    <Property Name="TargetMeritPct" Type="decimal" Precision="6" Scale="2" />
+    <Property Name="TargetMeritAmt" Type="decimal" Precision="19" Scale="4" />
+    <Property Name="MeritPCT" Type="decimal" Precision="6" Scale="2" />
+    <Property Name="MeritAmt" Type="decimal" Precision="19" Scale="8" />
+    <Property Name="HrlyMeritAmt" Type="decimal" Precision="19" Scale="8" />
+    <Property Name="LumpSumAmt" Type="decimal" Precision="19" Scale="8" />
+    <Property Name="LumpSumPCT" Type="decimal" Precision="6" Scale="2" />
+    <Property Name="HrlyLumpSumAmt" Type="decimal" Precision="19" Scale="8" />
+    <Property Name="EffectiveDate" Type="datetime" />
+    <Property Name="MeritPH" Type="decimal" Precision="6" Scale="2" />
+    <Property Name="Eligibility" Type="bit" Nullable="false" />
+    <Property Name="MeritRangeExceed" Type="varchar" MaxLength="15" />
+    <Property Name="ProRatedPCT" Type="decimal" Precision="6" Scale="2" />
+    <Property Name="ProRation" Type="decimal" Precision="8" Scale="5" />
+    <Property Name="ProRatedAmt" Type="decimal" Precision="19" Scale="8" />
+    <Property Name="IncrType" Type="varchar" MaxLength="20" />
+    <Property Name="LastIncrDate" Type="datetime" />
+    <Property Name="TotalWorkHrs" Type="decimal" Precision="6" Scale="2" />
+    <Property Name="CurrentAnnualizedSalary" Type="decimal" Precision="14" Scale="2" />
+    <Property Name="MandatoryIncrease" Type="decimal" Precision="7" Scale="2" />
+    <Property Name="LastPayChangeReason" Type="varchar" MaxLength="255" />
+    <Property Name="MeritProrationDate" Type="datetime" />
+    <Property Name="LumpSumEffectiveDate" Type="datetime" />
+    <Property Name="FTE" Type="decimal" Precision="16" Scale="8" />
+    <Property Name="UpdatedBy" Type="int" />
+    <Property Name="UpdatedDate" Type="datetime" />
+  </EntityType>
+  <EntityType Name="EmployeeCompNew">
+    <Key>
+      <PropertyRef Name="EmpJobNum" />
+    </Key>
+    <Property Name="EmployeeCompNewNum" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="EmpJobNum" Type="int" Nullable="false" />
+    <Property Name="NewSalary" Type="decimal" Precision="19" Scale="8" />
+    <Property Name="SalaryEffectiveDate" Type="datetime" />
+    <Property Name="HrlyNewSalary" Type="decimal" Precision="19" Scale="8" />
+    <Property Name="NewCompaRatio" Type="decimal" Precision="6" Scale="2" />
+    <Property Name="NewQuartile" Type="varchar" MaxLength="25" />
+    <Property Name="TotalNewComp" Type="decimal" Precision="19" Scale="8" />
+    <Property Name="SalaryReasonCode" Type="varchar" MaxLength="3" />
+    <Property Name="CompCompleted" Type="bit" Nullable="false" />
+    <Property Name="ExceedCommentProvided" Type="bit" Nullable="false" />
+    <Property Name="UpdatedBy" Type="int" />
+    <Property Name="UpdatedDate" Type="datetime" />
+  </EntityType>
+  <EntityType Name="EmployeeCompPromotion">
+    <Key>
+      <PropertyRef Name="EmpJobNum" />
+    </Key>
+    <Property Name="EmployeeCompPromotionNum" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="EmpJobNum" Type="int" Nullable="false" />
+    <Property Name="PromotionRange" Type="varchar" MaxLength="15" />
+    <Property Name="PromotionPct" Type="decimal" Precision="6" Scale="2" />
+    <Property Name="PromotionAmt" Type="decimal" Precision="19" Scale="8" />
+    <Property Name="HrlyPromotionAmt" Type="decimal" Precision="19" Scale="8" />
+    <Property Name="EffectiveDate" Type="datetime" />
+    <Property Name="NewJobNum" Type="int" />
+    <Property Name="PromotionPH" Type="int" />
+    <Property Name="Eligibility" Type="bit" Nullable="false" />
+    <Property Name="PromotionRequest" Type="bit" />
+    <Property Name="NewGrade" Type="varchar" MaxLength="255" />
+    <Property Name="LastPromotionDate" Type="datetime" />
+    <Property Name="UpdatedBy" Type="int" />
+    <Property Name="UpdatedDate" Type="datetime" />
+  </EntityType>
+  <EntityType Name="EmployeeCompRating">
+    <Key>
+      <PropertyRef Name="EmpJobNum" />
+    </Key>
+    <Property Name="EmployeeCompRatingNum" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="EmpJobNum" Type="int" Nullable="false" />
+    <Property Name="MeritPerformanceRating" Type="int" />
+    <Property Name="BonusPerformanceRating" Type="int" />
+    <Property Name="OtherPerformanceRating" Type="int" />
+    <Property Name="UpdatedBy" Type="int" />
+    <Property Name="UpdatedDate" Type="datetime" />
+  </EntityType>
+  <EntityType Name="EmployeeDetailsCorrection">
+    <Key>
+      <PropertyRef Name="EmployeeDataCorrectionNum" />
+    </Key>
+    <Property Name="EmployeeDataCorrectionNum" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="EmployeeID" Type="nvarchar" MaxLength="255" Nullable="false" />
+    <Property Name="FirstName" Type="nvarchar" MaxLength="255" />
+    <Property Name="MiddleName" Type="nvarchar" MaxLength="255" />
+    <Property Name="LastName" Type="nvarchar" MaxLength="255" />
+    <Property Name="PreferredName" Type="nvarchar" MaxLength="255" />
+    <Property Name="Gender" Type="nvarchar" MaxLength="255" />
+    <Property Name="JobCode" Type="nvarchar" MaxLength="255" />
+    <Property Name="JobTitle" Type="nvarchar" MaxLength="255" />
+    <Property Name="CurrentGrade" Type="nvarchar" MaxLength="255" />
+    <Property Name="BusinessUnit" Type="nvarchar" MaxLength="255" />
+    <Property Name="Function" Type="nvarchar" MaxLength="255" />
+    <Property Name="Department" Type="nvarchar" MaxLength="255" />
+    <Property Name="EmployeeClass" Type="nvarchar" MaxLength="255" />
+    <Property Name="PayrollStatus" Type="nvarchar" MaxLength="255" />
+    <Property Name="FLSAStatus" Type="nvarchar" MaxLength="255" />
+    <Property Name="EmployeeStatus" Type="nvarchar" MaxLength="255" />
+    <Property Name="FTE" Type="decimal" Precision="8" Scale="5" />
+    <Property Name="ActualWorkHours" Type="int" />
+    <Property Name="TotalWorkHours" Type="int" />
+    <Property Name="WorkCountry" Type="nvarchar" MaxLength="255" />
+    <Property Name="WorkLocation" Type="nvarchar" MaxLength="255" />
+    <Property Name="HireDate" Type="datetime" />
+    <Property Name="TerminationDate" Type="datetime" />
+    <Property Name="SupervisorID" Type="nvarchar" MaxLength="255" />
+    <Property Name="EmailAddress" Type="nvarchar" MaxLength="255" />
+    <Property Name="PayCurrency" Type="nvarchar" MaxLength="255" />
+    <Property Name="LastPayChangeDate" Type="datetime" />
+    <Property Name="LastPayChangeReason" Type="nvarchar" MaxLength="255" />
+    <Property Name="CurrentHourlyRate" Type="decimal" Precision="19" Scale="5" />
+    <Property Name="CurrentAnnualizedSalary" Type="money" />
+    <Property Name="CurrentAnnualSalary" Type="money" />
+    <Property Name="PayrollSource" Type="nvarchar" MaxLength="255" />
+    <Property Name="SalaryMin" Type="money" />
+    <Property Name="SalaryMid" Type="money" />
+    <Property Name="SalaryMax" Type="money" />
+    <Property Name="MeritProrationDate" Type="datetime" />
+    <Property Name="MeritProrationFactor" Type="decimal" Precision="8" Scale="5" />
+    <Property Name="MeritPerformanceRating" Type="nvarchar" MaxLength="255" />
+    <Property Name="MeritEligible" Type="nvarchar" MaxLength="255" />
+    <Property Name="MeritPct" Type="decimal" Precision="5" Scale="2" />
+    <Property Name="MeritAmount" Type="money" />
+    <Property Name="MeritIncreaseGuideline" Type="nvarchar" MaxLength="255" />
+    <Property Name="MeritEffectiveDate" Type="datetime" />
+    <Property Name="LumpSumPct" Type="decimal" Precision="5" Scale="2" />
+    <Property Name="LumpSumAmount" Type="money" />
+    <Property Name="LumpsumEffectiveDate" Type="datetime" />
+    <Property Name="PromotionEligible" Type="nvarchar" MaxLength="255" />
+    <Property Name="PromotionPct" Type="decimal" Precision="5" Scale="2" />
+    <Property Name="PromotionAmount" Type="money" />
+    <Property Name="PromoteTo" Type="nvarchar" MaxLength="255" />
+    <Property Name="LastPromotionDate" Type="datetime" />
+    <Property Name="PromotionEffectiveDate" Type="datetime" />
+    <Property Name="AdjustmentEligible" Type="nvarchar" MaxLength="255" />
+    <Property Name="AdjustmentPct" Type="decimal" Precision="5" Scale="2" />
+    <Property Name="AdjustmentAmount" Type="money" />
+    <Property Name="AdjustmentEffectiveDate" Type="datetime" />
+    <Property Name="NewSalary" Type="money" />
+    <Property Name="NewHourlyRate" Type="decimal" Precision="18" Scale="5" />
+    <Property Name="Comparatio" Type="decimal" Precision="8" Scale="5" />
+    <Property Name="NewComparatio" Type="decimal" Precision="8" Scale="5" />
+    <Property Name="MoreInfo1" Type="nvarchar" MaxLength="255" />
+    <Property Name="MoreInfo2" Type="nvarchar" MaxLength="255" />
+    <Property Name="MoreInfo3" Type="nvarchar" MaxLength="255" />
+    <Property Name="MoreInfo4" Type="nvarchar" MaxLength="255" />
+    <Property Name="MoreInfo5" Type="nvarchar" MaxLength="255" />
+    <Property Name="MoreInfo6" Type="nvarchar" MaxLength="255" />
+    <Property Name="MoreInfo7" Type="nvarchar" MaxLength="255" />
+    <Property Name="MoreInfo8" Type="nvarchar" MaxLength="255" />
+    <Property Name="MoreInfo9" Type="nvarchar" MaxLength="255" />
+    <Property Name="MoreInfo10" Type="nvarchar" MaxLength="255" />
+    <Property Name="MoreInfo11" Type="nvarchar" MaxLength="255" />
+    <Property Name="MoreInfo12" Type="nvarchar" MaxLength="255" />
+    <Property Name="MoreInfo13" Type="nvarchar" MaxLength="255" />
+    <Property Name="MoreInfo14" Type="nvarchar" MaxLength="255" />
+    <Property Name="MoreInfo15" Type="nvarchar" MaxLength="255" />
+    <Property Name="MoreInfo16" Type="nvarchar" MaxLength="255" />
+    <Property Name="MoreInfo17" Type="nvarchar" MaxLength="255" />
+    <Property Name="MoreInfo18" Type="nvarchar" MaxLength="255" />
+    <Property Name="MoreInfo19" Type="nvarchar" MaxLength="255" />
+    <Property Name="MoreInfo20" Type="nvarchar" MaxLength="255" />
+    <Property Name="MoreInfo21" Type="nvarchar" MaxLength="255" />
+    <Property Name="MoreInfo22" Type="nvarchar" MaxLength="255" />
+    <Property Name="MoreInfo23" Type="nvarchar" MaxLength="255" />
+    <Property Name="UserNum" Type="int" />
+  </EntityType>
+  <EntityType Name="EmployeeGroup">
+    <Key>
+      <PropertyRef Name="EmployeeGroupID" />
+    </Key>
+    <Property Name="EmployeeGroupID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="OrgGroupID" Type="int" Nullable="false" />
+    <Property Name="EmployeeNum" Type="int" Nullable="false" />
+    <Property Name="UpdatedBy" Type="int" />
+    <Property Name="UpdatedDate" Type="datetime" />
+  </EntityType>
+  <EntityType Name="EmployeeGroupInclusionExclusion">
+    <Key>
+      <PropertyRef Name="GroupInclusionExclusionID" />
+    </Key>
+    <Property Name="GroupInclusionExclusionID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="OrgGroupID" Type="int" Nullable="false" />
+    <Property Name="EmployeeNum" Type="int" Nullable="false" />
+    <Property Name="IsIncludedExcluded" Type="bit" />
+    <Property Name="UpdatedBy" Type="int" />
+    <Property Name="UpdatedDate" Type="datetime" />
+  </EntityType>
+  <EntityType Name="EmployeeInclusionAndExclusion">
+    <Key>
+      <PropertyRef Name="EmployeeInclusionAndExclusionNum" />
+    </Key>
+    <Property Name="EmployeeInclusionAndExclusionNum" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="EmployeeNum" Type="int" Nullable="false" />
+    <Property Name="IsInclusion" Type="bit" />
+    <Property Name="GroupTypeNum" Type="int" />
+    <Property Name="UpdatedBy" Type="int" />
+    <Property Name="UpdatedDate" Type="datetime" />
+  </EntityType>
+  <EntityType Name="EmployeeJob">
+    <Key>
+      <PropertyRef Name="EmpJobNum" />
+    </Key>
+    <Property Name="EmpJobNum" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="EmployeeNum" Type="int" Nullable="false" />
+    <Property Name="JobYear" Type="int" Nullable="false" />
+    <Property Name="ManagerNum" Type="int" />
+    <Property Name="CurrencyCodeNum" Type="int" />
+    <Property Name="JobStatus" Type="varchar" MaxLength="3" />
+    <Property Name="FLSAPct" Type="decimal" Precision="6" Scale="2" />
+    <Property Name="CountryCodeNum" Type="int" />
+    <Property Name="City" Type="nvarchar" MaxLength="255" />
+    <Property Name="JobNum" Type="int" />
+    <Property Name="ReviewTypeNum" Type="int" />
+    <Property Name="EmpFunction" Type="nvarchar" MaxLength="255" />
+    <Property Name="LocationNum" Type="int" />
+    <Property Name="StateNum" Type="int" />
+    <Property Name="GradeNum" Type="int" />
+    <Property Name="BonusTypeNum" Type="int" />
+    <Property Name="BusinessUnitNum" Type="int" />
+    <Property Name="DivisionNum" Type="int" />
+    <Property Name="CountryNum" Type="int" />
+    <Property Name="EntityCodeNum" Type="int" />
+    <Property Name="DepartmentNum" Type="int" />
+    <Property Name="PayGroupNum" Type="int" />
+    <Property Name="EmployeeSubStatusNum" Type="int" />
+    <Property Name="EmployeeType" Type="varchar" MaxLength="255" />
+    <Property Name="ProgramNum" Type="int" />
+    <Property Name="ClassNum" Type="int" />
+    <Property Name="FileNumber" Type="varchar" MaxLength="255" />
+    <Property Name="PayFrequency" Type="varchar" MaxLength="255" />
+    <Property Name="UpdatedBy" Type="int" />
+    <Property Name="UpdatedDate" Type="datetime" />
+  </EntityType>
+  <EntityType Name="EmployeeMoreInfo">
+    <Key>
+      <PropertyRef Name="EmployeeMoreInfoNum" />
+    </Key>
+    <Property Name="EmployeeMoreInfoNum" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="EmpJobNum" Type="int" Nullable="false" />
+    <Property Name="MoreInfo1" Type="nvarchar" MaxLength="255" />
+    <Property Name="MoreInfo2" Type="nvarchar" MaxLength="255" />
+    <Property Name="MoreInfo3" Type="nvarchar" MaxLength="255" />
+    <Property Name="MoreInfo4" Type="nvarchar" MaxLength="255" />
+    <Property Name="MoreInfo5" Type="nvarchar" MaxLength="255" />
+    <Property Name="MoreInfo6" Type="nvarchar" MaxLength="255" />
+    <Property Name="MoreInfo7" Type="nvarchar" MaxLength="255" />
+    <Property Name="MoreInfo8" Type="nvarchar" MaxLength="255" />
+    <Property Name="MoreInfo9" Type="nvarchar" MaxLength="255" />
+    <Property Name="MoreInfo10" Type="nvarchar" MaxLength="255" />
+    <Property Name="MoreInfo11" Type="nvarchar" MaxLength="255" />
+    <Property Name="MoreInfo12" Type="nvarchar" MaxLength="255" />
+    <Property Name="MoreInfo13" Type="nvarchar" MaxLength="255" />
+    <Property Name="MoreInfo14" Type="nvarchar" MaxLength="255" />
+    <Property Name="MoreInfo15" Type="nvarchar" MaxLength="255" />
+    <Property Name="MoreInfo16" Type="nvarchar" MaxLength="255" />
+    <Property Name="MoreInfo17" Type="nvarchar" MaxLength="255" />
+    <Property Name="MoreInfo18" Type="nvarchar" MaxLength="255" />
+    <Property Name="MoreInfo19" Type="nvarchar" MaxLength="255" />
+    <Property Name="MoreInfo20" Type="nvarchar" MaxLength="255" />
+    <Property Name="MoreInfo21" Type="nvarchar" MaxLength="255" />
+    <Property Name="MoreInfo22" Type="nvarchar" MaxLength="255" />
+    <Property Name="MoreInfo23" Type="nvarchar" MaxLength="255" />
+  </EntityType>
+  <EntityType Name="EmployeeWorkFlowChanges">
+    <Key>
+      <PropertyRef Name="EmployeeCompApprovalNum" />
+    </Key>
+    <Property Name="EmployeeCompApprovalNum" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="EmpJobNum" Type="int" Nullable="false" />
+    <Property Name="UserNum" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="EmployeeWorkflowCommentStatus">
+    <Key>
+      <PropertyRef Name="EmployeeWorkflowCommentStatusId" />
+    </Key>
+    <Property Name="EmployeeWorkflowCommentStatusId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CommentNum" Type="int" Nullable="false" />
+    <Property Name="UserNum" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="FeedBack">
+    <Key>
+      <PropertyRef Name="FeedBackNum" />
+    </Key>
+    <Property Name="FeedBackNum" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FeedBackModule" Type="varchar" MaxLength="255" />
+    <Property Name="FeedBackComment" Type="nvarchar" MaxLength="4000" />
+    <Property Name="UpdatedDate" Type="datetime" Nullable="false" />
+    <Property Name="UpdatedBy" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ManagerRelation">
+    <Key>
+      <PropertyRef Name="Node" />
+    </Key>
+    <Property Name="Node" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="EmployeeNum" Type="int" Nullable="false" />
+    <Property Name="ParentNode" Type="int" />
+    <Property Name="Depth" Type="tinyint" />
+    <Property Name="Lineage" Type="varchar" MaxLength="255" />
+    <Property Name="ManagerNum" Type="int" />
+    <Property Name="ManagerLineage" Type="varchar" MaxLength="2000" />
+  </EntityType>
+  <EntityType Name="MarketPayRange">
+    <Key>
+      <PropertyRef Name="MarketPayRangeNum" />
+    </Key>
+    <Property Name="MarketPayRangeNum" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="JobNum" Type="int" />
+    <Property Name="GradeNum" Type="int" />
+    <Property Name="EmployeeNum" Type="int" />
+    <Property Name="CurrentMin" Type="decimal" Precision="20" Scale="2" />
+    <Property Name="CurrentMid" Type="decimal" Precision="20" Scale="4" />
+    <Property Name="CurrentMax" Type="decimal" Precision="20" Scale="4" />
+    <Property Name="FutureMin" Type="decimal" Precision="20" Scale="4" />
+    <Property Name="FutureMid" Type="decimal" Precision="20" Scale="4" />
+    <Property Name="FutureMax" Type="decimal" Precision="20" Scale="2" />
+    <Property Name="HourlyCurrentMin" Type="decimal" Precision="20" Scale="8" />
+    <Property Name="HourlyCurrentMid" Type="decimal" Precision="20" Scale="8" />
+    <Property Name="HourlyCurrentMax" Type="decimal" Precision="20" Scale="8" />
+    <Property Name="HourlyFutureMin" Type="decimal" Precision="20" Scale="8" />
+    <Property Name="HourlyFutureMid" Type="decimal" Precision="20" Scale="8" />
+    <Property Name="HourlyFutureMax" Type="decimal" Precision="20" Scale="8" />
+    <Property Name="CreatedBy" Type="int" />
+    <Property Name="CreatedDate" Type="datetime" />
+    <Property Name="UpdatedBy" Type="int" />
+    <Property Name="UpdatedDate" Type="datetime" />
+  </EntityType>
+  <EntityType Name="OrgGroup">
+    <Key>
+      <PropertyRef Name="OrgGroupID" />
+    </Key>
+    <Property Name="OrgGroupID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="GroupName" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="Active" Type="bit" Nullable="false" />
+    <Property Name="UpdatedDate" Type="datetime" />
+    <Property Name="UpdatedBy" Type="int" />
+    <Property Name="CreatedBy" Type="int" />
+    <Property Name="CreatedDate" Type="datetime" />
+  </EntityType>
+  <EntityType Name="OrgGroupAssignedCriteria">
+    <Key>
+      <PropertyRef Name="OrGGroupAssignedCriteriaID" />
+    </Key>
+    <Property Name="OrGGroupAssignedCriteriaID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="OrgGroupID" Type="int" Nullable="false" />
+    <Property Name="OrgGroupCriteriaID" Type="int" Nullable="false" />
+    <Property Name="UpdatedBy" Type="int" />
+    <Property Name="UpdatedDate" Type="datetime" />
+  </EntityType>
+  <EntityType Name="OrgGroupDetail">
+    <Key>
+      <PropertyRef Name="OrgGroupDetailID" />
+    </Key>
+    <Property Name="OrgGroupDetailID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="OrgGroupID" Type="int" Nullable="false" />
+    <Property Name="OrgGroupCriteriaID" Type="int" Nullable="false" />
+    <Property Name="CriteriaDataValue" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="Active" Type="bit" Nullable="false" />
+    <Property Name="UpdatedBy" Type="int" />
+    <Property Name="UpdatedDate" Type="datetime" />
+  </EntityType>
+  <EntityType Name="OrgGroupType">
+    <Key>
+      <PropertyRef Name="OrgGroupTypeID" />
+    </Key>
+    <Property Name="OrgGroupTypeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="OrgGroupID" Type="int" />
+    <Property Name="GroupTypeNum" Type="int" />
+    <Property Name="UpdatedBy" Type="int" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'Essential_DEV.Talent.PivotedEmployeeCompApprovalLevel' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="PivotedEmployeeCompApprovalLevel">
+    <Key>
+      <PropertyRef Name="KeyNum" />
+      <PropertyRef Name="EmpJobNum" />
+      <PropertyRef Name="ApprovalManager" />
+      <PropertyRef Name="ApprovalLevel" />
+    </Key>
+    <Property Name="KeyNum" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="EmpJobNum" Type="int" Nullable="false" />
+    <Property Name="ApprovalManager" Type="int" Nullable="false" />
+    <Property Name="ApprovalLevel" Type="int" Nullable="false" />
+    <Property Name="ModuleNum" Type="int" />
+    <Property Name="UpdatedBy" Type="int" />
+    <Property Name="UpdatedDate" Type="datetime" />
+  </EntityType>
+  <EntityType Name="ProxyGroup">
+    <Key>
+      <PropertyRef Name="ProxyGroupID" />
+    </Key>
+    <Property Name="ProxyGroupID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="OrgGroupID" Type="int" Nullable="false" />
+    <Property Name="UserID" Type="int" Nullable="false" />
+    <Property Name="IsReadOnly" Type="bit" Nullable="false" />
+    <Property Name="UpdatedBy" Type="int" />
+    <Property Name="UpdatedDate" Type="datetime" />
+    <Property Name="ModuleNum" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ProxyManager">
+    <Key>
+      <PropertyRef Name="ProxyManagerID" />
+    </Key>
+    <Property Name="ProxyManagerID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ManagerID" Type="int" Nullable="false" />
+    <Property Name="UserID" Type="int" Nullable="false" />
+    <Property Name="UpdatedBy" Type="int" />
+    <Property Name="UpdatedDate" Type="datetime" />
+    <Property Name="ModuleNum" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ProxyPopulationAccess">
+    <Key>
+      <PropertyRef Name="ProxyPopulationAccessID" />
+    </Key>
+    <Property Name="ProxyPopulationAccessID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="OrgGroupID" Type="int" Nullable="false" />
+    <Property Name="UpdatedDate" Type="datetime" />
+    <Property Name="UpdatedBy" Type="int" />
+    <Property Name="UserNum" Type="int" />
+  </EntityType>
+  <EntityType Name="ProxyScript">
+    <Key>
+      <PropertyRef Name="ProxyScriptID" />
+    </Key>
+    <Property Name="ProxyScriptID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="AppScriptID" Type="int" Nullable="false" />
+    <Property Name="UserNum" Type="int" Nullable="false" />
+    <Property Name="UpdatedBy" Type="int" />
+    <Property Name="UpdatedDate" Type="datetime" />
+  </EntityType>
+  <EntityType Name="SupportTask">
+    <Key>
+      <PropertyRef Name="SupportTaskNum" />
+    </Key>
+    <Property Name="SupportTaskNum" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TeamNum" Type="int" Nullable="false" />
+    <Property Name="StartDate" Type="datetime" Nullable="false" />
+    <Property Name="EndDate" Type="datetime" Nullable="false" />
+    <Property Name="TaskTitle" Type="varchar" MaxLength="200" Nullable="false" />
+    <Property Name="TaskDescription" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="TaskCreatedDate" Type="datetime" Nullable="false" />
+    <Property Name="TaskUpdatedDate" Type="datetime" />
+    <Property Name="UpdatedBy" Type="int" />
+    <Property Name="HoursSpent" Type="varchar" MaxLength="20" Nullable="false" />
+  </EntityType>
+  <EntityType Name="SupportTaskComments">
+    <Key>
+      <PropertyRef Name="SupportTaskCommentsNum" />
+    </Key>
+    <Property Name="SupportTaskCommentsNum" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="SupportTaskNum" Type="int" Nullable="false" />
+    <Property Name="Comments" Type="nvarchar(max)" />
+    <Property Name="CreatedBy" Type="int" Nullable="false" />
+    <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+    <Property Name="UpdatedBy" Type="int" />
+    <Property Name="UpdatedDate" Type="datetime" />
+  </EntityType>
+  <EntityType Name="TriggerEmail">
+    <Key>
+      <PropertyRef Name="TriggerEmailNum" />
+    </Key>
+    <Property Name="TriggerEmailNum" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ApprovalManagerEmpJobNum" Type="int" />
+    <Property Name="ApprovalManagerName" Type="nvarchar" MaxLength="1500" />
+    <Property Name="RequesterEmpJobNum" Type="int" />
+    <Property Name="RequesterName" Type="nvarchar" MaxLength="1500" />
+    <Property Name="EmailKey" Type="nvarchar" MaxLength="800" />
+    <Property Name="FromEmail" Type="nvarchar" MaxLength="800" />
+    <Property Name="ToEmail" Type="nvarchar" MaxLength="800" />
+    <Property Name="EmailCC" Type="nvarchar" MaxLength="800" />
+    <Property Name="EmailBCC" Type="nvarchar" MaxLength="800" />
+    <Property Name="Comment" Type="nvarchar(max)" />
+    <Property Name="EmployeeName" Type="nvarchar(max)" />
+    <Property Name="DirectManagerNum" Type="int" />
+    <Property Name="DirectManagerName" Type="nvarchar(max)" />
+    <Property Name="InsertTime" Type="datetime" />
+    <Property Name="EmailStatus" Type="int" />
+  </EntityType>
+  <EntityType Name="UserMenu">
+    <Key>
+      <PropertyRef Name="UserMenuID" />
+    </Key>
+    <Property Name="UserMenuID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="AppMenuID" Type="int" />
+    <Property Name="UserID" Type="int" />
+    <Property Name="ReadOnly" Type="bit" />
+    <Property Name="UpdatedBy" Type="int" />
+    <Property Name="UpdatedDate" Type="datetime" />
+  </EntityType>
+  <EntityType Name="UserMessage">
+    <Key>
+      <PropertyRef Name="UserMessageNum" />
+    </Key>
+    <Property Name="UserMessageNum" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="AppMessageID" Type="int" Nullable="false" />
+    <Property Name="UserNum" Type="int" Nullable="false" />
+    <Property Name="UpdatedBy" Type="int" />
+    <Property Name="UpdatedDate" Type="datetime" />
+  </EntityType>
+  <EntityType Name="UserPopulation">
+    <Key>
+      <PropertyRef Name="LoggedinUserNum" />
+      <PropertyRef Name="EmployeeNum" />
+    </Key>
+    <Property Name="LoggedinUserNum" Type="int" Nullable="false" />
+    <Property Name="EmployeeNum" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="FK__EmployeeC__Modul__4B399FE2">
+    <End Role="Module" Type="Self.Module" Multiplicity="1" />
+    <End Role="EmployeeCompApprovalLevel" Type="Self.EmployeeCompApprovalLevel" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Module">
+        <PropertyRef Name="ModuleNum" />
+      </Principal>
+      <Dependent Role="EmployeeCompApprovalLevel">
+        <PropertyRef Name="ModuleNum" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__EmployeeC__Modul__4C2DC41B">
+    <End Role="Module" Type="Self.Module" Multiplicity="1" />
+    <End Role="EmployeeCompApprovalLevel" Type="Self.EmployeeCompApprovalLevel" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Module">
+        <PropertyRef Name="ModuleNum" />
+      </Principal>
+      <Dependent Role="EmployeeCompApprovalLevel">
+        <PropertyRef Name="ModuleNum" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__ExchangeR__Curre__469D7149">
+    <End Role="Currency" Type="Self.Currency" Multiplicity="1" />
+    <End Role="ExchangeRate" Type="Self.ExchangeRate" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Currency">
+        <PropertyRef Name="CurrencyCodeNum" />
+      </Principal>
+      <Dependent Role="ExchangeRate">
+        <PropertyRef Name="CurrencyCodeNum" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__ExchangeR__Curre__66B53B20">
+    <End Role="Currency" Type="Self.Currency" Multiplicity="1" />
+    <End Role="ExchangeRate" Type="Self.ExchangeRate" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Currency">
+        <PropertyRef Name="CurrencyCodeNum" />
+      </Principal>
+      <Dependent Role="ExchangeRate">
+        <PropertyRef Name="CurrencyCodeNum" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_AppUser_AppUserRole">
+    <End Role="AppUserRole" Type="Self.AppUserRole" Multiplicity="1" />
+    <End Role="AppUser" Type="Self.AppUser" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AppUserRole">
+        <PropertyRef Name="UserRoleNum" />
+      </Principal>
+      <Dependent Role="AppUser">
+        <PropertyRef Name="UserRoleNum" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_AppUser_EmployeeNum">
+    <End Role="Employee" Type="Self.Employee" Multiplicity="0..1" />
+    <End Role="AppUser" Type="Self.AppUser" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employee">
+        <PropertyRef Name="EmployeeNum" />
+      </Principal>
+      <Dependent Role="AppUser">
+        <PropertyRef Name="EmployeeNum" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AppUser_UserNum">
+    <End Role="AppUser" Type="Self.AppUser" Multiplicity="1" />
+    <End Role="DailyTask" Type="Self.DailyTask" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AppUser">
+        <PropertyRef Name="UserNum" />
+      </Principal>
+      <Dependent Role="DailyTask">
+        <PropertyRef Name="UserNum" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Budget_CompensationType">
+    <End Role="CompensationType" Type="Self.CompensationType" Multiplicity="1" />
+    <End Role="Budget" Type="Self.Budget" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CompensationType">
+        <PropertyRef Name="CompensationTypeNum" />
+      </Principal>
+      <Dependent Role="Budget">
+        <PropertyRef Name="CompensationTypeNum" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Budget_EmployeeJob">
+    <End Role="EmployeeJob" Type="Self.EmployeeJob" Multiplicity="1" />
+    <End Role="Budget" Type="Self.Budget" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="EmployeeJob">
+        <PropertyRef Name="EmpJobNum" />
+      </Principal>
+      <Dependent Role="Budget">
+        <PropertyRef Name="EmpJobNum" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_EmployeeApprovalDetails_AppUser">
+    <End Role="AppUser" Type="Self.AppUser" Multiplicity="0..1" />
+    <End Role="EmployeeApprovalDetails" Type="Self.EmployeeApprovalDetails" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AppUser">
+        <PropertyRef Name="UserNum" />
+      </Principal>
+      <Dependent Role="EmployeeApprovalDetails">
+        <PropertyRef Name="UpdatedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_EmployeeCompAdjustment_EmployeeJob">
+    <End Role="EmployeeJob" Type="Self.EmployeeJob" Multiplicity="1" />
+    <End Role="EmployeeCompAdjustment" Type="Self.EmployeeCompAdjustment" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="EmployeeJob">
+        <PropertyRef Name="EmpJobNum" />
+      </Principal>
+      <Dependent Role="EmployeeCompAdjustment">
+        <PropertyRef Name="EmpJobNum" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_EmployeeCompApprovalComments_EmployeeJob">
+    <End Role="EmployeeJob" Type="Self.EmployeeJob" Multiplicity="1" />
+    <End Role="EmployeeCompApprovalComment" Type="Self.EmployeeCompApprovalComment" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="EmployeeJob">
+        <PropertyRef Name="EmpJobNum" />
+      </Principal>
+      <Dependent Role="EmployeeCompApprovalComment">
+        <PropertyRef Name="EmpJobNum" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_EmployeeCompApprovalStatus_EmployeeJob">
+    <End Role="EmployeeJob" Type="Self.EmployeeJob" Multiplicity="1" />
+    <End Role="EmployeeCompApprovalStatus" Type="Self.EmployeeCompApprovalStatus" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="EmployeeJob">
+        <PropertyRef Name="EmpJobNum" />
+      </Principal>
+      <Dependent Role="EmployeeCompApprovalStatus">
+        <PropertyRef Name="EmpJobNum" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_EmployeeCompBonus_EmployeeJob">
+    <End Role="EmployeeJob" Type="Self.EmployeeJob" Multiplicity="1" />
+    <End Role="EmployeeCompBonus" Type="Self.EmployeeCompBonus" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="EmployeeJob">
+        <PropertyRef Name="EmpJobNum" />
+      </Principal>
+      <Dependent Role="EmployeeCompBonus">
+        <PropertyRef Name="EmpJobNum" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_EmployeeCompComments_AppUserCreatedBy">
+    <End Role="AppUser" Type="Self.AppUser" Multiplicity="1" />
+    <End Role="EmployeeCompComment" Type="Self.EmployeeCompComment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AppUser">
+        <PropertyRef Name="UserNum" />
+      </Principal>
+      <Dependent Role="EmployeeCompComment">
+        <PropertyRef Name="CreatedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_EmployeeCompComments_AppUserUpdatedBy">
+    <End Role="AppUser" Type="Self.AppUser" Multiplicity="0..1" />
+    <End Role="EmployeeCompComment" Type="Self.EmployeeCompComment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AppUser">
+        <PropertyRef Name="UserNum" />
+      </Principal>
+      <Dependent Role="EmployeeCompComment">
+        <PropertyRef Name="UpdatedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_EmployeeCompComments_EmployeeJob">
+    <End Role="EmployeeJob" Type="Self.EmployeeJob" Multiplicity="1" />
+    <End Role="EmployeeCompComment" Type="Self.EmployeeCompComment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="EmployeeJob">
+        <PropertyRef Name="EmpJobNum" />
+      </Principal>
+      <Dependent Role="EmployeeCompComment">
+        <PropertyRef Name="EmpJobNum" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_EmployeeCompCommentStatus_AppUser">
+    <End Role="AppUser" Type="Self.AppUser" Multiplicity="1" />
+    <End Role="EmployeeCompCommentStatus" Type="Self.EmployeeCompCommentStatus" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AppUser">
+        <PropertyRef Name="UserNum" />
+      </Principal>
+      <Dependent Role="EmployeeCompCommentStatus">
+        <PropertyRef Name="UserNum" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_EmployeeCompCommentStatus_EmployeeCompComment">
+    <End Role="EmployeeCompComment" Type="Self.EmployeeCompComment" Multiplicity="1" />
+    <End Role="EmployeeCompCommentStatus" Type="Self.EmployeeCompCommentStatus" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="EmployeeCompComment">
+        <PropertyRef Name="EmployeeCompCommentsNum" />
+      </Principal>
+      <Dependent Role="EmployeeCompCommentStatus">
+        <PropertyRef Name="CommentNum" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_EmployeeCompMarket_EmployeeJob">
+    <End Role="EmployeeJob" Type="Self.EmployeeJob" Multiplicity="1" />
+    <End Role="EmployeeCompMarket" Type="Self.EmployeeCompMarket" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="EmployeeJob">
+        <PropertyRef Name="EmpJobNum" />
+      </Principal>
+      <Dependent Role="EmployeeCompMarket">
+        <PropertyRef Name="EmpJobNum" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_EmployeeCompMerit_EmployeeJob">
+    <End Role="EmployeeJob" Type="Self.EmployeeJob" Multiplicity="1" />
+    <End Role="EmployeeCompMerit" Type="Self.EmployeeCompMerit" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="EmployeeJob">
+        <PropertyRef Name="EmpJobNum" />
+      </Principal>
+      <Dependent Role="EmployeeCompMerit">
+        <PropertyRef Name="EmpJobNum" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_EmployeeCompNew_EmployeeJob">
+    <End Role="EmployeeJob" Type="Self.EmployeeJob" Multiplicity="1" />
+    <End Role="EmployeeCompNew" Type="Self.EmployeeCompNew" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="EmployeeJob">
+        <PropertyRef Name="EmpJobNum" />
+      </Principal>
+      <Dependent Role="EmployeeCompNew">
+        <PropertyRef Name="EmpJobNum" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_EmployeeCompPromotion_EmployeeJob">
+    <End Role="EmployeeJob" Type="Self.EmployeeJob" Multiplicity="1" />
+    <End Role="EmployeeCompPromotion" Type="Self.EmployeeCompPromotion" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="EmployeeJob">
+        <PropertyRef Name="EmpJobNum" />
+      </Principal>
+      <Dependent Role="EmployeeCompPromotion">
+        <PropertyRef Name="EmpJobNum" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_EmployeeCompRating_BonusPerformanceRating">
+    <End Role="Rating" Type="Self.Rating" Multiplicity="0..1" />
+    <End Role="EmployeeCompRating" Type="Self.EmployeeCompRating" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Rating">
+        <PropertyRef Name="RatingNum" />
+      </Principal>
+      <Dependent Role="EmployeeCompRating">
+        <PropertyRef Name="BonusPerformanceRating" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_EmployeeCompRating_EmployeeJob">
+    <End Role="EmployeeJob" Type="Self.EmployeeJob" Multiplicity="1" />
+    <End Role="EmployeeCompRating" Type="Self.EmployeeCompRating" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="EmployeeJob">
+        <PropertyRef Name="EmpJobNum" />
+      </Principal>
+      <Dependent Role="EmployeeCompRating">
+        <PropertyRef Name="EmpJobNum" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_EmployeeCompRating_MeritPerformanceRating">
+    <End Role="Rating" Type="Self.Rating" Multiplicity="0..1" />
+    <End Role="EmployeeCompRating" Type="Self.EmployeeCompRating" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Rating">
+        <PropertyRef Name="RatingNum" />
+      </Principal>
+      <Dependent Role="EmployeeCompRating">
+        <PropertyRef Name="MeritPerformanceRating" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_EmployeeGroup_Employee">
+    <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
+    <End Role="EmployeeGroup" Type="Self.EmployeeGroup" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employee">
+        <PropertyRef Name="EmployeeNum" />
+      </Principal>
+      <Dependent Role="EmployeeGroup">
+        <PropertyRef Name="EmployeeNum" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_EmployeeGroup_OrgGroup">
+    <End Role="OrgGroup" Type="Self.OrgGroup" Multiplicity="1" />
+    <End Role="EmployeeGroup" Type="Self.EmployeeGroup" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="OrgGroup">
+        <PropertyRef Name="OrgGroupID" />
+      </Principal>
+      <Dependent Role="EmployeeGroup">
+        <PropertyRef Name="OrgGroupID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_EmployeeGroupInclusionExclusion_Employee">
+    <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
+    <End Role="EmployeeGroupInclusionExclusion" Type="Self.EmployeeGroupInclusionExclusion" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employee">
+        <PropertyRef Name="EmployeeNum" />
+      </Principal>
+      <Dependent Role="EmployeeGroupInclusionExclusion">
+        <PropertyRef Name="EmployeeNum" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_EmployeeGroupInclusionExclusion_OrgGroup">
+    <End Role="OrgGroup" Type="Self.OrgGroup" Multiplicity="1" />
+    <End Role="EmployeeGroupInclusionExclusion" Type="Self.EmployeeGroupInclusionExclusion" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="OrgGroup">
+        <PropertyRef Name="OrgGroupID" />
+      </Principal>
+      <Dependent Role="EmployeeGroupInclusionExclusion">
+        <PropertyRef Name="OrgGroupID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_EmployeeInclusionAndExclusion_Employee">
+    <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
+    <End Role="EmployeeInclusionAndExclusion" Type="Self.EmployeeInclusionAndExclusion" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employee">
+        <PropertyRef Name="EmployeeNum" />
+      </Principal>
+      <Dependent Role="EmployeeInclusionAndExclusion">
+        <PropertyRef Name="EmployeeNum" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_EmployeeJob_Currency">
+    <End Role="Currency" Type="Self.Currency" Multiplicity="0..1" />
+    <End Role="EmployeeJob" Type="Self.EmployeeJob" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Currency">
+        <PropertyRef Name="CurrencyCodeNum" />
+      </Principal>
+      <Dependent Role="EmployeeJob">
+        <PropertyRef Name="CurrencyCodeNum" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_EmployeeJob_Employee">
+    <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
+    <End Role="EmployeeJob" Type="Self.EmployeeJob" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employee">
+        <PropertyRef Name="EmployeeNum" />
+      </Principal>
+      <Dependent Role="EmployeeJob">
+        <PropertyRef Name="EmployeeNum" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_EmployeeJob_Employee_Managernum">
+    <End Role="Employee" Type="Self.Employee" Multiplicity="0..1" />
+    <End Role="EmployeeJob" Type="Self.EmployeeJob" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employee">
+        <PropertyRef Name="EmployeeNum" />
+      </Principal>
+      <Dependent Role="EmployeeJob">
+        <PropertyRef Name="ManagerNum" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_EmployeeJob_Grade">
+    <End Role="Grade" Type="Self.Grade" Multiplicity="0..1" />
+    <End Role="EmployeeJob" Type="Self.EmployeeJob" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Grade">
+        <PropertyRef Name="GradeNum" />
+      </Principal>
+      <Dependent Role="EmployeeJob">
+        <PropertyRef Name="GradeNum" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_EmployeeJob_Job">
+    <End Role="Job" Type="Self.Job" Multiplicity="0..1" />
+    <End Role="EmployeeJob" Type="Self.EmployeeJob" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Job">
+        <PropertyRef Name="JobNum" />
+      </Principal>
+      <Dependent Role="EmployeeJob">
+        <PropertyRef Name="JobNum" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_EmployeeJob_Location">
+    <End Role="Location" Type="Self.Location" Multiplicity="0..1" />
+    <End Role="EmployeeJob" Type="Self.EmployeeJob" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Location">
+        <PropertyRef Name="LocationNum" />
+      </Principal>
+      <Dependent Role="EmployeeJob">
+        <PropertyRef Name="LocationNum" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_EmployeeJob_ProgramNum">
+    <End Role="Program" Type="Self.Program" Multiplicity="0..1" />
+    <End Role="EmployeeJob" Type="Self.EmployeeJob" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Program">
+        <PropertyRef Name="ProgramNum" />
+      </Principal>
+      <Dependent Role="EmployeeJob">
+        <PropertyRef Name="ProgramNum" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_EmployeeJob_ReviewType">
+    <End Role="ReviewType" Type="Self.ReviewType" Multiplicity="0..1" />
+    <End Role="EmployeeJob" Type="Self.EmployeeJob" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ReviewType">
+        <PropertyRef Name="ReviewTypeNum" />
+      </Principal>
+      <Dependent Role="EmployeeJob">
+        <PropertyRef Name="ReviewTypeNum" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_EmployeeJob_State">
+    <End Role="State" Type="Self.State" Multiplicity="0..1" />
+    <End Role="EmployeeJob" Type="Self.EmployeeJob" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="State">
+        <PropertyRef Name="StateNum" />
+      </Principal>
+      <Dependent Role="EmployeeJob">
+        <PropertyRef Name="StateNum" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_EmployeeWorkflowCommentStatus_AppUser">
+    <End Role="AppUser" Type="Self.AppUser" Multiplicity="1" />
+    <End Role="EmployeeWorkflowCommentStatus" Type="Self.EmployeeWorkflowCommentStatus" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AppUser">
+        <PropertyRef Name="UserNum" />
+      </Principal>
+      <Dependent Role="EmployeeWorkflowCommentStatus">
+        <PropertyRef Name="UserNum" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_EmployeeWorkflowCommentStatus_EmployeeCompComment">
+    <End Role="EmployeeApprovalDetails" Type="Self.EmployeeApprovalDetails" Multiplicity="1" />
+    <End Role="EmployeeWorkflowCommentStatus" Type="Self.EmployeeWorkflowCommentStatus" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="EmployeeApprovalDetails">
+        <PropertyRef Name="EmployeeApprovalDetailNum" />
+      </Principal>
+      <Dependent Role="EmployeeWorkflowCommentStatus">
+        <PropertyRef Name="CommentNum" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_FeedBack_AppUser">
+    <End Role="AppUser" Type="Self.AppUser" Multiplicity="1" />
+    <End Role="FeedBack" Type="Self.FeedBack" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AppUser">
+        <PropertyRef Name="UserNum" />
+      </Principal>
+      <Dependent Role="FeedBack">
+        <PropertyRef Name="UpdatedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_fk4_Budget_AppUser">
+    <End Role="AppUser" Type="Self.AppUser" Multiplicity="0..1" />
+    <End Role="Budget" Type="Self.Budget" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AppUser">
+        <PropertyRef Name="UserNum" />
+      </Principal>
+      <Dependent Role="Budget">
+        <PropertyRef Name="UpdatedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ManagerRelation_Employee">
+    <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
+    <End Role="ManagerRelation" Type="Self.ManagerRelation" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employee">
+        <PropertyRef Name="EmployeeNum" />
+      </Principal>
+      <Dependent Role="ManagerRelation">
+        <PropertyRef Name="EmployeeNum" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_OrGGroupAssignedCriteria_OrGGroup">
+    <End Role="OrgGroup" Type="Self.OrgGroup" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="OrgGroupAssignedCriteria" Type="Self.OrgGroupAssignedCriteria" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="OrgGroup">
+        <PropertyRef Name="OrgGroupID" />
+      </Principal>
+      <Dependent Role="OrgGroupAssignedCriteria">
+        <PropertyRef Name="OrgGroupID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_OrGGroupAssignedCriteria_OrgGroupCriteria">
+    <End Role="OrgGroupCriteria" Type="Self.OrgGroupCriteria" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="OrgGroupAssignedCriteria" Type="Self.OrgGroupAssignedCriteria" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="OrgGroupCriteria">
+        <PropertyRef Name="OrgGroupCriteriaID" />
+      </Principal>
+      <Dependent Role="OrgGroupAssignedCriteria">
+        <PropertyRef Name="OrgGroupCriteriaID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_OrgGroupDetail_OrgGroup">
+    <End Role="OrgGroup" Type="Self.OrgGroup" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="OrgGroupDetail" Type="Self.OrgGroupDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="OrgGroup">
+        <PropertyRef Name="OrgGroupID" />
+      </Principal>
+      <Dependent Role="OrgGroupDetail">
+        <PropertyRef Name="OrgGroupID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_OrgGroupType_GroupType">
+    <End Role="GroupType" Type="Self.GroupType" Multiplicity="0..1" />
+    <End Role="OrgGroupType" Type="Self.OrgGroupType" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="GroupType">
+        <PropertyRef Name="GroupTypeNum" />
+      </Principal>
+      <Dependent Role="OrgGroupType">
+        <PropertyRef Name="GroupTypeNum" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_OrgGroupType_OrgGroup">
+    <End Role="OrgGroup" Type="Self.OrgGroup" Multiplicity="0..1" />
+    <End Role="OrgGroupType" Type="Self.OrgGroupType" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="OrgGroup">
+        <PropertyRef Name="OrgGroupID" />
+      </Principal>
+      <Dependent Role="OrgGroupType">
+        <PropertyRef Name="OrgGroupID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ProxyGroup_AppUser">
+    <End Role="AppUser" Type="Self.AppUser" Multiplicity="1" />
+    <End Role="ProxyGroup" Type="Self.ProxyGroup" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AppUser">
+        <PropertyRef Name="UserNum" />
+      </Principal>
+      <Dependent Role="ProxyGroup">
+        <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ProxyGroup_OrgGroup">
+    <End Role="OrgGroup" Type="Self.OrgGroup" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="ProxyGroup" Type="Self.ProxyGroup" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="OrgGroup">
+        <PropertyRef Name="OrgGroupID" />
+      </Principal>
+      <Dependent Role="ProxyGroup">
+        <PropertyRef Name="OrgGroupID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ProxyManager_AppUser">
+    <End Role="AppUser" Type="Self.AppUser" Multiplicity="1" />
+    <End Role="ProxyManager" Type="Self.ProxyManager" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AppUser">
+        <PropertyRef Name="UserNum" />
+      </Principal>
+      <Dependent Role="ProxyManager">
+        <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ProxyManager_Employee">
+    <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
+    <End Role="ProxyManager" Type="Self.ProxyManager" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employee">
+        <PropertyRef Name="EmployeeNum" />
+      </Principal>
+      <Dependent Role="ProxyManager">
+        <PropertyRef Name="ManagerID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ProxyPopulationAccess_OrgGroup">
+    <End Role="OrgGroup" Type="Self.OrgGroup" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="ProxyPopulationAccess" Type="Self.ProxyPopulationAccess" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="OrgGroup">
+        <PropertyRef Name="OrgGroupID" />
+      </Principal>
+      <Dependent Role="ProxyPopulationAccess">
+        <PropertyRef Name="OrgGroupID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ProxyScript_AppScript">
+    <End Role="AppScript" Type="Self.AppScript" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="ProxyScript" Type="Self.ProxyScript" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AppScript">
+        <PropertyRef Name="AppScriptID" />
+      </Principal>
+      <Dependent Role="ProxyScript">
+        <PropertyRef Name="AppScriptID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ProxyScript_AppUser">
+    <End Role="AppUser" Type="Self.AppUser" Multiplicity="1" />
+    <End Role="ProxyScript" Type="Self.ProxyScript" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AppUser">
+        <PropertyRef Name="UserNum" />
+      </Principal>
+      <Dependent Role="ProxyScript">
+        <PropertyRef Name="UserNum" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_SupportTaskComments_AppUserCreatedBy">
+    <End Role="AppUser" Type="Self.AppUser" Multiplicity="1" />
+    <End Role="SupportTaskComments" Type="Self.SupportTaskComments" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AppUser">
+        <PropertyRef Name="UserNum" />
+      </Principal>
+      <Dependent Role="SupportTaskComments">
+        <PropertyRef Name="CreatedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SupportTasks_SupportTaskNum">
+    <End Role="SupportTask" Type="Self.SupportTask" Multiplicity="1" />
+    <End Role="SupportTaskComments" Type="Self.SupportTaskComments" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SupportTask">
+        <PropertyRef Name="SupportTaskNum" />
+      </Principal>
+      <Dependent Role="SupportTaskComments">
+        <PropertyRef Name="SupportTaskNum" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SupportTasks_Team_TeamNum">
+    <End Role="Team" Type="Self.Team" Multiplicity="1" />
+    <End Role="SupportTask" Type="Self.SupportTask" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Team">
+        <PropertyRef Name="TeamNum" />
+      </Principal>
+      <Dependent Role="SupportTask">
+        <PropertyRef Name="TeamNum" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserMenu_AppUser">
+    <End Role="AppUser" Type="Self.AppUser" Multiplicity="0..1" />
+    <End Role="UserMenu" Type="Self.UserMenu" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AppUser">
+        <PropertyRef Name="UserNum" />
+      </Principal>
+      <Dependent Role="UserMenu">
+        <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_UserMessage_AppMessage">
+    <End Role="AppMessage" Type="Self.AppMessage" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="UserMessage" Type="Self.UserMessage" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AppMessage">
+        <PropertyRef Name="AppMessageID" />
+      </Principal>
+      <Dependent Role="UserMessage">
+        <PropertyRef Name="AppMessageID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_UserMessage_AppUser">
+    <End Role="AppUser" Type="Self.AppUser" Multiplicity="1" />
+    <End Role="UserMessage" Type="Self.UserMessage" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AppUser">
+        <PropertyRef Name="UserNum" />
+      </Principal>
+      <Dependent Role="UserMessage">
+        <PropertyRef Name="UserNum" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK00_EmployeeCompApprovalLevel_EmployeeJob">
+    <End Role="EmployeeJob" Type="Self.EmployeeJob" Multiplicity="1" />
+    <End Role="EmployeeCompApprovalLevel" Type="Self.EmployeeCompApprovalLevel" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="EmployeeJob">
+        <PropertyRef Name="EmpJobNum" />
+      </Principal>
+      <Dependent Role="EmployeeCompApprovalLevel">
+        <PropertyRef Name="EmpJobNum" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK01_EmployeeCompApprovalLevel_AppMgrOneEmpNum">
+    <End Role="EmployeeJob" Type="Self.EmployeeJob" Multiplicity="0..1" />
+    <End Role="EmployeeCompApprovalLevel" Type="Self.EmployeeCompApprovalLevel" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="EmployeeJob">
+        <PropertyRef Name="EmpJobNum" />
+      </Principal>
+      <Dependent Role="EmployeeCompApprovalLevel">
+        <PropertyRef Name="AppMgrOneEmpNum" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK02_EmployeeCompApprovalLevel_AppMgrTwoEmpNum">
+    <End Role="EmployeeJob" Type="Self.EmployeeJob" Multiplicity="0..1" />
+    <End Role="EmployeeCompApprovalLevel" Type="Self.EmployeeCompApprovalLevel" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="EmployeeJob">
+        <PropertyRef Name="EmpJobNum" />
+      </Principal>
+      <Dependent Role="EmployeeCompApprovalLevel">
+        <PropertyRef Name="AppMgrTwoEmpNum" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK03_EmployeeCompApprovalLevel_AppMgrThreeEmpNum">
+    <End Role="EmployeeJob" Type="Self.EmployeeJob" Multiplicity="0..1" />
+    <End Role="EmployeeCompApprovalLevel" Type="Self.EmployeeCompApprovalLevel" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="EmployeeJob">
+        <PropertyRef Name="EmpJobNum" />
+      </Principal>
+      <Dependent Role="EmployeeCompApprovalLevel">
+        <PropertyRef Name="AppMgrThreeEmpNum" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK04_EmployeeCompApprovalLevel_AppMgrFourEmpNum">
+    <End Role="EmployeeJob" Type="Self.EmployeeJob" Multiplicity="0..1" />
+    <End Role="EmployeeCompApprovalLevel" Type="Self.EmployeeCompApprovalLevel" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="EmployeeJob">
+        <PropertyRef Name="EmpJobNum" />
+      </Principal>
+      <Dependent Role="EmployeeCompApprovalLevel">
+        <PropertyRef Name="AppMgrFourEmpNum" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK05_EmployeeCompApprovalLevel_AppMgrFiveEmpNum">
+    <End Role="EmployeeJob" Type="Self.EmployeeJob" Multiplicity="0..1" />
+    <End Role="EmployeeCompApprovalLevel" Type="Self.EmployeeCompApprovalLevel" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="EmployeeJob">
+        <PropertyRef Name="EmpJobNum" />
+      </Principal>
+      <Dependent Role="EmployeeCompApprovalLevel">
+        <PropertyRef Name="AppMgrFiveEmpNum" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK06_EmployeeCompApprovalLevel_AppMgrSixEmpNum">
+    <End Role="EmployeeJob" Type="Self.EmployeeJob" Multiplicity="0..1" />
+    <End Role="EmployeeCompApprovalLevel" Type="Self.EmployeeCompApprovalLevel" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="EmployeeJob">
+        <PropertyRef Name="EmpJobNum" />
+      </Principal>
+      <Dependent Role="EmployeeCompApprovalLevel">
+        <PropertyRef Name="AppMgrSixEmpNum" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK07_EmployeeCompApprovalLevel_AppMgrSevenEmpNum">
+    <End Role="EmployeeJob" Type="Self.EmployeeJob" Multiplicity="0..1" />
+    <End Role="EmployeeCompApprovalLevel" Type="Self.EmployeeCompApprovalLevel" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="EmployeeJob">
+        <PropertyRef Name="EmpJobNum" />
+      </Principal>
+      <Dependent Role="EmployeeCompApprovalLevel">
+        <PropertyRef Name="AppMgrSevenEmpNum" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK08_EmployeeCompApprovalLevel_AppMgrEightEmpNum">
+    <End Role="EmployeeJob" Type="Self.EmployeeJob" Multiplicity="0..1" />
+    <End Role="EmployeeCompApprovalLevel" Type="Self.EmployeeCompApprovalLevel" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="EmployeeJob">
+        <PropertyRef Name="EmpJobNum" />
+      </Principal>
+      <Dependent Role="EmployeeCompApprovalLevel">
+        <PropertyRef Name="AppMgrEightEmpNum" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK09_EmployeeCompApprovalLevel_AppMgrNineEmpNum">
+    <End Role="EmployeeJob" Type="Self.EmployeeJob" Multiplicity="0..1" />
+    <End Role="EmployeeCompApprovalLevel" Type="Self.EmployeeCompApprovalLevel" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="EmployeeJob">
+        <PropertyRef Name="EmpJobNum" />
+      </Principal>
+      <Dependent Role="EmployeeCompApprovalLevel">
+        <PropertyRef Name="AppMgrNineEmpNum" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk1_AppUser_AppUserStatus">
+    <End Role="AppUserStatus" Type="Self.AppUserStatus" Multiplicity="0..1" />
+    <End Role="AppUser" Type="Self.AppUser" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AppUserStatus">
+        <PropertyRef Name="AppUserStatusID" />
+      </Principal>
+      <Dependent Role="AppUser">
+        <PropertyRef Name="AppUserStatusID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK10_EmployeeCompApprovalLevel_AppMgrTenEmpNum">
+    <End Role="EmployeeJob" Type="Self.EmployeeJob" Multiplicity="0..1" />
+    <End Role="EmployeeCompApprovalLevel" Type="Self.EmployeeCompApprovalLevel" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="EmployeeJob">
+        <PropertyRef Name="EmpJobNum" />
+      </Principal>
+      <Dependent Role="EmployeeCompApprovalLevel">
+        <PropertyRef Name="AppMgrTenEmpNum" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk10_EmployeeJob_PayGroupNum">
+    <End Role="PayGroup" Type="Self.PayGroup" Multiplicity="0..1" />
+    <End Role="EmployeeJob" Type="Self.EmployeeJob" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PayGroup">
+        <PropertyRef Name="PayGroupNum" />
+      </Principal>
+      <Dependent Role="EmployeeJob">
+        <PropertyRef Name="PayGroupNum" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk11_EmployeeJob_EmployeeSubStatusNum">
+    <End Role="SubStatus" Type="Self.SubStatus" Multiplicity="0..1" />
+    <End Role="EmployeeJob" Type="Self.EmployeeJob" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SubStatus">
+        <PropertyRef Name="SubStatusNum" />
+      </Principal>
+      <Dependent Role="EmployeeJob">
+        <PropertyRef Name="EmployeeSubStatusNum" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk12_EmployeeJob_ClassNum">
+    <End Role="EmployeeClass" Type="Self.EmployeeClass" Multiplicity="0..1" />
+    <End Role="EmployeeJob" Type="Self.EmployeeJob" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="EmployeeClass">
+        <PropertyRef Name="ClassNum" />
+      </Principal>
+      <Dependent Role="EmployeeJob">
+        <PropertyRef Name="ClassNum" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk4_EmployeeJob_BonusTypeNum">
+    <End Role="BonusType" Type="Self.BonusType" Multiplicity="0..1" />
+    <End Role="EmployeeJob" Type="Self.EmployeeJob" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="BonusType">
+        <PropertyRef Name="BonusTypeNum" />
+      </Principal>
+      <Dependent Role="EmployeeJob">
+        <PropertyRef Name="BonusTypeNum" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK4_ProxyGroup_Module">
+    <End Role="Module" Type="Self.Module" Multiplicity="1" />
+    <End Role="ProxyGroup" Type="Self.ProxyGroup" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Module">
+        <PropertyRef Name="ModuleNum" />
+      </Principal>
+      <Dependent Role="ProxyGroup">
+        <PropertyRef Name="ModuleNum" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK4_ProxyManager_Module">
+    <End Role="Module" Type="Self.Module" Multiplicity="1" />
+    <End Role="ProxyManager" Type="Self.ProxyManager" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Module">
+        <PropertyRef Name="ModuleNum" />
+      </Principal>
+      <Dependent Role="ProxyManager">
+        <PropertyRef Name="ModuleNum" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk5_EmployeeJob_BusinessUnitNum">
+    <End Role="BusinessUnit" Type="Self.BusinessUnit" Multiplicity="0..1" />
+    <End Role="EmployeeJob" Type="Self.EmployeeJob" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="BusinessUnit">
+        <PropertyRef Name="BusinessUnitNum" />
+      </Principal>
+      <Dependent Role="EmployeeJob">
+        <PropertyRef Name="BusinessUnitNum" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk6_EmployeeJob_DivisionNum">
+    <End Role="Division" Type="Self.Division" Multiplicity="0..1" />
+    <End Role="EmployeeJob" Type="Self.EmployeeJob" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Division">
+        <PropertyRef Name="DivisionNum" />
+      </Principal>
+      <Dependent Role="EmployeeJob">
+        <PropertyRef Name="DivisionNum" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk7_EmployeeJob_CountryNum">
+    <End Role="Country" Type="Self.Country" Multiplicity="0..1" />
+    <End Role="EmployeeJob" Type="Self.EmployeeJob" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Country">
+        <PropertyRef Name="CountryNum" />
+      </Principal>
+      <Dependent Role="EmployeeJob">
+        <PropertyRef Name="CountryNum" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk8_EmployeeJob_EntityCodeNum">
+    <End Role="EntityCode" Type="Self.EntityCode" Multiplicity="0..1" />
+    <End Role="EmployeeJob" Type="Self.EmployeeJob" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="EntityCode">
+        <PropertyRef Name="EntityCodeNum" />
+      </Principal>
+      <Dependent Role="EmployeeJob">
+        <PropertyRef Name="EntityCodeNum" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk9_EmployeeJob_DepartmentNum">
+    <End Role="Department" Type="Self.Department" Multiplicity="0..1" />
+    <End Role="EmployeeJob" Type="Self.EmployeeJob" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Department">
+        <PropertyRef Name="DepartmentNum" />
+      </Principal>
+      <Dependent Role="EmployeeJob">
+        <PropertyRef Name="DepartmentNum" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Function Name="fn_GetLTIPManagerName" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="Common" ReturnType="varchar">
+    <Parameter Name="ManagerNum" Type="int" Mode="In" />
+  </Function>
+  <Function Name="fn_GetManagerName" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="Common" ReturnType="varchar">
+    <Parameter Name="ManagerNum" Type="int" Mode="In" />
+  </Function>
+  <Function Name="fn_EmployeeShortName" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="Talent" ReturnType="nvarchar">
+    <Parameter Name="str" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="fn_GetAbbreviation" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="Talent">
+    <Parameter Name="sep" Type="nvarchar" Mode="In" />
+    <Parameter Name="s" Type="nvarchar" Mode="In" />
+    <ReturnType>
+      <CollectionType>
+        <RowType>
+          <Property Name="s" Type="nvarchar(max)" />
+        </RowType>
+      </CollectionType>
+    </ReturnType>
+  </Function>
+  <Function Name="fn_GetLTIPApprovalStatus" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="Talent" ReturnType="int">
+    <Parameter Name="LoggedInEmployeeNum" Type="int" Mode="In" />
+    <Parameter Name="SelectedManagerNum" Type="int" Mode="In" />
+  </Function>
+  <Function Name="fn_GetMeritApprovalStatus" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="Talent" ReturnType="int">
+    <Parameter Name="LoggedInEmployeeNum" Type="int" Mode="In" />
+    <Parameter Name="SelectedManagerNum" Type="int" Mode="In" />
+  </Function>
+  <Function Name="fn_GetSpentStatus" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="Talent" ReturnType="int">
+    <Parameter Name="ManagerNum" Type="int" Mode="In" />
+    <Parameter Name="Module" Type="varchar" Mode="In" />
+  </Function>
+  <EntityContainer Name="LaserbeamEntitiesStoreContainer">
+    <EntitySet Name="AppEmail" EntityType="Self.AppEmail" Schema="Common" store:Type="Tables" />
+    <EntitySet Name="AppExportScript" EntityType="Self.AppExportScript" Schema="Common" store:Type="Tables" />
+    <EntitySet Name="AppMenu" EntityType="Self.AppMenu" Schema="Common" store:Type="Tables" />
+    <EntitySet Name="AppMessage" EntityType="Self.AppMessage" Schema="Common" store:Type="Tables" />
+    <EntitySet Name="AppScript" EntityType="Self.AppScript" Schema="Common" store:Type="Tables" />
+    <EntitySet Name="AppSetting" EntityType="Self.AppSetting" Schema="Common" store:Type="Tables" />
+    <EntitySet Name="AppTable" EntityType="Self.AppTable" Schema="Common" store:Type="Tables" />
+    <EntitySet Name="AppUserRole" EntityType="Self.AppUserRole" Schema="Common" store:Type="Tables" />
+    <EntitySet Name="AppUserStatus" EntityType="Self.AppUserStatus" Schema="Common" store:Type="Tables" />
+    <EntitySet Name="BonusType" EntityType="Self.BonusType" Schema="Common" store:Type="Tables" />
+    <EntitySet Name="BusinessUnit" EntityType="Self.BusinessUnit" Schema="Common" store:Type="Tables" />
+    <EntitySet Name="BusSetting" EntityType="Self.BusSetting" Schema="Common" store:Type="Tables" />
+    <EntitySet Name="Category" EntityType="Self.Category" Schema="Common" store:Type="Tables" />
+    <EntitySet Name="ChatUserStatus" EntityType="Self.ChatUserStatus" Schema="Common" store:Type="Tables" />
+    <EntitySet Name="Company" EntityType="Self.Company" Schema="Common" store:Type="Tables" />
+    <EntitySet Name="CompensationType" EntityType="Self.CompensationType" Schema="Common" store:Type="Tables" />
+    <EntitySet Name="CostCenter" EntityType="Self.CostCenter" Schema="Common" store:Type="Tables" />
+    <EntitySet Name="Country" EntityType="Self.Country" Schema="Common" store:Type="Tables" />
+    <EntitySet Name="Currency" EntityType="Self.Currency" Schema="Common" store:Type="Tables" />
+    <EntitySet Name="DateFormat" EntityType="Self.DateFormat" Schema="Common" store:Type="Tables" />
+    <EntitySet Name="DecimalType" EntityType="Self.DecimalType" Schema="Common" store:Type="Tables" />
+    <EntitySet Name="Department" EntityType="Self.Department" Schema="Common" store:Type="Tables" />
+    <EntitySet Name="Division" EntityType="Self.Division" Schema="Common" store:Type="Tables" />
+    <EntitySet Name="EmailTracker" EntityType="Self.EmailTracker" Schema="Common" store:Type="Tables" />
+    <EntitySet Name="EmployeeClass" EntityType="Self.EmployeeClass" Schema="Common" store:Type="Tables" />
+    <EntitySet Name="EntityCode" EntityType="Self.EntityCode" Schema="Common" store:Type="Tables" />
+    <EntitySet Name="Ethnicity" EntityType="Self.Ethnicity" Schema="Common" store:Type="Tables" />
+    <EntitySet Name="ExchangeRate" EntityType="Self.ExchangeRate" Schema="Common" store:Type="Tables" />
+    <EntitySet Name="Family" EntityType="Self.Family" Schema="Common" store:Type="Tables" />
+    <EntitySet Name="Grade" EntityType="Self.Grade" Schema="Common" store:Type="Tables" />
+    <EntitySet Name="GroupType" EntityType="Self.GroupType" Schema="Common" store:Type="Tables" />
+    <EntitySet Name="InitiativesLink" EntityType="Self.InitiativesLink" Schema="Common" store:Type="Tables" />
+    <EntitySet Name="Job" EntityType="Self.Job" Schema="Common" store:Type="Tables" />
+    <EntitySet Name="JobStatus" EntityType="Self.JobStatus" Schema="Common" store:Type="Tables" />
+    <EntitySet Name="Location" EntityType="Self.Location" Schema="Common" store:Type="Tables" />
+    <EntitySet Name="MetaColumn" EntityType="Self.MetaColumn" Schema="Common" store:Type="Tables" />
+    <EntitySet Name="MetaTable" EntityType="Self.MetaTable" Schema="Common" store:Type="Tables" />
+    <EntitySet Name="MetaXmlTemplate" EntityType="Self.MetaXmlTemplate" Schema="Common" store:Type="Tables" />
+    <EntitySet Name="Module" EntityType="Self.Module" Schema="Common" store:Type="Tables" />
+    <EntitySet Name="Operator" EntityType="Self.Operator" Schema="Common" store:Type="Tables" />
+    <EntitySet Name="OrgGroupCriteria" EntityType="Self.OrgGroupCriteria" Schema="Common" store:Type="Tables" />
+    <EntitySet Name="PayGroup" EntityType="Self.PayGroup" Schema="Common" store:Type="Tables" />
+    <EntitySet Name="Program" EntityType="Self.Program" Schema="Common" store:Type="Tables" />
+    <EntitySet Name="Rating" EntityType="Self.Rating" Schema="Common" store:Type="Tables" />
+    <EntitySet Name="ReviewType" EntityType="Self.ReviewType" Schema="Common" store:Type="Tables" />
+    <EntitySet Name="RoundingType" EntityType="Self.RoundingType" Schema="Common" store:Type="Tables" />
+    <EntitySet Name="State" EntityType="Self.State" Schema="Common" store:Type="Tables" />
+    <EntitySet Name="SubFamily" EntityType="Self.SubFamily" Schema="Common" store:Type="Tables" />
+    <EntitySet Name="SubStatus" EntityType="Self.SubStatus" Schema="Common" store:Type="Tables" />
+    <EntitySet Name="Team" EntityType="Self.Team" Schema="Common" store:Type="Tables" />
+    <EntitySet Name="UserAppUrlTracker" EntityType="Self.UserAppUrlTracker" Schema="Common" store:Type="Tables" />
+    <EntitySet Name="UserQuery" EntityType="Self.UserQuery" Schema="Common" store:Type="Tables" />
+    <EntitySet Name="XmlProcess" EntityType="Self.XmlProcess" Schema="Common" store:Type="Tables" />
+    <EntitySet Name="AppUser" EntityType="Self.AppUser" Schema="Talent" store:Type="Tables" />
+    <EntitySet Name="Budget" EntityType="Self.Budget" Schema="Talent" store:Type="Tables" />
+    <EntitySet Name="ChatDetails" EntityType="Self.ChatDetails" Schema="Talent" store:Type="Tables" />
+    <EntitySet Name="ChatSessionDetails" EntityType="Self.ChatSessionDetails" Schema="Talent" store:Type="Tables" />
+    <EntitySet Name="DailyTask" EntityType="Self.DailyTask" Schema="Talent" store:Type="Tables" />
+    <EntitySet Name="Employee" EntityType="Self.Employee" Schema="Talent" store:Type="Tables" />
+    <EntitySet Name="EmployeeApprovalDetails" EntityType="Self.EmployeeApprovalDetails" Schema="Talent" store:Type="Tables" />
+    <EntitySet Name="EmployeeCompAdjustment" EntityType="Self.EmployeeCompAdjustment" Schema="Talent" store:Type="Tables" />
+    <EntitySet Name="EmployeeCompApprovalComment" EntityType="Self.EmployeeCompApprovalComment" Schema="Talent" store:Type="Tables" />
+    <EntitySet Name="EmployeeCompApprovalLevel" EntityType="Self.EmployeeCompApprovalLevel" Schema="Talent" store:Type="Tables" />
+    <EntitySet Name="EmployeeCompApprovalRequests" EntityType="Self.EmployeeCompApprovalRequests" Schema="Talent" store:Type="Tables" />
+    <EntitySet Name="EmployeeCompApprovalStatus" EntityType="Self.EmployeeCompApprovalStatus" Schema="Talent" store:Type="Tables" />
+    <EntitySet Name="EmployeeCompBonus" EntityType="Self.EmployeeCompBonus" Schema="Talent" store:Type="Tables" />
+    <EntitySet Name="EmployeeCompComment" EntityType="Self.EmployeeCompComment" Schema="Talent" store:Type="Tables" />
+    <EntitySet Name="EmployeeCompCommentStatus" EntityType="Self.EmployeeCompCommentStatus" Schema="Talent" store:Type="Tables" />
+    <EntitySet Name="EmployeeCompMarket" EntityType="Self.EmployeeCompMarket" Schema="Talent" store:Type="Tables" />
+    <EntitySet Name="EmployeeCompMerit" EntityType="Self.EmployeeCompMerit" Schema="Talent" store:Type="Tables" />
+    <EntitySet Name="EmployeeCompNew" EntityType="Self.EmployeeCompNew" Schema="Talent" store:Type="Tables" />
+    <EntitySet Name="EmployeeCompPromotion" EntityType="Self.EmployeeCompPromotion" Schema="Talent" store:Type="Tables" />
+    <EntitySet Name="EmployeeCompRating" EntityType="Self.EmployeeCompRating" Schema="Talent" store:Type="Tables" />
+    <EntitySet Name="EmployeeDetailsCorrection" EntityType="Self.EmployeeDetailsCorrection" Schema="Talent" store:Type="Tables" />
+    <EntitySet Name="EmployeeGroup" EntityType="Self.EmployeeGroup" Schema="Talent" store:Type="Tables" />
+    <EntitySet Name="EmployeeGroupInclusionExclusion" EntityType="Self.EmployeeGroupInclusionExclusion" Schema="Talent" store:Type="Tables" />
+    <EntitySet Name="EmployeeInclusionAndExclusion" EntityType="Self.EmployeeInclusionAndExclusion" Schema="Talent" store:Type="Tables" />
+    <EntitySet Name="EmployeeJob" EntityType="Self.EmployeeJob" Schema="Talent" store:Type="Tables" />
+    <EntitySet Name="EmployeeMoreInfo" EntityType="Self.EmployeeMoreInfo" Schema="Talent" store:Type="Tables" />
+    <EntitySet Name="EmployeeWorkFlowChanges" EntityType="Self.EmployeeWorkFlowChanges" Schema="Talent" store:Type="Tables" />
+    <EntitySet Name="EmployeeWorkflowCommentStatus" EntityType="Self.EmployeeWorkflowCommentStatus" Schema="Talent" store:Type="Tables" />
+    <EntitySet Name="FeedBack" EntityType="Self.FeedBack" Schema="Talent" store:Type="Tables" />
+    <EntitySet Name="ManagerRelation" EntityType="Self.ManagerRelation" Schema="Talent" store:Type="Tables" />
+    <EntitySet Name="MarketPayRange" EntityType="Self.MarketPayRange" Schema="Talent" store:Type="Tables" />
+    <EntitySet Name="OrgGroup" EntityType="Self.OrgGroup" Schema="Talent" store:Type="Tables" />
+    <EntitySet Name="OrgGroupAssignedCriteria" EntityType="Self.OrgGroupAssignedCriteria" Schema="Talent" store:Type="Tables" />
+    <EntitySet Name="OrgGroupDetail" EntityType="Self.OrgGroupDetail" Schema="Talent" store:Type="Tables" />
+    <EntitySet Name="OrgGroupType" EntityType="Self.OrgGroupType" Schema="Talent" store:Type="Tables" />
+    <EntitySet Name="ProxyGroup" EntityType="Self.ProxyGroup" Schema="Talent" store:Type="Tables" />
+    <EntitySet Name="ProxyManager" EntityType="Self.ProxyManager" Schema="Talent" store:Type="Tables" />
+    <EntitySet Name="ProxyPopulationAccess" EntityType="Self.ProxyPopulationAccess" Schema="Talent" store:Type="Tables" />
+    <EntitySet Name="ProxyScript" EntityType="Self.ProxyScript" Schema="Talent" store:Type="Tables" />
+    <EntitySet Name="SupportTask" EntityType="Self.SupportTask" Schema="Talent" store:Type="Tables" />
+    <EntitySet Name="SupportTaskComments" EntityType="Self.SupportTaskComments" Schema="Talent" store:Type="Tables" />
+    <EntitySet Name="TriggerEmail" EntityType="Self.TriggerEmail" Schema="Talent" store:Type="Tables" />
+    <EntitySet Name="UserMenu" EntityType="Self.UserMenu" Schema="Talent" store:Type="Tables" />
+    <EntitySet Name="UserMessage" EntityType="Self.UserMessage" Schema="Talent" store:Type="Tables" />
+    <EntitySet Name="UserPopulation" EntityType="Self.UserPopulation" Schema="Talent" store:Type="Tables" />
+    <EntitySet Name="PivotedEmployeeCompApprovalLevel" EntityType="Self.PivotedEmployeeCompApprovalLevel" store:Type="Tables" store:Schema="Talent">
+      <DefiningQuery>SELECT 
+    [PivotedEmployeeCompApprovalLevel].[KeyNum] AS [KeyNum], 
+    [PivotedEmployeeCompApprovalLevel].[EmpJobNum] AS [EmpJobNum], 
+    [PivotedEmployeeCompApprovalLevel].[ApprovalManager] AS [ApprovalManager], 
+    [PivotedEmployeeCompApprovalLevel].[ApprovalLevel] AS [ApprovalLevel], 
+    [PivotedEmployeeCompApprovalLevel].[ModuleNum] AS [ModuleNum], 
+    [PivotedEmployeeCompApprovalLevel].[UpdatedBy] AS [UpdatedBy], 
+    [PivotedEmployeeCompApprovalLevel].[UpdatedDate] AS [UpdatedDate]
+    FROM [Talent].[PivotedEmployeeCompApprovalLevel] AS [PivotedEmployeeCompApprovalLevel]</DefiningQuery>
+    </EntitySet>
+    <AssociationSet Name="FK__EmployeeC__Modul__4B399FE2" Association="Self.FK__EmployeeC__Modul__4B399FE2">
+      <End Role="Module" EntitySet="Module" />
+      <End Role="EmployeeCompApprovalLevel" EntitySet="EmployeeCompApprovalLevel" />
+    </AssociationSet>
+    <AssociationSet Name="FK__EmployeeC__Modul__4C2DC41B" Association="Self.FK__EmployeeC__Modul__4C2DC41B">
+      <End Role="Module" EntitySet="Module" />
+      <End Role="EmployeeCompApprovalLevel" EntitySet="EmployeeCompApprovalLevel" />
+    </AssociationSet>
+    <AssociationSet Name="FK__ExchangeR__Curre__469D7149" Association="Self.FK__ExchangeR__Curre__469D7149">
+      <End Role="Currency" EntitySet="Currency" />
+      <End Role="ExchangeRate" EntitySet="ExchangeRate" />
+    </AssociationSet>
+    <AssociationSet Name="FK__ExchangeR__Curre__66B53B20" Association="Self.FK__ExchangeR__Curre__66B53B20">
+      <End Role="Currency" EntitySet="Currency" />
+      <End Role="ExchangeRate" EntitySet="ExchangeRate" />
+    </AssociationSet>
+    <AssociationSet Name="fk_AppUser_AppUserRole" Association="Self.fk_AppUser_AppUserRole">
+      <End Role="AppUserRole" EntitySet="AppUserRole" />
+      <End Role="AppUser" EntitySet="AppUser" />
+    </AssociationSet>
+    <AssociationSet Name="fk_AppUser_EmployeeNum" Association="Self.fk_AppUser_EmployeeNum">
+      <End Role="Employee" EntitySet="Employee" />
+      <End Role="AppUser" EntitySet="AppUser" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AppUser_UserNum" Association="Self.FK_AppUser_UserNum">
+      <End Role="AppUser" EntitySet="AppUser" />
+      <End Role="DailyTask" EntitySet="DailyTask" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Budget_CompensationType" Association="Self.FK_Budget_CompensationType">
+      <End Role="CompensationType" EntitySet="CompensationType" />
+      <End Role="Budget" EntitySet="Budget" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Budget_EmployeeJob" Association="Self.FK_Budget_EmployeeJob">
+      <End Role="EmployeeJob" EntitySet="EmployeeJob" />
+      <End Role="Budget" EntitySet="Budget" />
+    </AssociationSet>
+    <AssociationSet Name="fk_EmployeeApprovalDetails_AppUser" Association="Self.fk_EmployeeApprovalDetails_AppUser">
+      <End Role="AppUser" EntitySet="AppUser" />
+      <End Role="EmployeeApprovalDetails" EntitySet="EmployeeApprovalDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK_EmployeeCompAdjustment_EmployeeJob" Association="Self.FK_EmployeeCompAdjustment_EmployeeJob">
+      <End Role="EmployeeJob" EntitySet="EmployeeJob" />
+      <End Role="EmployeeCompAdjustment" EntitySet="EmployeeCompAdjustment" />
+    </AssociationSet>
+    <AssociationSet Name="FK_EmployeeCompApprovalComments_EmployeeJob" Association="Self.FK_EmployeeCompApprovalComments_EmployeeJob">
+      <End Role="EmployeeJob" EntitySet="EmployeeJob" />
+      <End Role="EmployeeCompApprovalComment" EntitySet="EmployeeCompApprovalComment" />
+    </AssociationSet>
+    <AssociationSet Name="FK_EmployeeCompApprovalStatus_EmployeeJob" Association="Self.FK_EmployeeCompApprovalStatus_EmployeeJob">
+      <End Role="EmployeeJob" EntitySet="EmployeeJob" />
+      <End Role="EmployeeCompApprovalStatus" EntitySet="EmployeeCompApprovalStatus" />
+    </AssociationSet>
+    <AssociationSet Name="FK_EmployeeCompBonus_EmployeeJob" Association="Self.FK_EmployeeCompBonus_EmployeeJob">
+      <End Role="EmployeeJob" EntitySet="EmployeeJob" />
+      <End Role="EmployeeCompBonus" EntitySet="EmployeeCompBonus" />
+    </AssociationSet>
+    <AssociationSet Name="fk_EmployeeCompComments_AppUserCreatedBy" Association="Self.fk_EmployeeCompComments_AppUserCreatedBy">
+      <End Role="AppUser" EntitySet="AppUser" />
+      <End Role="EmployeeCompComment" EntitySet="EmployeeCompComment" />
+    </AssociationSet>
+    <AssociationSet Name="fk_EmployeeCompComments_AppUserUpdatedBy" Association="Self.fk_EmployeeCompComments_AppUserUpdatedBy">
+      <End Role="AppUser" EntitySet="AppUser" />
+      <End Role="EmployeeCompComment" EntitySet="EmployeeCompComment" />
+    </AssociationSet>
+    <AssociationSet Name="FK_EmployeeCompComments_EmployeeJob" Association="Self.FK_EmployeeCompComments_EmployeeJob">
+      <End Role="EmployeeJob" EntitySet="EmployeeJob" />
+      <End Role="EmployeeCompComment" EntitySet="EmployeeCompComment" />
+    </AssociationSet>
+    <AssociationSet Name="fk_EmployeeCompCommentStatus_AppUser" Association="Self.fk_EmployeeCompCommentStatus_AppUser">
+      <End Role="AppUser" EntitySet="AppUser" />
+      <End Role="EmployeeCompCommentStatus" EntitySet="EmployeeCompCommentStatus" />
+    </AssociationSet>
+    <AssociationSet Name="fk_EmployeeCompCommentStatus_EmployeeCompComment" Association="Self.fk_EmployeeCompCommentStatus_EmployeeCompComment">
+      <End Role="EmployeeCompComment" EntitySet="EmployeeCompComment" />
+      <End Role="EmployeeCompCommentStatus" EntitySet="EmployeeCompCommentStatus" />
+    </AssociationSet>
+    <AssociationSet Name="FK_EmployeeCompMarket_EmployeeJob" Association="Self.FK_EmployeeCompMarket_EmployeeJob">
+      <End Role="EmployeeJob" EntitySet="EmployeeJob" />
+      <End Role="EmployeeCompMarket" EntitySet="EmployeeCompMarket" />
+    </AssociationSet>
+    <AssociationSet Name="FK_EmployeeCompMerit_EmployeeJob" Association="Self.FK_EmployeeCompMerit_EmployeeJob">
+      <End Role="EmployeeJob" EntitySet="EmployeeJob" />
+      <End Role="EmployeeCompMerit" EntitySet="EmployeeCompMerit" />
+    </AssociationSet>
+    <AssociationSet Name="FK_EmployeeCompNew_EmployeeJob" Association="Self.FK_EmployeeCompNew_EmployeeJob">
+      <End Role="EmployeeJob" EntitySet="EmployeeJob" />
+      <End Role="EmployeeCompNew" EntitySet="EmployeeCompNew" />
+    </AssociationSet>
+    <AssociationSet Name="FK_EmployeeCompPromotion_EmployeeJob" Association="Self.FK_EmployeeCompPromotion_EmployeeJob">
+      <End Role="EmployeeJob" EntitySet="EmployeeJob" />
+      <End Role="EmployeeCompPromotion" EntitySet="EmployeeCompPromotion" />
+    </AssociationSet>
+    <AssociationSet Name="fk_EmployeeCompRating_BonusPerformanceRating" Association="Self.fk_EmployeeCompRating_BonusPerformanceRating">
+      <End Role="Rating" EntitySet="Rating" />
+      <End Role="EmployeeCompRating" EntitySet="EmployeeCompRating" />
+    </AssociationSet>
+    <AssociationSet Name="FK_EmployeeCompRating_EmployeeJob" Association="Self.FK_EmployeeCompRating_EmployeeJob">
+      <End Role="EmployeeJob" EntitySet="EmployeeJob" />
+      <End Role="EmployeeCompRating" EntitySet="EmployeeCompRating" />
+    </AssociationSet>
+    <AssociationSet Name="fk_EmployeeCompRating_MeritPerformanceRating" Association="Self.fk_EmployeeCompRating_MeritPerformanceRating">
+      <End Role="Rating" EntitySet="Rating" />
+      <End Role="EmployeeCompRating" EntitySet="EmployeeCompRating" />
+    </AssociationSet>
+    <AssociationSet Name="FK_EmployeeGroup_Employee" Association="Self.FK_EmployeeGroup_Employee">
+      <End Role="Employee" EntitySet="Employee" />
+      <End Role="EmployeeGroup" EntitySet="EmployeeGroup" />
+    </AssociationSet>
+    <AssociationSet Name="FK_EmployeeGroup_OrgGroup" Association="Self.FK_EmployeeGroup_OrgGroup">
+      <End Role="OrgGroup" EntitySet="OrgGroup" />
+      <End Role="EmployeeGroup" EntitySet="EmployeeGroup" />
+    </AssociationSet>
+    <AssociationSet Name="FK_EmployeeGroupInclusionExclusion_Employee" Association="Self.FK_EmployeeGroupInclusionExclusion_Employee">
+      <End Role="Employee" EntitySet="Employee" />
+      <End Role="EmployeeGroupInclusionExclusion" EntitySet="EmployeeGroupInclusionExclusion" />
+    </AssociationSet>
+    <AssociationSet Name="FK_EmployeeGroupInclusionExclusion_OrgGroup" Association="Self.FK_EmployeeGroupInclusionExclusion_OrgGroup">
+      <End Role="OrgGroup" EntitySet="OrgGroup" />
+      <End Role="EmployeeGroupInclusionExclusion" EntitySet="EmployeeGroupInclusionExclusion" />
+    </AssociationSet>
+    <AssociationSet Name="FK_EmployeeInclusionAndExclusion_Employee" Association="Self.FK_EmployeeInclusionAndExclusion_Employee">
+      <End Role="Employee" EntitySet="Employee" />
+      <End Role="EmployeeInclusionAndExclusion" EntitySet="EmployeeInclusionAndExclusion" />
+    </AssociationSet>
+    <AssociationSet Name="FK_EmployeeJob_Currency" Association="Self.FK_EmployeeJob_Currency">
+      <End Role="Currency" EntitySet="Currency" />
+      <End Role="EmployeeJob" EntitySet="EmployeeJob" />
+    </AssociationSet>
+    <AssociationSet Name="fk_EmployeeJob_Employee" Association="Self.fk_EmployeeJob_Employee">
+      <End Role="Employee" EntitySet="Employee" />
+      <End Role="EmployeeJob" EntitySet="EmployeeJob" />
+    </AssociationSet>
+    <AssociationSet Name="fk_EmployeeJob_Employee_Managernum" Association="Self.fk_EmployeeJob_Employee_Managernum">
+      <End Role="Employee" EntitySet="Employee" />
+      <End Role="EmployeeJob" EntitySet="EmployeeJob" />
+    </AssociationSet>
+    <AssociationSet Name="FK_EmployeeJob_Grade" Association="Self.FK_EmployeeJob_Grade">
+      <End Role="Grade" EntitySet="Grade" />
+      <End Role="EmployeeJob" EntitySet="EmployeeJob" />
+    </AssociationSet>
+    <AssociationSet Name="fk_EmployeeJob_Job" Association="Self.fk_EmployeeJob_Job">
+      <End Role="Job" EntitySet="Job" />
+      <End Role="EmployeeJob" EntitySet="EmployeeJob" />
+    </AssociationSet>
+    <AssociationSet Name="FK_EmployeeJob_Location" Association="Self.FK_EmployeeJob_Location">
+      <End Role="Location" EntitySet="Location" />
+      <End Role="EmployeeJob" EntitySet="EmployeeJob" />
+    </AssociationSet>
+    <AssociationSet Name="fk_EmployeeJob_ProgramNum" Association="Self.fk_EmployeeJob_ProgramNum">
+      <End Role="Program" EntitySet="Program" />
+      <End Role="EmployeeJob" EntitySet="EmployeeJob" />
+    </AssociationSet>
+    <AssociationSet Name="FK_EmployeeJob_ReviewType" Association="Self.FK_EmployeeJob_ReviewType">
+      <End Role="ReviewType" EntitySet="ReviewType" />
+      <End Role="EmployeeJob" EntitySet="EmployeeJob" />
+    </AssociationSet>
+    <AssociationSet Name="FK_EmployeeJob_State" Association="Self.FK_EmployeeJob_State">
+      <End Role="State" EntitySet="State" />
+      <End Role="EmployeeJob" EntitySet="EmployeeJob" />
+    </AssociationSet>
+    <AssociationSet Name="fk_EmployeeWorkflowCommentStatus_AppUser" Association="Self.fk_EmployeeWorkflowCommentStatus_AppUser">
+      <End Role="AppUser" EntitySet="AppUser" />
+      <End Role="EmployeeWorkflowCommentStatus" EntitySet="EmployeeWorkflowCommentStatus" />
+    </AssociationSet>
+    <AssociationSet Name="fk_EmployeeWorkflowCommentStatus_EmployeeCompComment" Association="Self.fk_EmployeeWorkflowCommentStatus_EmployeeCompComment">
+      <End Role="EmployeeApprovalDetails" EntitySet="EmployeeApprovalDetails" />
+      <End Role="EmployeeWorkflowCommentStatus" EntitySet="EmployeeWorkflowCommentStatus" />
+    </AssociationSet>
+    <AssociationSet Name="fk_FeedBack_AppUser" Association="Self.fk_FeedBack_AppUser">
+      <End Role="AppUser" EntitySet="AppUser" />
+      <End Role="FeedBack" EntitySet="FeedBack" />
+    </AssociationSet>
+    <AssociationSet Name="FK_fk4_Budget_AppUser" Association="Self.FK_fk4_Budget_AppUser">
+      <End Role="AppUser" EntitySet="AppUser" />
+      <End Role="Budget" EntitySet="Budget" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ManagerRelation_Employee" Association="Self.FK_ManagerRelation_Employee">
+      <End Role="Employee" EntitySet="Employee" />
+      <End Role="ManagerRelation" EntitySet="ManagerRelation" />
+    </AssociationSet>
+    <AssociationSet Name="FK_OrGGroupAssignedCriteria_OrGGroup" Association="Self.FK_OrGGroupAssignedCriteria_OrGGroup">
+      <End Role="OrgGroup" EntitySet="OrgGroup" />
+      <End Role="OrgGroupAssignedCriteria" EntitySet="OrgGroupAssignedCriteria" />
+    </AssociationSet>
+    <AssociationSet Name="FK_OrGGroupAssignedCriteria_OrgGroupCriteria" Association="Self.FK_OrGGroupAssignedCriteria_OrgGroupCriteria">
+      <End Role="OrgGroupCriteria" EntitySet="OrgGroupCriteria" />
+      <End Role="OrgGroupAssignedCriteria" EntitySet="OrgGroupAssignedCriteria" />
+    </AssociationSet>
+    <AssociationSet Name="FK_OrgGroupDetail_OrgGroup" Association="Self.FK_OrgGroupDetail_OrgGroup">
+      <End Role="OrgGroup" EntitySet="OrgGroup" />
+      <End Role="OrgGroupDetail" EntitySet="OrgGroupDetail" />
+    </AssociationSet>
+    <AssociationSet Name="fk_OrgGroupType_GroupType" Association="Self.fk_OrgGroupType_GroupType">
+      <End Role="GroupType" EntitySet="GroupType" />
+      <End Role="OrgGroupType" EntitySet="OrgGroupType" />
+    </AssociationSet>
+    <AssociationSet Name="fk_OrgGroupType_OrgGroup" Association="Self.fk_OrgGroupType_OrgGroup">
+      <End Role="OrgGroup" EntitySet="OrgGroup" />
+      <End Role="OrgGroupType" EntitySet="OrgGroupType" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ProxyGroup_AppUser" Association="Self.FK_ProxyGroup_AppUser">
+      <End Role="AppUser" EntitySet="AppUser" />
+      <End Role="ProxyGroup" EntitySet="ProxyGroup" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ProxyGroup_OrgGroup" Association="Self.FK_ProxyGroup_OrgGroup">
+      <End Role="OrgGroup" EntitySet="OrgGroup" />
+      <End Role="ProxyGroup" EntitySet="ProxyGroup" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ProxyManager_AppUser" Association="Self.FK_ProxyManager_AppUser">
+      <End Role="AppUser" EntitySet="AppUser" />
+      <End Role="ProxyManager" EntitySet="ProxyManager" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ProxyManager_Employee" Association="Self.FK_ProxyManager_Employee">
+      <End Role="Employee" EntitySet="Employee" />
+      <End Role="ProxyManager" EntitySet="ProxyManager" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ProxyPopulationAccess_OrgGroup" Association="Self.FK_ProxyPopulationAccess_OrgGroup">
+      <End Role="OrgGroup" EntitySet="OrgGroup" />
+      <End Role="ProxyPopulationAccess" EntitySet="ProxyPopulationAccess" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ProxyScript_AppScript" Association="Self.FK_ProxyScript_AppScript">
+      <End Role="AppScript" EntitySet="AppScript" />
+      <End Role="ProxyScript" EntitySet="ProxyScript" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ProxyScript_AppUser" Association="Self.FK_ProxyScript_AppUser">
+      <End Role="AppUser" EntitySet="AppUser" />
+      <End Role="ProxyScript" EntitySet="ProxyScript" />
+    </AssociationSet>
+    <AssociationSet Name="fk_SupportTaskComments_AppUserCreatedBy" Association="Self.fk_SupportTaskComments_AppUserCreatedBy">
+      <End Role="AppUser" EntitySet="AppUser" />
+      <End Role="SupportTaskComments" EntitySet="SupportTaskComments" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SupportTasks_SupportTaskNum" Association="Self.FK_SupportTasks_SupportTaskNum">
+      <End Role="SupportTask" EntitySet="SupportTask" />
+      <End Role="SupportTaskComments" EntitySet="SupportTaskComments" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SupportTasks_Team_TeamNum" Association="Self.FK_SupportTasks_Team_TeamNum">
+      <End Role="Team" EntitySet="Team" />
+      <End Role="SupportTask" EntitySet="SupportTask" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserMenu_AppUser" Association="Self.FK_UserMenu_AppUser">
+      <End Role="AppUser" EntitySet="AppUser" />
+      <End Role="UserMenu" EntitySet="UserMenu" />
+    </AssociationSet>
+    <AssociationSet Name="fk_UserMessage_AppMessage" Association="Self.fk_UserMessage_AppMessage">
+      <End Role="AppMessage" EntitySet="AppMessage" />
+      <End Role="UserMessage" EntitySet="UserMessage" />
+    </AssociationSet>
+    <AssociationSet Name="fk_UserMessage_AppUser" Association="Self.fk_UserMessage_AppUser">
+      <End Role="AppUser" EntitySet="AppUser" />
+      <End Role="UserMessage" EntitySet="UserMessage" />
+    </AssociationSet>
+    <AssociationSet Name="FK00_EmployeeCompApprovalLevel_EmployeeJob" Association="Self.FK00_EmployeeCompApprovalLevel_EmployeeJob">
+      <End Role="EmployeeJob" EntitySet="EmployeeJob" />
+      <End Role="EmployeeCompApprovalLevel" EntitySet="EmployeeCompApprovalLevel" />
+    </AssociationSet>
+    <AssociationSet Name="FK01_EmployeeCompApprovalLevel_AppMgrOneEmpNum" Association="Self.FK01_EmployeeCompApprovalLevel_AppMgrOneEmpNum">
+      <End Role="EmployeeJob" EntitySet="EmployeeJob" />
+      <End Role="EmployeeCompApprovalLevel" EntitySet="EmployeeCompApprovalLevel" />
+    </AssociationSet>
+    <AssociationSet Name="FK02_EmployeeCompApprovalLevel_AppMgrTwoEmpNum" Association="Self.FK02_EmployeeCompApprovalLevel_AppMgrTwoEmpNum">
+      <End Role="EmployeeJob" EntitySet="EmployeeJob" />
+      <End Role="EmployeeCompApprovalLevel" EntitySet="EmployeeCompApprovalLevel" />
+    </AssociationSet>
+    <AssociationSet Name="FK03_EmployeeCompApprovalLevel_AppMgrThreeEmpNum" Association="Self.FK03_EmployeeCompApprovalLevel_AppMgrThreeEmpNum">
+      <End Role="EmployeeJob" EntitySet="EmployeeJob" />
+      <End Role="EmployeeCompApprovalLevel" EntitySet="EmployeeCompApprovalLevel" />
+    </AssociationSet>
+    <AssociationSet Name="FK04_EmployeeCompApprovalLevel_AppMgrFourEmpNum" Association="Self.FK04_EmployeeCompApprovalLevel_AppMgrFourEmpNum">
+      <End Role="EmployeeJob" EntitySet="EmployeeJob" />
+      <End Role="EmployeeCompApprovalLevel" EntitySet="EmployeeCompApprovalLevel" />
+    </AssociationSet>
+    <AssociationSet Name="FK05_EmployeeCompApprovalLevel_AppMgrFiveEmpNum" Association="Self.FK05_EmployeeCompApprovalLevel_AppMgrFiveEmpNum">
+      <End Role="EmployeeJob" EntitySet="EmployeeJob" />
+      <End Role="EmployeeCompApprovalLevel" EntitySet="EmployeeCompApprovalLevel" />
+    </AssociationSet>
+    <AssociationSet Name="FK06_EmployeeCompApprovalLevel_AppMgrSixEmpNum" Association="Self.FK06_EmployeeCompApprovalLevel_AppMgrSixEmpNum">
+      <End Role="EmployeeJob" EntitySet="EmployeeJob" />
+      <End Role="EmployeeCompApprovalLevel" EntitySet="EmployeeCompApprovalLevel" />
+    </AssociationSet>
+    <AssociationSet Name="FK07_EmployeeCompApprovalLevel_AppMgrSevenEmpNum" Association="Self.FK07_EmployeeCompApprovalLevel_AppMgrSevenEmpNum">
+      <End Role="EmployeeJob" EntitySet="EmployeeJob" />
+      <End Role="EmployeeCompApprovalLevel" EntitySet="EmployeeCompApprovalLevel" />
+    </AssociationSet>
+    <AssociationSet Name="FK08_EmployeeCompApprovalLevel_AppMgrEightEmpNum" Association="Self.FK08_EmployeeCompApprovalLevel_AppMgrEightEmpNum">
+      <End Role="EmployeeJob" EntitySet="EmployeeJob" />
+      <End Role="EmployeeCompApprovalLevel" EntitySet="EmployeeCompApprovalLevel" />
+    </AssociationSet>
+    <AssociationSet Name="FK09_EmployeeCompApprovalLevel_AppMgrNineEmpNum" Association="Self.FK09_EmployeeCompApprovalLevel_AppMgrNineEmpNum">
+      <End Role="EmployeeJob" EntitySet="EmployeeJob" />
+      <End Role="EmployeeCompApprovalLevel" EntitySet="EmployeeCompApprovalLevel" />
+    </AssociationSet>
+    <AssociationSet Name="fk1_AppUser_AppUserStatus" Association="Self.fk1_AppUser_AppUserStatus">
+      <End Role="AppUserStatus" EntitySet="AppUserStatus" />
+      <End Role="AppUser" EntitySet="AppUser" />
+    </AssociationSet>
+    <AssociationSet Name="FK10_EmployeeCompApprovalLevel_AppMgrTenEmpNum" Association="Self.FK10_EmployeeCompApprovalLevel_AppMgrTenEmpNum">
+      <End Role="EmployeeJob" EntitySet="EmployeeJob" />
+      <End Role="EmployeeCompApprovalLevel" EntitySet="EmployeeCompApprovalLevel" />
+    </AssociationSet>
+    <AssociationSet Name="fk10_EmployeeJob_PayGroupNum" Association="Self.fk10_EmployeeJob_PayGroupNum">
+      <End Role="PayGroup" EntitySet="PayGroup" />
+      <End Role="EmployeeJob" EntitySet="EmployeeJob" />
+    </AssociationSet>
+    <AssociationSet Name="fk11_EmployeeJob_EmployeeSubStatusNum" Association="Self.fk11_EmployeeJob_EmployeeSubStatusNum">
+      <End Role="SubStatus" EntitySet="SubStatus" />
+      <End Role="EmployeeJob" EntitySet="EmployeeJob" />
+    </AssociationSet>
+    <AssociationSet Name="fk12_EmployeeJob_ClassNum" Association="Self.fk12_EmployeeJob_ClassNum">
+      <End Role="EmployeeClass" EntitySet="EmployeeClass" />
+      <End Role="EmployeeJob" EntitySet="EmployeeJob" />
+    </AssociationSet>
+    <AssociationSet Name="fk4_EmployeeJob_BonusTypeNum" Association="Self.fk4_EmployeeJob_BonusTypeNum">
+      <End Role="BonusType" EntitySet="BonusType" />
+      <End Role="EmployeeJob" EntitySet="EmployeeJob" />
+    </AssociationSet>
+    <AssociationSet Name="FK4_ProxyGroup_Module" Association="Self.FK4_ProxyGroup_Module">
+      <End Role="Module" EntitySet="Module" />
+      <End Role="ProxyGroup" EntitySet="ProxyGroup" />
+    </AssociationSet>
+    <AssociationSet Name="FK4_ProxyManager_Module" Association="Self.FK4_ProxyManager_Module">
+      <End Role="Module" EntitySet="Module" />
+      <End Role="ProxyManager" EntitySet="ProxyManager" />
+    </AssociationSet>
+    <AssociationSet Name="fk5_EmployeeJob_BusinessUnitNum" Association="Self.fk5_EmployeeJob_BusinessUnitNum">
+      <End Role="BusinessUnit" EntitySet="BusinessUnit" />
+      <End Role="EmployeeJob" EntitySet="EmployeeJob" />
+    </AssociationSet>
+    <AssociationSet Name="fk6_EmployeeJob_DivisionNum" Association="Self.fk6_EmployeeJob_DivisionNum">
+      <End Role="Division" EntitySet="Division" />
+      <End Role="EmployeeJob" EntitySet="EmployeeJob" />
+    </AssociationSet>
+    <AssociationSet Name="fk7_EmployeeJob_CountryNum" Association="Self.fk7_EmployeeJob_CountryNum">
+      <End Role="Country" EntitySet="Country" />
+      <End Role="EmployeeJob" EntitySet="EmployeeJob" />
+    </AssociationSet>
+    <AssociationSet Name="fk8_EmployeeJob_EntityCodeNum" Association="Self.fk8_EmployeeJob_EntityCodeNum">
+      <End Role="EntityCode" EntitySet="EntityCode" />
+      <End Role="EmployeeJob" EntitySet="EmployeeJob" />
+    </AssociationSet>
+    <AssociationSet Name="fk9_EmployeeJob_DepartmentNum" Association="Self.fk9_EmployeeJob_DepartmentNum">
+      <End Role="Department" EntitySet="Department" />
+      <End Role="EmployeeJob" EntitySet="EmployeeJob" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

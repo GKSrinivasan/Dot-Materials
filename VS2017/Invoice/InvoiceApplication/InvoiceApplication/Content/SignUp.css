@@ -1,0 +1,16 @@
+﻿.logo {width: 40%;}
+.center {text-align: center;}
+.noborder {border: none;background: #fff;}
+.form-control {border-top: none !important;border-left: none !important;border-right: none !important;box-shadow: none !important;border-radius: 0;padding-left: 0px;
+border-bottom: 1px solid #ccc !important;height: 30px;}
+.top-pad {padding-top: 10px;}
+.nomobiletoppad {padding-top: 20px;}
+.wbg .glyphicon, .wbg .fa {color: #00abf0;}
+.btn-blue, .btn-blue:hover, .btn-blue:focus {background: #00abf0;color: #fff;font-size: 15px;padding: 4px 18px;}
+.nomargin {margin: 0;}
+.whitebg {background: white;border: 1px solid #d8dde6;padding: 20px;margin-bottom: 20px;box-shadow: 1px 0px 10px #ccc;border-radius: 4px;margin-top: 15%;}
+.marginleft {margin-left: 16.66% !important;}
+.btnPad {padding-top: 20px;}
+body{font-family:Arial;font-size:14px;}
+.mandatory{color:red;padding-left:2px;}
+.orange{color:orange}

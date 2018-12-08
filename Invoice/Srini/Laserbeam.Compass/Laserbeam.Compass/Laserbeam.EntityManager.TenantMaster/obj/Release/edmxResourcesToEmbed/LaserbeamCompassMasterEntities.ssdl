@@ -1,0 +1,163 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="LBS_CompMasterModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="AppUser">
+    <Key>
+      <PropertyRef Name="UserNum" />
+    </Key>
+    <Property Name="UserNum" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="EmailAddress" Type="varchar" MaxLength="320" Nullable="false" />
+    <Property Name="UserName" Type="varchar" MaxLength="200" Nullable="false" />
+    <Property Name="UserFirstName" Type="varchar" MaxLength="200" Nullable="false" />
+    <Property Name="UserLastName" Type="varchar" MaxLength="200" Nullable="false" />
+    <Property Name="UserPassword" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="SecretKey" Type="varchar" MaxLength="38" Nullable="false" />
+    <Property Name="FailedLoginAttempts" Type="tinyint" Nullable="false" />
+    <Property Name="AppUserRole" Type="varchar" MaxLength="200" Nullable="false" />
+    <Property Name="AppUserStatusNum" Type="tinyint" Nullable="false" />
+    <Property Name="LastLoginDate" Type="datetime" />
+    <Property Name="LastLogoutDate" Type="datetime" />
+    <Property Name="TenantName" Type="varchar" MaxLength="50" />
+    <Property Name="CompanyName" Type="varchar" MaxLength="200" />
+    <Property Name="Country" Type="varchar" MaxLength="50" />
+    <Property Name="PinCode" Type="varchar" MaxLength="10" />
+    <Property Name="PhoneNumber" Type="varchar" MaxLength="15" />
+    <Property Name="ExtensionNumber" Type="varchar" MaxLength="15" />
+    <Property Name="IsTenantCreated" Type="bit" />
+  </EntityType>
+  <EntityType Name="AppUserRole">
+    <Key>
+      <PropertyRef Name="AppUserRoleNum" />
+    </Key>
+    <Property Name="AppUserRoleNum" Type="tinyint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserRole" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="Active" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="AppUserStatus">
+    <Key>
+      <PropertyRef Name="AppUserStatusNum" />
+    </Key>
+    <Property Name="AppUserStatusNum" Type="tinyint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserStatus" Type="varchar" MaxLength="20" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Product">
+    <Key>
+      <PropertyRef Name="ProductNum" />
+    </Key>
+    <Property Name="ProductNum" Type="smallint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ProductName" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="ProductURL" Type="varchar" MaxLength="200" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Tenant">
+    <Key>
+      <PropertyRef Name="TenantNum" />
+    </Key>
+    <Property Name="TenantNum" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TenantURLName" Type="varchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="TenantConnection">
+    <Key>
+      <PropertyRef Name="TenantNum" />
+    </Key>
+    <Property Name="TenantNum" Type="int" Nullable="false" />
+    <Property Name="ProductNum" Type="smallint" Nullable="false" />
+    <Property Name="DatabaseServer" Type="varchar" MaxLength="50" />
+    <Property Name="DatabaseName" Type="varchar" MaxLength="50" />
+    <Property Name="DatabaseUserId" Type="varchar" MaxLength="50" />
+    <Property Name="DatabasePassword" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="TenantInformation">
+    <Key>
+      <PropertyRef Name="TenantNum" />
+    </Key>
+    <Property Name="TenantNum" Type="int" Nullable="false" />
+    <Property Name="CompanyName" Type="varchar" MaxLength="200" />
+    <Property Name="CompanyAddress1" Type="varchar" MaxLength="200" />
+    <Property Name="CompanyAddress2" Type="varchar" MaxLength="200" />
+    <Property Name="City" Type="varchar" MaxLength="50" />
+    <Property Name="State" Type="varchar" MaxLength="50" />
+    <Property Name="Country" Type="varchar" MaxLength="50" />
+    <Property Name="PinCode" Type="varchar" MaxLength="10" />
+    <Property Name="PhoneNumber" Type="varchar" MaxLength="15" />
+  </EntityType>
+  <EntityType Name="TenantLogo">
+    <Key>
+      <PropertyRef Name="TenantNum" />
+    </Key>
+    <Property Name="TenantNum" Type="int" Nullable="false" />
+    <Property Name="Logo" Type="image" />
+  </EntityType>
+  <Association Name="fk_AppUser_AppUserStatusNum">
+    <End Role="AppUserStatus" Type="Self.AppUserStatus" Multiplicity="1" />
+    <End Role="AppUser" Type="Self.AppUser" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AppUserStatus">
+        <PropertyRef Name="AppUserStatusNum" />
+      </Principal>
+      <Dependent Role="AppUser">
+        <PropertyRef Name="AppUserStatusNum" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TenantConnection_ProductNum">
+    <End Role="Product" Type="Self.Product" Multiplicity="1" />
+    <End Role="TenantConnection" Type="Self.TenantConnection" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Product">
+        <PropertyRef Name="ProductNum" />
+      </Principal>
+      <Dependent Role="TenantConnection">
+        <PropertyRef Name="ProductNum" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TenantConnection_TenantNum">
+    <End Role="Tenant" Type="Self.Tenant" Multiplicity="1" />
+    <End Role="TenantConnection" Type="Self.TenantConnection" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Tenant">
+        <PropertyRef Name="TenantNum" />
+      </Principal>
+      <Dependent Role="TenantConnection">
+        <PropertyRef Name="TenantNum" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TenantInformation_TenantNum">
+    <End Role="Tenant" Type="Self.Tenant" Multiplicity="1" />
+    <End Role="TenantInformation" Type="Self.TenantInformation" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Tenant">
+        <PropertyRef Name="TenantNum" />
+      </Principal>
+      <Dependent Role="TenantInformation">
+        <PropertyRef Name="TenantNum" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="LBS_CompMasterModelStoreContainer">
+    <EntitySet Name="AppUser" EntityType="Self.AppUser" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AppUserRole" EntityType="Self.AppUserRole" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AppUserStatus" EntityType="Self.AppUserStatus" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Tenant" EntityType="Self.Tenant" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TenantConnection" EntityType="Self.TenantConnection" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TenantInformation" EntityType="Self.TenantInformation" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TenantLogo" EntityType="Self.TenantLogo" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="fk_AppUser_AppUserStatusNum" Association="Self.fk_AppUser_AppUserStatusNum">
+      <End Role="AppUserStatus" EntitySet="AppUserStatus" />
+      <End Role="AppUser" EntitySet="AppUser" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TenantConnection_ProductNum" Association="Self.FK_TenantConnection_ProductNum">
+      <End Role="Product" EntitySet="Product" />
+      <End Role="TenantConnection" EntitySet="TenantConnection" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TenantConnection_TenantNum" Association="Self.FK_TenantConnection_TenantNum">
+      <End Role="Tenant" EntitySet="Tenant" />
+      <End Role="TenantConnection" EntitySet="TenantConnection" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TenantInformation_TenantNum" Association="Self.FK_TenantInformation_TenantNum">
+      <End Role="Tenant" EntitySet="Tenant" />
+      <End Role="TenantInformation" EntitySet="TenantInformation" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

@@ -1,0 +1,103 @@
+﻿<div class="modal-dialog tablewidth" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h4 class="modal-title" id="myModalLabel">Spent Summary</h4>
+        </div>
+        <div class="modal-body chartmodalbody">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="row top-pad nomargin">
+                    <div class="col-md-12 noleftpad norightpad">
+                        <div class="row well nomargin">
+                            <div class="col-md-6">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="donut-wrapper">
+                                            <div id="gauge-container">
+                                                <div id="gauge"></div>
+                                            </div>
+                                            <div class="inner-contentmsg">
+                                                Spent
+                                                <div id="totalSpentAmt"></div>
+                                            </div>
+                                            <div class="inner-contentmsg1">
+                                                Remaining
+                                                <div id="balanceAmt"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-8 top-pad">
+                                        <ul class="legend top-pad">
+                                            <li id="liSpentSummaryMerit" style="display:@( (Model.CompensationTypeConfiguration.FeatureConfigurationMerit) ? "block" : "none")"><div class="Merit legendspan"></div> <div class="textforchart pull-left">Merit</div> <div id="meritSpentAmt"></div></li>
+                                            <li id="liSpentSummaryLumSum" style="display:@( (Model.CompensationTypeConfiguration.FeatureConfigurationLumpSum) ? "block" : "none")"><div class="LumpSum legendspan"></div> <div class="textforchart pull-left">Lump Sum</div>  <div id="lumpsumSpentAmt"></div></li>
+                                            <li id="liSpentSummaryPromotion" style="display:@( (Model.CompensationTypeConfiguration.FeatureConfigurationPromotion) ? "block" : "none")"><div class="Promotion legendspan"></div> <div class="textforchart pull-left">Promotion</div> <div id="promotionSpentAmt"></div></li>
+                                            <li id="liSpentSummaryAdjustment" style="display:@( (Model.CompensationTypeConfiguration.FeatureConfigurationAdjustment) ? "block" : "none")"><div class="Adjustment legendspan"></div> <div class="textforchart pull-left">Adjustment</div> <div id="totalAdjustmentSpentAmt"></div></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="col-md-6 top-pad norightpad">
+                                <div class="table-responsive">
+                                    <table class="table font16 borderccc">
+                                        <thead>
+                                            <tr class="success normalfont">
+                                                <th class="bg-whitetable"></th>
+                                                <th class="font12 text-center">< Min</th>
+                                                <th class="font12 text-center midclr">Mid</th>
+                                                <th class="font12 text-center maxclr">> Max</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td class="font12 text-right">Before Increase</td>
+                                                <td class="text-center"><span id="beforeIncreaseMin"></span></td>
+                                                <td class="text-center"><span id="beforeIncreaseMid"></span></td>
+                                                <td class="text-center"><span id="beforeIncreaseMax"></span></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="font12 text-right">After Increase</td>
+                                                <td class="text-center"><span id="afterIncreaseMin"></span></td>
+                                                <td class="text-center"><span id="afterIncreaseMid"></span></td>
+                                                <td class="text-center"><span id="afterIncreaseMax"></span></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="table-responsive">
+                                    <table class="table font16 table-bordered">
+                                        <thead>
+                                            <tr class="info normalfont">
+                                                <th class="font12">Current Salary</th>
+                                                <th class="font12 midblue">New Salary</th>
+                                                <th class="font12 deepblue">Increase %</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td><span id="currentSalary"></span></td>
+                                                <td><span id="newSalary"></span></td>
+                                                <td><span id="increasePct"></span></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer clear">
+            <div class="row nomargin">
+                <div class="col-md-12">
+                    <button type="button" class="btn btn-cancel" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    createChart(eval(newBalance), eval(hdnMeritSpent), eval(hdnLumpSumSpent), eval(newSpentAmt), eval(hdnPromotionSpent.value), ddlCurrencyCulture);
+</script>

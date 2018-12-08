@@ -1,0 +1,4 @@
+D:\TFS.111\Compass\Laserbeam.Compass\Laserbeam.DataManager.Interfaces.Core\bin\Release\Laserbeam.DataManager.Interfaces.Core.dll
+D:\TFS.111\Compass\Laserbeam.Compass\Laserbeam.DataManager.Interfaces.Core\bin\Release\Laserbeam.DataManager.Interfaces.Core.pdb
+D:\TFS.111\Compass\Laserbeam.Compass\Laserbeam.DataManager.Interfaces.Core\obj\Release\Laserbeam.DataManager.Interfaces.Core.dll
+D:\TFS.111\Compass\Laserbeam.Compass\Laserbeam.DataManager.Interfaces.Core\obj\Release\Laserbeam.DataManager.Interfaces.Core.pdb

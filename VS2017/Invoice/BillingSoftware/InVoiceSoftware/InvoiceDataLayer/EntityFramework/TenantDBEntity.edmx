@@ -1,0 +1,610 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="BIZ_DEVModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="GroupMaster">
+          <Key>
+            <PropertyRef Name="GroupMasterPK" />
+          </Key>
+          <Property Name="GroupMasterPK" Type="smallint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CompanyFK" Type="smallint" />
+          <Property Name="GroupName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="TopGroupFK" Type="smallint" />
+          <Property Name="StatementType" Type="tinyint" />
+          <Property Name="Statementpart" Type="tinyint" />
+          <Property Name="Groupprefix" Type="smallint" />
+          <Property Name="Displaysequence" Type="smallint" />
+          <Property Name="Createdby" Type="varchar" MaxLength="30" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="Updatedby" Type="varchar" MaxLength="30" />
+          <Property Name="UpdatedDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="AppUser">
+          <Key>
+            <PropertyRef Name="AppUserPK" />
+          </Key>
+          <Property Name="AppUserPK" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserID" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="UserName" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="FirstName" Type="varchar" MaxLength="250" />
+          <Property Name="LastName" Type="varchar" MaxLength="250" />
+          <Property Name="Email" Type="varchar" MaxLength="250" />
+          <Property Name="Passkey" Type="varbinary" MaxLength="500" />
+          <Property Name="Logged" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="UserRole" Type="smallint" />
+          <Property Name="LoginAttempt" Type="smallint" />
+          <Property Name="Lastlogin" Type="datetime" />
+          <Property Name="Lastlogout" Type="datetime" />
+          <Property Name="UserStatus" Type="smallint" />
+          <Property Name="ContactNo" Type="numeric" Precision="18" Scale="0" />
+        </EntityType>
+        <EntityType Name="CompanyLocation">
+          <Key>
+            <PropertyRef Name="CompanyLocationPK" />
+          </Key>
+          <Property Name="CompanyLocationPK" Type="smallint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CompanyFK" Type="smallint" />
+          <Property Name="Location_Name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Usage" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="Addressline1" Type="varchar" MaxLength="50" />
+          <Property Name="Addressline2" Type="varchar" MaxLength="50" />
+          <Property Name="City" Type="varchar" MaxLength="50" />
+          <Property Name="Statecode" Type="varchar" MaxLength="50" />
+          <Property Name="country" Type="varchar" MaxLength="15" />
+          <Property Name="pincode" Type="varchar" MaxLength="15" />
+          <Property Name="Email" Type="varchar" MaxLength="250" />
+          <Property Name="PhoneNo" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="Reg_No" Type="varchar" MaxLength="30" />
+          <Property Name="OccupancyType" Type="tinyint" />
+          <Property Name="Started_Date" Type="datetime" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Employee">
+          <Key>
+            <PropertyRef Name="EmployeePK" />
+          </Key>
+          <Property Name="EmployeePK" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EmployeeID" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="EmployedDate" Type="datetime" />
+          <Property Name="FirstName" Type="varchar" MaxLength="250" />
+          <Property Name="LastName" Type="varchar" MaxLength="250" />
+          <Property Name="Email" Type="varchar" MaxLength="250" />
+          <Property Name="PhoneNo" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="Addressline1" Type="varchar" MaxLength="50" />
+          <Property Name="Addressline2" Type="varchar" MaxLength="50" />
+          <Property Name="City" Type="varchar" MaxLength="50" />
+          <Property Name="Statecode" Type="varchar" MaxLength="50" />
+          <Property Name="country" Type="varchar" MaxLength="15" />
+          <Property Name="pincode" Type="varchar" MaxLength="15" />
+          <Property Name="DOB" Type="datetime" />
+          <Property Name="IDType" Type="tinyint" />
+          <Property Name="ReferenceID" Type="varchar" MaxLength="50" />
+          <Property Name="DeptType" Type="smallint" />
+          <Property Name="Designation" Type="smallint" />
+          <Property Name="Location" Type="smallint" />
+          <Property Name="ManagerEmpFK" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="ContactName" Type="varchar" MaxLength="250" />
+          <Property Name="ContactPhoneNo" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="ISAppUser" Type="bit" />
+          <Property Name="AppuserFK" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="EmployeeName" Type="varchar" MaxLength="250" />
+        </EntityType>
+        <EntityType Name="CommonCode">
+          <Key>
+            <PropertyRef Name="CommonCodePK" />
+          </Key>
+          <Property Name="CommonCodePK" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CodeType" Type="varchar" MaxLength="15" />
+          <Property Name="CodeID" Type="tinyint" />
+          <Property Name="Code" Type="varchar" MaxLength="50" />
+          <Property Name="IsActive" Type="bit" />
+        </EntityType>
+        <EntityType Name="Currency">
+          <Key>
+            <PropertyRef Name="CurrencyPK" />
+          </Key>
+          <Property Name="CurrencyPK" Type="tinyint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Currency" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Currency_Symbol" Type="varchar" MaxLength="15" />
+          <Property Name="Decimal_Name" Type="varchar" MaxLength="15" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UserRole">
+          <Key>
+            <PropertyRef Name="UserRolePK" />
+          </Key>
+          <Property Name="UserRolePK" Type="tinyint" Nullable="false" />
+          <Property Name="UserRole" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Vendor">
+          <Key>
+            <PropertyRef Name="VendorPK" />
+          </Key>
+          <Property Name="VendorPK" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CompanyFK" Type="smallint" />
+          <Property Name="VendorName" Type="varchar" MaxLength="250" Nullable="false" />
+          <Property Name="BusnType" Type="tinyint" />
+          <Property Name="Tax_No" Type="varchar" MaxLength="30" />
+          <Property Name="Addressline1" Type="varchar" MaxLength="50" />
+          <Property Name="Addressline2" Type="varchar" MaxLength="50" />
+          <Property Name="City" Type="varchar" MaxLength="50" />
+          <Property Name="Statecode" Type="varchar" MaxLength="50" />
+          <Property Name="country" Type="varchar" MaxLength="15" />
+          <Property Name="pincode" Type="varchar" MaxLength="15" />
+          <Property Name="Email" Type="varchar" MaxLength="250" />
+          <Property Name="PhoneNo" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="CurrencyPK" Type="tinyint" />
+          <Property Name="CreatedLocationfk" Type="smallint" />
+          <Property Name="ContactName1" Type="varchar" MaxLength="250" Nullable="false" />
+          <Property Name="Contact1Extn" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="Contact1PhoneNo" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="ContactName2" Type="varchar" MaxLength="250" Nullable="false" />
+          <Property Name="Contact2Extn" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="Contact2PhoneNo" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="Created_Date" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Customer">
+          <Key>
+            <PropertyRef Name="CustomerPK" />
+          </Key>
+          <Property Name="CustomerPK" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CompanyFK" Type="smallint" />
+          <Property Name="FirstName" Type="varchar" MaxLength="25" Nullable="false" />
+          <Property Name="LastName" Type="varchar" MaxLength="250" Nullable="false" />
+          <Property Name="BusnType" Type="tinyint" />
+          <Property Name="Tax_No" Type="varchar" MaxLength="30" />
+          <Property Name="Addressline1" Type="varchar" MaxLength="50" />
+          <Property Name="Addressline2" Type="varchar" MaxLength="50" />
+          <Property Name="City" Type="varchar" MaxLength="50" />
+          <Property Name="Statecode" Type="varchar" MaxLength="50" />
+          <Property Name="country" Type="varchar" MaxLength="15" />
+          <Property Name="pincode" Type="varchar" MaxLength="15" />
+          <Property Name="Email" Type="varchar" MaxLength="250" />
+          <Property Name="PhoneNo" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="MobileNo" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="Gender" Type="tinyint" />
+          <Property Name="DOB" Type="datetime" />
+          <Property Name="IDType" Type="tinyint" />
+          <Property Name="ReferenceID" Type="varchar" MaxLength="50" />
+          <Property Name="CreatedLocationfk" Type="smallint" />
+          <Property Name="Created_Date" Type="datetime" />
+        </EntityType>
+        <Function Name="USP_GET_UserGridDate" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <EntityContainer Name="BIZ_DEVModelStoreContainer">
+          <EntitySet Name="GroupMaster" EntityType="Self.GroupMaster" Schema="Accounts" store:Type="Tables" />
+          <EntitySet Name="AppUser" EntityType="Self.AppUser" Schema="AppAdmin" store:Type="Tables" />
+          <EntitySet Name="CompanyLocation" EntityType="Self.CompanyLocation" Schema="AppAdmin" store:Type="Tables" />
+          <EntitySet Name="Employee" EntityType="Self.Employee" Schema="HR" store:Type="Tables" />
+          <EntitySet Name="CommonCode" EntityType="Self.CommonCode" Schema="Master" store:Type="Tables" />
+          <EntitySet Name="Currency" EntityType="Self.Currency" Schema="Master" store:Type="Tables" />
+          <EntitySet Name="UserRole" EntityType="Self.UserRole" Schema="Master" store:Type="Tables" />
+          <EntitySet Name="Vendor" EntityType="Self.Vendor" Schema="Purchase" store:Type="Tables" />
+          <EntitySet Name="Customer" EntityType="Self.Customer" Schema="Sales" store:Type="Tables" />
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="BIZ_DEVModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="AppUser">
+          <Key>
+            <PropertyRef Name="AppUserPK" />
+          </Key>
+          <Property Name="AppUserPK" Type="Decimal" Precision="18" Scale="0" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserID" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="UserName" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="FirstName" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="LastName" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="Passkey" Type="Binary" MaxLength="500" FixedLength="false" />
+          <Property Name="Logged" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="UserRole" Type="Int16" />
+          <Property Name="LoginAttempt" Type="Int16" />
+          <Property Name="Lastlogin" Type="DateTime" Precision="3" />
+          <Property Name="Lastlogout" Type="DateTime" Precision="3" />
+          <Property Name="UserStatus" Type="Int16" />
+          <Property Name="ContactNo" Type="Decimal" Precision="18" Scale="0" />
+        </EntityType>
+        <EntityType Name="CommonCode">
+          <Key>
+            <PropertyRef Name="CommonCodePK" />
+          </Key>
+          <Property Name="CommonCodePK" Type="Decimal" Precision="18" Scale="0" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CodeType" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="CodeID" Type="Byte" />
+          <Property Name="Code" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="IsActive" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="UserRole">
+          <Key>
+            <PropertyRef Name="UserRolePK" />
+          </Key>
+          <Property Name="UserRolePK" Type="Byte" Nullable="false" />
+          <Property Name="UserRole1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityContainer Name="BIZ_DEVEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="AppUsers" EntityType="Self.AppUser" />
+          <EntitySet Name="CommonCodes" EntityType="Self.CommonCode" />
+          <EntitySet Name="UserRoles" EntityType="Self.UserRole" />
+          <EntitySet Name="Employees" EntityType="BIZ_DEVModel.Employee" />
+          <FunctionImport Name="USP_GET_UserGridDate" ReturnType="Collection(BIZ_DEVModel.USP_GET_UserGridDate_Result)" />
+          <EntitySet Name="GroupMasters" EntityType="BIZ_DEVModel.GroupMaster" />
+          <EntitySet Name="CompanyLocations" EntityType="BIZ_DEVModel.CompanyLocation" />
+          <EntitySet Name="Currencies" EntityType="BIZ_DEVModel.Currency" />
+          <EntitySet Name="Vendors" EntityType="BIZ_DEVModel.Vendor" />
+          <EntitySet Name="Customers" EntityType="BIZ_DEVModel.Customer" />
+        </EntityContainer>
+        <EntityType Name="Employee">
+          <Key>
+            <PropertyRef Name="EmployeePK" />
+          </Key>
+          <Property Name="EmployeePK" Type="Decimal" Nullable="false" Precision="18" Scale="0" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EmployeeID" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="EmployedDate" Type="DateTime" Precision="3" />
+          <Property Name="FirstName" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="LastName" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="PhoneNo" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="Addressline1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Addressline2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Statecode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="country" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="pincode" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="DOB" Type="DateTime" Precision="3" />
+          <Property Name="IDType" Type="Byte" />
+          <Property Name="ReferenceID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DeptType" Type="Int16" />
+          <Property Name="Designation" Type="Int16" />
+          <Property Name="Location" Type="Int16" />
+          <Property Name="ManagerEmpFK" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="ContactName" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="ContactPhoneNo" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="ISAppUser" Type="Boolean" />
+          <Property Name="AppuserFK" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="EmployeeName" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <ComplexType Name="USP_GET_UserGridDate_Result">
+          <Property Type="Decimal" Name="UserNum" Nullable="true" Precision="18" Scale="0" />
+          <Property Type="String" Name="EmployeeName" Nullable="true" MaxLength="250" />
+          <Property Type="DateTime" Name="DOB" Nullable="true" Precision="23" />
+          <Property Type="String" Name="Email" Nullable="true" MaxLength="250" />
+          <Property Type="String" Name="UserRole" Nullable="false" MaxLength="1" />
+          <Property Type="String" Name="UserStatus" Nullable="false" MaxLength="1" />
+          <Property Type="Decimal" Name="PhoneNo" Nullable="true" Precision="18" Scale="0" />
+          <Property Type="String" Name="Address" Nullable="true" MaxLength="235" />
+          <Property Type="String" Name="Department" Nullable="false" MaxLength="1" />
+          <Property Type="String" Name="Designation" Nullable="false" MaxLength="1" />
+          <Property Type="String" Name="Manager" Nullable="false" MaxLength="1" />
+          <Property Type="Boolean" Name="IsUser" Nullable="true" />
+        </ComplexType>
+        <EntityType Name="GroupMaster">
+          <Key>
+            <PropertyRef Name="GroupMasterPK" />
+          </Key>
+          <Property Name="GroupMasterPK" Type="Int16" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CompanyFK" Type="Int16" />
+          <Property Name="GroupName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TopGroupFK" Type="Int16" />
+          <Property Name="StatementType" Type="Byte" />
+          <Property Name="Statementpart" Type="Byte" />
+          <Property Name="Groupprefix" Type="Int16" />
+          <Property Name="Displaysequence" Type="Int16" />
+          <Property Name="Createdby" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="Updatedby" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="CompanyLocation">
+          <Key>
+            <PropertyRef Name="CompanyLocationPK" />
+          </Key>
+          <Property Name="CompanyLocationPK" Type="Int16" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CompanyFK" Type="Int16" />
+          <Property Name="Location_Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Usage" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="Addressline1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Addressline2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Statecode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="country" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="pincode" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="PhoneNo" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="Reg_No" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="OccupancyType" Type="Byte" />
+          <Property Name="Started_Date" Type="DateTime" Precision="3" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Currency">
+          <Key>
+            <PropertyRef Name="CurrencyPK" />
+          </Key>
+          <Property Name="CurrencyPK" Type="Byte" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Currency1" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Currency_Symbol" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="Decimal_Name" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Vendor">
+          <Key>
+            <PropertyRef Name="VendorPK" />
+          </Key>
+          <Property Name="VendorPK" Type="Decimal" Nullable="false" Precision="18" Scale="0" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CompanyFK" Type="Int16" />
+          <Property Name="VendorName" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="BusnType" Type="Byte" />
+          <Property Name="Tax_No" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="Addressline1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Addressline2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Statecode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="country" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="pincode" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="PhoneNo" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="CurrencyPK" Type="Byte" />
+          <Property Name="CreatedLocationfk" Type="Int16" />
+          <Property Name="ContactName1" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="Contact1Extn" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="Contact1PhoneNo" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="ContactName2" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="Contact2Extn" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="Contact2PhoneNo" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="Created_Date" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="Customer">
+          <Key>
+            <PropertyRef Name="CustomerPK" />
+          </Key>
+          <Property Name="CustomerPK" Type="Decimal" Nullable="false" Precision="18" Scale="0" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CompanyFK" Type="Int16" />
+          <Property Name="FirstName" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="LastName" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="BusnType" Type="Byte" />
+          <Property Name="Tax_No" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="Addressline1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Addressline2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Statecode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="country" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="pincode" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="PhoneNo" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="MobileNo" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="Gender" Type="Byte" />
+          <Property Name="DOB" Type="DateTime" Precision="3" />
+          <Property Name="IDType" Type="Byte" />
+          <Property Name="ReferenceID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedLocationfk" Type="Int16" />
+          <Property Name="Created_Date" Type="DateTime" Precision="3" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="BIZ_DEVModelStoreContainer" CdmEntityContainer="BIZ_DEVEntities">
+          <EntitySetMapping Name="AppUsers">
+            <EntityTypeMapping TypeName="BIZ_DEVModel.AppUser">
+              <MappingFragment StoreEntitySet="AppUser">
+                <ScalarProperty Name="ContactNo" ColumnName="ContactNo" />
+                <ScalarProperty Name="AppUserPK" ColumnName="AppUserPK" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Passkey" ColumnName="Passkey" />
+                <ScalarProperty Name="Logged" ColumnName="Logged" />
+                <ScalarProperty Name="UserRole" ColumnName="UserRole" />
+                <ScalarProperty Name="LoginAttempt" ColumnName="LoginAttempt" />
+                <ScalarProperty Name="Lastlogin" ColumnName="Lastlogin" />
+                <ScalarProperty Name="Lastlogout" ColumnName="Lastlogout" />
+                <ScalarProperty Name="UserStatus" ColumnName="UserStatus" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CommonCodes">
+            <EntityTypeMapping TypeName="BIZ_DEVModel.CommonCode">
+              <MappingFragment StoreEntitySet="CommonCode">
+                <ScalarProperty Name="CommonCodePK" ColumnName="CommonCodePK" />
+                <ScalarProperty Name="CodeType" ColumnName="CodeType" />
+                <ScalarProperty Name="CodeID" ColumnName="CodeID" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserRoles">
+            <EntityTypeMapping TypeName="BIZ_DEVModel.UserRole">
+              <MappingFragment StoreEntitySet="UserRole">
+                <ScalarProperty Name="UserRolePK" ColumnName="UserRolePK" />
+                <ScalarProperty Name="UserRole1" ColumnName="UserRole" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Employees">
+            <EntityTypeMapping TypeName="BIZ_DEVModel.Employee">
+              <MappingFragment StoreEntitySet="Employee">
+                <ScalarProperty Name="EmployeeName" ColumnName="EmployeeName" />
+                <ScalarProperty Name="AppuserFK" ColumnName="AppuserFK" />
+                <ScalarProperty Name="ISAppUser" ColumnName="ISAppUser" />
+                <ScalarProperty Name="ContactPhoneNo" ColumnName="ContactPhoneNo" />
+                <ScalarProperty Name="ContactName" ColumnName="ContactName" />
+                <ScalarProperty Name="ManagerEmpFK" ColumnName="ManagerEmpFK" />
+                <ScalarProperty Name="Location" ColumnName="Location" />
+                <ScalarProperty Name="Designation" ColumnName="Designation" />
+                <ScalarProperty Name="DeptType" ColumnName="DeptType" />
+                <ScalarProperty Name="ReferenceID" ColumnName="ReferenceID" />
+                <ScalarProperty Name="IDType" ColumnName="IDType" />
+                <ScalarProperty Name="DOB" ColumnName="DOB" />
+                <ScalarProperty Name="pincode" ColumnName="pincode" />
+                <ScalarProperty Name="country" ColumnName="country" />
+                <ScalarProperty Name="Statecode" ColumnName="Statecode" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="Addressline2" ColumnName="Addressline2" />
+                <ScalarProperty Name="Addressline1" ColumnName="Addressline1" />
+                <ScalarProperty Name="PhoneNo" ColumnName="PhoneNo" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="EmployedDate" ColumnName="EmployedDate" />
+                <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+                <ScalarProperty Name="EmployeePK" ColumnName="EmployeePK" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="USP_GET_UserGridDate" FunctionName="BIZ_DEVModel.Store.USP_GET_UserGridDate">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="BIZ_DEVModel.USP_GET_UserGridDate_Result">
+                <ScalarProperty Name="UserNum" ColumnName="UserNum" />
+                <ScalarProperty Name="EmployeeName" ColumnName="EmployeeName" />
+                <ScalarProperty Name="DOB" ColumnName="DOB" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="UserRole" ColumnName="UserRole" />
+                <ScalarProperty Name="UserStatus" ColumnName="UserStatus" />
+                <ScalarProperty Name="PhoneNo" ColumnName="PhoneNo" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Department" ColumnName="Department" />
+                <ScalarProperty Name="Designation" ColumnName="Designation" />
+                <ScalarProperty Name="Manager" ColumnName="Manager" />
+                <ScalarProperty Name="IsUser" ColumnName="IsUser" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="GroupMasters">
+            <EntityTypeMapping TypeName="BIZ_DEVModel.GroupMaster">
+              <MappingFragment StoreEntitySet="GroupMaster">
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+                <ScalarProperty Name="Updatedby" ColumnName="Updatedby" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="Createdby" ColumnName="Createdby" />
+                <ScalarProperty Name="Displaysequence" ColumnName="Displaysequence" />
+                <ScalarProperty Name="Groupprefix" ColumnName="Groupprefix" />
+                <ScalarProperty Name="Statementpart" ColumnName="Statementpart" />
+                <ScalarProperty Name="StatementType" ColumnName="StatementType" />
+                <ScalarProperty Name="TopGroupFK" ColumnName="TopGroupFK" />
+                <ScalarProperty Name="GroupName" ColumnName="GroupName" />
+                <ScalarProperty Name="CompanyFK" ColumnName="CompanyFK" />
+                <ScalarProperty Name="GroupMasterPK" ColumnName="GroupMasterPK" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CompanyLocations">
+            <EntityTypeMapping TypeName="BIZ_DEVModel.CompanyLocation">
+              <MappingFragment StoreEntitySet="CompanyLocation">
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="Started_Date" ColumnName="Started_Date" />
+                <ScalarProperty Name="OccupancyType" ColumnName="OccupancyType" />
+                <ScalarProperty Name="Reg_No" ColumnName="Reg_No" />
+                <ScalarProperty Name="PhoneNo" ColumnName="PhoneNo" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="pincode" ColumnName="pincode" />
+                <ScalarProperty Name="country" ColumnName="country" />
+                <ScalarProperty Name="Statecode" ColumnName="Statecode" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="Addressline2" ColumnName="Addressline2" />
+                <ScalarProperty Name="Addressline1" ColumnName="Addressline1" />
+                <ScalarProperty Name="Usage" ColumnName="Usage" />
+                <ScalarProperty Name="Location_Name" ColumnName="Location_Name" />
+                <ScalarProperty Name="CompanyFK" ColumnName="CompanyFK" />
+                <ScalarProperty Name="CompanyLocationPK" ColumnName="CompanyLocationPK" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Currencies">
+            <EntityTypeMapping TypeName="BIZ_DEVModel.Currency">
+              <MappingFragment StoreEntitySet="Currency">
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="Decimal_Name" ColumnName="Decimal_Name" />
+                <ScalarProperty Name="Currency_Symbol" ColumnName="Currency_Symbol" />
+                <ScalarProperty Name="Currency1" ColumnName="Currency" />
+                <ScalarProperty Name="CurrencyPK" ColumnName="CurrencyPK" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Vendors">
+            <EntityTypeMapping TypeName="BIZ_DEVModel.Vendor">
+              <MappingFragment StoreEntitySet="Vendor">
+                <ScalarProperty Name="Created_Date" ColumnName="Created_Date" />
+                <ScalarProperty Name="Contact2PhoneNo" ColumnName="Contact2PhoneNo" />
+                <ScalarProperty Name="Contact2Extn" ColumnName="Contact2Extn" />
+                <ScalarProperty Name="ContactName2" ColumnName="ContactName2" />
+                <ScalarProperty Name="Contact1PhoneNo" ColumnName="Contact1PhoneNo" />
+                <ScalarProperty Name="Contact1Extn" ColumnName="Contact1Extn" />
+                <ScalarProperty Name="ContactName1" ColumnName="ContactName1" />
+                <ScalarProperty Name="CreatedLocationfk" ColumnName="CreatedLocationfk" />
+                <ScalarProperty Name="CurrencyPK" ColumnName="CurrencyPK" />
+                <ScalarProperty Name="PhoneNo" ColumnName="PhoneNo" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="pincode" ColumnName="pincode" />
+                <ScalarProperty Name="country" ColumnName="country" />
+                <ScalarProperty Name="Statecode" ColumnName="Statecode" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="Addressline2" ColumnName="Addressline2" />
+                <ScalarProperty Name="Addressline1" ColumnName="Addressline1" />
+                <ScalarProperty Name="Tax_No" ColumnName="Tax_No" />
+                <ScalarProperty Name="BusnType" ColumnName="BusnType" />
+                <ScalarProperty Name="VendorName" ColumnName="VendorName" />
+                <ScalarProperty Name="CompanyFK" ColumnName="CompanyFK" />
+                <ScalarProperty Name="VendorPK" ColumnName="VendorPK" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Customers">
+            <EntityTypeMapping TypeName="BIZ_DEVModel.Customer">
+              <MappingFragment StoreEntitySet="Customer">
+                <ScalarProperty Name="Created_Date" ColumnName="Created_Date" />
+                <ScalarProperty Name="CreatedLocationfk" ColumnName="CreatedLocationfk" />
+                <ScalarProperty Name="ReferenceID" ColumnName="ReferenceID" />
+                <ScalarProperty Name="IDType" ColumnName="IDType" />
+                <ScalarProperty Name="DOB" ColumnName="DOB" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="MobileNo" ColumnName="MobileNo" />
+                <ScalarProperty Name="PhoneNo" ColumnName="PhoneNo" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="pincode" ColumnName="pincode" />
+                <ScalarProperty Name="country" ColumnName="country" />
+                <ScalarProperty Name="Statecode" ColumnName="Statecode" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="Addressline2" ColumnName="Addressline2" />
+                <ScalarProperty Name="Addressline1" ColumnName="Addressline1" />
+                <ScalarProperty Name="Tax_No" ColumnName="Tax_No" />
+                <ScalarProperty Name="BusnType" ColumnName="BusnType" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="CompanyFK" ColumnName="CompanyFK" />
+                <ScalarProperty Name="CustomerPK" ColumnName="CustomerPK" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

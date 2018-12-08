@@ -1,0 +1,7 @@
+F:\VS2017\Invoice\API\APIApplication\Nitin.Sms.Api\obj\Debug\Nitin.Sms.Api.csprojResolveAssemblyReference.cache
+F:\VS2017\Invoice\API\APIApplication\Nitin.Sms.Api\obj\Debug\Nitin.Sms.Api.csproj.CoreCompileInputs.cache
+F:\VS2017\Invoice\API\APIApplication\Nitin.Sms.Api\bin\Debug\Nitin.Sms.Api.dll
+F:\VS2017\Invoice\API\APIApplication\Nitin.Sms.Api\bin\Debug\Nitin.Sms.Api.pdb
+F:\VS2017\Invoice\API\APIApplication\Nitin.Sms.Api\obj\Debug\Nitin.Sms.Api.csproj.CopyComplete
+F:\VS2017\Invoice\API\APIApplication\Nitin.Sms.Api\obj\Debug\Nitin.Sms.Api.dll
+F:\VS2017\Invoice\API\APIApplication\Nitin.Sms.Api\obj\Debug\Nitin.Sms.Api.pdb

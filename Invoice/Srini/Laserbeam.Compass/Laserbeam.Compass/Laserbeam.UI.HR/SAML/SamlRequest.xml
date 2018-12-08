@@ -1,0 +1,5 @@
+<samlp:AuthnRequest xmlns:samlp="urn:oasis:names:tc:SAML:2.0:protocol" xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion" ID="" Version="2.0" 
+  IssueInstant="" AssertionConsumerServiceIndex="0" AttributeConsumingServiceIndex="0" AssertionConsumerServiceURL="">
+ <saml:Issuer></saml:Issuer>
+ <samlp:NameIDPolicy AllowCreate="true" Format="urn:oasis:names:tc:SAML:2.0:nameid-format:transient"/>
+</samlp:AuthnRequest>

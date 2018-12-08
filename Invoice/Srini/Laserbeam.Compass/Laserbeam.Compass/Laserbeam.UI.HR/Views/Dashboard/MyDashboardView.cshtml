@@ -1,0 +1,998 @@
+﻿@using System.Globalization
+@using System.Threading
+@model Laserbeam.UI.HR.Models.HomeDashboardDetails
+@{
+
+
+    Thread.CurrentThread.CurrentCulture = new CultureInfo(Model.CurrencyCode, false);
+    int col_lg_FirstHeadCount = 6;
+    int col_lg_SecondHeadCount = 6;
+    int col_lg_ChildCount = 4;
+    int col_sm_ChildCount = 6;
+    string EmployeeIncrease = "";
+    int enableCount = 0;
+    if (Model.EmployeeSalaryDetails.MeritEnable == "NO") { enableCount++; }
+    if (Model.EmployeeSalaryDetails.PromotionEnable == "NO") { enableCount++; }
+    if (Model.EmployeeSalaryDetails.AdjustmentEnable == "NO") { enableCount++; }
+    if (enableCount == 1)
+    {
+        col_lg_FirstHeadCount = 7; col_lg_SecondHeadCount = 5;
+        col_lg_ChildCount = 6;
+    }
+    else if (enableCount == 2)
+    {
+        col_lg_FirstHeadCount = 9; col_lg_SecondHeadCount = 3;
+        col_lg_ChildCount = 12; col_sm_ChildCount = 12;
+    }
+    else if (enableCount == 3)
+    {
+        col_lg_FirstHeadCount = 12; col_lg_SecondHeadCount = 0; col_sm_ChildCount = 0;
+        EmployeeIncrease = "display:none;";
+    }
+}
+@section ScriptReference{
+    <link href="../../Content/dashboard.css" rel="stylesheet" />
+    <link href="~/Content/font-awesome-animation.min.css" rel="stylesheet" />
+    <script src="../../Scripts/dashboard.js"></script>
+    @*<script src="../../Scripts/UserManagement.min.js"></script>*@
+    <script src="../../Scripts/Kendo/jszip.min.js"></script>
+    <script type="text/javascript">
+
+    function createChart() {
+        $("#budgetChart").kendoChart({
+            legend: {
+                position: "bottom"
+            },
+            series: [{
+                type: "donut",
+                data: [{
+                    category: "Budget over spent",
+                    value: parseInt(@Model.WorkFlowBudgetSpendCount.OverSpend)
+                }, {
+                    category: "Within budget",
+                    value: parseInt(@Model.WorkFlowBudgetSpendCount.OverSpend)
+                }, {
+                    category: "Yet to spend",
+                    value: parseInt(@Model.WorkFlowBudgetSpendCount.OverSpend)
+                }]
+            }],
+            tooltip: {
+                visible: true,
+                template: "#= category # - #= kendo.format('{0:P}', Managers) #"
+            }
+        });
+    }
+
+    $('#accordion').collapse({ hide: true })
+
+    /*DashBoard Expand Collapse Script */
+    $(document).on('click', '.db_title span.clickable', function (e) {
+        var $this = $(this);
+        if (!$this.hasClass('panel-collapsed')) {
+            $this.parents('.panel').find('.db_content').slideUp();
+            $this.addClass('panel-collapsed');
+            $this.find('i').removeClass('fa fa-chevron-up').addClass('fa fa-chevron-down');
+        } else {
+            $this.parents('.panel').find('.db_content').slideDown();
+            $this.removeClass('panel-collapsed');
+            $this.find('i').removeClass('fa fa-chevron-down').addClass('fa fa-chevron-up');
+        }
+    });
+
+    $(document).on("click", "#eptWorkFlow", function (e) {
+        var form = $("<form action='../Dashboard/WorkFlowExport' method='post'></form>")
+        form.append("<input type='text' name='__RequestVerificationToken' value='" + $('input[name="__RequestVerificationToken"]').val() + "' />");
+        form.appendTo("body");
+        form.submit();
+        form.remove();
+    });
+
+    $(document).on("click", "#idBudgetUtilizExport", function (e) {
+        var form = $("<form action='../Dashboard/BudgetUtilizationExport' method='post'></form>")
+        form.append("<input type='text' name='__RequestVerificationToken' value='" + $('input[name="__RequestVerificationToken"]').val() + "' />");
+        form.appendTo("body");
+        form.submit();
+        form.remove();
+    });
+
+    /*PopOver Script */
+    $(function () {
+        $('[rel="popover"]').popover({
+            container: 'body',
+            html: true,
+            content: function () {
+                var clone = $($(this).data('popover-content')).clone(true).removeClass('hide');
+                return clone;
+            }
+        }).click(function (e) {
+            e.preventDefault();
+        });
+    });
+
+    /*Tooltip Script*/
+    $(document).ready(function () {
+        $('[data-toggle="tooltip"]').tooltip();
+        kendo.culture('@Model.CurrencyCode');
+        $.ajax({
+            url: '../Compensation/checkWorkFlowStatus',
+            type: "Post",
+            success: function (result) {
+                if (result.toUpperCase() == "YES") {
+                    $("#dashBoardWorkFlow").show();
+                    $("#waitingForApproval").show();
+                    $("#reviewNeedToSubmit").show();
+                }
+                else {
+                    $("#dashBoardWorkFlow").hide();
+                    $("#waitingForApproval").hide();
+                    $("#reviewNeedToSubmit").hide();
+                }
+            }
+        });
+    });
+
+    function BudgetUtilization(type, status) {
+        var token = $('input[name="__RequestVerificationToken"]').val();
+        if (!status) {
+            $.ajax({
+                url: '../Dashboard/_DashboardBudgetUtilization',
+                type:"post",
+                data: {
+                    __RequestVerificationToken:token,
+                    type: type
+                },
+                success: function (result) {
+                    $("#myModalbudget").html(result);
+                    $("#myModalbudget").modal('show');
+                }
+            });
+        }
+    }
+
+    function WorkFlow(type) {
+        approvalType = type;
+        var token = $('input[name="__RequestVerificationToken"]').val();
+        $.ajax({
+            url: '../Dashboard/_DashboardWorkFlow',
+            type:"post",
+            data: {
+                __RequestVerificationToken:token,
+                type: type
+            },
+            success: function (result) {
+                $("#myModalEmployeestatus").html(result);
+                $("#myModalEmployeestatus").modal('show');
+                IsTeam = false;
+            }
+        });
+    }
+
+</script>
+}
+<style>
+    /*.donut-wrapper {position: relative;height: 175px !important;width: 140px !important;}*/
+    .inner-content {
+        position: absolute;
+        width: 65px;
+        height: 50px;
+        margin-top: -20px;
+        margin-left: 0px;
+        font-size: 16px;
+        vertical-align: middle;
+        color: #333;
+    }
+
+    .donut-budgetchart {
+        width: 50%;
+        height: 155px;
+        margin-left: 0%;
+    }
+
+    .switchview {
+        border: 1px solid #ccc;
+        padding: 10px 10px;
+        background: #fff;
+        border-radius: 4px;
+        text-decoration: none;
+        text-align: center;
+        margin-top: 15px;
+        font-size: 15px;
+    }
+
+        .switchview a {
+            color: #777;
+        }
+
+    .fa-retweet {
+        font-size: 18px;
+    }
+    .viewdiv {
+        display:none;
+    }
+
+</style>
+
+@Html.AntiForgeryToken()
+<div class="row">
+    <div class="col-lg-12 col-md-12">
+        <div class="row marginbottom">
+            <div class="col-md-@(col_lg_FirstHeadCount)">
+                <div class="row tile-gseparator">
+                    <div class="col-md-12">
+                        <h4 id="hdbBudgetInfotxt" class="subheading">My Team's Budget Information</h4><div class="hrow"></div>
+                    </div>
+                </div>
+                <div id="divdbBudgetInfotiles" class="row tile-gseparator">
+                    <div class="col-lg-4 col-sm-6 col-xs-12 mobilemargin-bottom">
+                        <div class="white-box widget-info db_nblue">
+                            <h3 class="box-title">Budget</h3>
+                            <div class="row top-pad1">
+                                <div class="col-md-7 left">
+                                    <div class="smallcaption pad2-top">Directs</div>
+                                </div>
+                                <div class="col-md-5 right">
+                                    <div id="divdbbudgetdirectvalue" class="direct text-right amt-info">
+                                        @string.Format(new CultureInfo(Model.CultureCode), "{0:c0}", Model.EmployeeSalaryDetails.DirectBudget).Replace(" ","")
+                                        @*@string.Format("{0:c0}", Model.EmployeeSalaryDetails.DirectBudget)*@
+                                    </div>
+                                </div>
+                            </div>
+                            <hr class="split" />
+                            <div class="row top-pad1">
+                                <div class="col-md-7 left">
+                                    <div class="smallcaption">My Organization</div>
+                                </div>
+                                <div class="col-md-5 right">
+                                    <div id="divdbbudgetmyorgvalue" class="smallcaption right pad4-rt">
+                                        @string.Format(new CultureInfo(Model.CultureCode), "{0:c0}", Model.EmployeeSalaryDetails.IndirectBudget).Replace(" ", "")
+                                        @*@string.Format("{0:c0}", Model.EmployeeSalaryDetails.IndirectBudget)*@
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-sm-6 col-xs-12 mobilemargin-bottom">
+                        <div class="white-box widget-info db_ngrn">
+                            <h3 class="box-title">Spent</h3>
+                            <div class="row top-pad1">
+                                <div class="col-md-7 left">
+                                    <div class="smallcaption pad2-top">Directs</div>
+                                </div>
+                                <div class="col-md-5 right">
+                                    <div id="divdbspentdirectvalue" class="direct text-right amt-info">
+                                        @string.Format(new CultureInfo(Model.CultureCode), "{0:c0}", Model.EmployeeSalaryDetails.DirectSpent).Replace(" ", "")
+                                        @*@string.Format("{0:c0}", Model.EmployeeSalaryDetails.DirectSpent)*@
+                                    </div>
+                                </div>
+                            </div>
+                            <hr class="split" />
+                            <div class="row top-pad1">
+                                <div class="col-md-7 left">
+                                    <div class="smallcaption">My Organization</div>
+                                </div>
+                                <div class="col-md-5 right">
+                                    <div id="divdbspentmyorgvalue" class="smallcaption right pad4-rt">
+                                        @string.Format(new CultureInfo(Model.CultureCode), "{0:c0}", Model.EmployeeSalaryDetails.IndirectSpent).Replace(" ", "")
+                                        @*@string.Format("{0:c0}", Model.EmployeeSalaryDetails.IndirectSpent)*@
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="col-lg-4 col-sm-6 col-xs-12 mobilemargin-bottom">
+                        <div class="white-box widget-info db_ndblue">
+                            <h3 class="box-title">Balance</h3>
+                            <div class="row top-pad1">
+                                <div class="col-md-7 left">
+                                    <div class="smallcaption pad2-top">Directs</div>
+                                </div>
+                                <div class="col-md-5 right">
+                                    <div id="divdbbalancedirectvalue" class="direct text-right amt-info">
+                                        @string.Format(new CultureInfo(Model.CultureCode), "{0:c0}", Model.EmployeeSalaryDetails.DirectBalance).Replace(" ", "")
+                                        @*@string.Format("{0:c0}", Model.EmployeeSalaryDetails.DirectBalance)*@
+                                    </div>
+                                </div>
+                            </div>
+                            <hr class="split" />
+                            <div class="row top-pad1">
+                                <div class="col-md-7 left">
+                                    <div class="smallcaption">My Organization</div>
+                                </div>
+                                <div class="col-md-5 right">
+                                    <div id="divdbbalancemyorgvalue" class="smallcaption right pad4-rt">
+                                        @string.Format(new CultureInfo(Model.CultureCode), "{0:c0}", Model.EmployeeSalaryDetails.IndirectBalance).Replace(" ", "")
+                                        @*@string.Format("{0:c0}", Model.EmployeeSalaryDetails.IndirectBalance)*@
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-@(col_lg_SecondHeadCount)" style="@(EmployeeIncrease)">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h4 id="hdbmyteamsalarychangetxt" class="subheading">My Team's Salary Changes</h4><div class="hrow"></div>
+                    </div>
+                </div>
+                <div id="divdbmyteamsalarychangetiles" class="row">
+                    @if (Model.EmployeeSalaryDetails.MeritEnable == "YES")
+                    {
+                    <div class="col-lg-@(col_lg_ChildCount) col-sm-@(col_sm_ChildCount) col-xs-12 mobilemargin-bottom">
+                        <a id="meritexport"class="db_white">
+
+                            @*<div class="white-box widget-info db_npurple pm-tile">*@
+                                <div class="white-box widget-info db_npurple widget1">
+                                    <div id="wiz-content">
+                                        <span class="dn-icon"><i class="fa fa-cloud-download" aria-hidden="true"></i></span> <h3 class="box-title">Merit</h3>
+                                        <div class="row top-pad1">
+                                            <div class="col-md-7 left">
+                                                <div class="smallcaption pad2-top">Directs </div>
+                                            </div>
+                                            <div class="col-md-5 right">
+                                                <div id="divdbmeritdirectsvalue" class="direct text-right amt-info">@Model.EmployeeSalaryDetails.DirectMerit</div>
+                                            </div>
+                                        </div>
+                                        <hr class="split" />
+                                        <div class="row top-pad1">
+                                            <div class="col-md-7 left">
+                                                <div class="smallcaption">My Organization</div>
+                                            </div>
+                                            <div class="col-md-5 right">
+                                                <div id="divdbmeritmyorgvalue" class="smallcaption right pad4-rt">@Model.EmployeeSalaryDetails.IndirectMerit</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="overlay"><div class="big60"><i class="icon-dwnld-icon" aria-hidden="true"></i></div></div>
+
+                                </div>
+
+                        </a>
+                    </div>
+                    }
+                    @if (Model.EmployeeSalaryDetails.PromotionEnable == "YES")
+                    {
+                    <div class="col-lg-@(col_lg_ChildCount) col-sm-@(col_sm_ChildCount) col-xs-12 mobilemargin-bottom">
+                        <a id="promotionExport"class="db_white">
+                            @*<div class="white-box widget-info db_blue pm-tile">*@
+                                <div class="white-box widget-info db_blue widget1">
+                                    <div id="wiz-content">
+                                        <span class="dn-icon"><i class="fa fa-cloud-download" aria-hidden="true"></i></span><h3 class="box-title">Promotion</h3>
+                                        <div class="row top-pad1">
+                                            <div class="col-md-7 left">
+                                                <div class="smallcaption pad2-top">Directs</div>
+                                            </div>
+                                            <div class="col-md-5 right">
+                                                <div id="divdbpromotiondirectvalue" class="direct text-right amt-info">@Model.EmployeeSalaryDetails.DirectPromotion</div>
+                                            </div>
+                                        </div>
+
+                                        <hr class="split" />
+                                        <div class="row top-pad1">
+                                            <div class="col-md-7 left">
+                                                <div class="smallcaption">My Organization</div>
+                                            </div>
+                                            <div class="col-md-5 right">
+                                                <div id="divdbpromotionmyorgvalue" class="smallcaption right pad4-rt">@Model.EmployeeSalaryDetails.IndirectPromotion</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="overlay"><div class="big60"><i class="icon-dwnld-icon" aria-hidden="true"></i></div></div>
+                                </div>
+                        </a>
+                    </div>
+                    }
+                    @if (Model.EmployeeSalaryDetails.AdjustmentEnable == "YES")
+                    {
+                    <div class="col-lg-@(col_lg_ChildCount) col-sm-@(col_sm_ChildCount) col-xs-12 mobilemargin-bottom">
+                        <a id="adjmntExport" class="db_white">
+                            @*<div class="white-box widget-info db_voilet pm-tile">*@
+                                <div class="white-box widget-info db_voilet widget1">
+                                    <div id="wiz-content">
+                                        <span class="dn-icon"><i class="fa fa-cloud-download" aria-hidden="true"></i></span><h3 class="box-title">Adjustment</h3>
+                                        <div class="row top-pad1">
+                                            <div class="col-md-7 left">
+                                                <div class="smallcaption pad2-top">Directs</div>
+                                            </div>
+                                            <div class="col-md-5 right">
+                                                <div id="divdbadjustmentdirectvalue" class="direct text-right amt-info">@Model.EmployeeSalaryDetails.DirectAdjustment</div>
+                                            </div>
+                                        </div>
+                                        <hr class="split" />
+                                        <div class="row top-pad1">
+                                            <div class="col-md-7 left">
+                                                <div class="smallcaption">My Organization</div>
+                                            </div>
+                                            <div class="col-md-5 text-right">
+                                                <div id="divdbadjustmentmyorgvalue" class="smallcaption right pad4-rt">@Model.EmployeeSalaryDetails.IndirectAdjustment</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="overlay"><div class="big60"><i class="icon-dwnld-icon" aria-hidden="true"></i></div></div>
+
+
+                                </div>
+                        </a>
+                    </div>
+                    }
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="row top-pad">
+            <div class="col-lg-7 col-md-6">
+                <div class="row">
+                    <div class="col-md-12" id="idAnnouncementDiv">
+                        @{Html.RenderAction("_Announcements", "Dashboard");}
+                    </div>
+                </div>
+                @if (Model.isWorkFlowEnabled)
+                {
+                <div class="row nomargin">
+                    <div class="coi-md-12">
+                        <div class="panel db_panel">
+                            <div class="db_title">
+                                <span class="wt600"><i class="icon-workflow1 size19" aria-hidden="true"></i>  Employee Approval Status </span>
+
+                                <span class="pull-right">
+                                    <button id="btndbviewsendreminderpopup" type="button" class="btn norm-btn btn-xs sendreminder" data-toggle="modal" data-target="#SendReminderpopup" style="display:none;"><i class="fa fa-envelope-o" aria-hidden="true"></i> Send Reminder</button>
+                                    <span class="export-icon" id="eptWorkFlow"><i class="fa fa-file-excel-o clickable" aria-hidden="true"></i></span> <span class="db-rticons clickable"> <i class="fa fa-chevron-up" aria-hidden="true"></i></span>
+                                </span>
+                            </div>
+                            <div class="db_content">
+                                <div class="row">
+                                    <div class="col-md-12">
+
+                                        <div class="row nomargin">
+                                            <div class="col-md-5 employeestatuschart">
+                                                @(Html.Kendo().Chart().Name("chart")
+                                                .Title(title => title
+                                                .Position(ChartTitlePosition.Bottom))
+                                                .Legend(legend => legend
+                                                .Visible(false).Position(ChartLegendPosition.Bottom)
+                                                )
+                                                .ChartArea(chart => chart
+                                                .Background("transparent")
+                                                .Width(300)
+                                                .Height(300)
+                                                )
+                                                .Series(series =>
+                                                {
+                                                series.Pie(new dynamic[] {
+                                                new {category="Yet to submit",value=Model.WorkFlowBudgetSpendCount.YetToSubmit,color="#ccc"},
+                                                new {category="Reopened",value=Model.WorkFlowBudgetSpendCount.Reopen,color="#e77474"},
+                                                new {category="Pending Approval",value=Model.WorkFlowBudgetSpendCount.Pending,color="#FAB301"},
+                                                new {category="Approved",value=Model.WorkFlowBudgetSpendCount.Approved,color="#7EC049"}
+                                                })
+                                                .StartAngle(150);
+                                                })
+                                                .Tooltip(tooltip => tooltip
+                                                .Visible(true)
+                                                .Template("<div style='color:black!important;'>#= category #</div>")
+                                                )
+                                                )
+
+                                            </div>
+                                            <div class="col-md-7 employeestatusright">
+                                                <div id="divdbempaprvlstatustotalempcount" class="col-md-12 totalees">
+                                                    total employees - @Model.WorkFlowBudgetSpendCount.TotalEmpCount
+                                                </div>
+                                                <ul class="list-unstyled descdiv">
+                                                    <li>
+                                                        <div class="colordiv color1sec"></div>
+                                                        <div class="desctxt">Yet to submit</div>
+                                                        <div id="divdbempaprvlstatusyettosubmitvalue" class="desccount">@Model.WorkFlowBudgetSpendCount.YetToSubmit</div>
+                                                        <div class="viewdiv"><button id="btndbempaprvlstatusyettosubmit" type="button" class="btn btn-sec" onclick="WorkFlow('Yet')" disabled=@(Model.WorkFlowBudgetSpendCount.YetToSubmit>0?false:true)>View Details</button></div>
+                                                    </li>
+                                                    <li>
+                                                        <div class="colordiv color2sec"></div>
+                                                        <div class="desctxt">Reopened</div>
+                                                        <div id="divdbempaprvlstatusreopenedvalue" class="desccount">@Model.WorkFlowBudgetSpendCount.Reopen</div>
+                                                        <div class="viewdiv"><button id="btndbempaprvlstatusreopened" type="button" class="btn btn-sec" onclick="WorkFlow('Reopen')" disabled=@(Model.WorkFlowBudgetSpendCount.Reopen> 0?false:true)>View Details</button></div>
+                                                    </li>
+                                                    <li>
+                                                        <div class="colordiv color3sec"></div>
+                                                        <div class="desctxt">Pending Approval</div>
+                                                        <div id="divdbempaprvlstatuspendingaprvlvalue" class="desccount">@Model.WorkFlowBudgetSpendCount.Pending</div>
+                                                        <div class="viewdiv"><button id="btndbempaprvlstatuspendingaprvl" type="button" class="btn btn-sec" onclick="WorkFlow('Pending')" disabled=@(Model.WorkFlowBudgetSpendCount.Pending> 0?false:true)>View Details</button></div>
+                                                    </li>
+                                                    <li>
+                                                        <div class="colordiv color4sec"></div>
+                                                        <div class="desctxt">Approved</div>
+                                                        <div id="divdbempaprvlstatusapprovedvalue" class="desccount">@Model.WorkFlowBudgetSpendCount.Approved</div>
+                                                        <div class="viewdiv"><button id="btndbempaprvlstatusapproved" type="button" class="btn btn-sec" onclick="WorkFlow('Approved')" disabled=@(Model.WorkFlowBudgetSpendCount.Approved> 0?false:true)>View Details</button></div>
+                                                    </li>
+                                                </ul>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                }
+            </div>
+            <div class="col-lg-5 col-md-6">
+                <div class="row">
+                    <div class="col-md-12" id="idDailyTaskDiv">
+                        @{Html.RenderAction("_DailyTask", "Dashboard");}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="panel db_panel">
+                            <div class="db_title">
+                                <span class="wt600"><i class="icon-balance-scale" aria-hidden="true"></i>  Budget Utilization </span>
+                                <span class="pull-right">
+                                    <span class="export-icon" id="idBudgetUtilizExport"><i class="fa fa-file-excel-o clickable" aria-hidden="true"></i></span> <span class="db-rticons clickable"> <i class="fa fa-chevron-up" aria-hidden="true"></i></span>
+                                </span>
+                            </div>
+                            <div class="db_content">
+                                <div class="row">
+                                    <div id="divBudgetDonut" class="col-md-12 col-lg-12">
+                                        @(Html.Kendo().Chart().Name("BudgetDonut").ChartArea(chartArea => chartArea.Background("transparent"))
+                                        .Legend(legend => legend.Visible(false).Position(ChartLegendPosition.Bottom)).SeriesDefaults(series => series.Donut())
+                                        .Series(series =>
+                                        {
+                                        series.Donut(new dynamic[] {
+                                        new {category = "Budget over spent",value =Model.WorkFlowBudgetSpendCount.OverSpend,color ="#19c942" },
+                                        new {category = "Within budget",value =Model.WorkFlowBudgetSpendCount.WihInBudget,color ="#b3d622" },
+                                        new {category = "Yet to spend",value =Model.WorkFlowBudgetSpendCount.YetToSpend,color ="#607D8B" }
+                                        }).HoleSize(65).Size(25);
+                                        }).Theme("flat").Tooltip(tooltip => tooltip.Visible(true).Template("<div style='color:black!important;'>#= category #</div>")
+                                        ).HtmlAttributes(new { style = "color:black;" }))
+                                    </div>
+                                    <div class="inner-content">
+                                        <div id="divdbbudgetdonutmanagerscount" class="donut-text1" style="font-size:3em;text-align:center;">
+                                            @(Model.WorkFlowBudgetSpendCount.OverSpend + Model.WorkFlowBudgetSpendCount.WihInBudget + Model.WorkFlowBudgetSpendCount.YetToSpend)
+                                        </div>
+                                        <div class="donut-text2" style="padding-top:20px;">Managers</div>
+                                    </div>
+                                    <div class="col-md-12 budgetbottompad">
+                                        <div class="col-sm-4 col-md-4 text-center" style="border-right: 1px solid #eee;">
+                                            <div id="divdbbudgetdonutoverspentvalue" style="font-size: 25px;"><span class="greenchart" style="background:#19c942"></span>@Model.WorkFlowBudgetSpendCount.OverSpend</div>
+                                            <div class="bdgttxt">Budget Overspent</div>
+                                            <div><button id="btndbbudgetdonutoverspent" type="button" class="btn btn-sec" data-toggle="modal" onclick="BudgetUtilization('over',(@Model.WorkFlowBudgetSpendCount.OverSpend > 0?false:true))">View Details</button></div>
+                                        </div>
+                                        <div class="col-sm-4 col-md-4 text-center" style="border-right: 1px solid #eee;">
+                                            <div id="divdbbudgetdonutwithinbudgetvalue" style="font-size: 25px;"><span class="greenchart" style="background:#b3d622"></span>@Model.WorkFlowBudgetSpendCount.WihInBudget</div>
+                                            <div class="bdgttxt">Within budget</div>
+                                            <div><button id="btndbbudgetdonutwithinbudget" type="button" class="btn btn-sec" data-toggle="modal" onclick="BudgetUtilization('within',(@Model.WorkFlowBudgetSpendCount.WihInBudget > 0?false:true))">View Details</button></div>
+                                        </div>
+                                        <div class="col-sm-4 col-md-4 text-center">
+                                            <div id="divdbbudgetdonutyettospendvalue" style="font-size: 25px;"><span class="greenchart" style="background:#607D8B"></span>@Model.WorkFlowBudgetSpendCount.YetToSpend</div>
+                                            <div class="bdgttxt">Yet to spend</div>
+                                            <div><button id="btndbbudgetdonutyettospend" type="button" class="btn btn-sec" data-toggle="modal" onclick="BudgetUtilization('yet',(@Model.WorkFlowBudgetSpendCount.YetToSpend > 0?false:true))">View Details</button></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--Row 1 Ends Here-->
+
+        @*<div class="row">
+            <!-- Dashboard Announcement Starts Here-->
+            <div class="col-lg-7 col-md-6">
+                <div id="idAnnouncementDiv">
+                    @{Html.RenderAction("_Announcements", "Dashboard");}
+                </div>
+            </div>
+            <!-- Dashboard Announcement Ends Here-->
+            <!-- Dashboard DailyTask begins Here-->
+            <div class="col-lg-5 col-md-6">
+                <div id="idDailyTaskDiv">
+                    @{Html.RenderAction("_DailyTask", "Dashboard");}
+                </div>
+            </div>
+            <!-- Dashboard DailyTask Ends Here-->
+        </div>*@<!--Row 2 Ends Here-->
+        <!--////////////Employee Approval Status and budget utilization/////////////////////-->
+        <!--Employee Approval Status and budget utilization-->
+        @*<div class="row">
+            @if(Model.isWorkFlowEnabled)
+            {
+            <div class="col-md-7">
+                <div class="panel db_panel">
+                    <div class="db_title">
+                        <span class="wt600"><i class="icon-workflow1 size19" aria-hidden="true"></i>  Employee Approval Status </span>
+
+                        <span class="pull-right">
+                            <button type="button" class="btn norm-btn btn-xs sendreminder" data-toggle="modal" data-target="#SendReminderpopup" style="display:none;"><i class="fa fa-envelope-o" aria-hidden="true"></i> Send Reminder</button>
+                            <span class="export-icon" id="eptWorkFlow"><i class="fa fa-file-excel-o clickable" aria-hidden="true"></i></span> <span class="db-rticons clickable"> <i class="fa fa-chevron-up" aria-hidden="true"></i></span>
+                        </span>
+                    </div>
+                    <div class="db_content">
+                        <div class="row">
+                            <div class="col-md-12">
+
+                                <div class="row nomargin">
+                                    <div class="col-md-5 employeestatuschart">
+                                        @(Html.Kendo().Chart().Name("chart")
+                                        .Title(title => title
+                                        .Position(ChartTitlePosition.Bottom))
+                                        .Legend(legend => legend
+                                        .Visible(false).Position(ChartLegendPosition.Bottom)
+                                        )
+                                        .ChartArea(chart => chart
+                                        .Background("transparent")
+                                        .Width(300)
+                                        .Height(300)
+                                        )
+                                        .Series(series =>
+                                        {
+                                        series.Pie(new dynamic[] {
+                                        new {category="Yet to submit",value=Model.WorkFlowBudgetSpendCount.YetToSubmit,color="#ccc"},
+                                        new {category="Reopened",value=Model.WorkFlowBudgetSpendCount.Reopen,color="#e77474"},
+                                        new {category="Pending Approval",value=Model.WorkFlowBudgetSpendCount.Pending,color="#FAB301"},
+                                        new {category="Approved",value=Model.WorkFlowBudgetSpendCount.Approved,color="#7EC049"}
+                                        })
+                                        .StartAngle(150);
+                                        })
+                                        .Tooltip(tooltip => tooltip
+                                        .Visible(true)
+                                        .Template("<div style='color:black!important;'>#= category #</div>")
+                                        )
+                                        )
+
+                                    </div>
+                                    <div class="col-md-7 employeestatusright">
+                                        <div class="col-md-12 totalees">
+                                            total employees - @Model.WorkFlowBudgetSpendCount.TotalEmployeeCount
+                                        </div>
+                                        <ul class="list-unstyled descdiv">
+                                            <li>
+                                                <div class="colordiv color1sec"></div>
+                                                <div class="desctxt">Yet to submit</div>
+                                                <div class="desccount">@Model.WorkFlowBudgetSpendCount.YetToSubmit</div>
+                                                <div class="viewdiv"><button type="button" class="btn btn-sec" onclick="WorkFlow('Yet')" disabled=@(Model.WorkFlowBudgetSpendCount.YetToSubmit>0?false:true)>View Details</button></div>
+                                            </li>
+                                            <li>
+                                                <div class="colordiv color2sec"></div>
+                                                <div class="desctxt">Reopened</div>
+                                                <div class="desccount">@Model.WorkFlowBudgetSpendCount.Reopen</div>
+                                                <div class="viewdiv"><button type="button" class="btn btn-sec" onclick="WorkFlow('Reopen')" disabled=@(Model.WorkFlowBudgetSpendCount.Reopen > 0?false:true)>View Details</button></div>
+                                            </li>
+                                            <li>
+                                                <div class="colordiv color3sec"></div>
+                                                <div class="desctxt">Pending Approval</div>
+                                                <div class="desccount">@Model.WorkFlowBudgetSpendCount.Pending</div>
+                                                <div class="viewdiv"><button type="button" class="btn btn-sec" onclick="WorkFlow('Pending')" disabled=@(Model.WorkFlowBudgetSpendCount.Pending > 0?false:true)>View Details</button></div>
+                                            </li>
+                                            <li>
+                                                <div class="colordiv color4sec"></div>
+                                                <div class="desctxt">Approved</div>
+                                                <div class="desccount">@Model.WorkFlowBudgetSpendCount.Approved</div>
+                                                <div class="viewdiv"><button type="button" class="btn btn-sec" onclick="WorkFlow('Approved')" disabled=@(Model.WorkFlowBudgetSpendCount.Approved > 0?false:true)>View Details</button></div>
+                                            </li>
+                                        </ul>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            }
+            <div class="col-md-5">
+                <div class="panel db_panel">
+                    <div class="db_title">
+                        <span class="wt600"><i class="icon-budget-icon1 size19" aria-hidden="true"></i>  Budget Utilization </span>
+                        <span class="pull-right">
+                            <span class="export-icon" id="idBudgetUtilizExport"><i class="fa fa-file-excel-o clickable" aria-hidden="true"></i></span> <span class="db-rticons clickable"> <i class="fa fa-chevron-up" aria-hidden="true"></i></span>
+                        </span>
+                    </div>
+                    <div class="db_content">
+                        <div class="row">
+                            <div id="divBudgetDonut" class="col-md-4 col-lg-4">
+                                @(Html.Kendo().Chart().Name("BudgetDonut").ChartArea(chartArea => chartArea.Background("transparent"))
+                                .Legend(legend => legend.Visible(false).Position(ChartLegendPosition.Bottom)).SeriesDefaults(series => series.Donut())
+                                .Series(series =>
+                                {
+                                series.Donut(new dynamic[] {
+                                new {category = "Budget over spent",value =Model.WorkFlowBudgetSpendCount.OverSpend,color ="#1b6684" },
+                                new {category = "Within budget",value =Model.WorkFlowBudgetSpendCount.WihInBudget,color ="#2E8FB9" },
+                                new {category = "Yet to spend",value =Model.WorkFlowBudgetSpendCount.YetToSpend,color ="#a2def8" }
+                                }).HoleSize(45).Size(10);
+                                }).Theme("flat").Tooltip(tooltip => tooltip.Visible(true).Template("<div style='color:black!important;'>#= category #</div>")
+                                ).HtmlAttributes(new { style = "color:black;height:155px;" }))
+                            </div>
+                            <div class="inner-content">
+                                <div class="donut-text1">
+                                    @(Model.WorkFlowBudgetSpendCount.OverSpend + Model.WorkFlowBudgetSpendCount.WihInBudget + Model.WorkFlowBudgetSpendCount.YetToSpend)
+                                </div>
+                                <div class="donut-text2">Managers</div>
+                            </div>
+                            <div class="col-md-8 donutinfo">
+                                <div class="row top-pad">
+                                    <div class="col-md-12 top-pad">
+                                        <ul class="list-unstyled list-inline">
+                                            <li data-toggle="modal" onclick="BudgetUtilization('over')">
+                                                <div class="reporttxt">
+                                                    <div class="thumbnail darkbluelegend">
+                                                        <div class="caption">
+                                                            <div class="big60">
+                                                                <a class="caption">
+                                                                    <i class="fa fa-eye" aria-hidden="true"></i>
+                                                                </a>
+                                                            </div>
+                                                        </div>
+                                                        <span class="bigfont">
+                                                            @Model.WorkFlowBudgetSpendCount.OverSpend<br />
+                                                        </span>
+                                                        Budget overspent
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li data-toggle="modal" onclick="BudgetUtilization('within')">
+                                                <div class="reporttxt">
+                                                    <div class="thumbnail mediumbluelegend">
+                                                        <div class="caption">
+                                                            <div class="big60">
+                                                                <a class="caption">
+                                                                    <i class="fa fa-eye" aria-hidden="true"></i>
+                                                                </a>
+                                                            </div>
+                                                        </div>
+                                                        <span class="bigfont">
+                                                            @Model.WorkFlowBudgetSpendCount.WihInBudget<br />
+                                                        </span>
+                                                        Within budget
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li data-toggle="modal" onclick="BudgetUtilization('yet')">
+                                                <div class="reporttxt">
+                                                    <div class="thumbnail lightbluelegend">
+                                                        <div class="caption">
+                                                            <div class="big60">
+                                                                <a class="caption">
+                                                                    <i class="fa fa-eye" aria-hidden="true"></i>
+                                                                </a>
+                                                            </div>
+                                                        </div>
+                                                        <span class="bigfont">
+                                                            @Model.WorkFlowBudgetSpendCount.YetToSpend<br />
+                                                        </span>
+                                                        Yet to spend
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>*@
+        <!--End Employee Approval Status and budget utilization-->
+    </div>
+</div>
+<!--New Dashboard Ends Here-->
+<!--popup for workflow ststus-->
+<div class="modal fade" id="myModalEmployeestatus" tabindex="-1" role="dialog" aria-labelledby="myModalEmployeestatus"></div>
+<!--end of popup for workflow ststus-->
+<!--popup for budget utilization-->
+<!-- Modal -->
+
+<div class="modal fade" id="myModalbudget" tabindex="-1" role="dialog" aria-labelledby="myModalbudget">
+</div>
+<!--end of popup for budget utilization-->
+<!--Send reminder popup-->
+<div id="SendReminderpopup" class="modal fade in" role="dialog" aria-labelledby="myModalLabel" data-keyboard="false" data-backdrop="static">
+    <style>
+        #divSendRemainderNotification .k-grid-content {
+            height: 250px !important;
+        }
+    </style>
+
+
+    <div role="dialog" class="modal-dialog mailpopup">
+        <div>
+            <div class="modal-content reminder">
+                <div class="modal-header re-set">
+                    <h3><i class="icon-send-reminder big35 icon-dgrey text-left re-set" aria-hidden="true"></i> <span class="heading-toppad">Reminder Notification</span></h3>
+                </div>
+
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <span class="short-desc">This section allows you to modify subject & content and select users. The below content will be sent to the selected users.</span>
+                        </div>
+                        <div>
+
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 col-sm-12 col-xs-12">
+                            <h4 class="lt-txt">Email description</h4>
+                            <div class="subtitle1 bottom-pad">Subject</div>
+                            <form class="form-horizontal" method="post" action="" role="form">
+
+                                <div class="form-group nomargin bottom-pad">
+                                    <div class="col-md-12">
+                                        <input type="text" class="form-control" />
+                                    </div>
+
+                                </div>
+
+                                <div class="subtitle1 bottom-pad">Content</div>
+                                <div class="form-group bottom-pad">
+                                    <div class="col-md-12">
+                                        <div>
+                                            <textarea class="form-control"></textarea>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+
+                        <div class="col-md-6 col-sm-12 col-xs-12">
+
+
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <h4>User List</h4>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="text-right">
+                                        <select style="height:32px;">
+                                            <option>All</option>
+                                            <option>Yet to submit</option>
+                                            <option>Reopened</option>
+                                            <option>Pending Approval</option>
+                                        </select>
+                                        <button class="btn btn-moreoptions dropdown-toggle" type="button" id="moreActionsDropDown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                            <i class="icon-more-action-o morbtn-icon icon-grey big22" aria-hidden="true"></i>
+                                        </button>
+                                        <ul class="dropdown-menu submenu moreaction-btn moreact-reminder" aria-labelledby="moreActionsDropDown">
+                                            <li id="sendReminderFilter"><a href="#" class="btn-bordered"><i class="fa fa-filter"></i> Filter</a></li>
+                                            <li id="sendReminderClearFilter" style="display: none;"><a href="#" class="btn-bordered"><i class="fa fa-filter"></i> Clear</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div>
+                                list section
+
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+
+                <div class="modal-footer">
+                    <div>
+                        <button type="button" class="btn cancel-btn" data-dismiss="modal">
+                            <span class="fa fa-ban"></span> Cancel
+                        </button>
+                        <button type="button" class="btn prim-btn">
+                            <span class="fa fa-envelope-o"></span> Send Email
+                        </button>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+<!--ManagerTree View Popup Starts-->
+
+<!--ManagerTree View Popup Ends-->
+
+
+<!--TrialModal Popup Starts-->
+<div class="modal fade out trial-popup" id="trialModal" tabindex="-1" role="dialog" aria-labelledby="trialModal" aria-hidden="false">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="row bg-gray">
+                    <div class="col-md-12">
+                        <div class="text-center">
+                            <img src="~/Images/sand-clock.png">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-body">
+                <div class="modal-footer">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="text-center">
+                                <h3 class="mainheading warn">Your COMPASS licence has expired</h3>
+                                <h4 class="subheading">Contact our sales expert for help renewing your licence</h4>
+
+                                <div class="top-pad">
+                                    <button type="button" class="btn btn-blu1">Contact</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+
+        </div>
+    </div>
+</div>
+<!--TrialModal Popup Ends-->
+
+<!--choose admin/manager-->
+
+<script type="text/javascript">
+
+    function onSelectLevel(managerNum, level) {
+        var token = $('input[name="__RequestVerificationToken"]').val();
+        $.ajax({
+            url: '../DashBoard/_LevelApprovalDetails',
+            data: { __RequestVerificationToken:token, managerNum: managerNum, level: level },
+            type: "post",
+            success: function (result) {
+                var id = ("approval_" + level + "_" + managerNum);
+                $("#" + id).html(result);
+            }
+        });
+    }
+
+    function callSendRemainder(managerNum) {
+        var token = $('input[name="__RequestVerificationToken"]').val();
+        $.ajax({
+            url: '../DashBoard/_YetToSubmitSendRemainder',
+            data: { __RequestVerificationToken:token, managerNum: managerNum },
+            type: "post",
+            success: function (result) {
+                $("#sendRemainderDiv").html(result);
+                $("#sendRemainderDiv").modal('show')
+            }
+        });
+    }
+
+    //PopOver Hide//
+    $('body').on('click', function (e) {
+        //did not click a popover toggle, or icon in popover toggle, or popover
+        if ($(e.target).data('toggle') !== 'popover'
+            && $(e.target).parents('[data-toggle="popover"]').length === 0
+            && $(e.target).parents('.popover.in').length === 0) {
+            $('[data-toggle="popover"]').popover('hide');
+        }
+    });
+</script>
+<!--lightbox-->
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        $('.thumbnail').hover(
+            function () {
+                $(this).find('.caption').fadeToggle(250); //.fadeIn(250)
+            },
+            function () {
+                $(this).find('.caption').fadeToggle(250); //.fadeOut(205)
+            }
+        );
+    });
+</script>

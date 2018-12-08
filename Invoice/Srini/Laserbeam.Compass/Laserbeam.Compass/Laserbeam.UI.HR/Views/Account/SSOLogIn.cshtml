@@ -1,0 +1,21 @@
+﻿@{
+    Layout = "~/Views/Account/_AccountLayout.cshtml";
+}
+@model Laserbeam.UI.HR.Models.SsoViewModel
+@section ScriptContent{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#frmSamlRequest").submit();
+        });
+    </script>
+}
+<div class="form-section">
+    <div class="compass-section"><img src="~/Images/saml-login.gif" alt="saml-login" /></div>
+
+    <h2 class="h2-style" style="margin-top: 5px;">Please wait...<br />Getting your workspace ready</h2>
+    <p style="margin: 20px auto 0px;font-size: 16px;">Please don't refresh or close this page. This may take several minutes to complete.</p>
+    @using (Html.BeginForm(null, null, FormMethod.Post, new { action = Model.TargetURL, id = "frmSamlRequest" }))
+    {
+        @Html.Hidden("SAMLRequest", Model.SAMLRequest)
+    }
+</div>

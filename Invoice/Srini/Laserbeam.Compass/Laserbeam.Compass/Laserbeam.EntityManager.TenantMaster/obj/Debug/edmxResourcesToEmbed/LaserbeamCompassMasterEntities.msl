@@ -1,0 +1,100 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="LBS_CompMasterModelStoreContainer" CdmEntityContainer="LaserbeamCompassMasterEntities">
+    <EntitySetMapping Name="AppUsers">
+      <EntityTypeMapping TypeName="LBS_CompMasterModel.AppUser">
+        <MappingFragment StoreEntitySet="AppUser">
+          <ScalarProperty Name="IsTenantCreated" ColumnName="IsTenantCreated" />
+          <ScalarProperty Name="ExtensionNumber" ColumnName="ExtensionNumber" />
+          <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+          <ScalarProperty Name="PinCode" ColumnName="PinCode" />
+          <ScalarProperty Name="Country" ColumnName="Country" />
+          <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
+          <ScalarProperty Name="TenantName" ColumnName="TenantName" />
+          <ScalarProperty Name="LastLogoutDate" ColumnName="LastLogoutDate" />
+          <ScalarProperty Name="LastLoginDate" ColumnName="LastLoginDate" />
+          <ScalarProperty Name="AppUserStatusNum" ColumnName="AppUserStatusNum" />
+          <ScalarProperty Name="AppUserRole" ColumnName="AppUserRole" />
+          <ScalarProperty Name="FailedLoginAttempts" ColumnName="FailedLoginAttempts" />
+          <ScalarProperty Name="SecretKey" ColumnName="SecretKey" />
+          <ScalarProperty Name="UserPassword" ColumnName="UserPassword" />
+          <ScalarProperty Name="UserLastName" ColumnName="UserLastName" />
+          <ScalarProperty Name="UserFirstName" ColumnName="UserFirstName" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="EmailAddress" ColumnName="EmailAddress" />
+          <ScalarProperty Name="UserNum" ColumnName="UserNum" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AppUserRoles">
+      <EntityTypeMapping TypeName="LBS_CompMasterModel.AppUserRole">
+        <MappingFragment StoreEntitySet="AppUserRole">
+          <ScalarProperty Name="Active" ColumnName="Active" />
+          <ScalarProperty Name="UserRole" ColumnName="UserRole" />
+          <ScalarProperty Name="AppUserRoleNum" ColumnName="AppUserRoleNum" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AppUserStatus">
+      <EntityTypeMapping TypeName="LBS_CompMasterModel.AppUserStatu">
+        <MappingFragment StoreEntitySet="AppUserStatus">
+          <ScalarProperty Name="UserStatus" ColumnName="UserStatus" />
+          <ScalarProperty Name="AppUserStatusNum" ColumnName="AppUserStatusNum" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Products">
+      <EntityTypeMapping TypeName="LBS_CompMasterModel.Product">
+        <MappingFragment StoreEntitySet="Product">
+          <ScalarProperty Name="ProductURL" ColumnName="ProductURL" />
+          <ScalarProperty Name="ProductName" ColumnName="ProductName" />
+          <ScalarProperty Name="ProductNum" ColumnName="ProductNum" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Tenants">
+      <EntityTypeMapping TypeName="LBS_CompMasterModel.Tenant">
+        <MappingFragment StoreEntitySet="Tenant">
+          <ScalarProperty Name="TenantURLName" ColumnName="TenantURLName" />
+          <ScalarProperty Name="TenantNum" ColumnName="TenantNum" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TenantConnections">
+      <EntityTypeMapping TypeName="LBS_CompMasterModel.TenantConnection">
+        <MappingFragment StoreEntitySet="TenantConnection">
+          <ScalarProperty Name="DatabasePassword" ColumnName="DatabasePassword" />
+          <ScalarProperty Name="DatabaseUserId" ColumnName="DatabaseUserId" />
+          <ScalarProperty Name="DatabaseName" ColumnName="DatabaseName" />
+          <ScalarProperty Name="DatabaseServer" ColumnName="DatabaseServer" />
+          <ScalarProperty Name="ProductNum" ColumnName="ProductNum" />
+          <ScalarProperty Name="TenantNum" ColumnName="TenantNum" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TenantInformations">
+      <EntityTypeMapping TypeName="LBS_CompMasterModel.TenantInformation">
+        <MappingFragment StoreEntitySet="TenantInformation">
+          <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+          <ScalarProperty Name="PinCode" ColumnName="PinCode" />
+          <ScalarProperty Name="Country" ColumnName="Country" />
+          <ScalarProperty Name="State" ColumnName="State" />
+          <ScalarProperty Name="City" ColumnName="City" />
+          <ScalarProperty Name="CompanyAddress2" ColumnName="CompanyAddress2" />
+          <ScalarProperty Name="CompanyAddress1" ColumnName="CompanyAddress1" />
+          <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
+          <ScalarProperty Name="TenantNum" ColumnName="TenantNum" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TenantUsers">
+      <EntityTypeMapping TypeName="LBS_CompMasterModel.TenantUser">
+        <MappingFragment StoreEntitySet="TenantUser">
+          <ScalarProperty Name="TenantNum" ColumnName="TenantNum" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="TenantUserNum" ColumnName="TenantUserNum" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

@@ -1,0 +1,378 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{6EE80D5B-CBD6-4BAE-9124-722EDD3EE7F7}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Laserbeam.EntityManager.TenantObjects</RootNamespace>
+    <AssemblyName>Laserbeam.EntityManager.TenantObjects</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Octopus|AnyCPU'">
+    <OutputPath>bin\Octopus\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AppEmail.cs">
+      <DependentUpon>LaserbeamEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AppExportScript.cs">
+      <DependentUpon>LaserbeamEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AppMenu.cs">
+      <DependentUpon>LaserbeamEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AppMessage.cs">
+      <DependentUpon>LaserbeamEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AppScript.cs">
+      <DependentUpon>LaserbeamEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AppSetting.cs">
+      <DependentUpon>LaserbeamEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AppTable.cs">
+      <DependentUpon>LaserbeamEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AppUser.cs">
+      <DependentUpon>LaserbeamEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AppUserRole.cs">
+      <DependentUpon>LaserbeamEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AppUserStatu.cs">
+      <DependentUpon>LaserbeamEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BonusType.cs">
+      <DependentUpon>LaserbeamEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Budget.cs">
+      <DependentUpon>LaserbeamEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessUnit.cs">
+      <DependentUpon>LaserbeamEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BusSetting.cs">
+      <DependentUpon>LaserbeamEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Category.cs">
+      <DependentUpon>LaserbeamEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ChatDetail.cs">
+      <DependentUpon>LaserbeamEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ChatSessionDetail.cs">
+      <DependentUpon>LaserbeamEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ChatUserStatus.cs">
+      <DependentUpon>LaserbeamEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Company.cs">
+      <DependentUpon>LaserbeamEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CompensationType.cs">
+      <DependentUpon>LaserbeamEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CostCenter.cs">
+      <DependentUpon>LaserbeamEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Country.cs">
+      <DependentUpon>LaserbeamEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Currency.cs">
+      <DependentUpon>LaserbeamEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DailyTask.cs">
+      <DependentUpon>LaserbeamEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DateFormat.cs">
+      <DependentUpon>LaserbeamEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DecimalType.cs">
+      <DependentUpon>LaserbeamEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Department.cs">
+      <DependentUpon>LaserbeamEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Division.cs">
+      <DependentUpon>LaserbeamEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EmailTracker.cs">
+      <DependentUpon>LaserbeamEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Employee.cs">
+      <DependentUpon>LaserbeamEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EmployeeApprovalDetail.cs">
+      <DependentUpon>LaserbeamEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EmployeeClass.cs">
+      <DependentUpon>LaserbeamEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EmployeeCompAdjustment.cs">
+      <DependentUpon>LaserbeamEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EmployeeCompApprovalComment.cs">
+      <DependentUpon>LaserbeamEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EmployeeCompApprovalLevel.cs">
+      <DependentUpon>LaserbeamEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EmployeeCompApprovalRequest.cs">
+      <DependentUpon>LaserbeamEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EmployeeCompApprovalStatu.cs">
+      <DependentUpon>LaserbeamEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EmployeeCompBonu.cs">
+      <DependentUpon>LaserbeamEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EmployeeCompComment.cs">
+      <DependentUpon>LaserbeamEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EmployeeCompCommentStatu.cs">
+      <DependentUpon>LaserbeamEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EmployeeCompMarket.cs">
+      <DependentUpon>LaserbeamEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EmployeeCompMerit.cs">
+      <DependentUpon>LaserbeamEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EmployeeCompNew.cs">
+      <DependentUpon>LaserbeamEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EmployeeCompPromotion.cs">
+      <DependentUpon>LaserbeamEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EmployeeCompRating.cs">
+      <DependentUpon>LaserbeamEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EmployeeDetailsCorrection.cs">
+      <DependentUpon>LaserbeamEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EmployeeGroup.cs">
+      <DependentUpon>LaserbeamEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EmployeeGroupInclusionExclusion.cs">
+      <DependentUpon>LaserbeamEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EmployeeInclusionAndExclusion.cs">
+      <DependentUpon>LaserbeamEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EmployeeJob.cs">
+      <DependentUpon>LaserbeamEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EmployeeMoreInfo.cs">
+      <DependentUpon>LaserbeamEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EmployeeWorkFlowChanx.cs">
+      <DependentUpon>LaserbeamEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EmployeeWorkflowCommentStatu.cs">
+      <DependentUpon>LaserbeamEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityCode.cs">
+      <DependentUpon>LaserbeamEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Ethnicity.cs">
+      <DependentUpon>LaserbeamEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ExchangeRate.cs">
+      <DependentUpon>LaserbeamEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Family.cs">
+      <DependentUpon>LaserbeamEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="FeedBack.cs">
+      <DependentUpon>LaserbeamEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Grade.cs">
+      <DependentUpon>LaserbeamEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GroupType.cs">
+      <DependentUpon>LaserbeamEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="InitiativesLink.cs">
+      <DependentUpon>LaserbeamEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Job.cs">
+      <DependentUpon>LaserbeamEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="JobStatu.cs">
+      <DependentUpon>LaserbeamEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="LaserbeamEntities.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>LaserbeamEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Location.cs">
+      <DependentUpon>LaserbeamEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ManagerRelation.cs">
+      <DependentUpon>LaserbeamEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MarketPayRange.cs">
+      <DependentUpon>LaserbeamEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MetaColumn.cs">
+      <DependentUpon>LaserbeamEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MetaTable.cs">
+      <DependentUpon>LaserbeamEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MetaXmlTemplate.cs">
+      <DependentUpon>LaserbeamEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Module.cs">
+      <DependentUpon>LaserbeamEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Operator.cs">
+      <DependentUpon>LaserbeamEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="OrgGroup.cs">
+      <DependentUpon>LaserbeamEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="OrgGroupAssignedCriteria.cs">
+      <DependentUpon>LaserbeamEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="OrgGroupCriteria.cs">
+      <DependentUpon>LaserbeamEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="OrgGroupDetail.cs">
+      <DependentUpon>LaserbeamEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="OrgGroupType.cs">
+      <DependentUpon>LaserbeamEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PayGroup.cs">
+      <DependentUpon>LaserbeamEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PivotedEmployeeCompApprovalLevel.cs">
+      <DependentUpon>LaserbeamEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs">
+      <DependentUpon>LaserbeamEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ProxyGroup.cs">
+      <DependentUpon>LaserbeamEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ProxyManager.cs">
+      <DependentUpon>LaserbeamEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ProxyPopulationAccess.cs">
+      <DependentUpon>LaserbeamEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ProxyScript.cs">
+      <DependentUpon>LaserbeamEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Rating.cs">
+      <DependentUpon>LaserbeamEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ReviewType.cs">
+      <DependentUpon>LaserbeamEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="RoundingType.cs">
+      <DependentUpon>LaserbeamEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="State.cs">
+      <DependentUpon>LaserbeamEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SubFamily.cs">
+      <DependentUpon>LaserbeamEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SubStatu.cs">
+      <DependentUpon>LaserbeamEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SupportTask.cs">
+      <DependentUpon>LaserbeamEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SupportTaskComment.cs">
+      <DependentUpon>LaserbeamEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Team.cs">
+      <DependentUpon>LaserbeamEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TriggerEmail.cs">
+      <DependentUpon>LaserbeamEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="UserAppUrlTracker.cs">
+      <DependentUpon>LaserbeamEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="UserMenu.cs">
+      <DependentUpon>LaserbeamEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="UserMessage.cs">
+      <DependentUpon>LaserbeamEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="UserPopulation.cs">
+      <DependentUpon>LaserbeamEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="UserQuery.cs">
+      <DependentUpon>LaserbeamEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="XmlProcess.cs">
+      <DependentUpon>LaserbeamEntities.tt</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="LaserbeamEntities.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>LaserbeamEntities.cs</LastGenOutput>
+      <CustomToolNamespace>Laserbeam.EntityManager.Common</CustomToolNamespace>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

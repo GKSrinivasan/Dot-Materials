@@ -1,0 +1,96 @@
+﻿@using Laserbeam.BusinessObject.Common.MeritBusinussObjects;
+<style type="text/css">
+    #grdApproveReportees .selected {
+        background-color: #FFEFBC !important;
+        color: black !important;
+    }
+
+    #grdApproveReportees .k-grid .k-header {
+        display: none;
+    }
+.closeiconsection{
+float: right;
+right: 54px;
+position: relative;
+z-index: 9999;
+top: 5px;
+cursor:pointer;
+}
+</style>
+@Html.AntiForgeryToken()
+<div class="modal-dialog width-seventy" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h4 class="modal-title modaltitle" id="myModalLabel"><i class="fa fa-smile-o blacktext titlesmile"></i> Approve Reviews</h4>
+        </div>
+        <div class="modal-body">
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="quotetxt">
+                        <span class="splquote"><span id="approvalCount"></span></span> employees are waiting for your approval.
+                        @*To approve the reviews later, UN-SELECT the check box of those employees. Click on the bookmark to add workflow comments for an employee.*@
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="closeiconsection" id="approveClear"><span><i class="fa fa-close"></i></span></div>
+                    <div class="form-group">
+                        <div class="input-group">
+                            @(Html.Kendo().AutoComplete().Name("approvalEmployeedetails")
+                    .DataTextField("EmployeeID").Placeholder("Search by Employee Name or Employee ID")
+            .Filter(FilterType.Contains)
+                    .DataSource(datasource =>
+                    {
+                        datasource.Read(read =>
+                        {
+                            read.Action("GetApproveReopenEmployeeSearchData", "Compensation").Data("GetApprovalReporteesParam").Type(HttpVerbs.Post);
+                        }).ServerFiltering(false);
+                    }).HtmlAttributes(new { @class = "form-control", id = "approvalEmployeedetails" })
+                .Events(events => events.Select("onSelect_approvalEmployeeSearch"))
+                            )
+                            <div class="input-group-addon"><i class="fa fa-search"></i></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            @(Html.Kendo().Grid<SubmitReporteesModel>().Name("grdApproveReportees")
+                        .Columns(columns =>
+                        {
+                        columns.Bound(m => m.EmpJobNum).Hidden();
+                        columns.Template(@<text></text>)
+                                .ClientTemplate("<span><input title='Approve' type='checkbox' id='indApprovalChkbox'></input></span>")
+                                .HtmlAttributes(new { style = "text-align:left !important;" }).HeaderTemplate("<label style='width:19px !important'><input type='checkbox' title='Check All' id='approveChkAll'></input></label>");
+            columns.Bound(m => m.EmployeeName).Title("Employee Name").HtmlAttributes(new { @class = "orangetxt" });
+            columns.Template(@<text></text>).ClientTemplate("<label class='leftcommenttext'>Send to </label> <img src='../../images/paperplanegreen.png' alt='' /> <br/>");
+                            columns.Bound(m => m.NextLevelManagerName).Title("Next Level Manager Name");
+
+
+                        })
+                                                        .DataSource(datasource => datasource.Ajax().ServerOperation(false)
+                                                        .Model(model => model.Id(p => p.EmpJobNum))
+                                                        .Read(read => read.Action("_GetApprovalReportees", "Compensation").Data("GetApprovalReporteesParam"))//.PageSize(10)
+                                                                .Model(model => { model.Id(id => id.EmpJobNum); }))//.Pageable(x => x.PageSizes(false))
+                                                                        .Sortable().Resizable(resize => resize.Columns(true))
+                                                                                           .Scrollable(scrollable => scrollable.Height(165)).Events(x => x.DataBound("approveGridDataBound"))
+            )
+
+            <div class="row top-pad">
+                <div class="col-md-12 overallcomment">
+                    <textarea id="approvalComment" class="form-control" placeholder="This is an overall comment. Comments entered here will be send to the next level manager through email" rows="3" cols="5"></textarea>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <div class="row nomargin">
+                    <div class="col-md-12">
+                        <button type="button" class="btn btn-cancel" data-dismiss="modal" id="btnCancelApprove"><i class="fa fa-ban"></i> Cancel</button>
+                        <button type="button" id="btnApproveSelectedEmployees" class="btn btn-info prim-btn btn-approve"><i class="fa fa-smile-o smilegreen"></i> Approve Reviews</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>

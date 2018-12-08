@@ -1,0 +1,70 @@
+﻿<div id="Hierarchiacalgrid">
+    @Html.AntiForgeryToken()
+    <div class="alert alert-Success" id="alertMessage" style="display: none;">
+        <h4 class="alert-heading" id="alertHeading"></h4>
+        <span id="messageSpan">Unknown error occurred.</span>
+    </div>
+    <div id="page">
+        <div class="row">
+            <div class="col-md-6 col-md-offset-6 text-right bottom-pad">
+                <div class="btn-group">
+                    <button id="btnPageCustomizationSave" type="button" class="btn btn-info prim-btn">
+                        Save
+                    </button>
+                    <ul class="dropdown-menu moreaction-btn more1">
+                        <li><a href="#" id="btnPageCustomizationReset"><i class="fa fa-undo faundo"></i> Reset</a></li>
+                        <li><a href="#" id="btnFilter"><i class="fa fa-filter"></i> Filter</a></li>
+                        <li><a href="#" id="btnClearFilter"><i class="fa fa-ban faban"></i> Clear</a></li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="lbswidget-content" style="padding-top:4px;">
+            <div class="lbscontrols">
+                @(Html.Kendo().Grid<Laserbeam.BusinessObject.Common.PageCustomization>()
+        .Name("grdPageCustomization")
+                .HtmlAttributes(new { style = "overflow-y:hidden" }).Events(x => x.DataBound("pageCustomizationFunGrpNames"))
+            .Columns(columns =>
+                {
+                    columns.Bound(m => m.IsChanged).Visible(false);
+                    columns.Bound(m => m.FunctionalGroup).Visible(false).Title("Function");
+                    columns.Bound(m => m.ColumnName).Title("Fields").HtmlAttributes(new { id = "Fields", style = "word-wrap: break-word;" }).Width(160)
+                     .HeaderHtmlAttributes(new { style = "width:80px; text-align:left;" }).Width(180);
+                    columns.Template(@<text></text>).ClientTemplate(Html.TextBox("AliasName", "#=AliasName#").ToHtmlString()).HtmlAttributes(new { id = "txtAliasName", type = "text", style = "word-wrap: break-word;width:10px" }).Width(160).HeaderHtmlAttributes(new { style = "width:100px; text-align: center;" }).Width(192)
+                   .Title("Display Name").HtmlAttributes(new { style = "text-align:center;" }).HeaderHtmlAttributes(new { style = "text-align:center;" }); ;
+                columns.Template(@<text> </text>)
+    .ClientTemplate("<input type='checkbox'  name='ExportDisplay' #= ExportDisplay ? checked='checked' : '' # ></input>").Width(110).HtmlAttributes(new { id = "chkExportDisplay", style = "width:70px; text-align:center;" }).HeaderHtmlAttributes(new { style = "text-align:center; width:130px; word-wrap: break-word" }).Title("Export Display").Width(130).HeaderTemplate("<input type='checkbox' name='ExportDisplay' id='chkSelectAllExportDisplay' onchange='checkAll(this,this.id)'/> Export Display");
+                columns.Bound(m => m.PopupDisplay).Title("Popup Display").HtmlAttributes(new { id = "PopupDisplay", style = "width:7% !important;text-align:center;" }).HeaderHtmlAttributes(new { style = "width:7% !important;font-weight:bold;text-align:center;" }).Width(110)
+              .ClientTemplate("<a class='statusicon' id='lnkComment'>#=showDisplay(PopupDisplay)#</a>");
+                columns.Bound(m => m.FilterDisplay).Title("Filter Display").HtmlAttributes(new { id = "FilterDisplay", style = "width:7% !important;text-align:center;" }).HeaderHtmlAttributes(new { style = "width:7% !important;font-weight:bold;text-align:center;" }).Width(110)
+                 .ClientTemplate("<a class='statusicon' id='lnkComment'>#=showDisplay(FilterDisplay)#</a>");
+                columns.Bound(m => m.GridDisplay).Title("Grid Display").HtmlAttributes(new { id = "GridDisplay", style = "width:7% !important;text-align:center;" }).HeaderHtmlAttributes(new { style = "width:7% !important;font-weight:bold;text-align:center;" }).Width(110)
+                 .ClientTemplate("<a class='statusicon' id='lnkComment'>#=showDisplay(GridDisplay)#</a>");
+            })
+                                                                                   .DataSource(datasource => datasource.Ajax()
+                                                                                    .Group(group => group.Add(o => o.FunctionalGroup))
+                                                                                  .Read(read => read.Action("GetUserDetails", "PageCustomization").Data("ExportDisplayParam"))
+                                                                                  //.PageSize(10)
+                                                                                  )
+                                                                                     .Scrollable()
+                                                                                     .AutoBind(true)
+                //.Pageable(pageable => pageable
+                //.PageSizes(false))
+                )
+            </div>
+        </div>
+        @(Html.Kendo().Window().Name("wndFilterSort").Title("Filter/Sort").Visible(false).Width(710).Height(270).Modal(true))
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+

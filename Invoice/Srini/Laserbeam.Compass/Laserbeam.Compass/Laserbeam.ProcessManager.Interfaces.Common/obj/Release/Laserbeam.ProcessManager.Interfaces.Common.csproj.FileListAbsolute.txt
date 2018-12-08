@@ -1,0 +1,17 @@
+D:\TFS.111\Compass\Laserbeam.Compass\Laserbeam.ProcessManager.Interfaces.Common\bin\Release\Laserbeam.ProcessManager.Interfaces.Common.dll
+D:\TFS.111\Compass\Laserbeam.Compass\Laserbeam.ProcessManager.Interfaces.Common\bin\Release\Laserbeam.ProcessManager.Interfaces.Common.pdb
+D:\TFS.111\Compass\Laserbeam.Compass\Laserbeam.ProcessManager.Interfaces.Common\bin\Release\Laserbeam.BusinessObject.Common.dll
+D:\TFS.111\Compass\Laserbeam.Compass\Laserbeam.ProcessManager.Interfaces.Common\bin\Release\Laserbeam.Constant.HR.dll
+D:\TFS.111\Compass\Laserbeam.Compass\Laserbeam.ProcessManager.Interfaces.Common\bin\Release\Laserbeam.EntityManager.Common.dll
+D:\TFS.111\Compass\Laserbeam.Compass\Laserbeam.ProcessManager.Interfaces.Common\bin\Release\Laserbeam.EntityManager.TenantObjects.dll
+D:\TFS.111\Compass\Laserbeam.Compass\Laserbeam.ProcessManager.Interfaces.Common\bin\Release\Laserbeam.Resource.HR.dll
+D:\TFS.111\Compass\Laserbeam.Compass\Laserbeam.ProcessManager.Interfaces.Common\bin\Release\EntityFramework.dll
+D:\TFS.111\Compass\Laserbeam.Compass\Laserbeam.ProcessManager.Interfaces.Common\bin\Release\Laserbeam.BusinessObject.Common.pdb
+D:\TFS.111\Compass\Laserbeam.Compass\Laserbeam.ProcessManager.Interfaces.Common\bin\Release\Laserbeam.Constant.HR.pdb
+D:\TFS.111\Compass\Laserbeam.Compass\Laserbeam.ProcessManager.Interfaces.Common\bin\Release\Laserbeam.EntityManager.Common.pdb
+D:\TFS.111\Compass\Laserbeam.Compass\Laserbeam.ProcessManager.Interfaces.Common\bin\Release\Laserbeam.EntityManager.TenantObjects.pdb
+D:\TFS.111\Compass\Laserbeam.Compass\Laserbeam.ProcessManager.Interfaces.Common\bin\Release\Laserbeam.Resource.HR.pdb
+D:\TFS.111\Compass\Laserbeam.Compass\Laserbeam.ProcessManager.Interfaces.Common\bin\Release\EntityFramework.xml
+D:\TFS.111\Compass\Laserbeam.Compass\Laserbeam.ProcessManager.Interfaces.Common\obj\Release\Laserbeam.ProcessManager.Interfaces.Common.csprojResolveAssemblyReference.cache
+D:\TFS.111\Compass\Laserbeam.Compass\Laserbeam.ProcessManager.Interfaces.Common\obj\Release\Laserbeam.ProcessManager.Interfaces.Common.dll
+D:\TFS.111\Compass\Laserbeam.Compass\Laserbeam.ProcessManager.Interfaces.Common\obj\Release\Laserbeam.ProcessManager.Interfaces.Common.pdb

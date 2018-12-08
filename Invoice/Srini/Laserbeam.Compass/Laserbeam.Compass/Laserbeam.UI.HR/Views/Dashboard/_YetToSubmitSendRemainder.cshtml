@@ -1,0 +1,55 @@
+﻿<div class="modal-dialog msgpopup">
+    <div class="modal-content">
+        <div class="modal-header">            
+            <div class="title-left"><i class="icon-send-reminder big35 icon-dgrey text-left" aria-hidden="true"></i></div>
+            <div class="title-right re-set"><h3>Reminder Notification</h3></div>
+        </div>
+        <div class="modal-body">
+            <div class="row">
+                <div class="col-md-12">
+                    <span class="short-desc">This section allows you to modify subject & content and select users. The below content will be sent to the selected users.</span>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <h4 class="lt-txt">Email description</h4>
+
+                    <div class="subtitle1 bottom-pad">Subject</div>
+                    <form class="form-horizontal" method="post" action="" role="form">
+
+                        <div class="form-group nomargin bottom-pad">
+                            <div class="col-md-12">
+                                <input type="text" class="form-control" id="mailSubj">
+                            </div>
+                        </div>
+
+                        <div class="subtitle1 bottom-pad">Content</div>
+                        <div class="form-group bottom-pad">
+                            <div class="col-md-12">
+                                <div>
+                                    <textarea class="form-control" rows="10" id="mailContent"></textarea>
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+
+            </div>
+        </div>
+        <div class="modal-footer">            
+            <div>
+                <button type="button" class="btn cancel-btn" data-dismiss="modal">
+                    <span class="fa fa-ban"></span> Cancel
+                </button>
+                <button type="button" class="btn prim-btn" onclick="sendYetSubmitSendEmailReminder('@ViewBag.YetToSubmitSelectedManager');">
+                    <span class="fa fa-envelope-o"></span> Send Email
+                </button>
+            </div>
+        </div>
+    </div>
+
+</div>

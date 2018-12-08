@@ -1,0 +1,984 @@
+﻿@using Laserbeam.Resource.HR.CommonResources
+@using Laserbeam.Resource.HR.CommentResources
+@using Laserbeam.BusinessObject.Common
+@using Laserbeam.Constant.HR
+@model IEnumerable<CommentModel>
+
+<link href="~/Content/Comment.min.css" rel="stylesheet" />
+<script src="~/Scripts/Comment.min.js"></script>
+<style>
+    .nav_title {
+        background: none !important;
+    }
+
+    ::-webkit-input-placeholder { /* WebKit, Blink, Edge */
+        font-style: italic;
+    }
+
+    :-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+        font-style: italic;
+    }
+
+    ::-moz-placeholder { /* Mozilla Firefox 19+ */
+        font-style: italic;
+    }
+
+    :-ms-input-placeholder { /* Internet Explorer 10-11 */
+        font-style: italic;
+    }
+
+    ::-ms-input-placeholder { /* Microsoft Edge */
+        font-style: italic;
+    }
+</style>
+<script>
+    var CommentPageTypeConstants = {
+        PageType: '@ViewBag.CommentType',
+        adjustmentType: '@CommentType.Adjustment',
+        meritMandate: '@CommentType.CompensationMeritMandit',
+        generalComment: '@CommentType.Compensation',
+        meritCommentCount:@Model.Where(i => i.IsExceedMeritGuideline).Count(),
+        promotionCommentCount:@Model.Where(i => i.IsPromotionComments).Count(),
+        rowIndex:'@ViewBag.rowIndex',
+        bonusMandate: '@CommentType.BonusMandateComment',
+    };
+    var isMeritTabEnabled='@ViewBag.RuleConfiguration.FeatureConfigurationMerit';
+    var isPromotionTabEnabled='@ViewBag.RuleConfiguration.FeatureConfigurationPromotion';
+    @*var isAdjTabEnabled='@ViewBag.RuleConfiguration.FeatureConfigurationAdjustment';*@
+    var isAdjTabEnabled="True";
+    var isBonusTabEnabled='@ViewBag.RuleConfiguration.FeatureConfigurationBonus';
+    var isWorkFlowEnabled='@ViewBag.RuleConfiguration.FeatureConfigurationWorkFlow';
+    var isMerit=false;
+    var isBonus=false;
+    var isPromotion=false;
+    var isGeneral = true;
+    var isMeritMan=false;
+    var meritCommentsCount = '@Model.Where(i => i.IsExceedMeritGuideline).Count()';
+    var bonusCommentsCount = '@Model.Where(i => i.IsExceedBonusGuideline).Count()';
+    var promotionCommentsCount = '@Model.Where(i => i.IsPromotionComments).Count()';
+    var generalCommentsCount = '@Model.Where(i => i.IsGeneralComments).Count()';
+    var meritmandCommentsCount='@Model.Count()';
+    var workflowCommentsCount = '@Model.Where(i=>i.IsWorkFlowComments).Count()';
+    //function disableControls(readOnly)
+    //{
+    //    if(readOnly)
+    //    {
+    //        $("#btnCommentSlideSave").attr("disabled", "disabled");
+    //        $("#comment").attr("disabled", "disabled");
+    //        $("#btnCommentRefresh").attr("disabled", "disabled");
+    //        $("[id$=btnDelete],[id*=btnDelete],[id$=btnEdit],[id*=btnEdit],[id$=btnDeleteMerit]").attr("disabled", "disabled");
+    //    }
+    //}
+    $(document).ready(function () {
+
+        if ('@ViewBag.CommentType' == '@CommentType.Compensation')
+            GeneralComments();
+
+        $("[data-toggle=popover]").popover({
+            html: true, container: 'body',
+            content: function (e) {
+                return $(this).siblings('#popover-content').html();
+            }
+        });
+
+        $(document).on("click","#liMeritComments",function(){
+            isMerit = true;
+            updateScrollDown("meritComments");
+        });
+
+        $(document).on("click","#liGeneralComments",function(){
+            isMerit = true;
+            updateScrollDown("generalComments"); 
+        });
+
+        $("#promotionComments").click(function(){
+            isPromotion = true;
+            updateScrollDown("promotionComments");
+        });
+        $("#liPromotionComments").click(function(){
+            isPromotion = true;
+            updateScrollDown("promotionComments");
+        });
+        $("#liWorkFlowComments").click(function(){
+            isPromotion = true;
+            updateScrollDown("workFlowComments");
+        });
+
+        $("#btnCommentSlideSave").click(function () {
+            //var readOnly = $("#CommentPopup").data("kendoWindow").options.readOnly;
+            //if(readOnly)
+            //    return false;
+            var index = $("#CommentPopup").closest(".k-window-content").data("kendoWindow").options.Values;
+            var commentText = $("#comment").val();
+            var comment_MaxLength = 2000;
+            if ($("#comment").val().trim() == '')
+                return false;
+            else if (commentText.length > comment_MaxLength) {
+                showAlert("Comment should not exceed the character limit");
+                return false;
+            }
+            var rowData = $("#CommentPopup").data("kendoWindow").options.rowData;
+            var row = $("#CommentPopup").data("kendoWindow").options.row;
+            if ('@ViewBag.CommentType' == '@CommentType.CompensationMeritMandit') {
+                $("#commentType").val('@CommentType.CompensationMeritMandit');
+                rowData.TotalCommentsCount=rowData.TotalCommentsCount+1;
+                calculateMeritAmt(rowData, index,row);
+            }
+            else if('@ViewBag.CommentType' == '@CommentType.BonusMandateComment')
+            {
+                $("#commentType").val('@CommentType.BonusMandateComment');
+                rowData.TotalCommentsCount=rowData.TotalCommentsCount+1;
+                calculateBonusAmt(rowData, index,row);
+            }
+            else {
+                var grdMerit = $("#ReporteeGrid").data("kendoGrid");
+                var rowData = grdMerit._data[index];
+                if($("#commentType").val()=='@CommentType.Promotion')
+                    rowData.PromotionCommentsCount = rowData.PromotionCommentsCount + 1;
+                rowData.TotalCommentsCount=rowData.TotalCommentsCount+1;
+                refreshRow(grdMerit, row);
+                var tr = $("#ReporteeGrid .k-grid-content").find('tr');
+                $(tr[index]).find('input').attr('disabled', rowData.IsLocked);
+                if (rowData.NewGrade == null || rowData.IsLocked) {
+                    setDisable(index, GridDisplay == "USD" ? "txtPromotionAmtUSD" : "txtPromotionAmtLocal", true);
+                    setDisable(index, GridDisplay == "USD" ? "txtPromotionPctUSD" : "txtPromotionPctLocal", true);
+                }
+            }
+            return true;
+        });
+        // var readOnly = $("#CommentPopup").data("kendoWindow").options.readOnly;
+        // disableControls(readOnly);
+    });
+
+    var count = 0;
+
+    function deleteClick(label,employeeCommentNum,num,e)
+    {
+        var rowData = $("#CommentPopup").data("kendoWindow").options.rowData;
+        if(label=="Merit")
+        {
+            if(meritCommentsCount<=1)
+            {
+                showAlert("You cannot delete the comment as they are tied to Merit/Promotion increase");
+                return false;
+            }
+        }
+        var employeeCompCommentNum = employeeCommentNum;
+        var ItemCommentValue = document.getElementById("comment_" + $("#btnDelete_"+employeeCommentNum).attr('data-mycommentitemid'));
+        var Item = $("#meritComments").find("#comment_" + $("#btnDelete_"+employeeCommentNum).attr('data-mycommentitemid'));
+        //var totalDeleteCount = (event.view.meritmandCommentsCount - count);
+        //    if(totalDeleteCount == 0){
+        var index = $("#CommentPopup").closest(".k-window-content").data("kendoWindow").options.Values;
+        var commentText = $("#comment").val();
+        //var rowData = $("#CommentPopup").data("kendoWindow").options.rowData;
+        //var row = $("#CommentPopup").data("kendoWindow").options.row;
+        if (employeeCompCommentNum != 0 && employeeCompCommentNum != undefined) {
+            if (!showConfirm(e,"Do you want to delete the Comment?")) return false;
+            var token = $('input[name="__RequestVerificationToken"]').val();
+            $.ajax({
+                url: '../Comment/DeleteComment',
+                data: {__RequestVerificationToken :token,commentKey: employeeCompCommentNum },
+                type: "post",
+                cache: false,
+                success: function (result) {
+                    Successmessage("Deleted Successfully");
+                    var grdMerit = $("#ReporteeGrid").data("kendoGrid");
+                    var row = $(grdMerit.tbody).find("tr").eq(index);
+                    var rowData = grdMerit.dataItem(row);
+                    rowData.TotalCommentsCount= (rowData.TotalCommentsCount - 1);
+                    refreshRow(grdMerit, row);
+                    inputChanged = false;
+                    if(label="Merit")
+                    {
+                        meritCommentsCount=meritCommentsCount-1;
+                        if(meritCommentsCount == 0)
+                        {
+                            $(".bordersec").hide();
+                            $(".datesec").hide();
+                            $(".row top-pad").hide();
+                        }
+
+                    }
+                    if(isGeneral)
+                    {
+                        generalCommentsCount = generalCommentsCount - 1;
+                        if(generalCommentsCount == 0)
+                        {
+                            $(".bordersec").hide();
+                            $(".datesec").hide();
+                            $(".row top-pad").hide();
+                        }
+                    }
+                    if(isBonus)
+                    {
+                        bonusCommentsCount=bonusCommentsCount-1;
+                    }
+                    if(isPromotion)
+                    {
+                        promotionCommentsCount=promotionCommentsCount-1;
+                        if(promotionCommentsCount == 0)
+                        {
+                            $(".bordersec").hide();
+                            $(".datesec").hide();
+                            $(".row top-pad").hide();
+                        }
+                    }
+                    //rowData.TotalCommentsCount=rowData.TotalCommentsCount - 1;
+                    ItemCommentValue.style.display = "none";
+                    (Item[0]!=undefined)?Item[0].style.display = "none" : '';
+                    $("#divComment").modal('hide');
+                    isMerit=false;
+                }
+            });
+        }
+        return false;
+    }
+
+
+
+    function GeneralComments() {
+        $("#btnCommentSlideSave").show();
+        $("#adjustmentComments").hide();
+        $("#promotionComments").hide();
+        $("#generalComments").show();
+        $("#meritComments").hide();
+        $("#workFlowComments").hide();
+        $("#bonusComments").hide();
+        $("#comment").show();
+        $("#comment").text('');
+    }
+
+    function ApprovalComments() {
+        $("#btnCommentSlideSave").hide();
+        $("#adjustmentComments").hide();
+        $("#promotionComments").hide();
+        $("#generalComments").hide();
+        $("#meritComments").hide();
+        $("#workFlowComments").show();
+        $("#bonusComments").hide();
+        $("#comment").text('');
+        $("#comment").hide();
+    }
+
+    function MeritComments() {
+        $("#btnCommentSlideSave").show();
+        $("#adjustmentComments").hide();
+        $("#promotionComments").hide();
+        $("#generalComments").hide();
+        $("#meritComments").show();
+        $("#merit").show();
+        $("#bonusComments").hide();
+        $("#workFlowComments").hide();
+        $("#comment").show();
+        $("#comment").text('');
+    }
+    function BonusComments() {
+        $("#btnCommentSlideSave").show();
+        $("#adjustmentComments").hide();
+        $("#promotionComments").hide();
+        $("#generalComments").hide();
+        $("#meritComments").hide();
+        $("#bonusComments").show();
+        $("#workFlowComments").hide();
+        $("#comment").show();
+        $("#comment").text('');
+    }
+    function AdjustmentComments() {
+        $("#adjustmentComments").show();
+        $("#btnCommentSlideSave").show();
+        $("#generalComments").hide();
+        $("#promotionComments").hide();
+        $("#bonusComments").hide();
+        $("#meritComments").hide();
+        $("#workFlowComments").hide();
+        $("#comment").show();
+        $("#comment").text('');
+    }
+
+    function PromotionComments() {
+        $("#btnCommentSlideSave").show();
+        $("#adjustmentComments").hide();
+        $("#generalComments").hide();
+        $("#promotionComments").show();
+        $("#bonusComments").hide();
+        $("#meritComments").hide();
+        $("#workFlowComments").hide();
+        $("#comment").show();
+        $("#comment").text('');
+    }
+
+    function testLinkClick(id) {
+        $("#liGeneralComments,#liMeritComments,#liAdjustmentComments,#liPromotionComments,#liWorkFlowComments,#liBonusComments").removeClass('active').removeAttr('style');
+        $('#' + id).siblings().css("background-color", "inherit");
+        $('#' + id).removeClass('active').addClass('active');
+    }
+
+
+
+
+
+
+
+    $("#liGeneralComments,#liMeritComments,#liAdjustmentComments,#liPromotionComments,#liWorkFlowComments,#liBonusComments").unbind().click(function (event) {
+        if (!showSaveWarning(event, "inputChanged")) return false;
+        else {
+
+            testLinkClick(this.id);
+            if (this.id == "liGeneralComments")
+            {
+                $("#commentType").val('@CommentType.Compensation');
+                GeneralComments();
+            }
+            else if (this.id == "liMeritComments")
+            {
+                $("#commentType").val('@CommentType.CompensationMeritMandit');
+                MeritComments();
+            }
+
+            else if (this.id == "liAdjustmentComments")
+            {
+                $("#commentType").val('@CommentType.Adjustment');
+                AdjustmentComments();
+            }
+            else if (this.id == "liPromotionComments")
+            {
+                $("#commentType").val('@CommentType.Promotion');
+                PromotionComments();
+            }
+            else if (this.id == "liWorkFlowComments")
+                ApprovalComments();
+            else if (this.id == "liBonusComments")
+            {
+                $("#commentType").val('@CommentType.BonusMandateComment');
+                BonusComments();
+            }
+
+        }
+        $("#liGeneralComments,#liMeritComments,#liAdjustmentComments,#liPromotionComments,#liWorkFlowComments,#liBonusComments").removeClass('active');
+        $('#' + this.id).addClass('active');
+        $("#liAdjustmentComments").css("display",(isAdjTabEnabled=='True' ? "block" : "none"));
+        $("#liMeritComments").css("display",(isMeritTabEnabled=='True' ? "block" : "none"));
+        $("#liPromotionComments").css("display",(isPromotionTabEnabled=='True' ? "block" : "none"));
+        $("#liBonusComments").css("display",(isBonusTabEnabled=='True' ? "block" : "none"));
+        $("#liWorkFlowComments").css("display",(isWorkFlowEnabled=='True' ? "block" : "none"));
+
+        //disableControls(readOnly);
+    });
+</script>
+
+<div id="RenderComment" class="modal-dialog commodal" role="document">
+    @Html.AntiForgeryToken()
+    @*<div class="modal-content">*@
+    <div class="modal-body commentbody">
+        <div class="row">
+            <div class="modal-header">
+                <h4 class="modal-title modaltitle">Notes about <span id="myCmtModalLabel"></span></h4>
+            </div>
+            @if (ViewBag.CommentType == CommentType.Compensation)
+            {
+                <div class="col-md-12 topsectionmerit">
+                    <ul class="nav nav-tabs tabforcomment" role="tablist">
+                        <li id="liGeneralComments" role="presentation" class="active">
+                            <a href="#generalComments" aria-controls="all" role="tab" data-toggle="tab">
+                                General
+                            </a>
+                        </li>
+                        <li id="liMeritComments" role="presentation" style="display:@(ViewBag.RuleConfiguration.FeatureConfigurationMerit ? "block " :"none" )">
+                            <a href="#meritComments" aria-controls="merit" role="tab" data-toggle="tab">
+                                Merit
+                            </a>
+                        </li>
+
+                        <li id="liPromotionComments" role="presentation" style="display:@(ViewBag.RuleConfiguration.FeatureConfigurationPromotion ? "block " :"none" )">
+                            <a href="#promotionComments" aria-controls="promotion" role="tab" data-toggle="tab">
+                                Promotion
+                            </a>
+                        </li>
+                        <li style="display:@(ViewBag.RuleConfiguration.FeatureConfigurationWorkFlow ? "block" : "none")" id="liWorkFlowComments" role="presentation">
+                            <a href="#workFlowComments" aria-controls="workflow" role="tab" data-toggle="tab">
+                                Workflow
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            }
+            <div class="col-md-12 modalright" style="height:auto !important">
+                @using (Ajax.BeginForm("_CommentPost", "Comment", new { commentKey = ViewBag.EmpJobNum }, new AjaxOptions { UpdateTargetId = "RenderComment", HttpMethod = "POST" }, new { id = "frmComment" }))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.Hidden("IsEditItem", false);
+                    @Html.Hidden("EmpCommentNum", 0);
+                    @Html.Hidden("CompensationTypeNum", 1);
+                                                          if (Model != null)
+                                                          {
+
+                                                              if (ViewBag.CommentType == CommentType.Compensation)
+                                                              {
+                                                                  var meritExceedGuideLine = Model.Where(i => i.IsExceedMeritGuideline);
+                                                                  var adjustmentExceedGuideline = Model.Where(i => i.IsExceedAdjustmentGuideline);
+                                                                  var promotionComments = Model.Where(i => i.IsPromotionComments);
+                                                                  var generalComments = Model.Where(i => i.IsGeneralComments);
+                                                                  var workFlowComments = Model.Where(i => i.IsWorkFlowComments);
+                                                                  var bonusComments = Model.Where(i => i.IsExceedBonusGuideline);
+                                                                  var dateFormat = Model.Select(w => w.DateFormat).Distinct().FirstOrDefault();
+                                                                  List<string> generaluserNames = generalComments.Select(m => m.EmployeeName).Distinct().ToList();
+                                                                  List<string> dates = generalComments.Select(x => x.CommentCreatedDate.ToString().Split(' ')[0]).Distinct().ToList();
+                                                                <div role="tabpanel" class="tab-pane" id="generalComments" style="overflow-y: auto; overflow-x: hidden; display: block; ">
+                                                                    @if (generalComments.Count() > 0)
+                                                                    {
+                                                                        foreach (var groupedItem in Model.GroupBy(s => (s.CommentCreatedDate.Value.ToLongDateString())))
+                                                                        {
+                                                                            <div class="row top-pad">
+                                                                                <div class="col-md-12">
+                                                                                    <div class="col-sm-3 col-md-4 bordersec"></div>
+                                                                                    <div class="col-sm-6 col-md-4 datesec text-center">
+                                                                                        @(Convert.ToDateTime(groupedItem.Key).ToLongDateString())
+                                                                                    </div>
+                                                                                    <div class="col-sm-3 col-md-4 bordersec"></div>
+                                                                                </div>
+                                                                            </div>
+
+                                                                            foreach (var item in groupedItem)
+                                                                            //for (int i = 0; i < generalComments.Count(); i++)
+                                                                            {
+                                                                                var num = 1;
+                                                                                ////var item = generalComments.ElementAt(i);
+                                                                                //var a = generalComments.ElementAt(i);
+                                                                                <div id="comment_@item.EmpCommentNum" class="row top-pad">
+                                                                                    <div class="col-md-12">
+                                                                                        <div class="col-sm-2 col-md-1 noleftrightpad textfilled text-center">
+                                                                                            <a href="#">@item.EmployeeNameShort</a>
+                                                                                        </div>
+                                                                                        <div class="col-sm-10 col-md-11">
+                                                                                            <div class="row">
+                                                                                                <div class="col-sm-9 col-md-6">
+                                                                                                    <a href="#" class="blockblack">
+                                                                                                        @item.EmployeeName
+                                                                                                    </a>
+
+                                                                                                    @*<span>@(TimeZoneInfo.ConvertTimeFromUtc(Convert.ToDateTime(item.CommentCreatedDate), TimeZoneInfo.Local))</span>*@
+                                                                                                    <span class="time">@(Convert.ToDateTime(item.CommentCreatedDate).ToString("HH:mm")) </span>
+                                                                                                    @if (item.Label == "Merit")
+                                                                                                    {
+                                                                                                        <span class="label label-skyblue" id="typeName" style="background:#32c5d2">@item.Label</span>
+                                                                                                    }
+                                                                                                    else if (item.Label == "Promotion")
+                                                                                                    {
+                                                                                                        <span class="label" id="typeName" style="background:#8E44AB;">@item.Label</span>
+                                                                                                    }
+                                                                                                    else if (item.Label == "General")
+                                                                                                    {
+                                                                                                        <span class="label" id="typeName" style="background:#E7505A;">@item.Label</span>
+                                                                                                    }
+                                                                                                    else if (item.Label == "Workflow")
+                                                                                                    {
+                                                                                                        <span class="label" id="typeName" style="background:#f99d1e;">@item.Label</span>
+                                                                                                    }
+                                                                                                </div>
+                                                                                                @if (item.Label != "Workflow")
+                                                                                                {
+                                                                                                    <div class="col-sm-3 col-md-6 text-right">
+                                                                                                        <ul class="list-unstyled list-inline edit-delete">
+                                                                                                            @if (item.CreatedByUserNumOrEmpNum == ViewContext.GetUserNum())
+                                                                                                            {
+                                                                                                                @Html.HiddenFor(j => item.EmpCommentNum)
+                                                                                                                @Html.HiddenFor(j => item.CompensationTypeNum)
+                                                                                                                <li><a class="editsec" id="btnEdit_@item.EmpCommentNum" role="button" data-toggle="collapse" href="#collapseedit1_@item.EmpCommentNum" onclick="editClick(@item.EmpCommentNum,@num,event)" aria-expanded="false" data-myitemid="@(item.Comment)" aria-controls="collapseedit"><i class="fa fa-pencil" aria-hidden="true"></i></a></li>
+                                                                                                            }
+                                                                                                            @if (item.CreatedByUserNumOrEmpNum == ViewContext.GetUserNum() && item.Label != "Promotion")
+                                                                                                            {
+                                                                                                                @Html.HiddenFor(j => item.EmpCommentNum)
+                                                                                                                <li class="deleteli"><a href="#" class="deletesec" data-mycommentitemid="@(item.EmpCommentNum)" id="btnDelete_@item.EmpCommentNum" onclick="return deleteClick('@item.Label',@item.EmpCommentNum,@num,event)"><i class="fa fa-trash-o" aria-hidden="true"></i></a></li>
+                                                                                                            }
+                                                                                                        </ul>
+                                                                                                    </div>
+                                                                                                }
+                                                                                            </div>
+                                                                                            <div class="collapse" id="collapseedit1_@item.EmpCommentNum">
+                                                                                                <div class="well nopad" id="closeDiv">
+                                                                                                    <textarea class='form-control' id="editBox1_@item.EmpCommentNum" data-commentlabel="@(item.Label)" row="7"></textarea>
+                                                                                                </div>
+                                                                                                <div class="btn-group pull-right edittext" role="group" aria-label="...">
+                                                                                                    @*<a href="#" id="closeBtn1_@item.EmpCommentNum" onclick="cancelComment(@item.EmpCommentNum,@item.CompensationTypeNum,@num)"> <i class="icon icon-close-icon icon-grey big20"></i></a>&nbsp;
+                                                                                                        <a href="#" id="saveBtn1_@item.EmpCommentNum" onclick="saveComment(@item.EmpCommentNum,@item.CompensationTypeNum,@num)"><i class="icon-check-icon icon-blue big20"></i></a>*@
+                                                                                                    <button type="button" class="btn btn-white btn-xs" id="saveBtn1_@item.EmpCommentNum" onclick="saveComment(@item.EmpCommentNum,@item.CompensationTypeNum,@num)"><i class="icon-check-icon icon-blue big20"></i></button>
+                                                                                                    <button type="button" class="btn btn-white btn-xs" onclick="cancelComment(@item.EmpCommentNum,@item.CompensationTypeNum,@num)"><i class="icon icon-close-icon icon-grey big20"></i></button>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            <div class="row">
+                                                                                                <div class="col-md-12 commentpart">
+                                                                                                    <p id="generalText1_@item.EmpCommentNum">
+                                                                                                        @item.Comment
+                                                                                                        <span>
+                                                                                                            @if (item.CompensationTypeNum == 1 && item.IsWorkFlowComments == true)
+                                                                                                            {
+                                                                                                                <span class="label labelstate" style="color:#fdbf1f !important">Submitted</span>
+                                                                                                            }
+                                                                                                            else if (item.CompensationTypeNum == 2 && item.IsWorkFlowComments == true)
+                                                                                                            {
+                                                                                                                <span class="label labelstate" style="color:#29d800 !important">Approved</span>
+                                                                                                            }
+                                                                                                            else if (item.CompensationTypeNum == 3 && item.IsWorkFlowComments == true)
+                                                                                                            {
+                                                                                                                <span class="label labelstate" style="color:#FF0000 !important">Reopened</span>
+                                                                                                            }
+                                                                                                            else if (item.UpdatedByUserNumOrEmpNum != null)
+                                                                                                            {
+                                                                                                                <span class="commentpagetooltip">
+                                                                                                                    <span class="test">(Edited)</span>
+                                                                                                                    <span class="tooltiptext">@(Convert.ToDateTime(item.CommentUpdatedDate).ToString())</span>
+                                                                                                                </span>
+                                                                                                            }
+                                                                                                        </span>
+
+                                                                                                    </p>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            }
+                                                                        }
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <div class="row">
+                                                                            <div class="col-md-12">
+                                                                                <div class="img-padding text-center" style="padding:15px 10px !important;">
+                                                                                    <div class="img-responsive">
+                                                                                        <img src="../../images/comment-bicon.png">
+                                                                                    </div>
+                                                                                    <div class="big30">You have no comments here</div>
+                                                                                    <div class="big21">Enter your comment in the below text box and tap on 'Add Comment' button</div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    }
+                                                                </div>
+                                                                <div role="tabpanel" class="tab-pane" id="meritComments" style="overflow-y: auto; overflow-x: hidden; display: block;">
+                                                                    @if (meritExceedGuideLine.Count() > 0)
+                                                                    {
+                                                                        foreach (var groupedItem in meritExceedGuideLine.GroupBy(s => (s.CommentCreatedDate.Value.ToLongDateString())))
+                                                                        {
+
+                                                                            List<string> userNames = meritExceedGuideLine.Select(m => m.EmployeeName).Distinct().ToList();
+
+                                                                            <div class="row top-pad">
+                                                                                <div class="col-md-12">
+                                                                                    <div class="col-sm-3 col-md-4 bordersec"></div>
+                                                                                    <div class="col-sm-6 col-md-4 datesec text-center">
+                                                                                        @(Convert.ToDateTime(groupedItem.Key).ToLongDateString())
+                                                                                    </div>
+                                                                                    <div class="col-sm-3 col-md-4 bordersec"></div>
+                                                                                </div>
+                                                                            </div>
+                                                                            foreach (var item in groupedItem)
+                                                                            //for (int i = 0; i < generalComments.Count(); i++)
+                                                                            {
+                                                                                var num = 2;
+                                                                                ////var item = generalComments.ElementAt(i);
+                                                                                //var a = generalComments.ElementAt(i);
+                                                                                <div id="comment_@item.EmpCommentNum" class="row top-pad">
+                                                                                    <div class="col-md-12">
+                                                                                        <div class="col-sm-2 col-md-1 noleftrightpad textfilled text-center">
+                                                                                            <a href="#">@item.EmployeeNameShort</a>
+                                                                                        </div>
+                                                                                        <div class="col-sm-10 col-md-11">
+                                                                                            <div class="row">
+                                                                                                <div class="col-sm-9 col-md-6 bottom-pad">
+                                                                                                    <a href="#" class="blockblack">
+                                                                                                        @item.EmployeeName
+                                                                                                    </a>
+                                                                                                    <span class="time">@(Convert.ToDateTime(item.CommentCreatedDate).ToString("HH:mm"))</span>
+                                                                                                </div>
+                                                                                                <div class="col-sm-3 col-md-6 bottom-pad text-right">
+                                                                                                    <ul class="list-unstyled list-inline edit-delete">
+                                                                                                        @if (item.CreatedByUserNumOrEmpNum == ViewContext.GetUserNum())
+                                                                                                        {
+                                                                                                            @Html.HiddenFor(j => item.EmpCommentNum)
+                                                                                                            @Html.HiddenFor(j => item.CompensationTypeNum)
+                                                                                                            <li><a class="editsec" id="btnEdit_@item.EmpCommentNum" role="button" data-toggle="collapse" href="#collapseedit2_@item.EmpCommentNum" onclick="editClick(@item.EmpCommentNum,@num)" aria-expanded="false" data-myitemid="@(item.Comment)" aria-controls="collapseedit"><i class="fa fa-pencil" aria-hidden="true"></i></a></li>
+                                                                                                        }
+                                                                                                        @if (item.CreatedByUserNumOrEmpNum == ViewContext.GetUserNum())
+                                                                                                        {
+                                                                                                            @Html.HiddenFor(j => item.EmpCommentNum)
+                                                                                                            <li><a href="#" class="deletesec" data-mycommentitemid="@(item.EmpCommentNum)" id="btnDelete_@item.EmpCommentNum" onclick="return deleteClick('@item.Label',@item.EmpCommentNum,@num,event)"><i class="fa fa-trash-o" aria-hidden="true"></i></a></li>
+                                                                                                        }
+                                                                                                    </ul>
+                                                                                                </div>
+                                                                                            </div>
+
+                                                                                            <div class="collapse" id="collapseedit2_@item.EmpCommentNum">
+                                                                                                <div class="well nopad">
+                                                                                                    <textarea class='form-control' id="editBox2_@item.EmpCommentNum" data-commentlabel="@(item.Label)" row="7"></textarea>
+                                                                                                </div>
+                                                                                                <div class="btn-group pull-right" role="group" aria-label="...">
+                                                                                                    <button type="button" class="btn btn-white btn-xs" id="saveBtn2_@item.EmpCommentNum" onclick="saveComment(@item.EmpCommentNum,@item.CompensationTypeNum,@num)">@*<i class="fa fa-check"></i>*@ <i class="icon-check-icon icon-blue big20"></i></button>
+                                                                                                    <button type="button" class="btn btn-white btn-xs" id="closeBtn2_@item.EmpCommentNum" onclick="cancelComment(@item.EmpCommentNum,@item.CompensationTypeNum,@num)">@*<i class="fa fa-close"></i>*@ <i class="icon icon-close-icon icon-grey big20"></i></button>
+                                                                                                </div>
+                                                                                            </div>
+
+                                                                                            <div class="row">
+                                                                                                <div class="col-md-12">
+                                                                                                    <p id="generalText2_@item.EmpCommentNum">
+                                                                                                        @item.Comment
+                                                                                                        <span>
+                                                                                                            @if (item.UpdatedByUserNumOrEmpNum != null)
+                                                                                                            {
+                                                                                                                <span class="commentpagetooltip">
+                                                                                                                    <span class="test">(Edited)</span>
+                                                                                                                    <span class="tooltiptext">@(Convert.ToDateTime(item.CommentUpdatedDate).ToString())</span>
+                                                                                                                </span>
+                                                                                                            }
+                                                                                                        </span>
+                                                                                                    </p>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            }
+
+
+                                                                        }
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <div class="row">
+                                                                            <div class="col-md-12">
+                                                                                <div class="img-padding text-center" style="padding:15px 10px !important;">
+                                                                                    <div class="img-responsive">
+                                                                                        <img src="../../images/comment-bicon.png">
+                                                                                    </div>
+                                                                                    <div class="big30">You have no comments here</div>
+                                                                                    <div class="big21">Enter your comment in the below text box and tap on 'Add Comment' button</div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    }
+
+
+                                                                </div>
+
+                                                                <div role="tabpanel" class="tab-pane" id="adjustmentComments" style="overflow-y: auto; overflow-x: hidden; display: block;">
+                                                                    @if (adjustmentExceedGuideline.Count() > 0)
+                                                                    {
+                                                                        foreach (var groupedItem in adjustmentExceedGuideline.GroupBy(s => (s.CommentCreatedDate.Value.ToLongDateString())))
+                                                                        {
+
+                                                                            List<string>
+                                                                                userNames = adjustmentExceedGuideline.Select(m => m.EmployeeName).Distinct().ToList();
+
+
+                                                                            <div class="row top-pad">
+                                                                                <div class="col-md-12">
+                                                                                    <div class="col-sm-3 col-md-4 bordersec"></div>
+                                                                                    <div class="col-sm-6 col-md-4 datesec text-center">
+                                                                                        @(Convert.ToDateTime(groupedItem.Key).ToLongDateString())
+                                                                                    </div>
+                                                                                    <div class="col-sm-3 col-md-4 bordersec"></div>
+                                                                                </div>
+                                                                            </div>
+                                                                            foreach (var item in groupedItem)
+                                                                            //for (int i = 0; i < generalComments.Count(); i++)
+                                                                            {
+                                                                                var num = 3;
+                                                                                ////var item = generalComments.ElementAt(i);
+                                                                                //var a = generalComments.ElementAt(i);
+                                                                                <div id="comment_@item.EmpCommentNum" class="row top-pad">
+                                                                                    <div class="col-md-12">
+                                                                                        <div class="col-sm-2 col-md-1 noleftrightpad textfilled text-center">
+                                                                                            <a href="#">L</a>
+                                                                                        </div>
+                                                                                        <div class="col-sm-10 col-md-11">
+                                                                                            <div class="row">
+                                                                                                <div class="col-sm-9 col-md-6 bottom-pad">
+                                                                                                    <a href="#" class="blockblack">
+                                                                                                        @item.EmployeeName
+                                                                                                    </a>
+                                                                                                    <span class="time">@(Convert.ToDateTime(item.CommentCreatedDate).ToString("HH:mm"))</span>
+                                                                                                </div>
+                                                                                                <div class="col-sm-3 col-md-6 bottom-pad text-right">
+                                                                                                    <ul class="list-unstyled list-inline edit-delete">
+                                                                                                        @if (item.CreatedByUserNumOrEmpNum == ViewContext.GetUserNum())
+                                                                                                        {
+                                                                                                            @Html.HiddenFor(j => item.EmpCommentNum)
+                                                                                                            @Html.HiddenFor(j => item.CompensationTypeNum)
+                                                                                                            <li><a class="editsec" id="btnEdit_@item.EmpCommentNum" role="button" data-toggle="collapse" href="#collapseedit3_@item.EmpCommentNum" onclick="editClick(@item.EmpCommentNum,@num)" aria-expanded="false" data-myitemid="@(item.Comment)" aria-controls="collapseedit"><i class="fa fa-pencil" aria-hidden="true"></i></a></li>
+                                                                                                        }
+                                                                                                        @if (item.CreatedByUserNumOrEmpNum == ViewContext.GetUserNum())
+                                                                                                        {
+                                                                                                            @Html.HiddenFor(j => item.EmpCommentNum)
+                                                                                                            <li><a href="#" class="deletesec" data-mycommentitemid="@(item.EmpCommentNum)" id="btnDelete" onclick="return deleteClick('@item.Label',@item.EmpCommentNum,@num,event)"><i class="fa fa-trash-o" aria-hidden="true"></i></a></li>
+                                                                                                        }
+                                                                                                    </ul>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            <div class="collapse" id="collapseedit3_@item.EmpCommentNum">
+                                                                                                <div class="well nopad">
+                                                                                                    <textarea class='form-control' id="editBox3_@item.EmpCommentNum" data-commentlabel="@(item.Label)" row="7"></textarea>
+                                                                                                </div>
+                                                                                                <div class="btn-group pull-right" role="group" aria-label="...">
+                                                                                                    <button type="button" class="btn btn-white btn-xs" id="saveBtn3_@item.EmpCommentNum" onclick="saveComment(@item.EmpCommentNum,@item.CompensationTypeNum,@num)">@*<i class="fa fa-kk"></i>*@<i class="icon-check-icon icon-blue big20"></i></button>
+                                                                                                    <button type="button" class="btn btn-white btn-xs" id="closeBtn3_@item.EmpCommentNum" onclick="cancelComment(@item.EmpCommentNum,@item.CompensationTypeNum,@num)">@*<i class="fa fa-close"></i>*@<i class="icon icon-close-icon icon-grey big20"></i></button>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            <div class="row">
+                                                                                                <div class="col-md-12">
+                                                                                                    <p id="generalText3_@item.EmpCommentNum">
+                                                                                                        @item.Comment
+                                                                                                        <span>
+                                                                                                            @if (item.UpdatedByUserNumOrEmpNum != null)
+                                                                                                            {
+                                                                                                                <span class="commentpagetooltip">
+                                                                                                                    <span class="test">(Edited)</span>
+                                                                                                                    <span class="tooltiptext">@(Convert.ToDateTime(item.CommentUpdatedDate).ToString())</span>
+                                                                                                                </span>
+                                                                                                            }
+                                                                                                        </span>
+                                                                                                    </p>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            }
+
+                                                                        }
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <div class="row">
+                                                                            <div class="col-md-12">
+                                                                                <div class="img-padding text-center" style="padding:15px 10px !important;">
+                                                                                    <div class="img-responsive">
+                                                                                        <img src="../../images/comment-bicon.png">
+                                                                                    </div>
+                                                                                    <div class="big30">You have no comments here</div>
+                                                                                    <div class="big21">Enter your comment in the below text box and tap on 'Add Comment' button</div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    }
+                                                                </div>
+
+                                                                <div role="tabpanel" class="tab-pane" id="promotionComments" style="overflow-y: auto; overflow-x: hidden; display: block;">
+                                                                    @if (promotionComments.Count() > 0)
+                                                                    {
+                                                                        foreach (var groupedItem in promotionComments.GroupBy(s => (s.CommentCreatedDate.Value.ToLongDateString())))
+                                                                        {
+
+                                                                            List<string>
+                                                                                userNames = promotionComments.Select(m => m.EmployeeName).Distinct().ToList();
+
+                                                                            <div class="row top-pad">
+                                                                                <div class="col-md-12">
+                                                                                    <div class="col-sm-3 col-md-4 bordersec"></div>
+                                                                                    <div class="col-sm-6 col-md-4 datesec text-center">
+                                                                                        @(Convert.ToDateTime(groupedItem.Key).ToLongDateString())
+                                                                                    </div>
+                                                                                    <div class="col-sm-3 col-md-4 bordersec"></div>
+                                                                                </div>
+                                                                            </div>
+                                                                            foreach (var item in groupedItem)
+                                                                            {
+                                                                                @*for (int i = 0; i < promotionComments.Count(); i++)*@
+                                                                                var num = 4;
+                                                                                //var item = promotionComments.ElementAt(i);
+                                                                                <div id="comment_@item.EmpCommentNum" class="row top-pad">
+                                                                                    <div class="col-md-12">
+                                                                                        <div class="col-sm-2 col-md-1 noleftrightpad textfilled text-center">
+                                                                                            <a href="#">@item.EmployeeNameShort</a>
+                                                                                        </div>
+                                                                                        <div class="col-sm-10 col-md-11">
+                                                                                            <div class="row">
+                                                                                                <div class="col-sm-9 col-md-6 bottom-pad">
+                                                                                                    <a href="#" class="blockblack">
+                                                                                                        @item.EmployeeName
+                                                                                                    </a>
+                                                                                                    <span class="time">@(Convert.ToDateTime(item.CommentCreatedDate).ToString("HH:mm"))</span>
+                                                                                                </div>
+                                                                                                <div class="col-sm-3 col-md-6 bottom-pad text-right">
+                                                                                                    <ul class="list-unstyled list-inline edit-delete">
+                                                                                                        @if (item.CreatedByUserNumOrEmpNum == ViewContext.GetUserNum())
+                                                                                                        {
+                                                                                                            @Html.HiddenFor(j => item.EmpCommentNum)
+                                                                                                            @Html.HiddenFor(j => item.CompensationTypeNum)
+                                                                                                            <li><a class="editsec" id="btnEdit_@item.EmpCommentNum" role="button" data-toggle="collapse" href="#collapseedit4_@item.EmpCommentNum" onclick="editClick(@item.EmpCommentNum,@num)" aria-expanded="false" data-myitemid="@(item.Comment)" aria-controls="collapseedit"><i class="fa fa-pencil" aria-hidden="true"></i></a></li>
+                                                                                                        }
+                                                                                                        @*@if (item.CreatedByUserNumOrEmpNum == ViewContext.GetUserNum())
+                                                                                                            {
+                                                                                                                @Html.HiddenFor(j => item.EmpCommentNum)
+                                                                                                                <li><a href="#" class="deletesec" data-mycommentitemid="@(item.EmpCommentNum)" id="btnDeleteMerit" onclick="deleteComment"><i class="fa fa-trash-o" aria-hidden="true"></i> Delete</a></li>
+                                                                                                            }*@
+                                                                                                    </ul>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            <div class="collapse" id="collapseedit4_@item.EmpCommentNum">
+                                                                                                <div class="well nopad">
+                                                                                                    <textarea class='form-control' id="editBox4_@item.EmpCommentNum" data-commentlabel="@(item.Label)" row="7"></textarea>
+                                                                                                </div>
+                                                                                                <div class="btn-group pull-right" role="group" aria-label="...">
+                                                                                                    <button type="button" class="btn btn-white btn-xs" id="saveBtn4_@item.EmpCommentNum" onclick="saveComment(@item.EmpCommentNum,@item.CompensationTypeNum,@num)"><i class="icon-check-icon icon-blue big20"></i></button>
+                                                                                                    <button type="button" class="btn btn-white btn-xs" id="closeBtn4_@item.EmpCommentNum" onclick="cancelComment(@item.EmpCommentNum,@item.CompensationTypeNum,@num)"><i class="icon icon-close-icon icon-grey big20"></i></button>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            <div class="row">
+                                                                                                <div class="col-md-12">
+                                                                                                    <p id="generalText4_@item.EmpCommentNum">
+                                                                                                        @item.Comment
+                                                                                                        <span>
+                                                                                                            @if (item.UpdatedByUserNumOrEmpNum != null)
+                                                                                                            {
+                                                                                                                <span class="commentpagetooltip">
+                                                                                                                    <span class="test">(Edited)</span>
+                                                                                                                    <span class="tooltiptext">@(Convert.ToDateTime(item.CommentUpdatedDate).ToString())</span>
+                                                                                                                </span>
+                                                                                                            }
+                                                                                                        </span>
+                                                                                                    </p>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            }
+
+                                                                        }
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <div class="row">
+                                                                            <div class="col-md-12">
+                                                                                <div class="img-padding text-center" style="padding:15px 10px !important;">
+                                                                                    <div class="img-responsive">
+                                                                                        <img src="../../images/comment-bicon.png">
+                                                                                    </div>
+                                                                                    <div class="big30">You have no comments here</div>
+                                                                                    <div class="big21">Enter your comment in the below text box and tap on 'Add Comment' button</div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    }
+                                                                </div>
+                                                                <div role="tabpanel" class="tab-pane" id="workFlowComments" style="overflow-y: auto; overflow-x: hidden; display: block;">
+                                                                    @if (workFlowComments.Count() > 0)
+                                                                    {
+                                                                        foreach (var groupedItem in workFlowComments.GroupBy(s => (s.CommentCreatedDate.Value.ToLongDateString())))
+                                                                        {
+
+                                                                            List<string>
+                                                                                userNames = workFlowComments.Select(m => m.EmployeeName).Distinct().ToList();
+
+                                                                            <div class="row top-pad">
+                                                                                <div class="col-md-12">
+                                                                                    <div class="col-sm-3 col-md-4 bordersec"></div>
+                                                                                    <div class="col-sm-6 col-md-4 datesec text-center">
+                                                                                        @(Convert.ToDateTime(groupedItem.Key).ToLongDateString())
+                                                                                    </div>
+                                                                                    <div class="col-sm-3 col-md-4 bordersec"></div>
+                                                                                </div>
+                                                                            </div>
+                                                                            foreach (var item in groupedItem)
+                                                                            //for (int i = 0; i < workFlowComments.Count(); i++)
+                                                                            {
+                                                                                //var item = workFlowComments.ElementAt(i);
+                                                                                <div class="row top-pad">
+                                                                                    <div class="col-md-12">
+                                                                                        <div class="col-sm-2 col-md-1 noleftrightpad textfilled text-center">
+                                                                                            <a href="#">
+                                                                                                <span>@item.EmployeeNameShort</span>
+                                                                                            </a>
+                                                                                        </div>
+                                                                                        <div class="col-sm-10 col-md-11">
+                                                                                            <div class="row">
+                                                                                                <div class="col-md-12 bottom-pad">
+                                                                                                    <a href="#" class="blockblack">
+                                                                                                        @item.EmployeeName
+                                                                                                    </a>
+                                                                                                    <span class="time">@(Convert.ToDateTime(item.CommentCreatedDate).ToString("HH:mm"))</span>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            <div class="row">
+                                                                                                <div class="col-md-12">
+                                                                                                    <p>
+                                                                                                        @item.Comment
+                                                                                                        <span>
+                                                                                                            @if (item.CompensationTypeNum == 1 && item.IsWorkFlowComments == true)
+                                                                                                            {
+                                                                                                                <span style="color:#fdbf1f !important">Submitted</span>
+                                                                                                            }
+                                                                                                            else if (item.CompensationTypeNum == 2 && item.IsWorkFlowComments == true)
+                                                                                                            {
+                                                                                                                <span style="color:#29d800 !important">Approved</span>
+                                                                                                            }
+                                                                                                            else if (item.CompensationTypeNum == 3 && item.IsWorkFlowComments == true)
+                                                                                                            {
+                                                                                                                <span style="color:#FF0000 !important">Reopened</span>
+                                                                                                            }
+                                                                                                            else if (item.UpdatedByUserNumOrEmpNum != null)
+                                                                                                            {
+                                                                                                                <span class="commentpagetooltip">
+                                                                                                                    <span class="test">(Edited)</span>
+                                                                                                                    <span class="tooltiptext">@(Convert.ToDateTime(item.CommentUpdatedDate).ToString())</span>
+                                                                                                                </span>
+                                                                                                            }
+                                                                                                        </span>
+                                                                                                    </p>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            }
+
+                                                                        }
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <div class="row">
+                                                                            <div class="col-md-12">
+                                                                                <div class="img-padding text-center" style="padding:15px 10px !important;">
+                                                                                    <div class="img-responsive">
+                                                                                        <img src="../../images/comment-bicon.png">
+                                                                                    </div>
+                                                                                    <div class="big30">You have no comments here</div>
+                                                                                    @*<div class="big21">Enter your comment in the below text box and tap on 'Add Comment' button</div>*@
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    }
+                                                                </div>
+                                                              }
+                                                          }
+                                                        <div class="modal-footer col-md-12">
+                                                            @Html.TextArea("commentType", "", new { id = "commentType", style = "display:none !important" })
+                                                            @Html.TextArea("comment", "", new { id = "comment", rows = "3", style = "width:100%;", onchange = "SetCommentChangeFlag();" })
+                                                            <div class="top-pad">
+                                                                <button type="button" class="btn btn-cancel" data-dismiss="modal" id="btnCommentSlideclose"><i class="fa fa-ban"></i> Cancel</button>
+                                                                <button type="submit" class="btn btn-skyblue" id="btnCommentSlideSave">Add Comment</button>
+                                                            </div>
+                                                        </div>
+                }
+            </div>
+            @*<div class="modal-footer">
+                        <div class="col-md-12 top-pad">
+                            @Html.TextArea("commentType", "", new { id = "commentType", style = "display:none !important" })
+                            @Html.TextArea("comment", "", new { id = "comment", rows = "3", style = "width:100%;", onchange = "SetCommentChangeFlag();", placeholder = "Enter comments here" })
+                            <div class="top-pad">
+                                <button type="button" class="btn btn-cancel" data-dismiss="modal"><i class="fa fa-ban"></i> Cancel</button>
+                                <button type="submit" class="btn btn-skyblue" id="btnCommentSlideSave">Add Comment</button>
+                            </div>
+                        </div>
+                </div>*@
+
+
+        </div>
+    </div>
+</div>
+<script>
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+    })
+
+</script>

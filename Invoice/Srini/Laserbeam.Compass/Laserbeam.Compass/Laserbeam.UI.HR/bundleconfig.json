@@ -1,0 +1,314 @@
+[
+  {
+    "outputFileName": "Scripts/ExchangeRate.min.js",
+    "inputFiles": [
+      "Scripts/ExchangeRate.js"
+    ]
+  },
+  {
+    "outputFileName": "Scripts/RuleConfiguration.min.js",
+    "inputFiles": [
+      "Scripts/RuleConfiguration.js"
+    ]
+  },
+  {
+    "outputFileName": "Scripts/TitleBar.min.js",
+    "inputFiles": [
+      "Scripts/TitleBar.js"
+    ]
+  },
+  {
+    "outputFileName": "Scripts/Wizard.min.js",
+    "inputFiles": [
+      "Scripts/Wizard.js"
+    ]
+  },
+  {
+    "outputFileName": "Scripts/Workflow.min.js",
+    "inputFiles": [
+      "Scripts/Workflow.js"
+    ]
+  },
+  {
+    "outputFileName": "Scripts/workForce.min.js",
+    "inputFiles": [
+      "Scripts/workForce.js"
+    ]
+  },
+  {
+    "outputFileName": "Scripts/Login.min.js",
+    "inputFiles": [
+      "Scripts/Login.js"
+    ]
+  },
+  {
+    "outputFileName": "Scripts/ManagerEvents.min.js",
+    "inputFiles": [
+      "Scripts/ManagerEvents.js"
+    ]
+  },
+  {
+    "outputFileName": "Scripts/UserManagement.min.js",
+    "inputFiles": [
+      "Scripts/UserManagement.js"
+    ]
+  },
+  {
+    "outputFileName": "Scripts/BudgetPlan.min.js",
+    "inputFiles": [
+      "Scripts/BudgetPlan.js"
+    ]
+  },
+  {
+    "outputFileName": "Scripts/Comment.min.js",
+    "inputFiles": [
+      "Scripts/Comment.js"
+    ]
+  },
+  {
+    "outputFileName": "Scripts/Communication.min.js",
+    "inputFiles": [
+      "Scripts/Communication.js"
+    ]
+  },
+  {
+    "outputFileName": "Scripts/dashboard.min.js",
+    "inputFiles": [
+      "Scripts/dashboard.js"
+    ]
+  },
+  {
+    "outputFileName": "Scripts/PageCustomization.min.js",
+    "inputFiles": [
+      "Scripts/PageCustomization.js"
+    ]
+  },
+  {
+    "outputFileName": "Scripts/laserbeam-calculation.min.js",
+    "inputFiles": [
+      "Scripts/laserbeam-calculation.js"
+    ]
+  },
+  {
+    "outputFileName": "Scripts/laserbeam-ui-validation.min.js",
+    "inputFiles": [
+      "Scripts/laserbeam-ui-validation.js"
+    ]
+  },
+  {
+    "outputFileName": "Content/MyDashboard.min.css",
+    "inputFiles": [
+      "Content/MyDashboard.css"
+    ]
+  },
+  {
+    "outputFileName": "Scripts/MyDashboard.min.js",
+    "inputFiles": [
+      "Scripts/MyDashboard.js"
+    ]
+  },
+  {
+    "outputFileName": "Content/Merit.min.css",
+    "inputFiles": [
+      "Content/Merit.css"
+    ]
+  },
+  {
+    "outputFileName": "Scripts/Rating.min.js",
+    "inputFiles": [
+      "Scripts/Rating.js"
+    ]
+  },
+  {
+    "outputFileName": "Scripts/Timeout.min.js",
+    "inputFiles": [
+      "Scripts/Timeout.js"
+    ]
+  },
+  {
+    "outputFileName": "Content/laserbeam-theme.min.css",
+    "inputFiles": [
+      "Content/laserbeam-theme.css"
+    ]
+  },
+  {
+    "outputFileName": "Scripts/Profile.min.js",
+    "inputFiles": [
+      "Scripts/Profile.js"
+    ]
+  },
+  {
+    "outputFileName": "Content/Communication.min.css",
+    "inputFiles": [
+      "Content/Communication.css"
+    ]
+  },
+  {
+    "outputFileName": "Scripts/ManagerActionTour.min.js",
+    "inputFiles": [
+      "Scripts/ManagerActionTour.js"
+    ]
+  },
+  {
+    "outputFileName": "Scripts/wizaard.min.js",
+    "inputFiles": [
+      "Scripts/wizaard.js"
+    ]
+  },
+  {
+    "outputFileName": "Content/Analytics.min.css",
+    "inputFiles": [
+      "Content/Analytics.css"
+    ]
+  },
+  {
+    "outputFileName": "Content/BudgetPlan.min.css",
+    "inputFiles": [
+      "Content/BudgetPlan.css"
+    ]
+  },
+  {
+    "outputFileName": "Content/Chatbox.min.css",
+    "inputFiles": [
+      "Content/Chatbox.css"
+    ]
+  },
+  {
+    "outputFileName": "Content/Comment.min.css",
+    "inputFiles": [
+      "Content/Comment.css"
+    ]
+  },
+  {
+    "outputFileName": "Content/compensation.min.css",
+    "inputFiles": [
+      "Content/compensation.css"
+    ]
+  },
+  {
+    "outputFileName": "Content/custom.min.css",
+    "inputFiles": [
+      "Content/custom.css"
+    ]
+  },
+  {
+    "outputFileName": "Content/dashboard.min.css",
+    "inputFiles": [
+      "Content/dashboard.css"
+    ]
+  },
+  {
+    "outputFileName": "Content/ExchangeRate.min.css",
+    "inputFiles": [
+      "Content/ExchangeRate.css"
+    ]
+  },
+  {
+    "outputFileName": "Content/Ltip.min.css",
+    "inputFiles": [
+      "Content/Ltip.css"
+    ]
+  },
+  {
+    "outputFileName": "Content/ManageRules.min.css",
+    "inputFiles": [
+      "Content/ManageRules.css"
+    ]
+  },
+  {
+    "outputFileName": "Content/PageCustomization.min.css",
+    "inputFiles": [
+      "Content/PageCustomization.css"
+    ]
+  },
+  {
+    "outputFileName": "Content/Profile.min.css",
+    "inputFiles": [
+      "Content/Profile.css"
+    ]
+  },
+  {
+    "outputFileName": "Content/Rating.min.css",
+    "inputFiles": [
+      "Content/Rating.css"
+    ]
+  },
+  {
+    "outputFileName": "Content/sweetalert2.min.css",
+    "inputFiles": [
+      "Content/sweetalert2.css"
+    ]
+  },
+  {
+    "outputFileName": "Content/TitleBar.min.css",
+    "inputFiles": [
+      "Content/TitleBar.css"
+    ]
+  },
+  {
+    "outputFileName": "Content/Wizardstyles.min.css",
+    "inputFiles": [
+      "Content/Wizardstyles.css"
+    ]
+  },
+  {
+    "outputFileName": "Content/Workflow.min.css",
+    "inputFiles": [
+      "Content/Workflow.css"
+    ]
+  },
+  {
+    "outputFileName": "Content/Workforce.min.css",
+    "inputFiles": [
+      "Content/Workforce.css"
+    ]
+  },
+  {
+    "outputFileName": "Content/Chatbot.min.css",
+    "inputFiles": [
+      "Content/Chatbot.css"
+    ]
+  },
+  {
+    "outputFileName": "Content/Styles-new.min.css",
+    "inputFiles": [
+      "Content/Styles-new.css"
+    ]
+  },
+  {
+    "outputFileName": "Content/UserManagement.min.css",
+    "inputFiles": [
+      "Content/UserManagement.css"
+    ]
+  },
+  {
+    "outputFileName": "Content/Site.min.css",
+    "inputFiles": [
+      "Content/Site.css"
+    ]
+  },
+  {
+    "outputFileName": "Content/wizardnew.min.css",
+    "inputFiles": [
+      "Content/wizardnew.css"
+    ]
+  },
+  {
+    "outputFileName": "Scripts/Site.min.js",
+    "inputFiles": [
+      "Scripts/Site.js"
+    ]
+  },
+  {
+    "outputFileName": "Content/Login.min.css",
+    "inputFiles": [
+      "Content/Login.css"
+    ]
+  },
+  {
+    "outputFileName": "Content/icon-styles.min.css",
+    "inputFiles": [
+      "Content/icon-styles.css"
+    ]
+  }
+]

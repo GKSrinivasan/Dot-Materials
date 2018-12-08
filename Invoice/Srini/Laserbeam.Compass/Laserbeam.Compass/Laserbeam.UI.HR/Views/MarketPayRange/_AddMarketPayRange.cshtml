@@ -1,0 +1,102 @@
+﻿@model Laserbeam.UI.HR.Models.AddMarketPayRange
+@using Laserbeam.Constant.HR
+@{
+    //string readonlyText = Model.MarketPayRangeNum != 0 ? "@readonly" : "";
+    string headerText = Model.MarketPayRangeNum != 0 ? "Edit Market Pay Range" : "Add Market Pay Range";
+    string marketPayRangeValue = ViewBag.SelectedMarketPayRange;
+}
+<!-- Add market pay range modal -->
+<div class="modal fade" id="AddMarketpayrange" tabindex="-1" role="dialog" aria-labelledby="AddMarketpayrange">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">@headerText</h4>
+            </div>
+            @using (Ajax.BeginForm("_AddMarketPayRange", "MarketPayRange", new AjaxOptions { HttpMethod = "POST", OnBegin = "OnBeginMarketPayRange", OnSuccess = "onSuccessUpdateMarketPayRange" }, new { id = "formIdAddMarketPayRange" }))
+            {
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-3 gradetit">
+                            @if (ViewBag.SelectedMarketPayRange == MarketPayRangeConstants.JobCode)
+                            {
+                                <span>Job Code</span>
+                            }
+                            else if (ViewBag.SelectedMarketPayRange == MarketPayRangeConstants.Grade)
+                            {
+                                <span>Grade</span>
+                            }
+                            else
+                            {
+                                <span>Employee</span>
+                            }
+                            @Html.Hidden("SelectedMarketPayRange", marketPayRangeValue)
+                            @Html.HiddenFor(m => m.MarketPayRangeNum)
+                            @Html.HiddenFor(m => m.IsEdit)
+                        </div>
+                        <div class="col-md-9">
+                            @if (ViewBag.SelectedMarketPayRange == MarketPayRangeConstants.JobCode)
+                            {
+                                @Html.TextBoxFor(m => m.JobCode, ViewBag.SelectedValue != "" ? (object)new { id = "idMarPayRangeJob", @class = "form-control form-border", required = "required", @readonly = "readonly" } : new { id = "idMarPayRangeJob", @class = "form-control form-border", required = "required" })
+                            }
+                            else if (ViewBag.SelectedMarketPayRange == MarketPayRangeConstants.Grade)
+                            {
+                                @Html.TextBoxFor(m => m.Grade, ViewBag.SelectedValue != "" ? (object)new { id = "idMarPayRangeGrade", @class = "form-control form-border", required = "required", @readonly = "readonly" } : new { id = "idMarPayRangeGrade", @class = "form-control form-border", required = "required" })
+                            }
+                            else
+                            {
+                                @Html.TextBoxFor(m => m.EmployeeID, new { id = "idMarPayRangeEmployee", @class = "form-control form-border", @readonly = "readonly" })
+                            }
+                            <div id="valdationErrorMsg" style="color:red;display:none;position: absolute;"></div>
+                        </div>
+                    </div>
+                    <div class="row top-pad">
+                        <div class="col-md-12 titletxt">Current Range :</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3"></div>
+                        <div class="col-md-3 blutxt">Min</div>
+                        <div class="col-md-3 blutxt">Mid</div>
+                        <div class="col-md-3 blutxt">Max</div>
+                    </div>
+                    <div class="row smallpadtop">
+                        <div class="col-md-3">Hourly</div>
+                        <div class="col-md-3">@Html.TextBoxFor(m => m.HourlyCurrentMin, String.Format("{0:n5}", Model.HourlyCurrentMin), new { @class = "form-control market-numbers-hourly" })</div>
+                        <div class="col-md-3">@Html.TextBoxFor(m => m.HourlyCurrentMid, String.Format("{0:n5}", Model.HourlyCurrentMid), new { @class = "form-control market-numbers-hourly" })</div>
+                        <div class="col-md-3">@Html.TextBoxFor(m => m.HourlyCurrentMax, String.Format("{0:n5}", Model.HourlyCurrentMax), new { @class = "form-control market-numbers-hourly" })</div>
+                    </div>
+                    <div class="row top-pad">
+                        <div class="col-md-3">Annual</div>
+                        <div class="col-md-3">@Html.TextBoxFor(m => m.CurrentMin, String.Format("{0:n2}", Model.CurrentMin), new { @class = "form-control market-numbers-annual" })</div>
+                        <div class="col-md-3">@Html.TextBoxFor(m => m.CurrentMid, String.Format("{0:n2}", Model.CurrentMid), new { @class = "form-control market-numbers-annual" })</div>
+                        <div class="col-md-3">@Html.TextBoxFor(m => m.CurrentMax, String.Format("{0:n2}", Model.CurrentMax), new { @class = "form-control market-numbers-annual" })</div>
+                    </div>
+                    <div class="row top-pad">
+                        <div class="col-md-12 titletxt">New Range :</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3"></div>
+                        <div class="col-md-3 blutxt">Min</div>
+                        <div class="col-md-3 blutxt">Mid</div>
+                        <div class="col-md-3 blutxt">Max</div>
+                    </div>
+                    <div class="row smallpadtop">
+                        <div class="col-md-3">Hourly</div>
+                        <div class="col-md-3">@Html.TextBoxFor(m => m.HourlyFutureMin, String.Format("{0:n5}", Model.HourlyFutureMin), new { @class = "form-control market-numbers-hourly" })</div>
+                        <div class="col-md-3">@Html.TextBoxFor(m => m.HourlyFutureMid, String.Format("{0:n5}", Model.HourlyFutureMid), new { @class = "form-control market-numbers-hourly" })</div>
+                        <div class="col-md-3">@Html.TextBoxFor(m => m.HourlyFutureMax, String.Format("{0:n5}", Model.HourlyFutureMax), new { @class = "form-control market-numbers-hourly" })</div>
+                    </div>
+                    <div class="row top-pad">
+                        <div class="col-md-3">Annual</div>
+                        <div class="col-md-3">@Html.TextBoxFor(m => m.FutureMin, String.Format("{0:n2}", Model.FutureMin), new { @class = "form-control market-numbers-annual" })</div>
+                        <div class="col-md-3">@Html.TextBoxFor(m => m.FutureMid, String.Format("{0:n2}", Model.FutureMid), new { @class = "form-control market-numbers-annual" })</div>
+                        <div class="col-md-3">@Html.TextBoxFor(m => m.FutureMax, String.Format("{0:n2}", Model.FutureMax), new { @class = "form-control market-numbers-annual" })</div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-cancel" data-dismiss="modal"><i class="fa fa-ban"></i> Cancel</button>
+                    <button type="submit" class="btn btn-info prim-btn">Save</button>
+                </div>
+            }
+        </div>
+    </div>
+</div>

@@ -1,0 +1,55 @@
+﻿
+<div id="Hierarchiacalgrid">
+    <div class="alert alert-Success" id="alertMessage" style="display: none;">
+        <h4 class="alert-heading" id="alertHeading"></h4>
+        <span id="messageSpan">Unknown error occurred.</span>
+    </div>
+    <div id="page">
+        <div class="row top-pad">
+
+        </div>
+        <div class="lbswidget-content" style="padding-top:4px;">
+            <div class="lbscontrols">
+                @(Html.Kendo().Grid<Laserbeam.BusinessObject.Common.PageCustomization>()
+        .Name("grdPageCustomization")
+        .HtmlAttributes(new { style = "height:485px; width:98.8%;overflow-y:hidden" })
+            .Columns(columns =>
+                {
+                    columns.Bound(m => m.IsChanged).Visible(false);
+                    columns.Bound(m => m.FunctionalGroup).Visible(false).Title("Function");
+                    columns.Bound(m => m.ColumnName).Title("Fields").HtmlAttributes(new { id = "Fields", style = "word-wrap: break-word;" }).Width(160)
+                     .HeaderHtmlAttributes(new { style = "width:80px; text-align:center;" }).Width(180);
+                    columns.Template(@<text></text>).ClientTemplate(Html.TextBox("AliasName", "#=AliasName#").ToHtmlString()).HtmlAttributes(new { id = "txtAliasName", type = "text", style = "word-wrap: break-word;width:10px" }).Width(160).HeaderHtmlAttributes(new { style = "width:100px; text-align: center;" }).Width(192)
+                   .Title("Display Name");
+
+                    columns.Template(@<text></text>)
+                 .ClientTemplate("<input type='checkbox' name='PopupDisplay' #= PopupDisplay ? checked='checked' : '' # ></input><label for='PopupDisplay'></label>").Width(110).HtmlAttributes(new { @class = "checkbox checkbox-primary", id = "chkPopupDisplay", style = " width:auto;text-align:center;margin:0" }).HeaderHtmlAttributes(new { id = "chkPopupDisplay", style = "text-align:center; width:145px; word-wrap: break-word" }).Width(130).Title("Popup Display").HeaderTemplate("<input type='checkbox' name='PopupDisplay' id='chkSelectAllPopupDisplay' onchange='checkAll(this,this.id)'/> Popup Display");
+
+                columns.Template(@<text> </text>)
+    .ClientTemplate("<input type='checkbox'  name='ExportDisplay' #= ExportDisplay ? checked='checked' : '' # ></input>").Width(110).HtmlAttributes(new { id = "chkExportDisplay", style = "width:70px; text-align:center;" }).HeaderHtmlAttributes(new { style = "text-align:center; width:130px; word-wrap: break-word" }).Title("Export Display").Width(130).HeaderTemplate("<input type='checkbox' name='ExportDisplay' id='chkSelectAllExportDisplay' onchange='checkAll(this,this.id)'/> Export Display");
+                    columns.Template(@<text></text>)
+      .ClientTemplate("<input type='checkbox' name='FilterDisplay' #= FilterDisplay  ? checked='checked' : '' # ></input>").Width(115).HtmlAttributes(new { id = "chkFilterDisplay", style = "width:70px; text-align:center;" }).HeaderHtmlAttributes(new { style = "text-align:center; width:130px; word-wrap: break-word" }).Title("Filter Display ").Width(130).HeaderTemplate("<input type='checkbox' name='FilterDisplay' id='chkSelectAllFilterDisplay' onchange='checkAll(this,this.id)'/> Filter Display");
+                    columns.Template(@<text> </text>)
+    .ClientTemplate("<input type='checkbox'  name='GridDisplayGroupFields' #= GridDisplay  ? checked='checked' : '' # ></input>").Width(120).HtmlAttributes(new { id = "chkGridDisplayGroupFields", style = "width:70px; text-align:center;" }).HeaderHtmlAttributes(new { style = "text-align:center;  word-wrap: break-word " }).Width(165).Title("Grid Display").HeaderTemplate("<input type='checkbox' name='GridDisplayGroupFields' id='chkSelectAllGridDisplay' onchange='checkAll(this,this.id)'/> Grid Display");
+            })
+                                                                                   .DataSource(datasource => datasource.Ajax()
+                                                                                    .Group(group => group.Add(o => o.FunctionalGroup))
+                                                                                  .Read(read => read.Action("GetUserDetails", "PageCustomization").Data("additionalParamInfo"))
+                                                                                  .Events(e => e.RequestStart("requestStartPageCustomization"))
+                                                                                  //.PageSize(10)
+                                                                                  )
+                                                                                     .Scrollable()
+                                                                                     .AutoBind(true)
+                //.Pageable(pageable => pageable
+                //.PageSizes(false)
+                //)
+                )
+            </div>
+        </div>
+        @(Html.Kendo().Window().Name("wndFilterSort").Title("Filter/Sort").Visible(false).Width(710).Height(270).Modal(true))
+    </div>
+</div>
+
+
+@* rajitha script *@
+

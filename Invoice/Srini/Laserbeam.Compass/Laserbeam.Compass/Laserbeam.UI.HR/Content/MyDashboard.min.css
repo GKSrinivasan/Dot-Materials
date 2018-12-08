@@ -1,0 +1,4 @@
+/*!
+ *  My dashboard style content 
+ */
+#dailyTaskViewDiv{padding-left:6px}.k-grid-header .k-header>.k-link{font-size:14px !important}.modal-dialog{width:80% !important}#ManagerBudget .k-grid-top{position:absolute;z-index:2;border:none;top:-19%;left:37%;width:5%;height:auto;cursor:pointer}#ManagerBudget .fa-file-excel-o{color:#008000}@media(min-width:768px){#ManagerBudget .k-grid-top{left:40%}}@media(min-width:1366px){#ManagerBudget .k-grid-top{left:55%}}@media(min-width:1920px){#ManagerBudget .k-grid-top{left:37%}}

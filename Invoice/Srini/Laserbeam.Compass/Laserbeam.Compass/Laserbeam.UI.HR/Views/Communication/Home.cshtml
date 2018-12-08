@@ -1,0 +1,44 @@
+﻿@using Laserbeam.BusinessObject.Common
+@model IEnumerable<AppEmailDetails>
+@Html.Hidden("hndRolesListNum", 0)
+@Html.Hidden("hndGroupListNum", 0)
+@Html.Hidden("hndUserGroupListName", "")
+@Html.Hidden("hndSelectedType", 0)
+@Html.Hidden("hndSelectedTreeText", "-Select-")
+@Html.Hidden("hndvalue", 0)
+@Html.Hidden("hndtext", "")
+@Html.Hidden("hndselectedtype", 0)
+@Html.Hidden("hndIsNodeSelected", 0)
+@Html.AntiForgeryToken()
+<link href="~/Content/Communication.min.css" rel="stylesheet" />
+<script src="~/Scripts/Communication.js"></script>
+@*Kendo Editor Auto generated </BR> remove code*@
+<script type="text/javascript">
+    // Kendo Editor Auto generated </BR> remove code
+    var defaultTools = kendo.ui.Editor.defaultTools;
+    defaultTools["insertLineBreak"].options.shift = false;
+    delete defaultTools["insertParagraph"].options;
+</script>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="row"><div id="divcommunicationheader" class="col-md-12 mainheading mainheading1 top-pad">Communication</div></div>
+    </div>
+    <!--horizontal tab design-->
+    <div class="row top-pad">
+        <div class="col-md-12 nopad">
+            <ul class="nav nav-tabs" role="tablist">
+                <li role="presentation" class="active"><a href="#ManageEmail" aria-controls="ManageEmail" role="tab" data-toggle="tab"  id="lnkCommunicationTemplate">Manage Email Template</a></li>
+                <li role="presentation"><a href="#SendEmail" aria-controls="SendEmail" role="tab" data-toggle="tab" id="lnkEmailCommunication">Send Email</a></li>
+                <li role="presentation"><a href="#DashboardMessage" aria-controls="DashboardMessage" role="tab" data-toggle="tab" id="dashboardmsg">Dashboard Messages</a></li>
+            </ul>
+        </div>
+    </div>
+    <!--end horizontal tab design-->
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 noleftpad norightpad bordergrey">
+            <div id="divDataBind"></div>
+        </div>
+    </div>
+</div>
+

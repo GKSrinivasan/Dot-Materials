@@ -1,0 +1,592 @@
+﻿@model Laserbeam.BusinessObject.Common.AnalyticsBusinessObjects.ChartData
+@{
+    int CRratio = Convert.ToInt32(Model.CRratio);
+}
+<!--Row 2 Begin-->
+<style>
+    .bonusdiv {
+        padding-top: 30px;
+    }
+
+    .bonustitle {
+        padding-top: 10px;
+    }
+</style>
+<div class="row bgGrey">
+    <!--Row 2 Column 2 Begin-->
+    <div class="col-md-6">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="panel panel-default new-widget2 widget2">
+                    <div class="widget-heading">Total employees with prorated increase <a target="_blank" onclick="ExportLnk('ProRateExport')"><span class="fa fa-cloud-download right" aria-hidden="true"></span></a></div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="text-center" style="margin-top:20px;">
+                                    <span id="spananalyticstotalempproratedinc" class="widget-txt">@Model.ProRationEECount</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 col-xs-6 col-seperator">
+                                <div id="divanalyticstotalemppororationtotalsalary" class="range-value3 text-center">@Model.ProRationTotalSalary</div>
+                                <div class="min-caption text-center">Total Salary</div>
+                            </div>
+                            <div class="col-md-6 col-xs-6">
+                                @if (Model.ProRationTotalIncrease.Contains("("))
+                                {
+                                    <div id="divanalyticstotalempororationtotalinc" class="range-value3 text-center" style="color:red;">@Model.ProRationTotalIncrease</div>
+
+                                }
+                                else
+                                {
+                                    <div id="divanalyticstotalempororationtotalinc" class="range-value3 text-center">@Model.ProRationTotalIncrease</div>
+                                }
+
+                                <div class="min-caption text-center">Total Increase</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="panel panel-default new-widget2 widget2">
+                    <div class="widget-heading">Average cost per employee <a target="_blank" onclick="ExportLnk('AvgCostExport')"><span class="fa fa-cloud-download right" aria-hidden="true"></span></a></div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="text-center" style="margin-top:20px;">
+                                    <span id="spananalyticsavgcostpereecost" class="widget-txt">@Model.AvgCostPerEEcost</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 col-xs-6 col-seperator">
+                                <div id="divanalyticsavgcosttotaleligibleees" class="range-value3 text-center">@Model.AvgCostTotalEligibleEEs</div>
+                                <div class="min-caption text-center">Employee Count</div>
+                            </div>
+                            <div class="col-md-6 col-xs-6">
+                                @if (Model.AvgCostTotalCompSalary.Contains("("))
+                                {
+                                    <div id="divanalyticsavgcosttotalcompsalary" class="range-value3 text-center" style="color:red;">@Model.AvgCostTotalCompSalary</div>
+
+                                }
+                                else
+                                {
+                                    <div id="divanalyticsavgcosttotalcompsalary" class="range-value3 text-center">@Model.AvgCostTotalCompSalary</div>
+                                }
+                                <div class="min-caption text-center">Total Increase</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="panel panel-default new-widget2 widget2">
+                    <div class="widget-heading">Change in Salary <a target="_blank" onclick="ExportLnk('IncreaseChartExport')"><span class="fa fa-cloud-download right" aria-hidden="true"></span></a></div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="text-center" style="margin-top:20px;">
+                                    @if (Model.Diffence.Contains("-"))
+                                    {
+                                        <span id="spananalyticschangeinsalary" class="widget-txt" style="color:red;">(@(Model.Diffence.ToString().Replace("-", "")))</span>
+                                    }
+                                    else
+                                    {
+                                        <span id="spananalyticschangeinsalary" class="widget-txt">@Model.Diffence</span>
+                                    }
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 col-xs-6 col-seperator">
+                                <div id="divanalyticschangesalarycurrent" class="range-value3 text-center">@Model.ChnSalaryCurrent</div>
+                                <div class="min-caption text-center">Current Salary</div>
+                            </div>
+                            <div class="col-md-6 col-xs-6">
+                                <div id="divanalyticschangesalarynew" class="range-value3 text-center">@Model.ChnSalaryNew</div>
+                                <div class="min-caption text-center">New Salary</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="panel panel-default new-widget2 widget2">
+                    <div class="widget-heading">Employee received increase <a target="_blank" onclick="ExportLnk('IncreaseEmpCountExport')"><span class="fa fa-cloud-download right" aria-hidden="true"></span></a></div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-6 col-xs-6">
+                                <div id="divanalyticsempreceivedincmerit" class="range-value2b text-center emp-blue">@Model.Merit</div>
+                                <div class="comp-caption text-center">Merit</div>
+                            </div>
+                            <div class="col-md-6 col-xs-6 ">
+                                <div id="divanalyticsempreceivedincpromotion" class="range-value2b text-center emp-orange">@Model.Promotion</div>
+                                <div class="comp-caption text-center">Promotion</div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 col-xs-6">
+                                <div id="divanalyticsempreceivedinclumpsum" class="range-value2b text-center emp-green">@Model.LumpSum</div>
+                                <div class="comp-caption text-center">Lump Sum</div>
+                            </div>
+                            <div class="col-md-6 col-xs-6">
+                                <div id="divanalyticsempreceivedincadj" class="range-value2b text-center emp-yellow">@Model.Adjustment</div>
+                                <div class="comp-caption text-center">Adjustment</div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--Row 2 Column 2 End-->
+    <div class="col-md-6">
+        <div class="row">
+            <div class="col-md-12 col-xs-12">
+                <div class="panel panel-default new-widget3 widget3">
+                    <div class="widget-heading">Total New Salary <span class="slant">vs</span> Total Market Mid <a target="_blank" onclick="ExportLnk('MarketDataExport')"><span class="fa fa-cloud-download right" aria-hidden="true"></span></a></div>
+
+                    <div class="panel-body">
+                        <div class="col-md-12 col-xs-12">
+                            @*<div class="comp-caption left-pad43 widget-orange">Compa Ratio</div>*@
+                            <div class="comp-caption text-center emp-orange">Compa Ratio</div>
+                            @*<img src=" ~/Images/market-mid-chart.png" class="img-responsive" />*@
+
+                            <div id="cRDonught" class="analytics-donught-class c100 p@(CRratio) small" style="margin-top:15px;">
+                                @if (CRratio.ToString().Contains("-"))
+                                {
+                                    <span id="compRatioValue" style="color:red;">(@(CRratio.ToString().Replace("-", ""))%)</span>
+                                }
+                                else
+                                {
+                                    <span id="compRatioValue">@(CRratio)%</span>
+                                }
+
+                                <div class="slice">
+                                    <div class="bar"></div>
+                                    <div class="fill"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-xs-6 valign11 text-center">
+                            <div id="divanalyticscrnewsalary" class="comp-cost">@Model.CRNewSalary</div>
+                            <div class="comp-caption">New Salary</div>
+                        </div>
+                        <div class="col-md-6 col-xs-6 valign11 text-center">
+                            <div id="divanalyticscrmarketmid" class="comp-cost">@Model.CRMarketMid</div>
+                            <div class="comp-caption">Market Mid</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--Total New Salary Vs Total Market Mid End-->
+        </div>
+    </div>
+    <!--Row 2 Column 1 Begin-->
+    <div class="col-md-12">
+        <div class="row">
+            <div class="col-md-6 col-xs-12">
+                <div class="panel panel-default new-widget3 widget4">
+                    <div class="widget-heading">Outlier - Employees received increase outside the guideline <a target="_blank" onclick="ExportLnk('OutlierExport')"><span class="fa fa-cloud-download right" aria-hidden="true"></span></a></div>
+
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="text-center">
+                                    <span id="spananalyticsoutlierscount" class="widget-sbig emp-blue">@Model.OutliersCount</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 col-xs-6 col-seperator">
+                                <div id="divanalyticsoutlierstotalsalary" class="range-value3 text-center">@Model.OutlierTotalSalary</div>
+                                <div class="min-caption text-center">Total Salary</div>
+                            </div>
+                            <div class="col-md-6 col-xs-6">
+                                @if (Model.OutlierTotalIncrease.Contains("("))
+                                {
+                                    <div id="divanalyticsoutlierstotalinc" class="range-value3 text-center" style="color:red;">@Model.OutlierTotalIncrease</div>
+
+                                }
+                                else
+                                {
+                                    <div id="divanalyticsoutlierstotalinc" class="range-value3 text-center">@Model.OutlierTotalIncrease</div>
+                                }
+                                <div class="min-caption text-center">Total Increase</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--Total New Salary Vs Total Market Mid End-->
+            <div class="col-md-6 col-xs-12">
+                <div class="panel panel-default new-widget3 widget4">
+                    <div class="widget-heading">Workforce <a target="_blank" onclick="ExportLnk('PopulationDataExport')"><span class="fa fa-cloud-download right" aria-hidden="true"></span></a></div>
+                    <div class="panel-body">
+                        <div class="col-md-4 col-xs-4">
+                            <div id="divanalyticsworkforcetotalemp" class="comp-emp emp-blue">@Model.Total</div>
+                            <div class="comp-caption">Total Employees</div>
+                        </div>
+
+                        <div class="col-md-4 col-xs-4">
+                            <div id="divanalyticsworkforceactiveemp" class="comp-emp emp-green">@Model.Active</div>
+                            <div class="comp-caption">Active Employees</div>
+                        </div>
+
+                        <div class="col-md-4 col-xs-4">
+                            <div id="divanalyticsworkforcetermedemp" class="comp-emp emp-red">@Model.Termed</div>
+                            <div class="comp-caption">Termed Employees</div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+
+    @*-----*@
+    @*@if (ViewBag.IsBonusEnable)
+        {
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-6 col-xs-12">
+                        <div class="panel panel-default new-widget3 widget4">
+                            <div class="widget-heading">Bonus Received Vs Bonus Target <a target="_blank"><span class="fa fa-cloud-download right" aria-hidden="true"></span></a></div>
+
+                            <div class="panel-body">
+                                <div class="row">
+                                    <div class="col-md-4 col-xs-4 bonusdiv">
+                                        <div class="range-value3 text-center">USD @Model.TargetAmt</div>
+                                        <div class="min-caption text-center bonustitle">Total Target</div>
+                                    </div>
+                                    <div class="col-md-4 col-xs-4 bonusdiv">
+                                        <div class="range-value3 text-center">USD @Model.PayoutAmt</div>
+                                        <div class="min-caption text-center bonustitle">Total Bonus</div>
+                                    </div>
+                                    <div class="col-md-4 col-xs-4 bonusdiv">
+                                        @if (@Model.TargetAmtValue > 0)
+                                        {
+                                            <div class="range-value3 text-center">1 :  @Model.TargetRatio</div>
+                                        }
+                                        else
+                                        {
+                                            <div class="range-value3 text-center">0 :  @Model.TargetRatio</div>
+                                        }
+
+                                        <div class="min-caption text-center bonustitle">Ratio</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-xs-12">
+                        <div class="panel panel-default new-widget3 widget4">
+                            <div class="widget-heading">Bonus Compensation Rate <a target="_blank"><span class="fa fa-cloud-download right" aria-hidden="true"></span></a></div>
+                            <div class="row">
+                                <div class="col-md-4 col-xs-4 bonusdiv">
+                                    <div class="range-value3 text-center">USD @Model.TotalCash</div>
+                                    <div class="min-caption text-center bonustitle">Total Cash Compensation</div>
+                                </div>
+                                <div class="col-md-4 col-xs-4 bonusdiv">
+                                    <div class="range-value3 text-center">USD @Model.TotalBonusAmt</div>
+                                    <div class="min-caption text-center bonustitle">Total Bonus</div>
+                                </div>
+                                <div class="col-md-4 col-xs-4 bonusdiv">
+                                    <div class="range-value3 text-center">@Model.BonusCompensationRatio</div>
+                                    <div class="min-caption text-center bonustitle">Compensation Rate %</div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="panel panel-default new-widget">
+                    <div class="widget-heading">
+                        Bonus Eligibility
+                        <!-- <a href="">-->
+                        <span class="fa fa-cloud-download right" aria-hidden="true"></span>
+                        <!--</a>-->
+                    </div>
+                    <div class="dwnld"></div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-3  text-center">
+                                <div class="comp-emp emp-blue">
+                                    @Model.TotalCount
+                                </div>
+                                <div class="comp-caption">Total Employee</div>
+                            </div>
+                            <div class="col-md-3  text-center">
+                                <div class="comp-emp emp-green">
+                                    @Model.EligibleCount
+                                </div>
+                                <div class="comp-caption">Total Bonus Eligible</div>
+                            </div>
+                            <div class="col-md-3  text-center">
+                                <div class="comp-emp emp-red">
+                                    @Model.IncrBonusCount
+                                </div>
+                                <div class="comp-caption">Total Employee Received Bonus</div>
+                            </div>
+                            <div class="col-md-3  text-center">
+                                <div class="comp-emp emp-grey">
+                                    @Model.ReceivedPct
+                                </div>
+                                <div class="comp-caption">Bonus Received %</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }*@
+    @*<div class="col-md-12">
+        <div class="panel panel-default new-widget">
+            <div class="widget-heading">
+                Increase distribution - Employees <span class="slant">vs</span> Managers
+                <span class="fa fa-cloud-download right" aria-hidden="true" style="display:none;"></span>
+            </div>
+            <div class="dwnld"></div>
+            <div class="panel-body">
+                <div class="row ">
+                    <div class="col-md-4 pad1030">
+                        <div class="row full-boxy">
+                            <div class="row vpadding30">
+                                <div class="col-md-12">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="total-cost text-center">@Model.AvgCostTotalEligibleEEs</div>
+                                            <div class="comp-caption text-center">Total Workforce</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row-separator"></div>
+                            <div class="row vpadding30">
+                                <div class="col-md-12">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            @if (Model.AvgCostTotalCompSalary.Contains("("))
+                                            {
+                                                <div class="total-cost text-center" style="color:red;">USD @Model.AvgCostTotalCompSalary</div>
+
+                                            }
+                                            else
+                                            {
+                                                <div class="total-cost text-center">USD @Model.AvgCostTotalCompSalary</div>
+                                            }
+                                            <div class="comp-caption text-center">Total Increase</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-5">
+                        <div class="row vpadding10">
+                            <div class="col-md-12">
+                                <div class="row boxy-top boxred">
+                                    <div class="col-md-12">
+                                        <div class="range-value3 text-center txt-white">Employees</div>
+                                    </div>
+                                </div>
+                                <div class="row boxy-bottom">
+                                    <div class="col-md-6 col-seperator">
+                                        <div class="comp-cost text-center">@Model.EmpCount</div>
+                                        <div class="comp-caption text-center">Total Count</div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        @if (Model.TotalIncrease.Contains("("))
+                                        {
+                                            <div class="comp-caption text-center" style="color:red;">USD @Model.TotalIncrease</div>
+
+                                        }
+                                        else
+                                        {
+                                            <div class="comp-caption text-center">USD @Model.TotalIncrease</div>
+                                        }
+                                        <div class="comp-caption text-center">Total Increase</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row vpadding10">
+                            <div class="col-md-12">
+                                <div class="row boxy-top boxgreen">
+                                    <div class="col-md-12">
+                                        <div class="range-value3 text-center txt-white">Managers</div>
+                                    </div>
+                                </div>
+                                <div class="row boxy-bottom">
+                                    <div class="col-md-6 col-seperator">
+                                        <div class="comp-cost text-center">@Model.MgrCount</div>
+                                        <div class="comp-caption text-center">Total Count</div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        @if (Model.MgrTotalIncrease.Contains("("))
+                                        {
+                                            <div class="comp-caption text-center" style="color:red;">USD @Model.MgrTotalIncrease</div>
+
+                                        }
+                                        else
+                                        {
+                                            <div class="comp-caption text-center">USD @Model.MgrTotalIncrease</div>
+                                        }
+                                        <div class="comp-caption text-center">Total Increase</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="row boxy">
+                            <div class="col-md-12 col-xs-12 center-img">
+                                <img src="~/Images/emp-budget.png" class="img-responsive" />
+
+                            </div>
+                            <div class="comp-caption text-center toppad-temp">Budget Utilization</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 col-xs-12 center-img">
+                                <img src="~/Images/mgr-budget.png" class="img-responsive" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>*@
+
+</div>
+<!--Row 2 End-->
+<!--Row 3 Begin-->
+@*<div class="row">
+    <div class="col-md-12 col-xs-12">
+        <div class="panel panel-default new-widget">
+            <div class="widget-heading">
+                Compensation cost <span class="slant">vs</span> Revenue
+                <span class="fa fa-cloud-download right" aria-hidden="true" style="display:none;"></span>
+            </div>
+
+
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-12 center-img">
+                        <img src="~/Images/comp_rev-chart.png" class="img-responsive" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3 col-xs-6">
+                        <div class="comp-align">
+                            <div class="comp-cost">USD @Model.MeritAmt | @Model.MeritPct</div>
+                            <div class="comp-caption">Merit | % of Revenue</div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-xs-6">
+                        <div class="comp-align">
+                            <div class="comp-cost">USD @Model.LumpSumAmt | @Model.LumpSumPct</div>
+                            <div class="comp-caption">Lump Sum | % of Revenue</div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3 col-xs-6">
+                        <div class="comp-align">
+                            <div class="comp-cost">USD @Model.PromotionAmt | @Model.PromotionAmtPct</div>
+                            <div class="comp-caption">Promotion | % of Revenue</div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-xs-6">
+                        <div class="comp-align">
+                            <div class="comp-cost">USD @Model.AdjustmentAmt | @Model.AdjustmentPct</div>
+                            <div class="comp-caption">Adjustment | % of Revenue</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+</div>*@
+<!--Row 3 End-->
+<!--Row 4 Begin-->
+@*<div class="row">
+    <div class="col-md-12 col-xs-12">
+        <div class="panel panel-default new-widget">
+            <div class="widget-heading">
+                Salary Ratio - Comparison of Manager Salary <span class="slant">vs</span> Total Salary of Direct Reports
+                <!--<a href="">-->
+                <span class="fa fa-cloud-download right" aria-hidden="true" style="display:none;"></span>
+                <!--</a>-->
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <div class="col-xs-1 left-pad0"><label for="salRatio"><span class="mgr-caption">Manager</span></label></div>
+                            <div class="col-xs-11">
+                                <input type="text" class="form-control" id="salRatio" value="Search by Manager Name or ID">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row top-pad30">
+                    <div class="col-md-9">
+                        <div class="row top-pad10">
+                            <div class="col-md-12">
+                                <div class="comp-mgr emp-lblue">Will Smith</div>
+                                <div class="comp-caption">Product Manager</div>
+                            </div>
+                        </div>
+
+                        <div class="row top-pad10">
+                            <div class="col-md-3 col-xs-3">
+                                <div class="comp-cost">USD 25,000</div>
+                                <div class="comp-caption">New Salary</div>
+                            </div>
+                            <div class="col-md-3 col-xs-3">
+                                <div class="comp-cost">5</div>
+                                <div class="comp-caption">Total Direct Reports</div>
+                            </div>
+                            <div class="col-md-3 col-xs-3">
+                                <div class="comp-cost">USD 50,000</div>
+                                <div class="comp-caption">Direct Reports New Salary</div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-md-3 center-img">
+                        <div class="comp-caption">% of Manager's Salary against direct report salary</div>
+                        <img src="~/Images/salratio.png" alt="" class="img-responsive">
+                    </div>
+                </div>
+
+
+
+
+
+
+
+            </div>
+        </div>
+    </div>
+
+</div>*@
+<!--Row 4 End-->

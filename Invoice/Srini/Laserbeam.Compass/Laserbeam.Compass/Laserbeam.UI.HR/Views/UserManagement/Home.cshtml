@@ -1,0 +1,128 @@
+﻿@section ScriptReference{
+    <script src="~/Scripts/UserManagement.js"></script>
+    <link href="~/Content/UserManagement.css" rel="stylesheet" />
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="row"><div id="divusermanagementheading" class="col-md-12 mainheading top-pad">Manage Users</div></div>
+    </div>
+
+
+    @Html.AntiForgeryToken()
+
+    <div class="row">
+        <div class="col-md-3 col-sm-6 col-xs-12 topmargindiv noleftpad">
+            <div class="widgets ylw">
+                <div class="usr-icon">
+                    <i class="icon-2users users-ylw" aria-hidden="true"></i>
+                </div>
+                <div class=" txt white">
+                    <h2 id="totalUsers"></h2>
+                    <h4>Total Users</h4>
+                </div>
+            </div>
+        </div><!--Widget 1 Ends-->
+
+        <div class="col-md-3 col-sm-6 col-xs-12 topmargindiv">
+            <div class="widgets grn">
+                <div class="usr-icon">
+                    <i class="icon-2users users-grn" aria-hidden="true"></i>
+                </div>
+                <div class="txt white">
+                    <h2 id="activeUsers"></h2>
+                    <h4>Active Users</h4>
+                </div>
+            </div>
+        </div><!--Widget 2 Ends-->
+
+        <div class="col-md-3 col-sm-6 col-xs-12 topmargindiv">
+            <div class="widgets red">
+                <div class="usr-icon">
+                    <i class="icon-2users users-red" aria-hidden="true"></i>
+                </div>
+                <div class=" txt white">
+                    <h2 id="lockedUsers"></h2>
+                    <h4>Locked Users</h4>
+                </div>
+            </div>
+        </div><!--Widget 3 Ends-->
+
+        <div class="col-md-3 col-sm-6 col-xs-12 topmargindiv norightpad">
+            <div class="widgets gry">
+                <div class="usr-icon-gry">
+                    <i class="icon-2users users-grey" aria-hidden="true"></i>
+                </div>
+                <div class="txt yet2login">
+                    <h2 id="yetToUsers"></h2>
+                    <h4>Yet to Login</h4>
+                </div>
+            </div>
+            <div class="blu" id="btnSendEmail">
+                <span class="white-txt">Click here to send reminder</span>
+                <div class="mail-icon pull-right big35">
+                    <i class="icon-send-reminder big35 send-rem users-white" aria-hidden="true"></i>
+                </div>
+            </div>
+        </div><!--Widget 4 Ends-->
+        <!--Widget Thumb Ends -->
+    </div>
+
+    @* rajitha code *@
+    <div class="row top-pad" data-spy="affix" data-offset-top="150">
+        <div class="col-md-6 col-sm-6 noleftpad">
+            <ul class="nav nav-tabs new-tabs" role="tablist">
+                <li role="presentation" class="active"><a href="#tab1default" id="userListTab" aria-controls="tab1default" role="tab" data-toggle="tab">User List</a></li>
+                <li role="presentation"><a href="#tab2default" id="uploadUserTab" aria-controls="tab2default" role="tab" data-toggle="tab">Upload Users</a></li>
+            </ul>
+        </div>
+        <div class="col-md-6 col-sm-6 text-right norightpad">
+            <ul class="nav navbar-nav navbar-right morebtn1 rt-btn">
+                <li class="gap10px-right">
+                    <button type="button" id="btnAdduser" class="btn prim-btn" data-toggle="modal">
+                        <i class="fa fa-user-plus pad5rt" aria-hidden="true"></i>Add User
+                    </button>
+                </li>
+                <li class="gap10px-right">
+                    <button class="btn btn-bordered dropdown-toggle" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"><img src="../../Images/more-v.png" class="top2pad" alt=""> Action</button>
+                    <ul class="dropdown-menu moreaction-dropdn" aria-labelledby="dropdownMenu1">
+                        <li id="filter"><a href="#"><i class="fa fa-filter"></i> Filter</a></li>
+                        <li id="btnClearFilter"><a href="#"><i class="fa fa-filter"></i> Clear Filter</a></li>
+                        <li id="userExport"><a href="#"><i class="fa fa-file-excel-o"></i> Export</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12 nopad">
+            @{Html.RenderAction("_UserDetails", "UserManagement");}
+        </div>
+    </div>
+</div><!--Widgets-container-Ends-->
+<div id="divSendEmail" class="modal fade" role="dialog" aria-labelledby="myModalLabel" data-keyboard="false" data-backdrop="static"></div>
+
+<div id="divAddUser" class="modal fade" role="dialog" aria-labelledby="myModalLabel" data-keyboard="false" data-backdrop="static"></div>
+<div class="margin-10dn">
+
+    <div class="panel with-nav-tabs panel-default">
+    </div>
+
+</div>
+
+
+<div class="col-lg-12 col-md-6, col-sm-6">
+    <div class="col-lg-12 col-md-6, col-sm-6">
+        <div class="modal fade" id="userData-Error" tabindex="-1" role="dialog"></div>
+    </div>
+</div>
+
+<div id="errorFiles" class="col-md-12 text-center" style="color:red !important">
+</div>
+
+
+@*<script>
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+    })
+</script>*@

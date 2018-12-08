@@ -1,0 +1,149 @@
+﻿@using Laserbeam.Resource.HR.CommonResources
+@model Laserbeam.UI.HR.Models.PromotionModel
+<script src="~/Scripts/Comment.min.js"></script>
+<style>
+    .nav_title {
+        background: none !important;
+    }
+
+    ::-webkit-input-placeholder { /* WebKit, Blink, Edge */
+        font-style: italic;
+    }
+
+    :-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+        font-style: italic;
+    }
+
+    ::-moz-placeholder { /* Mozilla Firefox 19+ */
+        font-style: italic;
+    }
+
+    :-ms-input-placeholder { /* Internet Explorer 10-11 */
+        font-style: italic;
+    }
+
+    ::-ms-input-placeholder { /* Microsoft Edge */
+        font-style: italic;
+    }
+</style>
+
+<script type="text/javascript">
+    var promotionCommentsCount = '@Model.promotionComments.Count()';
+    var inputChanged = false;
+    var promotionFlag = false;
+    var ddlPromotionOldvalue;
+    var ddlPromotionChanged;
+    $(document).ready(function () {
+        var readOnly = $("#CommentPopup").data("kendoWindow").options.readOnly;
+        disableControls(readOnly);
+
+        $("#promotionComments [data-toggle=popover]").popover({
+            html: true, container: 'body',
+            content: function (e) {
+                return $(this).siblings().find('#popover-content')[0].innerHTML;
+            }
+        });
+        $("#btnPromotionRefresh").hide();
+        var isCommentEmpty = (function () {
+            var commentValue = $("#promotionComment").val();
+            if (promotionFlag == true && commentValue == "")
+                return true;
+        });
+    });
+
+</script>
+
+<div id="RenderPromotionComment" class="modal-dialog" role="document">
+    <div class="modal-content">
+        <div id="divPromotionTitle" class="modal-header">
+        </div>
+        <div class="modal-body">
+            @Html.Hidden("EmpPromotionCommentNum", 0)
+            @Html.AntiForgeryToken()
+            <div class="container-fluid cmtPopupHeight" style="overflow-y:auto;">
+                @if (Model.promotionComments != null)
+                {
+                    List<string> userNames = Model.promotionComments.Select(m => m.EmployeeName).Distinct().ToList();
+                    <div id="promotionComments">
+                        @for (int i = 0; i < Model.promotionComments.Count(); i++)
+                        {
+                            var item = Model.promotionComments.ElementAt(i);
+                            var alignClass = (item.CreatedByUserNumOrEmpNum == ViewContext.GetUserNum()) ? "pull-right" : "pull-left";
+                            var popoverAlignment = (alignClass == "pull-right") ? "left" : "right";
+                            string colorClass = "userImg" + ((userNames.IndexOf(item.EmployeeName) + 1) % 13).ToString();
+                            <div id="comment_@item.EmpCommentNum" class="row margintop-3">
+                                <div class="@alignClass userImg @colorClass namePopover" data-placement=@popoverAlignment data-toggle="popover" data-trigger="hover" data-html="true">
+                                    <div style="cursor:default;">@item.EmployeeNameShort</div>
+                                    <span style="padding-left:25% !important">
+                                        @if (item.CreatedByUserNumOrEmpNum == ViewContext.GetUserNum())
+                                        {
+                                            @Html.HiddenFor(j => item.EmpCommentNum)
+                                            <a id="btnPromotionCommDelete" title="Delete" data-mycommentitemid="@(item.EmpCommentNum)"><span class="glyphicon glyphicon-trash" style="color:grey !important;font-size:10px !important"></span></a>
+                                        }
+                                    </span>
+
+                                </div>
+
+                                <div>
+                                    <div id="popover-content" class="hide">
+                                        <div class="@alignClass namePopover" style="font-size:14px;font-weight:lighter;padding-bottom:5px !important;">@(item.EmployeeName)&nbsp;<span>@item.CommentUpdatedDate.ToString()&nbsp;@item.CommentUpdatedDate.ToString()</span></div>
+
+                                    </div>
+                                    <div class="col-xs-11 userComment" style="overflow-x:hidden;word-wrap:break-word;">
+                                        @Html.Raw(item.Comment)
+                                        <span class="pull-right">
+                                            @if (item.CreatedByUserNumOrEmpNum == ViewContext.GetUserNum())
+                                            {
+                                                @Html.HiddenFor(j => item.EmpCommentNum)
+                                                @Html.HiddenFor(j => item.CompensationTypeNum)
+                                                <a id="btnPromotionEdit" title="Edit" data-myitemid="@(item.Comment)"><span class="glyphicon glyphicon-pencil"></span></a>
+                                            }
+                                        </span>
+
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                }
+
+            </div>
+            <br />
+            <div class="row">
+
+                <div class="col-xs-8" style="text-align:left;padding-left:4%">
+                    <span style="text-align:left">
+                        Promote to:
+                    </span>
+
+                    @Html.TextBoxFor(m => m.newTitle, new { id = "textboxPromotion", onchange = "SetCommentChangeFlag();" })
+                </div>
+                <div class="col-xs-4" style="text-align:left;padding-left:4%;display:@(Model.newTitle!="" ? "block" : "none")">
+                    <button id="btnPromotionRevert" class="Reopenbtncss">
+                        <span class="glyphicon glyphicon-trash" style="font-size:10px !important"></span>
+                        Delete Promotion
+                    </button>
+                </div>
+            </div>
+            <div class="container-fluid nopaddingleft margintop-3" style="text-align:right;">
+                <div class="row">
+                    <div class="col-md-12">
+                        @Html.TextArea("comment", "", new { id = "promotionComment", rows = "3", style = "width:100%;", onchange = "SetCommentChangeFlag();",placeholder="Enter comments here" })
+                    </div>
+
+                    <button style="margin-top:5px;display:none" id="btnPromotionRefresh" class="defaultbtncss">
+                        Refresh
+                    </button>
+                    <button style="margin-top:5px;" id="btnPromotionPopupOk" class="primarybtncss">
+                        Add Comment
+                    </button>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+

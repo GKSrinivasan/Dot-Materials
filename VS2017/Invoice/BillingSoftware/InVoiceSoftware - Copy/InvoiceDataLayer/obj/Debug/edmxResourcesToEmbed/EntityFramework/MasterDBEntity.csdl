@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="MasterDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Tenant">
+    <Key>
+      <PropertyRef Name="TenantPK" />
+    </Key>
+    <Property Name="TenantPK" Type="Decimal" Precision="18" Scale="0" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FirstName" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="LastName" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="Email" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="PhoneNo" Type="Decimal" Precision="18" Scale="0" />
+    <Property Name="CompanyName" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="TenantName" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="UserID" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="TenantDatabase">
+    <Key>
+      <PropertyRef Name="TenantDatabasePK" />
+    </Key>
+    <Property Name="TenantDatabasePK" Type="Decimal" Precision="18" Scale="0" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TenantFK" Type="Int32" />
+    <Property Name="DataBaseName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityContainer Name="MasterDBEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Tenants" EntityType="Self.Tenant" />
+    <EntitySet Name="TenantDatabases" EntityType="Self.TenantDatabase" />
+  </EntityContainer>
+</Schema>

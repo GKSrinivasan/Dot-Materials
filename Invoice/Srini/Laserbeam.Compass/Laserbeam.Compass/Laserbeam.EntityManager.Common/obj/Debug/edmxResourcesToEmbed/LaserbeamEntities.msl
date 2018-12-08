@@ -1,0 +1,1484 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs" Space="C-S">
+  <Alias Key="Model" Value="LaserbeamEntities" />
+  <Alias Key="Target" Value="LaserbeamEntities.Store" />
+  <EntityContainerMapping CdmEntityContainer="LaserbeamEntitiesContainer1" StorageEntityContainer="LaserbeamEntitiesStoreContainer">
+    <FunctionImportMapping FunctionImportName="fn_GetAbbreviation" FunctionName="LaserbeamEntities.Store.fn_GetAbbreviation" />
+    <EntitySetMapping Name="AppEmails">
+      <EntityTypeMapping TypeName="LaserbeamEntities.AppEmail">
+        <MappingFragment StoreEntitySet="AppEmail">
+          <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+          <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+          <ScalarProperty Name="UserTemplate" ColumnName="UserTemplate" />
+          <ScalarProperty Name="EmailKey" ColumnName="EmailKey" />
+          <ScalarProperty Name="EmailOrderby" ColumnName="EmailOrderby" />
+          <ScalarProperty Name="Active" ColumnName="Active" />
+          <ScalarProperty Name="EmailDescr" ColumnName="EmailDescr" />
+          <ScalarProperty Name="EmailScript" ColumnName="EmailScript" />
+          <ScalarProperty Name="EmailBody" ColumnName="EmailBody" />
+          <ScalarProperty Name="EmailSubject" ColumnName="EmailSubject" />
+          <ScalarProperty Name="AppEmailID" ColumnName="AppEmailID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AppExportScripts">
+      <EntityTypeMapping TypeName="LaserbeamEntities.AppExportScript">
+        <MappingFragment StoreEntitySet="AppExportScript">
+          <ScalarProperty Name="Active" ColumnName="Active" />
+          <ScalarProperty Name="ExportScript" ColumnName="ExportScript" />
+          <ScalarProperty Name="ExportName" ColumnName="ExportName" />
+          <ScalarProperty Name="AppExportScriptID" ColumnName="AppExportScriptID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AppMenus">
+      <EntityTypeMapping TypeName="LaserbeamEntities.AppMenu">
+        <MappingFragment StoreEntitySet="AppMenu">
+          <ScalarProperty Name="Active" ColumnName="Active" />
+          <ScalarProperty Name="AdminLinks" ColumnName="AdminLinks" />
+          <ScalarProperty Name="menuid" ColumnName="menuid" />
+          <ScalarProperty Name="MenuOrderBy" ColumnName="MenuOrderBy" />
+          <ScalarProperty Name="MenuLinks" ColumnName="MenuLinks" />
+          <ScalarProperty Name="MenuParentNum" ColumnName="MenuParentNum" />
+          <ScalarProperty Name="MenuName" ColumnName="MenuName" />
+          <ScalarProperty Name="AppMenuID" ColumnName="AppMenuID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AppMessages">
+      <EntityTypeMapping TypeName="LaserbeamEntities.AppMessage">
+        <MappingFragment StoreEntitySet="AppMessage">
+          <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+          <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+          <ScalarProperty Name="MessageOrderby" ColumnName="MessageOrderby" />
+          <ScalarProperty Name="Active" ColumnName="Active" />
+          <ScalarProperty Name="MessageType" ColumnName="MessageType" />
+          <ScalarProperty Name="MessageDescr" ColumnName="MessageDescr" />
+          <ScalarProperty Name="MessageScript" ColumnName="MessageScript" />
+          <ScalarProperty Name="MessageBody" ColumnName="MessageBody" />
+          <ScalarProperty Name="MessageSubject" ColumnName="MessageSubject" />
+          <ScalarProperty Name="AppMessageID" ColumnName="AppMessageID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AppScripts">
+      <EntityTypeMapping TypeName="LaserbeamEntities.AppScript">
+        <MappingFragment StoreEntitySet="AppScript">
+          <ScalarProperty Name="Active" ColumnName="Active" />
+          <ScalarProperty Name="ScriptOrderBy" ColumnName="ScriptOrderBy" />
+          <ScalarProperty Name="ScriptGroup" ColumnName="ScriptGroup" />
+          <ScalarProperty Name="ScriptDescr" ColumnName="ScriptDescr" />
+          <ScalarProperty Name="Script" ColumnName="Script" />
+          <ScalarProperty Name="ScriptName" ColumnName="ScriptName" />
+          <ScalarProperty Name="AppScriptID" ColumnName="AppScriptID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AppSettings">
+      <EntityTypeMapping TypeName="LaserbeamEntities.AppSetting">
+        <MappingFragment StoreEntitySet="AppSetting">
+          <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+          <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+          <ScalarProperty Name="AppSettingDescr" ColumnName="AppSettingDescr" />
+          <ScalarProperty Name="AppSettingValue" ColumnName="AppSettingValue" />
+          <ScalarProperty Name="AppSettingID" ColumnName="AppSettingID" />
+          <ScalarProperty Name="AppSettingNum" ColumnName="AppSettingNum" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AppTables">
+      <EntityTypeMapping TypeName="LaserbeamEntities.AppTable">
+        <MappingFragment StoreEntitySet="AppTable">
+          <ScalarProperty Name="Active" ColumnName="Active" />
+          <ScalarProperty Name="IsInsertEnabled" ColumnName="IsInsertEnabled" />
+          <ScalarProperty Name="TableType" ColumnName="TableType" />
+          <ScalarProperty Name="TableDescr" ColumnName="TableDescr" />
+          <ScalarProperty Name="TableName" ColumnName="TableName" />
+          <ScalarProperty Name="AppTableID" ColumnName="AppTableID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AppUserRoles">
+      <EntityTypeMapping TypeName="LaserbeamEntities.AppUserRole">
+        <MappingFragment StoreEntitySet="AppUserRole">
+          <ScalarProperty Name="Active" ColumnName="Active" />
+          <ScalarProperty Name="KeyName" ColumnName="KeyName" />
+          <ScalarProperty Name="UserRole" ColumnName="UserRole" />
+          <ScalarProperty Name="UserRoleNum" ColumnName="UserRoleNum" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AppUserStatus">
+      <EntityTypeMapping TypeName="LaserbeamEntities.AppUserStatu">
+        <MappingFragment StoreEntitySet="AppUserStatus">
+          <ScalarProperty Name="UserStatus" ColumnName="UserStatus" />
+          <ScalarProperty Name="AppUserStatusID" ColumnName="AppUserStatusID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="BonusTypes">
+      <EntityTypeMapping TypeName="LaserbeamEntities.BonusType">
+        <MappingFragment StoreEntitySet="BonusType">
+          <ScalarProperty Name="Active" ColumnName="Active" />
+          <ScalarProperty Name="BonusTypeDescr" ColumnName="BonusTypeDescr" />
+          <ScalarProperty Name="BonusTypeCode" ColumnName="BonusTypeCode" />
+          <ScalarProperty Name="BonusTypeNum" ColumnName="BonusTypeNum" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="BusinessUnits">
+      <EntityTypeMapping TypeName="LaserbeamEntities.BusinessUnit">
+        <MappingFragment StoreEntitySet="BusinessUnit">
+          <ScalarProperty Name="Active" ColumnName="Active" />
+          <ScalarProperty Name="BusinessUnitDescr" ColumnName="BusinessUnitDescr" />
+          <ScalarProperty Name="BusinessUnitCode" ColumnName="BusinessUnitCode" />
+          <ScalarProperty Name="BusinessUnitNum" ColumnName="BusinessUnitNum" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="BusSettings">
+      <EntityTypeMapping TypeName="LaserbeamEntities.BusSetting">
+        <MappingFragment StoreEntitySet="BusSetting">
+          <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+          <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+          <ScalarProperty Name="IsChanged" ColumnName="IsChanged" />
+          <ScalarProperty Name="Descr" ColumnName="Descr" />
+          <ScalarProperty Name="KeyDataValue" ColumnName="KeyDataValue" />
+          <ScalarProperty Name="KeyValue" ColumnName="KeyValue" />
+          <ScalarProperty Name="KeyId" ColumnName="KeyId" />
+          <ScalarProperty Name="BusSettingID" ColumnName="BusSettingID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Categories">
+      <EntityTypeMapping TypeName="LaserbeamEntities.Category">
+        <MappingFragment StoreEntitySet="Category">
+          <ScalarProperty Name="Active" ColumnName="Active" />
+          <ScalarProperty Name="CategoryDescr" ColumnName="CategoryDescr" />
+          <ScalarProperty Name="CategoryCode" ColumnName="CategoryCode" />
+          <ScalarProperty Name="CategoryNum" ColumnName="CategoryNum" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Companies">
+      <EntityTypeMapping TypeName="LaserbeamEntities.Company">
+        <MappingFragment StoreEntitySet="Company">
+          <ScalarProperty Name="Active" ColumnName="Active" />
+          <ScalarProperty Name="CompanyDescr" ColumnName="CompanyDescr" />
+          <ScalarProperty Name="CompanyCode" ColumnName="CompanyCode" />
+          <ScalarProperty Name="CompanyNum" ColumnName="CompanyNum" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CompensationTypes">
+      <EntityTypeMapping TypeName="LaserbeamEntities.CompensationType">
+        <MappingFragment StoreEntitySet="CompensationType">
+          <ScalarProperty Name="Active" ColumnName="Active" />
+          <ScalarProperty Name="CompensationTransactionReference" ColumnName="CompensationTransactionReference" />
+          <ScalarProperty Name="CompensationTypeDescr" ColumnName="CompensationTypeDescr" />
+          <ScalarProperty Name="CompensationTypeShortName" ColumnName="CompensationTypeShortName" />
+          <ScalarProperty Name="CompensationTypeNum" ColumnName="CompensationTypeNum" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CostCenters">
+      <EntityTypeMapping TypeName="LaserbeamEntities.CostCenter">
+        <MappingFragment StoreEntitySet="CostCenter">
+          <ScalarProperty Name="Active" ColumnName="Active" />
+          <ScalarProperty Name="CostCenterDescr" ColumnName="CostCenterDescr" />
+          <ScalarProperty Name="CostCenterCode" ColumnName="CostCenterCode" />
+          <ScalarProperty Name="CostCenterNum" ColumnName="CostCenterNum" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Countries">
+      <EntityTypeMapping TypeName="LaserbeamEntities.Country">
+        <MappingFragment StoreEntitySet="Country">
+          <ScalarProperty Name="Active" ColumnName="Active" />
+          <ScalarProperty Name="Country1" ColumnName="Country" />
+          <ScalarProperty Name="CountryNum" ColumnName="CountryNum" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Currencies">
+      <EntityTypeMapping TypeName="LaserbeamEntities.Currency">
+        <MappingFragment StoreEntitySet="Currency">
+          <ScalarProperty Name="Active" ColumnName="Active" />
+          <ScalarProperty Name="CultureCode" ColumnName="CultureCode" />
+          <ScalarProperty Name="CurrencyCodeDescr" ColumnName="CurrencyCodeDescr" />
+          <ScalarProperty Name="CurrencyCode" ColumnName="CurrencyCode" />
+          <ScalarProperty Name="CurrencyCodeNum" ColumnName="CurrencyCodeNum" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DateFormats">
+      <EntityTypeMapping TypeName="LaserbeamEntities.DateFormat">
+        <MappingFragment StoreEntitySet="DateFormat">
+          <ScalarProperty Name="Active" ColumnName="Active" />
+          <ScalarProperty Name="OrderBy" ColumnName="OrderBy" />
+          <ScalarProperty Name="FormatType" ColumnName="FormatType" />
+          <ScalarProperty Name="DateFormatNum" ColumnName="DateFormatNum" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DecimalTypes">
+      <EntityTypeMapping TypeName="LaserbeamEntities.DecimalType">
+        <MappingFragment StoreEntitySet="DecimalType">
+          <ScalarProperty Name="Active" ColumnName="Active" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
+          <ScalarProperty Name="DecimalTypeValue" ColumnName="DecimalTypeValue" />
+          <ScalarProperty Name="DecimalTypeKey" ColumnName="DecimalTypeKey" />
+          <ScalarProperty Name="DecimalTypeId" ColumnName="DecimalTypeId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Departments">
+      <EntityTypeMapping TypeName="LaserbeamEntities.Department">
+        <MappingFragment StoreEntitySet="Department">
+          <ScalarProperty Name="Active" ColumnName="Active" />
+          <ScalarProperty Name="DepartmentDescr" ColumnName="DepartmentDescr" />
+          <ScalarProperty Name="DepartmentCode" ColumnName="DepartmentCode" />
+          <ScalarProperty Name="DepartmentNum" ColumnName="DepartmentNum" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Divisions">
+      <EntityTypeMapping TypeName="LaserbeamEntities.Division">
+        <MappingFragment StoreEntitySet="Division">
+          <ScalarProperty Name="Active" ColumnName="Active" />
+          <ScalarProperty Name="DivisionDescr" ColumnName="DivisionDescr" />
+          <ScalarProperty Name="DivisionCode" ColumnName="DivisionCode" />
+          <ScalarProperty Name="DivisionNum" ColumnName="DivisionNum" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="EmailTrackers">
+      <EntityTypeMapping TypeName="LaserbeamEntities.EmailTracker">
+        <MappingFragment StoreEntitySet="EmailTracker">
+          <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+          <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+          <ScalarProperty Name="EmailTrackerID" ColumnName="EmailTrackerID" />
+          <ScalarProperty Name="ErrorDescription" ColumnName="ErrorDescription" />
+          <ScalarProperty Name="Success" ColumnName="Success" />
+          <ScalarProperty Name="AppEmailID" ColumnName="AppEmailID" />
+          <ScalarProperty Name="ToEmail" ColumnName="ToEmail" />
+          <ScalarProperty Name="FromEmail" ColumnName="FromEmail" />
+          <ScalarProperty Name="ClientUserID" ColumnName="ClientUserID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="EmployeeClasses">
+      <EntityTypeMapping TypeName="LaserbeamEntities.EmployeeClass">
+        <MappingFragment StoreEntitySet="EmployeeClass">
+          <ScalarProperty Name="Active" ColumnName="Active" />
+          <ScalarProperty Name="ClassDescr" ColumnName="ClassDescr" />
+          <ScalarProperty Name="ClassCode" ColumnName="ClassCode" />
+          <ScalarProperty Name="ClassNum" ColumnName="ClassNum" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="EntityCodes">
+      <EntityTypeMapping TypeName="LaserbeamEntities.EntityCode">
+        <MappingFragment StoreEntitySet="EntityCode">
+          <ScalarProperty Name="Active" ColumnName="Active" />
+          <ScalarProperty Name="EntityCodeDescr" ColumnName="EntityCodeDescr" />
+          <ScalarProperty Name="EntityCodeCode" ColumnName="EntityCodeCode" />
+          <ScalarProperty Name="EntityCodeNum" ColumnName="EntityCodeNum" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Ethnicities">
+      <EntityTypeMapping TypeName="LaserbeamEntities.Ethnicity">
+        <MappingFragment StoreEntitySet="Ethnicity">
+          <ScalarProperty Name="Active" ColumnName="Active" />
+          <ScalarProperty Name="EthnicityDescr" ColumnName="EthnicityDescr" />
+          <ScalarProperty Name="EthnicityCode" ColumnName="EthnicityCode" />
+          <ScalarProperty Name="EthnicityNum" ColumnName="EthnicityNum" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ExchangeRates">
+      <EntityTypeMapping TypeName="LaserbeamEntities.ExchangeRate">
+        <MappingFragment StoreEntitySet="ExchangeRate">
+          <ScalarProperty Name="Active" ColumnName="Active" />
+          <ScalarProperty Name="BonusExchangeRate" ColumnName="BonusExchangeRate" />
+          <ScalarProperty Name="MeritExchangeRate" ColumnName="MeritExchangeRate" />
+          <ScalarProperty Name="CurrencyCodeNum" ColumnName="CurrencyCodeNum" />
+          <ScalarProperty Name="ExchangeRateNum" ColumnName="ExchangeRateNum" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Families">
+      <EntityTypeMapping TypeName="LaserbeamEntities.Family">
+        <MappingFragment StoreEntitySet="Family">
+          <ScalarProperty Name="Active" ColumnName="Active" />
+          <ScalarProperty Name="FamilyDescr" ColumnName="FamilyDescr" />
+          <ScalarProperty Name="FamilyCode" ColumnName="FamilyCode" />
+          <ScalarProperty Name="FamilyNum" ColumnName="FamilyNum" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Grades">
+      <EntityTypeMapping TypeName="LaserbeamEntities.Grade">
+        <MappingFragment StoreEntitySet="Grade">
+          <ScalarProperty Name="Active" ColumnName="Active" />
+          <ScalarProperty Name="GradeOrder" ColumnName="GradeOrder" />
+          <ScalarProperty Name="GradeDescr" ColumnName="GradeDescr" />
+          <ScalarProperty Name="GradeCode" ColumnName="GradeCode" />
+          <ScalarProperty Name="GradeNum" ColumnName="GradeNum" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="GroupTypes">
+      <EntityTypeMapping TypeName="LaserbeamEntities.GroupType">
+        <MappingFragment StoreEntitySet="GroupType">
+          <ScalarProperty Name="Active" ColumnName="Active" />
+          <ScalarProperty Name="GroupTypeName" ColumnName="GroupTypeName" />
+          <ScalarProperty Name="GroupTypeNum" ColumnName="GroupTypeNum" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="InitiativesLinks">
+      <EntityTypeMapping TypeName="LaserbeamEntities.InitiativesLink">
+        <MappingFragment StoreEntitySet="InitiativesLink">
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="OrderBy" ColumnName="OrderBy" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="AppMenuID" ColumnName="AppMenuID" />
+          <ScalarProperty Name="ControllerName" ColumnName="ControllerName" />
+          <ScalarProperty Name="ActionName" ColumnName="ActionName" />
+          <ScalarProperty Name="IsManagerView" ColumnName="IsManagerView" />
+          <ScalarProperty Name="URL" ColumnName="URL" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+          <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+          <ScalarProperty Name="LinkName" ColumnName="LinkName" />
+          <ScalarProperty Name="InitiativesLinkNum" ColumnName="InitiativesLinkNum" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Jobs">
+      <EntityTypeMapping TypeName="LaserbeamEntities.Job">
+        <MappingFragment StoreEntitySet="Job">
+          <ScalarProperty Name="Active" ColumnName="Active" />
+          <ScalarProperty Name="GradeNum" ColumnName="GradeNum" />
+          <ScalarProperty Name="JobDescr" ColumnName="JobDescr" />
+          <ScalarProperty Name="JobCode" ColumnName="JobCode" />
+          <ScalarProperty Name="JobNum" ColumnName="JobNum" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="JobStatus">
+      <EntityTypeMapping TypeName="LaserbeamEntities.JobStatu">
+        <MappingFragment StoreEntitySet="JobStatus">
+          <ScalarProperty Name="Active" ColumnName="Active" />
+          <ScalarProperty Name="JobStatusDescr" ColumnName="JobStatusDescr" />
+          <ScalarProperty Name="JobStatusCode" ColumnName="JobStatusCode" />
+          <ScalarProperty Name="JobStatusNum" ColumnName="JobStatusNum" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Locations">
+      <EntityTypeMapping TypeName="LaserbeamEntities.Location">
+        <MappingFragment StoreEntitySet="Location">
+          <ScalarProperty Name="Active" ColumnName="Active" />
+          <ScalarProperty Name="LocationCode" ColumnName="LocationCode" />
+          <ScalarProperty Name="CountryNum" ColumnName="CountryNum" />
+          <ScalarProperty Name="Location1" ColumnName="Location" />
+          <ScalarProperty Name="LocationNum" ColumnName="LocationNum" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MetaColumns">
+      <EntityTypeMapping TypeName="LaserbeamEntities.MetaColumn">
+        <MappingFragment StoreEntitySet="MetaColumn">
+          <ScalarProperty Name="RuleConfigurationKeyGroup" ColumnName="RuleConfigurationKeyGroup" />
+          <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+          <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+          <ScalarProperty Name="FieldInformation" ColumnName="FieldInformation" />
+          <ScalarProperty Name="ControlFormat" ColumnName="ControlFormat" />
+          <ScalarProperty Name="PlaceHolder" ColumnName="PlaceHolder" />
+          <ScalarProperty Name="ControlType" ColumnName="ControlType" />
+          <ScalarProperty Name="TemplateRowOrder" ColumnName="TemplateRowOrder" />
+          <ScalarProperty Name="RowOrder" ColumnName="RowOrder" />
+          <ScalarProperty Name="FieldDescription" ColumnName="FieldDescription" />
+          <ScalarProperty Name="DataFormat" ColumnName="DataFormat" />
+          <ScalarProperty Name="DataLength" ColumnName="DataLength" />
+          <ScalarProperty Name="SampleData" ColumnName="SampleData" />
+          <ScalarProperty Name="TableKeyColumnName" ColumnName="TableKeyColumnName" />
+          <ScalarProperty Name="TableName" ColumnName="TableName" />
+          <ScalarProperty Name="FunctionalGroup" ColumnName="FunctionalGroup" />
+          <ScalarProperty Name="IsTemplateDefaultValue" ColumnName="IsTemplateDefaultValue" />
+          <ScalarProperty Name="IsMandateDefaultValue" ColumnName="IsMandateDefaultValue" />
+          <ScalarProperty Name="TemplateDisplayDefaultValue" ColumnName="TemplateDisplayDefaultValue" />
+          <ScalarProperty Name="ExportDisplayDefaultValue" ColumnName="ExportDisplayDefaultValue" />
+          <ScalarProperty Name="FilterDisplayDefaultValue" ColumnName="FilterDisplayDefaultValue" />
+          <ScalarProperty Name="GridDisplayDefaultValue" ColumnName="GridDisplayDefaultValue" />
+          <ScalarProperty Name="PopupDisplayDefaultValue" ColumnName="PopupDisplayDefaultValue" />
+          <ScalarProperty Name="IsTemplate" ColumnName="IsTemplate" />
+          <ScalarProperty Name="IsMandate" ColumnName="IsMandate" />
+          <ScalarProperty Name="TemplateDisplay" ColumnName="TemplateDisplay" />
+          <ScalarProperty Name="ExportDisplay" ColumnName="ExportDisplay" />
+          <ScalarProperty Name="FilterDisplay" ColumnName="FilterDisplay" />
+          <ScalarProperty Name="GridDisplay" ColumnName="GridDisplay" />
+          <ScalarProperty Name="PopupDisplay" ColumnName="PopupDisplay" />
+          <ScalarProperty Name="MasterDisplay" ColumnName="MasterDisplay" />
+          <ScalarProperty Name="TemplateAliasName" ColumnName="TemplateAliasName" />
+          <ScalarProperty Name="GeneralAliasName" ColumnName="GeneralAliasName" />
+          <ScalarProperty Name="ActualColumnName" ColumnName="ActualColumnName" />
+          <ScalarProperty Name="FieldName" ColumnName="FieldName" />
+          <ScalarProperty Name="MetaColumnID" ColumnName="MetaColumnID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MetaTables">
+      <EntityTypeMapping TypeName="LaserbeamEntities.MetaTable">
+        <MappingFragment StoreEntitySet="MetaTable">
+          <ScalarProperty Name="Active" ColumnName="Active" />
+          <ScalarProperty Name="MetaTableName" ColumnName="MetaTableName" />
+          <ScalarProperty Name="MetaTableID" ColumnName="MetaTableID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MetaXmlTemplates">
+      <EntityTypeMapping TypeName="LaserbeamEntities.MetaXmlTemplate">
+        <MappingFragment StoreEntitySet="MetaXmlTemplate">
+          <ScalarProperty Name="TableName" ColumnName="TableName" />
+          <ScalarProperty Name="ExecutionOrder" ColumnName="ExecutionOrder" />
+          <ScalarProperty Name="Active" ColumnName="Active" />
+          <ScalarProperty Name="TemplateDownloadpath" ColumnName="TemplateDownloadpath" />
+          <ScalarProperty Name="TemplateXMLpath" ColumnName="TemplateXMLpath" />
+          <ScalarProperty Name="TemplateSchemaPath" ColumnName="TemplateSchemaPath" />
+          <ScalarProperty Name="TemplateFileName" ColumnName="TemplateFileName" />
+          <ScalarProperty Name="TemplateTableName" ColumnName="TemplateTableName" />
+          <ScalarProperty Name="TemplateSchemaName" ColumnName="TemplateSchemaName" />
+          <ScalarProperty Name="TemplateName" ColumnName="TemplateName" />
+          <ScalarProperty Name="MetaXmlTemplateNum" ColumnName="MetaXmlTemplateNum" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Modules">
+      <EntityTypeMapping TypeName="LaserbeamEntities.Module">
+        <MappingFragment StoreEntitySet="Module">
+          <ScalarProperty Name="Active" ColumnName="Active" />
+          <ScalarProperty Name="IsWorkflow" ColumnName="IsWorkflow" />
+          <ScalarProperty Name="ModuleKey" ColumnName="ModuleKey" />
+          <ScalarProperty Name="ModuleName" ColumnName="ModuleName" />
+          <ScalarProperty Name="ModuleNum" ColumnName="ModuleNum" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Operators">
+      <EntityTypeMapping TypeName="LaserbeamEntities.Operator">
+        <MappingFragment StoreEntitySet="Operator">
+          <ScalarProperty Name="OperatorValue" ColumnName="OperatorValue" />
+          <ScalarProperty Name="OperatorText" ColumnName="OperatorText" />
+          <ScalarProperty Name="OperatorNum" ColumnName="OperatorNum" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="OrgGroupCriterias">
+      <EntityTypeMapping TypeName="LaserbeamEntities.OrgGroupCriteria">
+        <MappingFragment StoreEntitySet="OrgGroupCriteria">
+          <ScalarProperty Name="Active" ColumnName="Active" />
+          <ScalarProperty Name="CriteriaOrderBy" ColumnName="CriteriaOrderBy" />
+          <ScalarProperty Name="CriteriaName" ColumnName="CriteriaName" />
+          <ScalarProperty Name="OrgGroupCriteriaID" ColumnName="OrgGroupCriteriaID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PayGroups">
+      <EntityTypeMapping TypeName="LaserbeamEntities.PayGroup">
+        <MappingFragment StoreEntitySet="PayGroup">
+          <ScalarProperty Name="Active" ColumnName="Active" />
+          <ScalarProperty Name="PayGroupDescr" ColumnName="PayGroupDescr" />
+          <ScalarProperty Name="PayGroupCode" ColumnName="PayGroupCode" />
+          <ScalarProperty Name="PayGroupNum" ColumnName="PayGroupNum" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Programs">
+      <EntityTypeMapping TypeName="LaserbeamEntities.Program">
+        <MappingFragment StoreEntitySet="Program">
+          <ScalarProperty Name="Active" ColumnName="Active" />
+          <ScalarProperty Name="ProgramDescr" ColumnName="ProgramDescr" />
+          <ScalarProperty Name="ProgramCode" ColumnName="ProgramCode" />
+          <ScalarProperty Name="ProgramNum" ColumnName="ProgramNum" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Ratings">
+      <EntityTypeMapping TypeName="LaserbeamEntities.Rating">
+        <MappingFragment StoreEntitySet="Rating">
+          <ScalarProperty Name="RatingRange" ColumnName="RatingRange" />
+          <ScalarProperty Name="MaxRange" ColumnName="MaxRange" />
+          <ScalarProperty Name="MinRange" ColumnName="MinRange" />
+          <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+          <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+          <ScalarProperty Name="RatingOrder" ColumnName="RatingOrder" />
+          <ScalarProperty Name="LowRange" ColumnName="LowRange" />
+          <ScalarProperty Name="HighRange" ColumnName="HighRange" />
+          <ScalarProperty Name="RatingDetailDescr" ColumnName="RatingDetailDescr" />
+          <ScalarProperty Name="IsCommentMandatory" ColumnName="IsCommentMandatory" />
+          <ScalarProperty Name="RatingType" ColumnName="RatingType" />
+          <ScalarProperty Name="RatingDescr" ColumnName="RatingDescr" />
+          <ScalarProperty Name="RatingID" ColumnName="RatingID" />
+          <ScalarProperty Name="RatingNum" ColumnName="RatingNum" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ReviewTypes">
+      <EntityTypeMapping TypeName="LaserbeamEntities.ReviewType">
+        <MappingFragment StoreEntitySet="ReviewType">
+          <ScalarProperty Name="ReviewTypeDescr" ColumnName="ReviewTypeDescr" />
+          <ScalarProperty Name="ReviewTypeNum" ColumnName="ReviewTypeNum" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="RoundingTypes">
+      <EntityTypeMapping TypeName="LaserbeamEntities.RoundingType">
+        <MappingFragment StoreEntitySet="RoundingType">
+          <ScalarProperty Name="Active" ColumnName="Active" />
+          <ScalarProperty Name="RoundTypeValue" ColumnName="RoundTypeValue" />
+          <ScalarProperty Name="RoundTypeKey" ColumnName="RoundTypeKey" />
+          <ScalarProperty Name="RoundingTypeId" ColumnName="RoundingTypeId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="States">
+      <EntityTypeMapping TypeName="LaserbeamEntities.State">
+        <MappingFragment StoreEntitySet="State">
+          <ScalarProperty Name="StateName" ColumnName="StateName" />
+          <ScalarProperty Name="CountryNum" ColumnName="CountryNum" />
+          <ScalarProperty Name="StateNum" ColumnName="StateNum" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SubFamilies">
+      <EntityTypeMapping TypeName="LaserbeamEntities.SubFamily">
+        <MappingFragment StoreEntitySet="SubFamily">
+          <ScalarProperty Name="Active" ColumnName="Active" />
+          <ScalarProperty Name="SubFamilyDescr" ColumnName="SubFamilyDescr" />
+          <ScalarProperty Name="SubFamilyCode" ColumnName="SubFamilyCode" />
+          <ScalarProperty Name="SubFamilyNum" ColumnName="SubFamilyNum" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SubStatus">
+      <EntityTypeMapping TypeName="LaserbeamEntities.SubStatu">
+        <MappingFragment StoreEntitySet="SubStatus">
+          <ScalarProperty Name="Active" ColumnName="Active" />
+          <ScalarProperty Name="SubStatusDescr" ColumnName="SubStatusDescr" />
+          <ScalarProperty Name="SubStatusCode" ColumnName="SubStatusCode" />
+          <ScalarProperty Name="SubStatusNum" ColumnName="SubStatusNum" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UserAppUrlTrackers">
+      <EntityTypeMapping TypeName="LaserbeamEntities.UserAppUrlTracker">
+        <MappingFragment StoreEntitySet="UserAppUrlTracker">
+          <ScalarProperty Name="IsEncrypted" ColumnName="IsEncrypted" />
+          <ScalarProperty Name="SiteUrl" ColumnName="SiteUrl" />
+          <ScalarProperty Name="EncryptedMagicKey" ColumnName="EncryptedMagicKey" />
+          <ScalarProperty Name="RequestTimeStamp" ColumnName="RequestTimeStamp" />
+          <ScalarProperty Name="SecretKey" ColumnName="SecretKey" />
+          <ScalarProperty Name="ClientUserID" ColumnName="ClientUserID" />
+          <ScalarProperty Name="UserAppUrlTrackerID" ColumnName="UserAppUrlTrackerID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UserQueries">
+      <EntityTypeMapping TypeName="LaserbeamEntities.UserQuery">
+        <MappingFragment StoreEntitySet="UserQuery">
+          <ScalarProperty Name="UserNum" ColumnName="UserNum" />
+          <ScalarProperty Name="SavedQuery" ColumnName="SavedQuery" />
+          <ScalarProperty Name="UserQueryName" ColumnName="UserQueryName" />
+          <ScalarProperty Name="UserQueryNum" ColumnName="UserQueryNum" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="XmlProcesses">
+      <EntityTypeMapping TypeName="LaserbeamEntities.XmlProcess">
+        <MappingFragment StoreEntitySet="XmlProcess">
+          <ScalarProperty Name="MetaXmlTemplateNum" ColumnName="MetaXmlTemplateNum" />
+          <ScalarProperty Name="RecordCount" ColumnName="RecordCount" />
+          <ScalarProperty Name="ProcessStatus" ColumnName="ProcessStatus" />
+          <ScalarProperty Name="ValidateStatus" ColumnName="ValidateStatus" />
+          <ScalarProperty Name="FileSourcePath" ColumnName="FileSourcePath" />
+          <ScalarProperty Name="SheetName" ColumnName="SheetName" />
+          <ScalarProperty Name="XmlFilename" ColumnName="XmlFilename" />
+          <ScalarProperty Name="ProcessDate" ColumnName="ProcessDate" />
+          <ScalarProperty Name="UserNum" ColumnName="UserNum" />
+          <ScalarProperty Name="XmlProcessNum" ColumnName="XmlProcessNum" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AppUsers">
+      <EntityTypeMapping TypeName="LaserbeamEntities.AppUser">
+        <MappingFragment StoreEntitySet="AppUser">
+          <ScalarProperty Name="AdminEmpNum" ColumnName="AdminEmpNum" />
+          <ScalarProperty Name="AdminUserNum" ColumnName="AdminUserNum" />
+          <ScalarProperty Name="IsAdminAccess" ColumnName="IsAdminAccess" />
+          <ScalarProperty Name="IsLoggedIn" ColumnName="IsLoggedIn" />
+          <ScalarProperty Name="ChatStatus" ColumnName="ChatStatus" />
+          <ScalarProperty Name="IsDefaultUser" ColumnName="IsDefaultUser" />
+          <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+          <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+          <ScalarProperty Name="WizardStepsCompleted" ColumnName="WizardStepsCompleted" />
+          <ScalarProperty Name="IsWizardExpired" ColumnName="IsWizardExpired" />
+          <ScalarProperty Name="MailDeliveryDate" ColumnName="MailDeliveryDate" />
+          <ScalarProperty Name="MailDeliveryStatus" ColumnName="MailDeliveryStatus" />
+          <ScalarProperty Name="LockedDate" ColumnName="LockedDate" />
+          <ScalarProperty Name="MarkAsDelete" ColumnName="MarkAsDelete" />
+          <ScalarProperty Name="SecretKey" ColumnName="SecretKey" />
+          <ScalarProperty Name="DefaultPasswordExpired" ColumnName="DefaultPasswordExpired" />
+          <ScalarProperty Name="ApplicationSessionID" ColumnName="ApplicationSessionID" />
+          <ScalarProperty Name="SSOLastLogOutDate" ColumnName="SSOLastLogOutDate" />
+          <ScalarProperty Name="SSOLastLoginDate" ColumnName="SSOLastLoginDate" />
+          <ScalarProperty Name="XMLProcessID" ColumnName="XMLProcessID" />
+          <ScalarProperty Name="AppUserStatusID" ColumnName="AppUserStatusID" />
+          <ScalarProperty Name="LastLogOutDt" ColumnName="LastLogOutDt" />
+          <ScalarProperty Name="LastLoginDt" ColumnName="LastLoginDt" />
+          <ScalarProperty Name="FailedLoginAttempts" ColumnName="FailedLoginAttempts" />
+          <ScalarProperty Name="UserRoleNum" ColumnName="UserRoleNum" />
+          <ScalarProperty Name="UserGroup" ColumnName="UserGroup" />
+          <ScalarProperty Name="ProxyID" ColumnName="ProxyID" />
+          <ScalarProperty Name="EmailID" ColumnName="EmailID" />
+          <ScalarProperty Name="DefaultPassword" ColumnName="DefaultPassword" />
+          <ScalarProperty Name="UserPassword" ColumnName="UserPassword" />
+          <ScalarProperty Name="PreferredName" ColumnName="PreferredName" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="LoginID" ColumnName="LoginID" />
+          <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="EmployeeNum" ColumnName="EmployeeNum" />
+          <ScalarProperty Name="UserNum" ColumnName="UserNum" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Budgets">
+      <EntityTypeMapping TypeName="LaserbeamEntities.Budget">
+        <MappingFragment StoreEntitySet="Budget">
+          <ScalarProperty Name="AdjustedBudgetPct" ColumnName="AdjustedBudgetPct" />
+          <ScalarProperty Name="AdjustedBudget" ColumnName="AdjustedBudget" />
+          <ScalarProperty Name="BudgetProration" ColumnName="BudgetProration" />
+          <ScalarProperty Name="ProratedBudgetPct" ColumnName="ProratedBudgetPct" />
+          <ScalarProperty Name="ProratedBudget" ColumnName="ProratedBudget" />
+          <ScalarProperty Name="BudgetPct" ColumnName="BudgetPct" />
+          <ScalarProperty Name="BonusSpent" ColumnName="BonusSpent" />
+          <ScalarProperty Name="BonusBudget" ColumnName="BonusBudget" />
+          <ScalarProperty Name="LumpSumSpent" ColumnName="LumpSumSpent" />
+          <ScalarProperty Name="AdjustmentSpent" ColumnName="AdjustmentSpent" />
+          <ScalarProperty Name="PromotionSpent" ColumnName="PromotionSpent" />
+          <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+          <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+          <ScalarProperty Name="LTIPSpent" ColumnName="LTIPSpent" />
+          <ScalarProperty Name="LTIPBudget" ColumnName="LTIPBudget" />
+          <ScalarProperty Name="Spent" ColumnName="Spent" />
+          <ScalarProperty Name="Budget1" ColumnName="Budget" />
+          <ScalarProperty Name="CompensationTypeNum" ColumnName="CompensationTypeNum" />
+          <ScalarProperty Name="EmpJobNum" ColumnName="EmpJobNum" />
+          <ScalarProperty Name="BudgetNum" ColumnName="BudgetNum" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DailyTasks">
+      <EntityTypeMapping TypeName="LaserbeamEntities.DailyTask">
+        <MappingFragment StoreEntitySet="DailyTask">
+          <ScalarProperty Name="TaskCompletedDate" ColumnName="TaskCompletedDate" />
+          <ScalarProperty Name="TaskCompleted" ColumnName="TaskCompleted" />
+          <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+          <ScalarProperty Name="Active" ColumnName="Active" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="TaskDescr" ColumnName="TaskDescr" />
+          <ScalarProperty Name="TaskTitle" ColumnName="TaskTitle" />
+          <ScalarProperty Name="UserNum" ColumnName="UserNum" />
+          <ScalarProperty Name="TaskNum" ColumnName="TaskNum" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Employees">
+      <EntityTypeMapping TypeName="LaserbeamEntities.Employee">
+        <MappingFragment StoreEntitySet="Employee">
+          <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+          <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+          <ScalarProperty Name="TerminationDate" ColumnName="TerminationDate" />
+          <ScalarProperty Name="SortOrderEmployeeName" ColumnName="SortOrderEmployeeName" />
+          <ScalarProperty Name="Age" ColumnName="Age" />
+          <ScalarProperty Name="Ethnicity" ColumnName="Ethnicity" />
+          <ScalarProperty Name="Gender" ColumnName="Gender" />
+          <ScalarProperty Name="BasicPH" ColumnName="BasicPH" />
+          <ScalarProperty Name="EmailAddress" ColumnName="EmailAddress" />
+          <ScalarProperty Name="HireDate" ColumnName="HireDate" />
+          <ScalarProperty Name="DateofBirth" ColumnName="DateofBirth" />
+          <ScalarProperty Name="PreferredName" ColumnName="PreferredName" />
+          <ScalarProperty Name="MiddleInitial" ColumnName="MiddleInitial" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="EmployeeName" ColumnName="EmployeeName" />
+          <ScalarProperty Name="MyHRID" ColumnName="MyHRID" />
+          <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+          <ScalarProperty Name="EmployeeNum" ColumnName="EmployeeNum" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="EmployeeApprovalDetails">
+      <EntityTypeMapping TypeName="LaserbeamEntities.EmployeeApprovalDetail">
+        <MappingFragment StoreEntitySet="EmployeeApprovalDetails">
+          <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+          <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+          <ScalarProperty Name="ModuleNum" ColumnName="ModuleNum" />
+          <ScalarProperty Name="Comments" ColumnName="Comments" />
+          <ScalarProperty Name="ApprovalStatus" ColumnName="ApprovalStatus" />
+          <ScalarProperty Name="ApprovedLevel" ColumnName="ApprovedLevel" />
+          <ScalarProperty Name="ApprovedManager" ColumnName="ApprovedManager" />
+          <ScalarProperty Name="EmpJobNum" ColumnName="EmpJobNum" />
+          <ScalarProperty Name="EmployeeApprovalDetailNum" ColumnName="EmployeeApprovalDetailNum" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="EmployeeCompAdjustments">
+      <EntityTypeMapping TypeName="LaserbeamEntities.EmployeeCompAdjustment">
+        <MappingFragment StoreEntitySet="EmployeeCompAdjustment">
+          <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+          <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+          <ScalarProperty Name="Eligibility" ColumnName="Eligibility" />
+          <ScalarProperty Name="AdjustmentPH" ColumnName="AdjustmentPH" />
+          <ScalarProperty Name="EffectiveDate" ColumnName="EffectiveDate" />
+          <ScalarProperty Name="HrlyAdjustmentAmt" ColumnName="HrlyAdjustmentAmt" />
+          <ScalarProperty Name="AdjustmentAmt" ColumnName="AdjustmentAmt" />
+          <ScalarProperty Name="AdjustmentPct" ColumnName="AdjustmentPct" />
+          <ScalarProperty Name="AdjustmentRange" ColumnName="AdjustmentRange" />
+          <ScalarProperty Name="EmpJobNum" ColumnName="EmpJobNum" />
+          <ScalarProperty Name="EmployeeCompAdjustmentNum" ColumnName="EmployeeCompAdjustmentNum" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="EmployeeCompApprovalComments">
+      <EntityTypeMapping TypeName="LaserbeamEntities.EmployeeCompApprovalComment">
+        <MappingFragment StoreEntitySet="EmployeeCompApprovalComment">
+          <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+          <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+          <ScalarProperty Name="Comments" ColumnName="Comments" />
+          <ScalarProperty Name="EmpJobNum" ColumnName="EmpJobNum" />
+          <ScalarProperty Name="EmployeeCompApprovalCommentsNum" ColumnName="EmployeeCompApprovalCommentsNum" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="EmployeeCompApprovalLevels">
+      <EntityTypeMapping TypeName="LaserbeamEntities.EmployeeCompApprovalLevel">
+        <MappingFragment StoreEntitySet="EmployeeCompApprovalLevel">
+          <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+          <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+          <ScalarProperty Name="ModuleNum" ColumnName="ModuleNum" />
+          <ScalarProperty Name="AppMgrTenEmpNum" ColumnName="AppMgrTenEmpNum" />
+          <ScalarProperty Name="AppMgrNineEmpNum" ColumnName="AppMgrNineEmpNum" />
+          <ScalarProperty Name="AppMgrEightEmpNum" ColumnName="AppMgrEightEmpNum" />
+          <ScalarProperty Name="AppMgrSevenEmpNum" ColumnName="AppMgrSevenEmpNum" />
+          <ScalarProperty Name="AppMgrSixEmpNum" ColumnName="AppMgrSixEmpNum" />
+          <ScalarProperty Name="AppMgrFiveEmpNum" ColumnName="AppMgrFiveEmpNum" />
+          <ScalarProperty Name="AppMgrFourEmpNum" ColumnName="AppMgrFourEmpNum" />
+          <ScalarProperty Name="AppMgrThreeEmpNum" ColumnName="AppMgrThreeEmpNum" />
+          <ScalarProperty Name="AppMgrTwoEmpNum" ColumnName="AppMgrTwoEmpNum" />
+          <ScalarProperty Name="AppMgrOneEmpNum" ColumnName="AppMgrOneEmpNum" />
+          <ScalarProperty Name="EmpJobNum" ColumnName="EmpJobNum" />
+          <ScalarProperty Name="EmployeeCompApprovalLevelNum" ColumnName="EmployeeCompApprovalLevelNum" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="EmployeeCompApprovalRequests">
+      <EntityTypeMapping TypeName="LaserbeamEntities.EmployeeCompApprovalRequest">
+        <MappingFragment StoreEntitySet="EmployeeCompApprovalRequests">
+          <ScalarProperty Name="UserNum" ColumnName="UserNum" />
+          <ScalarProperty Name="EmpJobNum" ColumnName="EmpJobNum" />
+          <ScalarProperty Name="EmployeeCompApprovalRequestNum" ColumnName="EmployeeCompApprovalRequestNum" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="EmployeeCompApprovalStatus">
+      <EntityTypeMapping TypeName="LaserbeamEntities.EmployeeCompApprovalStatu">
+        <MappingFragment StoreEntitySet="EmployeeCompApprovalStatus">
+          <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+          <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+          <ScalarProperty Name="TopMgrLevel" ColumnName="TopMgrLevel" />
+          <ScalarProperty Name="TopLevelMgrNum" ColumnName="TopLevelMgrNum" />
+          <ScalarProperty Name="FirstLevelMgrNum" ColumnName="FirstLevelMgrNum" />
+          <ScalarProperty Name="NextApproverLevel" ColumnName="NextApproverLevel" />
+          <ScalarProperty Name="NextLevelMgrNum" ColumnName="NextLevelMgrNum" />
+          <ScalarProperty Name="PreviousApprovedMgrLevel" ColumnName="PreviousApprovedMgrLevel" />
+          <ScalarProperty Name="PreviousLevelMgrNum" ColumnName="PreviousLevelMgrNum" />
+          <ScalarProperty Name="CurrentApprovedMgrLevel" ColumnName="CurrentApprovedMgrLevel" />
+          <ScalarProperty Name="CurrentApprovedMgrNum" ColumnName="CurrentApprovedMgrNum" />
+          <ScalarProperty Name="CurrentApprovalStatus" ColumnName="CurrentApprovalStatus" />
+          <ScalarProperty Name="EmpJobNum" ColumnName="EmpJobNum" />
+          <ScalarProperty Name="EmployeeCompApprovalStatusNum" ColumnName="EmployeeCompApprovalStatusNum" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="EmployeeCompComments">
+      <EntityTypeMapping TypeName="LaserbeamEntities.EmployeeCompComment">
+        <MappingFragment StoreEntitySet="EmployeeCompComment">
+          <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+          <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="Comments" ColumnName="Comments" />
+          <ScalarProperty Name="CompensationTypeNum" ColumnName="CompensationTypeNum" />
+          <ScalarProperty Name="EmpJobNum" ColumnName="EmpJobNum" />
+          <ScalarProperty Name="EmployeeCompCommentsNum" ColumnName="EmployeeCompCommentsNum" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="EmployeeCompCommentStatus">
+      <EntityTypeMapping TypeName="LaserbeamEntities.EmployeeCompCommentStatu">
+        <MappingFragment StoreEntitySet="EmployeeCompCommentStatus">
+          <ScalarProperty Name="UserNum" ColumnName="UserNum" />
+          <ScalarProperty Name="CommentNum" ColumnName="CommentNum" />
+          <ScalarProperty Name="EmployeeCompCommentStatusId" ColumnName="EmployeeCompCommentStatusId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="EmployeeCompMarkets">
+      <EntityTypeMapping TypeName="LaserbeamEntities.EmployeeCompMarket">
+        <MappingFragment StoreEntitySet="EmployeeCompMarket">
+          <ScalarProperty Name="HrlyNewMktMax" ColumnName="HrlyNewMktMax" />
+          <ScalarProperty Name="HrlyNewMktMid" ColumnName="HrlyNewMktMid" />
+          <ScalarProperty Name="HrlyNewMktMin" ColumnName="HrlyNewMktMin" />
+          <ScalarProperty Name="NewMktMax" ColumnName="NewMktMax" />
+          <ScalarProperty Name="NewMktMid" ColumnName="NewMktMid" />
+          <ScalarProperty Name="NewMktMin" ColumnName="NewMktMin" />
+          <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+          <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+          <ScalarProperty Name="HrlyMktMax" ColumnName="HrlyMktMax" />
+          <ScalarProperty Name="HrlyMktMid" ColumnName="HrlyMktMid" />
+          <ScalarProperty Name="HrlyMktMin" ColumnName="HrlyMktMin" />
+          <ScalarProperty Name="HrlyMktQ5" ColumnName="HrlyMktQ5" />
+          <ScalarProperty Name="HrlyMktQ4" ColumnName="HrlyMktQ4" />
+          <ScalarProperty Name="HrlyMktQ3" ColumnName="HrlyMktQ3" />
+          <ScalarProperty Name="HrlyMktQ2" ColumnName="HrlyMktQ2" />
+          <ScalarProperty Name="HrlyMktQ1" ColumnName="HrlyMktQ1" />
+          <ScalarProperty Name="MktMax" ColumnName="MktMax" />
+          <ScalarProperty Name="MktMid" ColumnName="MktMid" />
+          <ScalarProperty Name="MktMin" ColumnName="MktMin" />
+          <ScalarProperty Name="MktQ5" ColumnName="MktQ5" />
+          <ScalarProperty Name="MktQ4" ColumnName="MktQ4" />
+          <ScalarProperty Name="MktQ3" ColumnName="MktQ3" />
+          <ScalarProperty Name="MktQ2" ColumnName="MktQ2" />
+          <ScalarProperty Name="MktQ1" ColumnName="MktQ1" />
+          <ScalarProperty Name="EmpJobNum" ColumnName="EmpJobNum" />
+          <ScalarProperty Name="EmployeeCompMarketNum" ColumnName="EmployeeCompMarketNum" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="EmployeeCompMerits">
+      <EntityTypeMapping TypeName="LaserbeamEntities.EmployeeCompMerit">
+        <MappingFragment StoreEntitySet="EmployeeCompMerit">
+          <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+          <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+          <ScalarProperty Name="FTE" ColumnName="FTE" />
+          <ScalarProperty Name="LumpSumEffectiveDate" ColumnName="LumpSumEffectiveDate" />
+          <ScalarProperty Name="MeritProrationDate" ColumnName="MeritProrationDate" />
+          <ScalarProperty Name="LastPayChangeReason" ColumnName="LastPayChangeReason" />
+          <ScalarProperty Name="MandatoryIncrease" ColumnName="MandatoryIncrease" />
+          <ScalarProperty Name="CurrentAnnualizedSalary" ColumnName="CurrentAnnualizedSalary" />
+          <ScalarProperty Name="TotalWorkHrs" ColumnName="TotalWorkHrs" />
+          <ScalarProperty Name="LastIncrDate" ColumnName="LastIncrDate" />
+          <ScalarProperty Name="IncrType" ColumnName="IncrType" />
+          <ScalarProperty Name="ProRatedAmt" ColumnName="ProRatedAmt" />
+          <ScalarProperty Name="ProRation" ColumnName="ProRation" />
+          <ScalarProperty Name="ProRatedPCT" ColumnName="ProRatedPCT" />
+          <ScalarProperty Name="MeritRangeExceed" ColumnName="MeritRangeExceed" />
+          <ScalarProperty Name="Eligibility" ColumnName="Eligibility" />
+          <ScalarProperty Name="MeritPH" ColumnName="MeritPH" />
+          <ScalarProperty Name="EffectiveDate" ColumnName="EffectiveDate" />
+          <ScalarProperty Name="HrlyLumpSumAmt" ColumnName="HrlyLumpSumAmt" />
+          <ScalarProperty Name="LumpSumPCT" ColumnName="LumpSumPCT" />
+          <ScalarProperty Name="LumpSumAmt" ColumnName="LumpSumAmt" />
+          <ScalarProperty Name="HrlyMeritAmt" ColumnName="HrlyMeritAmt" />
+          <ScalarProperty Name="MeritAmt" ColumnName="MeritAmt" />
+          <ScalarProperty Name="MeritPCT" ColumnName="MeritPCT" />
+          <ScalarProperty Name="TargetMeritAmt" ColumnName="TargetMeritAmt" />
+          <ScalarProperty Name="TargetMeritPct" ColumnName="TargetMeritPct" />
+          <ScalarProperty Name="MeritRange" ColumnName="MeritRange" />
+          <ScalarProperty Name="ActualWorkHrs" ColumnName="ActualWorkHrs" />
+          <ScalarProperty Name="HrlySalary" ColumnName="HrlySalary" />
+          <ScalarProperty Name="CurrentAnnualSalary" ColumnName="CurrentAnnualSalary" />
+          <ScalarProperty Name="EmployeeQuartile" ColumnName="EmployeeQuartile" />
+          <ScalarProperty Name="PositionInQuartile" ColumnName="PositionInQuartile" />
+          <ScalarProperty Name="CompaRatio" ColumnName="CompaRatio" />
+          <ScalarProperty Name="EmpJobNum" ColumnName="EmpJobNum" />
+          <ScalarProperty Name="EmployeeCompMeritNum" ColumnName="EmployeeCompMeritNum" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="EmployeeCompNews">
+      <EntityTypeMapping TypeName="LaserbeamEntities.EmployeeCompNew">
+        <MappingFragment StoreEntitySet="EmployeeCompNew">
+          <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+          <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+          <ScalarProperty Name="ExceedCommentProvided" ColumnName="ExceedCommentProvided" />
+          <ScalarProperty Name="CompCompleted" ColumnName="CompCompleted" />
+          <ScalarProperty Name="SalaryReasonCode" ColumnName="SalaryReasonCode" />
+          <ScalarProperty Name="TotalNewComp" ColumnName="TotalNewComp" />
+          <ScalarProperty Name="NewQuartile" ColumnName="NewQuartile" />
+          <ScalarProperty Name="NewCompaRatio" ColumnName="NewCompaRatio" />
+          <ScalarProperty Name="HrlyNewSalary" ColumnName="HrlyNewSalary" />
+          <ScalarProperty Name="SalaryEffectiveDate" ColumnName="SalaryEffectiveDate" />
+          <ScalarProperty Name="NewSalary" ColumnName="NewSalary" />
+          <ScalarProperty Name="EmpJobNum" ColumnName="EmpJobNum" />
+          <ScalarProperty Name="EmployeeCompNewNum" ColumnName="EmployeeCompNewNum" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="EmployeeCompPromotions">
+      <EntityTypeMapping TypeName="LaserbeamEntities.EmployeeCompPromotion">
+        <MappingFragment StoreEntitySet="EmployeeCompPromotion">
+          <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+          <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+          <ScalarProperty Name="LastPromotionDate" ColumnName="LastPromotionDate" />
+          <ScalarProperty Name="NewGrade" ColumnName="NewGrade" />
+          <ScalarProperty Name="PromotionRequest" ColumnName="PromotionRequest" />
+          <ScalarProperty Name="Eligibility" ColumnName="Eligibility" />
+          <ScalarProperty Name="PromotionPH" ColumnName="PromotionPH" />
+          <ScalarProperty Name="NewJobNum" ColumnName="NewJobNum" />
+          <ScalarProperty Name="EffectiveDate" ColumnName="EffectiveDate" />
+          <ScalarProperty Name="HrlyPromotionAmt" ColumnName="HrlyPromotionAmt" />
+          <ScalarProperty Name="PromotionAmt" ColumnName="PromotionAmt" />
+          <ScalarProperty Name="PromotionPct" ColumnName="PromotionPct" />
+          <ScalarProperty Name="PromotionRange" ColumnName="PromotionRange" />
+          <ScalarProperty Name="EmpJobNum" ColumnName="EmpJobNum" />
+          <ScalarProperty Name="EmployeeCompPromotionNum" ColumnName="EmployeeCompPromotionNum" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="EmployeeCompRatings">
+      <EntityTypeMapping TypeName="LaserbeamEntities.EmployeeCompRating">
+        <MappingFragment StoreEntitySet="EmployeeCompRating">
+          <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+          <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+          <ScalarProperty Name="OtherPerformanceRating" ColumnName="OtherPerformanceRating" />
+          <ScalarProperty Name="BonusPerformanceRating" ColumnName="BonusPerformanceRating" />
+          <ScalarProperty Name="MeritPerformanceRating" ColumnName="MeritPerformanceRating" />
+          <ScalarProperty Name="EmpJobNum" ColumnName="EmpJobNum" />
+          <ScalarProperty Name="EmployeeCompRatingNum" ColumnName="EmployeeCompRatingNum" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="EmployeeDetailsCorrections">
+      <EntityTypeMapping TypeName="LaserbeamEntities.EmployeeDetailsCorrection">
+        <MappingFragment StoreEntitySet="EmployeeDetailsCorrection">
+          <ScalarProperty Name="UserNum" ColumnName="UserNum" />
+          <ScalarProperty Name="MoreInfo23" ColumnName="MoreInfo23" />
+          <ScalarProperty Name="MoreInfo22" ColumnName="MoreInfo22" />
+          <ScalarProperty Name="MoreInfo21" ColumnName="MoreInfo21" />
+          <ScalarProperty Name="MoreInfo20" ColumnName="MoreInfo20" />
+          <ScalarProperty Name="MoreInfo19" ColumnName="MoreInfo19" />
+          <ScalarProperty Name="MoreInfo18" ColumnName="MoreInfo18" />
+          <ScalarProperty Name="MoreInfo17" ColumnName="MoreInfo17" />
+          <ScalarProperty Name="MoreInfo16" ColumnName="MoreInfo16" />
+          <ScalarProperty Name="MoreInfo15" ColumnName="MoreInfo15" />
+          <ScalarProperty Name="MoreInfo14" ColumnName="MoreInfo14" />
+          <ScalarProperty Name="MoreInfo13" ColumnName="MoreInfo13" />
+          <ScalarProperty Name="MoreInfo12" ColumnName="MoreInfo12" />
+          <ScalarProperty Name="MoreInfo11" ColumnName="MoreInfo11" />
+          <ScalarProperty Name="MoreInfo10" ColumnName="MoreInfo10" />
+          <ScalarProperty Name="MoreInfo9" ColumnName="MoreInfo9" />
+          <ScalarProperty Name="MoreInfo8" ColumnName="MoreInfo8" />
+          <ScalarProperty Name="MoreInfo7" ColumnName="MoreInfo7" />
+          <ScalarProperty Name="MoreInfo6" ColumnName="MoreInfo6" />
+          <ScalarProperty Name="MoreInfo5" ColumnName="MoreInfo5" />
+          <ScalarProperty Name="MoreInfo4" ColumnName="MoreInfo4" />
+          <ScalarProperty Name="MoreInfo3" ColumnName="MoreInfo3" />
+          <ScalarProperty Name="MoreInfo2" ColumnName="MoreInfo2" />
+          <ScalarProperty Name="MoreInfo1" ColumnName="MoreInfo1" />
+          <ScalarProperty Name="NewComparatio" ColumnName="NewComparatio" />
+          <ScalarProperty Name="Comparatio" ColumnName="Comparatio" />
+          <ScalarProperty Name="NewHourlyRate" ColumnName="NewHourlyRate" />
+          <ScalarProperty Name="NewSalary" ColumnName="NewSalary" />
+          <ScalarProperty Name="AdjustmentEffectiveDate" ColumnName="AdjustmentEffectiveDate" />
+          <ScalarProperty Name="AdjustmentAmount" ColumnName="AdjustmentAmount" />
+          <ScalarProperty Name="AdjustmentPct" ColumnName="AdjustmentPct" />
+          <ScalarProperty Name="AdjustmentEligible" ColumnName="AdjustmentEligible" />
+          <ScalarProperty Name="PromotionEffectiveDate" ColumnName="PromotionEffectiveDate" />
+          <ScalarProperty Name="LastPromotionDate" ColumnName="LastPromotionDate" />
+          <ScalarProperty Name="PromoteTo" ColumnName="PromoteTo" />
+          <ScalarProperty Name="PromotionAmount" ColumnName="PromotionAmount" />
+          <ScalarProperty Name="PromotionPct" ColumnName="PromotionPct" />
+          <ScalarProperty Name="PromotionEligible" ColumnName="PromotionEligible" />
+          <ScalarProperty Name="LumpsumEffectiveDate" ColumnName="LumpsumEffectiveDate" />
+          <ScalarProperty Name="LumpSumAmount" ColumnName="LumpSumAmount" />
+          <ScalarProperty Name="LumpSumPct" ColumnName="LumpSumPct" />
+          <ScalarProperty Name="MeritEffectiveDate" ColumnName="MeritEffectiveDate" />
+          <ScalarProperty Name="MeritIncreaseGuideline" ColumnName="MeritIncreaseGuideline" />
+          <ScalarProperty Name="MeritAmount" ColumnName="MeritAmount" />
+          <ScalarProperty Name="MeritPct" ColumnName="MeritPct" />
+          <ScalarProperty Name="MeritEligible" ColumnName="MeritEligible" />
+          <ScalarProperty Name="MeritPerformanceRating" ColumnName="MeritPerformanceRating" />
+          <ScalarProperty Name="MeritProrationFactor" ColumnName="MeritProrationFactor" />
+          <ScalarProperty Name="MeritProrationDate" ColumnName="MeritProrationDate" />
+          <ScalarProperty Name="SalaryMax" ColumnName="SalaryMax" />
+          <ScalarProperty Name="SalaryMid" ColumnName="SalaryMid" />
+          <ScalarProperty Name="SalaryMin" ColumnName="SalaryMin" />
+          <ScalarProperty Name="PayrollSource" ColumnName="PayrollSource" />
+          <ScalarProperty Name="CurrentAnnualSalary" ColumnName="CurrentAnnualSalary" />
+          <ScalarProperty Name="CurrentAnnualizedSalary" ColumnName="CurrentAnnualizedSalary" />
+          <ScalarProperty Name="CurrentHourlyRate" ColumnName="CurrentHourlyRate" />
+          <ScalarProperty Name="LastPayChangeReason" ColumnName="LastPayChangeReason" />
+          <ScalarProperty Name="LastPayChangeDate" ColumnName="LastPayChangeDate" />
+          <ScalarProperty Name="PayCurrency" ColumnName="PayCurrency" />
+          <ScalarProperty Name="EmailAddress" ColumnName="EmailAddress" />
+          <ScalarProperty Name="SupervisorID" ColumnName="SupervisorID" />
+          <ScalarProperty Name="TerminationDate" ColumnName="TerminationDate" />
+          <ScalarProperty Name="HireDate" ColumnName="HireDate" />
+          <ScalarProperty Name="WorkLocation" ColumnName="WorkLocation" />
+          <ScalarProperty Name="WorkCountry" ColumnName="WorkCountry" />
+          <ScalarProperty Name="TotalWorkHours" ColumnName="TotalWorkHours" />
+          <ScalarProperty Name="ActualWorkHours" ColumnName="ActualWorkHours" />
+          <ScalarProperty Name="FTE" ColumnName="FTE" />
+          <ScalarProperty Name="EmployeeStatus" ColumnName="EmployeeStatus" />
+          <ScalarProperty Name="FLSAStatus" ColumnName="FLSAStatus" />
+          <ScalarProperty Name="PayrollStatus" ColumnName="PayrollStatus" />
+          <ScalarProperty Name="EmployeeClass" ColumnName="EmployeeClass" />
+          <ScalarProperty Name="Department" ColumnName="Department" />
+          <ScalarProperty Name="Function" ColumnName="Function" />
+          <ScalarProperty Name="BusinessUnit" ColumnName="BusinessUnit" />
+          <ScalarProperty Name="CurrentGrade" ColumnName="CurrentGrade" />
+          <ScalarProperty Name="JobTitle" ColumnName="JobTitle" />
+          <ScalarProperty Name="JobCode" ColumnName="JobCode" />
+          <ScalarProperty Name="Gender" ColumnName="Gender" />
+          <ScalarProperty Name="PreferredName" ColumnName="PreferredName" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="MiddleName" ColumnName="MiddleName" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+          <ScalarProperty Name="EmployeeDataCorrectionNum" ColumnName="EmployeeDataCorrectionNum" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="EmployeeGroups">
+      <EntityTypeMapping TypeName="LaserbeamEntities.EmployeeGroup">
+        <MappingFragment StoreEntitySet="EmployeeGroup">
+          <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+          <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+          <ScalarProperty Name="EmployeeNum" ColumnName="EmployeeNum" />
+          <ScalarProperty Name="OrgGroupID" ColumnName="OrgGroupID" />
+          <ScalarProperty Name="EmployeeGroupID" ColumnName="EmployeeGroupID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="EmployeeGroupInclusionExclusions">
+      <EntityTypeMapping TypeName="LaserbeamEntities.EmployeeGroupInclusionExclusion">
+        <MappingFragment StoreEntitySet="EmployeeGroupInclusionExclusion">
+          <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+          <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+          <ScalarProperty Name="IsIncludedExcluded" ColumnName="IsIncludedExcluded" />
+          <ScalarProperty Name="EmployeeNum" ColumnName="EmployeeNum" />
+          <ScalarProperty Name="OrgGroupID" ColumnName="OrgGroupID" />
+          <ScalarProperty Name="GroupInclusionExclusionID" ColumnName="GroupInclusionExclusionID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="EmployeeInclusionAndExclusions">
+      <EntityTypeMapping TypeName="LaserbeamEntities.EmployeeInclusionAndExclusion">
+        <MappingFragment StoreEntitySet="EmployeeInclusionAndExclusion">
+          <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+          <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+          <ScalarProperty Name="GroupTypeNum" ColumnName="GroupTypeNum" />
+          <ScalarProperty Name="IsInclusion" ColumnName="IsInclusion" />
+          <ScalarProperty Name="EmployeeNum" ColumnName="EmployeeNum" />
+          <ScalarProperty Name="EmployeeInclusionAndExclusionNum" ColumnName="EmployeeInclusionAndExclusionNum" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="EmployeeJobs">
+      <EntityTypeMapping TypeName="LaserbeamEntities.EmployeeJob">
+        <MappingFragment StoreEntitySet="EmployeeJob">
+          <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+          <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+          <ScalarProperty Name="PayFrequency" ColumnName="PayFrequency" />
+          <ScalarProperty Name="FileNumber" ColumnName="FileNumber" />
+          <ScalarProperty Name="ClassNum" ColumnName="ClassNum" />
+          <ScalarProperty Name="ProgramNum" ColumnName="ProgramNum" />
+          <ScalarProperty Name="EmployeeType" ColumnName="EmployeeType" />
+          <ScalarProperty Name="EmployeeSubStatusNum" ColumnName="EmployeeSubStatusNum" />
+          <ScalarProperty Name="PayGroupNum" ColumnName="PayGroupNum" />
+          <ScalarProperty Name="DepartmentNum" ColumnName="DepartmentNum" />
+          <ScalarProperty Name="EntityCodeNum" ColumnName="EntityCodeNum" />
+          <ScalarProperty Name="CountryNum" ColumnName="CountryNum" />
+          <ScalarProperty Name="DivisionNum" ColumnName="DivisionNum" />
+          <ScalarProperty Name="BusinessUnitNum" ColumnName="BusinessUnitNum" />
+          <ScalarProperty Name="BonusTypeNum" ColumnName="BonusTypeNum" />
+          <ScalarProperty Name="GradeNum" ColumnName="GradeNum" />
+          <ScalarProperty Name="StateNum" ColumnName="StateNum" />
+          <ScalarProperty Name="LocationNum" ColumnName="LocationNum" />
+          <ScalarProperty Name="EmpFunction" ColumnName="EmpFunction" />
+          <ScalarProperty Name="ReviewTypeNum" ColumnName="ReviewTypeNum" />
+          <ScalarProperty Name="JobNum" ColumnName="JobNum" />
+          <ScalarProperty Name="City" ColumnName="City" />
+          <ScalarProperty Name="CountryCodeNum" ColumnName="CountryCodeNum" />
+          <ScalarProperty Name="FLSAPct" ColumnName="FLSAPct" />
+          <ScalarProperty Name="JobStatus" ColumnName="JobStatus" />
+          <ScalarProperty Name="CurrencyCodeNum" ColumnName="CurrencyCodeNum" />
+          <ScalarProperty Name="ManagerNum" ColumnName="ManagerNum" />
+          <ScalarProperty Name="JobYear" ColumnName="JobYear" />
+          <ScalarProperty Name="EmployeeNum" ColumnName="EmployeeNum" />
+          <ScalarProperty Name="EmpJobNum" ColumnName="EmpJobNum" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="EmployeeMoreInfoes">
+      <EntityTypeMapping TypeName="LaserbeamEntities.EmployeeMoreInfo">
+        <MappingFragment StoreEntitySet="EmployeeMoreInfo">
+          <ScalarProperty Name="MoreInfo23" ColumnName="MoreInfo23" />
+          <ScalarProperty Name="MoreInfo22" ColumnName="MoreInfo22" />
+          <ScalarProperty Name="MoreInfo21" ColumnName="MoreInfo21" />
+          <ScalarProperty Name="MoreInfo20" ColumnName="MoreInfo20" />
+          <ScalarProperty Name="MoreInfo19" ColumnName="MoreInfo19" />
+          <ScalarProperty Name="MoreInfo18" ColumnName="MoreInfo18" />
+          <ScalarProperty Name="MoreInfo17" ColumnName="MoreInfo17" />
+          <ScalarProperty Name="MoreInfo16" ColumnName="MoreInfo16" />
+          <ScalarProperty Name="MoreInfo15" ColumnName="MoreInfo15" />
+          <ScalarProperty Name="MoreInfo14" ColumnName="MoreInfo14" />
+          <ScalarProperty Name="MoreInfo13" ColumnName="MoreInfo13" />
+          <ScalarProperty Name="MoreInfo12" ColumnName="MoreInfo12" />
+          <ScalarProperty Name="MoreInfo11" ColumnName="MoreInfo11" />
+          <ScalarProperty Name="MoreInfo10" ColumnName="MoreInfo10" />
+          <ScalarProperty Name="MoreInfo9" ColumnName="MoreInfo9" />
+          <ScalarProperty Name="MoreInfo8" ColumnName="MoreInfo8" />
+          <ScalarProperty Name="MoreInfo7" ColumnName="MoreInfo7" />
+          <ScalarProperty Name="MoreInfo6" ColumnName="MoreInfo6" />
+          <ScalarProperty Name="MoreInfo5" ColumnName="MoreInfo5" />
+          <ScalarProperty Name="MoreInfo4" ColumnName="MoreInfo4" />
+          <ScalarProperty Name="MoreInfo3" ColumnName="MoreInfo3" />
+          <ScalarProperty Name="MoreInfo2" ColumnName="MoreInfo2" />
+          <ScalarProperty Name="MoreInfo1" ColumnName="MoreInfo1" />
+          <ScalarProperty Name="EmpJobNum" ColumnName="EmpJobNum" />
+          <ScalarProperty Name="EmployeeMoreInfoNum" ColumnName="EmployeeMoreInfoNum" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="EmployeeWorkFlowChanges">
+      <EntityTypeMapping TypeName="LaserbeamEntities.EmployeeWorkFlowChanx">
+        <MappingFragment StoreEntitySet="EmployeeWorkFlowChanges">
+          <ScalarProperty Name="UserNum" ColumnName="UserNum" />
+          <ScalarProperty Name="EmpJobNum" ColumnName="EmpJobNum" />
+          <ScalarProperty Name="EmployeeCompApprovalNum" ColumnName="EmployeeCompApprovalNum" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="EmployeeWorkflowCommentStatus">
+      <EntityTypeMapping TypeName="LaserbeamEntities.EmployeeWorkflowCommentStatu">
+        <MappingFragment StoreEntitySet="EmployeeWorkflowCommentStatus">
+          <ScalarProperty Name="UserNum" ColumnName="UserNum" />
+          <ScalarProperty Name="CommentNum" ColumnName="CommentNum" />
+          <ScalarProperty Name="EmployeeWorkflowCommentStatusId" ColumnName="EmployeeWorkflowCommentStatusId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="FeedBacks">
+      <EntityTypeMapping TypeName="LaserbeamEntities.FeedBack">
+        <MappingFragment StoreEntitySet="FeedBack">
+          <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+          <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+          <ScalarProperty Name="FeedBackComment" ColumnName="FeedBackComment" />
+          <ScalarProperty Name="FeedBackModule" ColumnName="FeedBackModule" />
+          <ScalarProperty Name="FeedBackNum" ColumnName="FeedBackNum" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ManagerRelations">
+      <EntityTypeMapping TypeName="LaserbeamEntities.ManagerRelation">
+        <MappingFragment StoreEntitySet="ManagerRelation">
+          <ScalarProperty Name="ManagerLineage" ColumnName="ManagerLineage" />
+          <ScalarProperty Name="ManagerNum" ColumnName="ManagerNum" />
+          <ScalarProperty Name="Lineage" ColumnName="Lineage" />
+          <ScalarProperty Name="Depth" ColumnName="Depth" />
+          <ScalarProperty Name="ParentNode" ColumnName="ParentNode" />
+          <ScalarProperty Name="EmployeeNum" ColumnName="EmployeeNum" />
+          <ScalarProperty Name="Node" ColumnName="Node" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="OrgGroups">
+      <EntityTypeMapping TypeName="LaserbeamEntities.OrgGroup">
+        <MappingFragment StoreEntitySet="OrgGroup">
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+          <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+          <ScalarProperty Name="Active" ColumnName="Active" />
+          <ScalarProperty Name="GroupName" ColumnName="GroupName" />
+          <ScalarProperty Name="OrgGroupID" ColumnName="OrgGroupID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="OrgGroupAssignedCriterias">
+      <EntityTypeMapping TypeName="LaserbeamEntities.OrgGroupAssignedCriteria">
+        <MappingFragment StoreEntitySet="OrgGroupAssignedCriteria">
+          <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+          <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+          <ScalarProperty Name="OrgGroupCriteriaID" ColumnName="OrgGroupCriteriaID" />
+          <ScalarProperty Name="OrgGroupID" ColumnName="OrgGroupID" />
+          <ScalarProperty Name="OrGGroupAssignedCriteriaID" ColumnName="OrGGroupAssignedCriteriaID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="OrgGroupDetails">
+      <EntityTypeMapping TypeName="LaserbeamEntities.OrgGroupDetail">
+        <MappingFragment StoreEntitySet="OrgGroupDetail">
+          <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+          <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+          <ScalarProperty Name="Active" ColumnName="Active" />
+          <ScalarProperty Name="CriteriaDataValue" ColumnName="CriteriaDataValue" />
+          <ScalarProperty Name="OrgGroupCriteriaID" ColumnName="OrgGroupCriteriaID" />
+          <ScalarProperty Name="OrgGroupID" ColumnName="OrgGroupID" />
+          <ScalarProperty Name="OrgGroupDetailID" ColumnName="OrgGroupDetailID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="OrgGroupTypes">
+      <EntityTypeMapping TypeName="LaserbeamEntities.OrgGroupType">
+        <MappingFragment StoreEntitySet="OrgGroupType">
+          <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+          <ScalarProperty Name="GroupTypeNum" ColumnName="GroupTypeNum" />
+          <ScalarProperty Name="OrgGroupID" ColumnName="OrgGroupID" />
+          <ScalarProperty Name="OrgGroupTypeID" ColumnName="OrgGroupTypeID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ProxyGroups">
+      <EntityTypeMapping TypeName="LaserbeamEntities.ProxyGroup">
+        <MappingFragment StoreEntitySet="ProxyGroup">
+          <ScalarProperty Name="ModuleNum" ColumnName="ModuleNum" />
+          <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+          <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+          <ScalarProperty Name="IsReadOnly" ColumnName="IsReadOnly" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="OrgGroupID" ColumnName="OrgGroupID" />
+          <ScalarProperty Name="ProxyGroupID" ColumnName="ProxyGroupID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ProxyManagers">
+      <EntityTypeMapping TypeName="LaserbeamEntities.ProxyManager">
+        <MappingFragment StoreEntitySet="ProxyManager">
+          <ScalarProperty Name="ModuleNum" ColumnName="ModuleNum" />
+          <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+          <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="ManagerID" ColumnName="ManagerID" />
+          <ScalarProperty Name="ProxyManagerID" ColumnName="ProxyManagerID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ProxyPopulationAccesses">
+      <EntityTypeMapping TypeName="LaserbeamEntities.ProxyPopulationAccess">
+        <MappingFragment StoreEntitySet="ProxyPopulationAccess">
+          <ScalarProperty Name="UserNum" ColumnName="UserNum" />
+          <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+          <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+          <ScalarProperty Name="OrgGroupID" ColumnName="OrgGroupID" />
+          <ScalarProperty Name="ProxyPopulationAccessID" ColumnName="ProxyPopulationAccessID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ProxyScripts">
+      <EntityTypeMapping TypeName="LaserbeamEntities.ProxyScript">
+        <MappingFragment StoreEntitySet="ProxyScript">
+          <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+          <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+          <ScalarProperty Name="UserNum" ColumnName="UserNum" />
+          <ScalarProperty Name="AppScriptID" ColumnName="AppScriptID" />
+          <ScalarProperty Name="ProxyScriptID" ColumnName="ProxyScriptID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TriggerEmails">
+      <EntityTypeMapping TypeName="LaserbeamEntities.TriggerEmail">
+        <MappingFragment StoreEntitySet="TriggerEmail">
+          <ScalarProperty Name="EmailStatus" ColumnName="EmailStatus" />
+          <ScalarProperty Name="InsertTime" ColumnName="InsertTime" />
+          <ScalarProperty Name="DirectManagerName" ColumnName="DirectManagerName" />
+          <ScalarProperty Name="DirectManagerNum" ColumnName="DirectManagerNum" />
+          <ScalarProperty Name="EmployeeName" ColumnName="EmployeeName" />
+          <ScalarProperty Name="Comment" ColumnName="Comment" />
+          <ScalarProperty Name="EmailBCC" ColumnName="EmailBCC" />
+          <ScalarProperty Name="EmailCC" ColumnName="EmailCC" />
+          <ScalarProperty Name="ToEmail" ColumnName="ToEmail" />
+          <ScalarProperty Name="FromEmail" ColumnName="FromEmail" />
+          <ScalarProperty Name="EmailKey" ColumnName="EmailKey" />
+          <ScalarProperty Name="RequesterName" ColumnName="RequesterName" />
+          <ScalarProperty Name="RequesterEmpJobNum" ColumnName="RequesterEmpJobNum" />
+          <ScalarProperty Name="ApprovalManagerName" ColumnName="ApprovalManagerName" />
+          <ScalarProperty Name="ApprovalManagerEmpJobNum" ColumnName="ApprovalManagerEmpJobNum" />
+          <ScalarProperty Name="TriggerEmailNum" ColumnName="TriggerEmailNum" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UserMenus">
+      <EntityTypeMapping TypeName="LaserbeamEntities.UserMenu">
+        <MappingFragment StoreEntitySet="UserMenu">
+          <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+          <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+          <ScalarProperty Name="ReadOnly" ColumnName="ReadOnly" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="AppMenuID" ColumnName="AppMenuID" />
+          <ScalarProperty Name="UserMenuID" ColumnName="UserMenuID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UserMessages">
+      <EntityTypeMapping TypeName="LaserbeamEntities.UserMessage">
+        <MappingFragment StoreEntitySet="UserMessage">
+          <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+          <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+          <ScalarProperty Name="UserNum" ColumnName="UserNum" />
+          <ScalarProperty Name="AppMessageID" ColumnName="AppMessageID" />
+          <ScalarProperty Name="UserMessageNum" ColumnName="UserMessageNum" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UserPopulations">
+      <EntityTypeMapping TypeName="LaserbeamEntities.UserPopulation">
+        <MappingFragment StoreEntitySet="UserPopulation">
+          <ScalarProperty Name="EmployeeNum" ColumnName="EmployeeNum" />
+          <ScalarProperty Name="LoggedinUserNum" ColumnName="LoggedinUserNum" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PivotedEmployeeCompApprovalLevels">
+      <EntityTypeMapping TypeName="LaserbeamEntities.PivotedEmployeeCompApprovalLevel">
+        <MappingFragment StoreEntitySet="PivotedEmployeeCompApprovalLevel">
+          <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+          <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+          <ScalarProperty Name="ModuleNum" ColumnName="ModuleNum" />
+          <ScalarProperty Name="ApprovalLevel" ColumnName="ApprovalLevel" />
+          <ScalarProperty Name="ApprovalManager" ColumnName="ApprovalManager" />
+          <ScalarProperty Name="EmpJobNum" ColumnName="EmpJobNum" />
+          <ScalarProperty Name="KeyNum" ColumnName="KeyNum" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Teams">
+      <EntityTypeMapping TypeName="LaserbeamEntities.Team">
+        <MappingFragment StoreEntitySet="Team">
+          <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+          <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+          <ScalarProperty Name="TeamTitle" ColumnName="TeamTitle" />
+          <ScalarProperty Name="TeamNum" ColumnName="TeamNum" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SupportTasks">
+      <EntityTypeMapping TypeName="LaserbeamEntities.SupportTask">
+        <MappingFragment StoreEntitySet="SupportTask">
+          <ScalarProperty Name="HoursSpent" ColumnName="HoursSpent" />
+          <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+          <ScalarProperty Name="TaskUpdatedDate" ColumnName="TaskUpdatedDate" />
+          <ScalarProperty Name="TaskCreatedDate" ColumnName="TaskCreatedDate" />
+          <ScalarProperty Name="TaskDescription" ColumnName="TaskDescription" />
+          <ScalarProperty Name="TaskTitle" ColumnName="TaskTitle" />
+          <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+          <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+          <ScalarProperty Name="TeamNum" ColumnName="TeamNum" />
+          <ScalarProperty Name="SupportTaskNum" ColumnName="SupportTaskNum" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SupportTaskComments">
+      <EntityTypeMapping TypeName="LaserbeamEntities.SupportTaskComment">
+        <MappingFragment StoreEntitySet="SupportTaskComments">
+          <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+          <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="Comments" ColumnName="Comments" />
+          <ScalarProperty Name="SupportTaskNum" ColumnName="SupportTaskNum" />
+          <ScalarProperty Name="SupportTaskCommentsNum" ColumnName="SupportTaskCommentsNum" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChatUserStatus1">
+      <EntityTypeMapping TypeName="LaserbeamEntities.ChatUserStatus">
+        <MappingFragment StoreEntitySet="ChatUserStatus">
+          <ScalarProperty Name="ChatStatus" ColumnName="ChatStatus" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChatDetails">
+      <EntityTypeMapping TypeName="LaserbeamEntities.ChatDetail">
+        <MappingFragment StoreEntitySet="ChatDetails">
+          <ScalarProperty Name="FileName" ColumnName="FileName" />
+          <ScalarProperty Name="FileType" ColumnName="FileType" />
+          <ScalarProperty Name="Attachement" ColumnName="Attachement" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="ViewedStatus" ColumnName="ViewedStatus" />
+          <ScalarProperty Name="Chat" ColumnName="Chat" />
+          <ScalarProperty Name="ReceiverUserNum" ColumnName="ReceiverUserNum" />
+          <ScalarProperty Name="SenderUserNum" ColumnName="SenderUserNum" />
+          <ScalarProperty Name="ChatDetailNum" ColumnName="ChatDetailNum" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChatSessionDetails">
+      <EntityTypeMapping TypeName="LaserbeamEntities.ChatSessionDetail">
+        <MappingFragment StoreEntitySet="ChatSessionDetails">
+          <ScalarProperty Name="Token" ColumnName="Token" />
+          <ScalarProperty Name="ChatSessionID" ColumnName="ChatSessionID" />
+          <ScalarProperty Name="ToUserNum" ColumnName="ToUserNum" />
+          <ScalarProperty Name="FromUserNum" ColumnName="FromUserNum" />
+          <ScalarProperty Name="ChatSessionDetailNum" ColumnName="ChatSessionDetailNum" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MarketPayRanges">
+      <EntityTypeMapping TypeName="LaserbeamEntities.MarketPayRange">
+        <MappingFragment StoreEntitySet="MarketPayRange">
+          <ScalarProperty Name="HourlyFutureMax" ColumnName="HourlyFutureMax" />
+          <ScalarProperty Name="HourlyFutureMid" ColumnName="HourlyFutureMid" />
+          <ScalarProperty Name="HourlyFutureMin" ColumnName="HourlyFutureMin" />
+          <ScalarProperty Name="HourlyCurrentMax" ColumnName="HourlyCurrentMax" />
+          <ScalarProperty Name="HourlyCurrentMid" ColumnName="HourlyCurrentMid" />
+          <ScalarProperty Name="HourlyCurrentMin" ColumnName="HourlyCurrentMin" />
+          <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+          <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="FutureMax" ColumnName="FutureMax" />
+          <ScalarProperty Name="FutureMid" ColumnName="FutureMid" />
+          <ScalarProperty Name="FutureMin" ColumnName="FutureMin" />
+          <ScalarProperty Name="CurrentMax" ColumnName="CurrentMax" />
+          <ScalarProperty Name="CurrentMid" ColumnName="CurrentMid" />
+          <ScalarProperty Name="CurrentMin" ColumnName="CurrentMin" />
+          <ScalarProperty Name="EmployeeNum" ColumnName="EmployeeNum" />
+          <ScalarProperty Name="GradeNum" ColumnName="GradeNum" />
+          <ScalarProperty Name="JobNum" ColumnName="JobNum" />
+          <ScalarProperty Name="MarketPayRangeNum" ColumnName="MarketPayRangeNum" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="EmployeeCompBonus">
+      <EntityTypeMapping TypeName="LaserbeamEntities.EmployeeCompBonu">
+        <MappingFragment StoreEntitySet="EmployeeCompBonus">
+          <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+          <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+          <ScalarProperty Name="Payout" ColumnName="Payout" />
+          <ScalarProperty Name="BonusIOAmt" ColumnName="BonusIOAmt" />
+          <ScalarProperty Name="BonusTeamAmt" ColumnName="BonusTeamAmt" />
+          <ScalarProperty Name="BonusEffectiveDate" ColumnName="BonusEffectiveDate" />
+          <ScalarProperty Name="AdjustedBonusAmt" ColumnName="AdjustedBonusAmt" />
+          <ScalarProperty Name="BonusTargetAmt" ColumnName="BonusTargetAmt" />
+          <ScalarProperty Name="BonusTargetPct" ColumnName="BonusTargetPct" />
+          <ScalarProperty Name="BonusEligibility" ColumnName="BonusEligibility" />
+          <ScalarProperty Name="BonusAmt" ColumnName="BonusAmt" />
+          <ScalarProperty Name="BonusPct" ColumnName="BonusPct" />
+          <ScalarProperty Name="EmpJobNum" ColumnName="EmpJobNum" />
+          <ScalarProperty Name="EmployeeCompBonusNum" ColumnName="EmployeeCompBonusNum" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

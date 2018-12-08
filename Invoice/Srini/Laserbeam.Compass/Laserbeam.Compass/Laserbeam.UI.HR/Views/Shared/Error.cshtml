@@ -1,0 +1,94 @@
+﻿@model Laserbeam.UI.HR.Models.ErrorModel
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html style="background-color: white">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width" />
+    <title>Error</title>
+
+    
+   <style type="text/css">
+        body, .fnts {
+            font-family: 'segoeui';
+        }
+
+        .img-padding {
+            padding: 30px 10px;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .img-responsive,
+        .thumbnail > img,
+        .thumbnail a > img,
+        .carousel-inner > .item > img,
+        .carousel-inner > .item > a > img {
+            display: block;
+            max-width: 100%;
+            height: auto;
+        }
+
+
+        .big30 {
+            font-size: 30px;
+            color: #555;
+        }
+
+        .big21 {
+            padding-top: 15px;
+            font-size: 21px;
+            color: #fa6366;
+        }
+        .relogin-btn a,.relogin-btn a:hover,.relogin-btn a:focus{
+            font-size:14px; 
+            color:#fff; 
+            text-decoration:none;
+            background:#00abf0;
+            padding:6px 12px;
+            border-radius:4px;
+        }
+    </style>
+</head>
+<body>
+    <div class="fnts">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="img-padding text-center">
+                    <div class="img-responsive">
+                        <img src="~/Images/techissues-bicon.png">
+                    </div>
+                    <div class="big30">Oops! Something wrong here...</div>
+                    <div class="big21">Sorry. We’re having some technical issues <br />(try to refresh the page)</div>
+                    <div class="big21">@Model.ErrorMessage<br /></div>
+                </div>
+            </div>
+        </div>
+        @if (Model.ShowLoginLink == true)
+        {
+            <div class="relogin-btn" style="text-align:center;">
+                @Html.ActionLink("Click here to Re-Login", "Login", "Account", new { }, new { style = "" })
+            </div>
+        }
+        <script type="text/javascript">
+            function refresh() {
+            }
+
+            function applyErrorPage() {
+                var layoutBody = document.getElementById("layoutBody");
+                if (layoutBody != null) {
+                    document.body.style.backgroundColor = "white";
+                    var body = document.getElementsByTagName("body")[0];
+                    body.className = "";
+                    body.innerHTML = document.getElementById("errorBody").innerHTML;
+                }
+            }
+            applyErrorPage();
+        </script>
+    </div>
+</body>
+</html>

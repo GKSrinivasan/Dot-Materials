@@ -1,0 +1,100 @@
+﻿@model List<Laserbeam.BusinessObject.Common.ConfigureRating>
+@using Laserbeam.BusinessObject.Common;
+<link href="~/Content/Rating.css" rel="stylesheet" />
+<script src="~/Scripts/Rating.js"></script>
+
+@Html.AntiForgeryToken()
+<div class="container-fluid">
+    <div class="row">
+        <div class="row"><div id="divratingheader" class="col-md-12 mainheading mainheading1 top-pad">Rating</div></div>
+    </div>
+    <div class="row top-pad">
+        <div class="col-md-6 col-sm-6 noleftpad">
+            <ul class="nav nav-tabs ratingtab" role="tablist">
+                <li role="presentation" class="active"><a href="#MeritRating" aria-controls="MeritRating" role="tab" data-toggle="tab" id="lnkMeritRating">Merit Rating</a></li>
+                <li role="presentation"><a href="#SetMeritGuideline" aria-controls="SetMeritGuideline" role="tab" data-toggle="tab" id="lnkMeritRange">Set Merit Guideline</a></li>
+            </ul>
+        </div>
+        <div class="col-md-6 col-sm-6 text-right norightpad">
+            <div id="divBtnSave"><button type="button" class="btn sec-btn" id="btnSaveRatingRange">Save</button></div>
+            <div id="divBtnAdd">
+                <button id="addConfigureRatingButton" type="button" class="btn btn-info prim-btn" data-toggle="modal">Add Rating</button>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12 nopad">
+            <!-- Nav tabs -->
+            <!-- Tab panes -->
+            <div class="tab-content top-pad b-pad">
+                <div role="tabpanel" class="tab-pane active" id="MeritRating">
+                    <div class="row addRatingtxt nomargin" id="divconfigureRating">
+                        <div class="col-md-12">
+                            @(Html.Kendo().Grid<ConfigureRating>().Name("grdConfigureRating")
+                        .Columns(columns =>
+                        {
+                        columns.Bound(m => m.RatingNum).Title("Rating Num").HtmlAttributes(new { id = "configureRatingNum" }).Hidden();
+                        columns.Bound(m => m.RatingId).Title("Rating ID").HtmlAttributes(new { id = "configureRatingId" }).Hidden();
+                        columns.Bound(m => m.RatingDescription).ClientTemplate("<a>#=RatingDescription#</a>").Title("Rating Description").HeaderHtmlAttributes(new { @class = "" }).HtmlAttributes(new { id = "configureRatingDescription" });
+                        columns.Bound(m => m.MinRange).Title("Minimum").HtmlAttributes(new { id = "configureLowRange" });
+                        columns.Bound(m => m.MaxRange).Title("Maximum").HtmlAttributes(new { id = "configureHighRange" });
+                        columns.Bound(m => m.RatingOrder).Title("Sort Order").HtmlAttributes(new { id = "configureSortOrder" });
+                        columns.Template(@<text></text>).ClientTemplate("<span id = 'btnConfigureRatingDelete' class='glyphicon glyphicon-trash trashbin' title='Delete' ></span>").Title("Delete")
+                                                     .Width("7%");
+                        })
+                                                        .DataSource(datasource => datasource.Ajax().Batch(true)
+                                                        .Model(model => model.Id(p => p.RatingNum))
+                                                        .Read(read => read.Action("GetConfigureRatingGridData", "Rating").Data("additionalParamInfo"))
+                                                        
+                                                                .Model(model => { model.Id(id => id.RatingId); }))
+                                                                .Sortable().Resizable(resize => resize.Columns(false))
+                                                                                           .Scrollable(scrollable => scrollable.Height(350)))
+                        </div>
+                    </div>
+                </div>
+                <div role="tabpanel" class="tab-pane" id="SetMeritGuideline">
+                    <div class="row nomargin">
+                        <div class="col-md-12 table-responsive">
+                           
+                            @(Html.Kendo().Grid<ConfigureRating>().Name("grdConfigureRatingForRange")
+                        .Columns(columns =>
+                        {
+                        columns.Bound(m => m.RatingNum).Title("Rating Num").HtmlAttributes(new { id = "configureRatingNum" }).Hidden();
+                        columns.Bound(m => m.RatingId).Title("Rating ID").HtmlAttributes(new { id = "configureRatingId" }).Hidden();
+                        columns.Bound(m => m.RatingDescription).ClientTemplate("<a>#=RatingDescription#</a>").Title("Rating Description").HeaderHtmlAttributes(new { @class = "" });
+                        columns.Template(@<text></text>)
+            .ClientTemplate(Html.TextBox("txtMinRange", "#=MinRange#", new { }).ToHtmlString()).HtmlAttributes(new { style = "padding-right:2%;" })
+            .HeaderHtmlAttributes(new { style = "text-align:center;"}).HtmlAttributes(new { style = "text-align:center;" }).Title("Minimum");
+                        columns.Template(@<text></text>)
+            .ClientTemplate(Html.TextBox("txtMaxRange", "#=MaxRange#", new { }).ToHtmlString()).HtmlAttributes(new { style = "padding-right:2%;" })
+            .HeaderHtmlAttributes(new { style = "text-align:center;" }).HtmlAttributes(new { style = "text-align:center;"}).Title("Maximum");
+                        })
+                         .DataSource(data => data.Ajax().Model(model => { model.Id(m => m.RatingNum); }).Batch(true).ServerOperation(true)
+                                                      
+                                                        .Read(read => read.Action("GetConfigureRatingGridDataForRange", "Rating").Data("additionalParamInfo"))
+                                                         .Update(update => update.Action("UpdateConfigureRatingGridData", "Rating").Data("additionalParamInfo")).Events(e => e.RequestEnd("onUpdateRequestEnd").Sync("gridRating_sync"))
+                                                                .Model(model => { model.Id(id => id.RatingId); }))
+                                                                .Sortable().Resizable(resize => resize.Columns(false))
+                                                                                           .Scrollable(scrollable => scrollable.Height(350)))
+
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@(Html.Kendo().Window()
+    .Name("EditConfigureRatingPopup")
+    .Width(350)
+    .Height(330)
+    .Modal(true)
+    .Visible(false)
+    .Actions(action => action.Close())
+)
+
+
+<div id="divRating" class="modal fade" role="dialog" data-keyboard="false" aria-labelledby="myModalLabel" data-backdrop="static"></div>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="c23ecead-24c9-4596-91c6-b43159b6d0b4" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings>
+      <CollectionMapping TypeName="System.Collections.Generic.List`1" Category="List" />
+    </CollectionMappings>
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://192.168.1.104/errortracker/logerror" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="LogError.xsd" MetadataType="Schema" ID="25ec9a75-6cf1-49be-b8e5-53411119e754" SourceId="1" SourceUrl="http://192.168.1.104/ErrorTracker/LogError?xsd=xsd1" />
+    <MetadataFile FileName="LogError.disco" MetadataType="Disco" ID="6783ea53-1692-4d22-8d9c-8f6a489111ab" SourceId="1" SourceUrl="http://192.168.1.104/ErrorTracker/LogError?disco" />
+    <MetadataFile FileName="LogError1.xsd" MetadataType="Schema" ID="f5ed23eb-df47-4445-b055-0d7ab658895d" SourceId="1" SourceUrl="http://192.168.1.104/ErrorTracker/LogError?xsd=xsd2" />
+    <MetadataFile FileName="LogError2.xsd" MetadataType="Schema" ID="a445a5ac-3739-47a9-9d2b-98d34e8ff7c5" SourceId="1" SourceUrl="http://192.168.1.104/ErrorTracker/LogError?xsd=xsd0" />
+    <MetadataFile FileName="ErrorLog.wsdl" MetadataType="Wsdl" ID="7004e06c-3508-41c7-a7a4-f08db4b515df" SourceId="1" SourceUrl="http://192.168.1.104/ErrorTracker/LogError?wsdl" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

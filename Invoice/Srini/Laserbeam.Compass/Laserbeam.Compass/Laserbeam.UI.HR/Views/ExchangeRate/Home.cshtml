@@ -1,0 +1,259 @@
+﻿@model Laserbeam.BusinessObject.Common.ExchangeRateData
+@using Laserbeam.BusinessObject.Common
+<link href="~/Content/ExchangeRate.min.css" rel="stylesheet" />
+<script src="~/Scripts/ExchangeRate.js"></script>
+<style type="text/css">
+    #grdExchangeRate .k-grid-header .k-icon.k-i-arrow-n,
+    .k-grid-header .k-icon.k-i-arrow-s {
+        font-family: 'Glyphicons Halflings';
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 1;
+        -webkit-font-smoothing: antialiased;
+        /*-moz-osx-font-smoothing: grayscale;*/
+
+        background: none !important;
+        color: #91d1e9 !important;
+    }
+
+    #grdExchangeRate .k-grid-header .k-icon.k-i-arrow-s:before {
+        content: "\e156";
+    }
+
+    #grdExchangeRate .k-grid-header .k-icon.k-i-arrow-n:before {
+        content: "\e155";
+        position: relative;
+        top: 1px;
+    }
+
+    .k-i-arrow-n {
+        height: 25px !important;
+        width: 30px;
+    }
+</style>
+<script>
+    var baseCurrSelectedVal = "";
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+    })
+
+    function currencyConversion(preferredCulture, exchangeRate, currencyCode) {
+
+        var a = conversionPreview;
+        b = formatGridValue(a, preferredCulture);
+
+        c = a * exchangeRate;
+        d = formatGridValue(c, "en-US");
+        var e = formatBudgetCurrency(a, 'c0', preferredCulture, currencyCode)
+        var text = e + " * " + exchangeRate + " = " + d;
+        return text;
+
+
+    }
+    function currencyDispaly(preferredCulture) {
+        var a = displayPreview;
+        b = formatGridValue(a, preferredCulture);
+        return b;
+    }
+
+    function formatGridValue(dataValue, employeeCulture) {
+        if (dataValue == null) return '';
+
+        var cultureFormat = getCultureFormat();
+        var result = formatValue(dataValue, cultureFormat, employeeCulture);
+        return result;
+    }
+
+
+    function getCultureFormat() {
+        var noOfDecimalPlaces = getnoOfDecimalPlaces(2);
+        return ('c' + noOfDecimalPlaces).toString();
+    }
+
+
+    function getnoOfDecimalPlaces(configValue) {
+        var noOfDecimalPlaces = decimalPlaces(configValue);
+        return noOfDecimalPlaces;
+    }
+
+
+    function decimalPlaces(configValue) {
+        var regexp = ('' + configValue).match(/(?:\.(\d+))?(?:[eE]([+-]?\d+))?$/);
+        if (!regexp) {
+            return 0;
+        }
+
+        return Math.max(0,
+            // Number of digits right of decimal point.
+           (regexp[1] ? regexp[1].length : 0)
+           // Adjust for scientific notation.
+           - (regexp[2] ? +regexp[2] : 0));
+    }
+
+    function formatBudgetCurrency(value, format, culture, currencyCode) {
+
+        if (value == null) return '';
+        if (isNaN(value)) return '';
+        //var selectedData = $("#ddlLocalCurrenciesBudget").data("kendoDropDownList").dataItem($("#ddlLocalCurrenciesBudget").data("kendoDropDownList").select());
+        var symbol = kendo.cultures[culture];
+        symbol = (symbol != undefined) ? symbol.numberFormat.currency.symbol : kendo.cultures['en-US'].numberFormat.currency.symbol;
+        var currenyCode = currencyCode;// (selectedData != undefined) ? selectedData.CurrencyCode : "USD";
+        if ((value.length == 1) || format == undefined)
+            return value.toString();
+        else if (culture == undefined) {
+            var val = kendo.toString(value, format);
+            val = val.indexOf('-') > -1 ? '(' + val.replace('-', '') + ')' : val;
+            if (RuleConfiguration.FeatureConfigurationCurrencyCodeDisplay)
+                val = val.replace(symbol, currenyCode + ' ');
+            return val;
+        }
+        else {
+            var kndValue = kendo.toString(value, format, culture);
+            kndValue = kndValue.indexOf('-') > -1 ? '(' + kndValue.replace('-', '') + ')' : kndValue;
+            //if (RuleConfiguration.FeatureConfigurationCurrencyCodeDisplay)
+            kndValue = kndValue.replace(symbol, currenyCode + ' ');
+            return kndValue;
+        }
+    }
+
+    $(document).on("click", "#btnDownload", function (e) {
+        $.ajax({
+            url: "../ExchangeRate/ExchangeRate",
+            type: "Get",
+            success: function (result) {
+            }
+        });
+
+    });
+
+    function JsonpCallback(json) {
+        alert(json.result);
+        // document.getElementById('summary').innerHTML = json.result;
+    }
+    function closeAfterUpdate() {
+
+        Successmessage("Exchange Rate Updated Successfully ");
+    }
+    function BaseCurrencyChange(e) {
+        var selectedIndex = this.selectedIndex
+         selecteddata = this.dataSource._data[selectedIndex]
+         text = this.text();
+        $.ajax({
+            url: "../ExchangeRate/_BaseCurrencyChangePopUp",
+            success: function (result) {
+                $("#divExchangeRate").html(result);
+                $("#divExchangeRate").modal('show');
+            }
+        });
+    }
+    function BaseCurrencyLoad(e) {
+        baseCurrSelectedVal = this.value();
+    }
+
+</script>
+
+@Html.AntiForgeryToken()
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="row"><div id="divexchangerateheader" class="col-md-12 mainheading mainheading1 top-pad">Exchange Rate</div></div>
+    </div>
+    <div class="row top-pad" data-spy="affix" data-offset-top="150">
+        <div class="col-md-2 col-sm-2 noleftpad">
+            <ul class="nav nav-tabs" role="tablist">
+                <li role="presentation" class="active"><a id="lnkexchangeratecurrencylisttab" href="#MeritRating" aria-controls="MeritRating" role="tab" data-toggle="tab">Currency List</a></li>
+            </ul>
+        </div>
+        <div class="col-md-5 col-sm-4 minipad">
+            <div class="basecurrencytitle">Base Currency </div>
+            <div class="basecurrencydrpdwn">
+                @(Html.Kendo().ComboBox().AutoBind(false)
+           .Events(x => x.Change("currencyCodeChange"))
+                                    .Name("CurrencyCodeComboBox1")
+                                    .DataTextField("CurrencyCode")
+                                    .DataValueField("CurrencyCodeNum")
+                                    .Value(Model.CurrencyCode != null ? Model.CurrencyCode.ToString() : "")
+                                    .Events(e => e.Change("BaseCurrencyChange").DataBound("BaseCurrencyLoad"))
+                                    .HtmlAttributes(new { style = "width:100%;" })
+                                    .DataSource(data => data.Read(read =>
+                                    {
+                                        read.Action("GetCurrencyCode", "ExchangeRate").Data("additionalParamInfo").Type(HttpVerbs.Post);
+                                    }))
+                )
+            </div>
+        </div>
+        <div class="col-md-5 col-sm-6 text-right nopadright minipad">
+            <ul class="list-unstyled list-inline">
+                <li class="gap10px-right">
+                    <button type="button" class="btn secondarybtn" data-toggle="modal" id="btnAddCurrency"><i class="fa fa-plus"></i> New Currency</button>
+                    <button type="button" class="btn btn-info prim-btn" data-toggle="modal" id="btnDownload">Download Rate</button>
+                    <button class="btn btn-bordered dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                        @*<i class="icon-more-action-o morbtn-icon1 icon-grey big20" aria-hidden="true"></i>*@
+                        <img src="../../Images/more-v.png" class="top2pad" alt=""> Action
+                    </button>
+                    <ul class="dropdown-menu moreaction-btn more1" aria-labelledby="dropdownMenu1">
+                        <li id="exchangeRateFilter"><a href="#"><i class="fa fa-filter"></i> Filter </a></li>
+                        <li id="exchangeRateClearFilter" style="display:none;"><a href="#"><i class="fa fa-filter"></i> Clear Filter</a></li>
+                        <li id="exchangeRateExport"><a href="#"><i class="fa fa-file-excel-o"></i> Export</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12 nopad">
+            <!-- Nav tabs -->
+            <!-- Tab panes -->
+            <div class="tab-content top-pad tenbottompad">
+                <div role="tabpanel" class="tab-pane active" id="MeritRating">
+                    <div class="row nomargin">
+                        <div class="col-md-12">
+                            @(Html.Kendo().Grid<ExchangeRateGridData>().Name("grdExchangeRate")
+        .Events(x => x.DataBound("ExchangeRateDataBound"))
+                .Columns(columns =>
+                {
+                    columns.Bound(m => m.CurrencyCode).Title("Currency").HtmlAttributes(new { @class = "blueheadng", id = "currencyCode" }).Width("15%");
+                    columns.Bound(m => m.ExchangeRate).Title("Conversion Rate").HtmlAttributes(new { id = "exchangeRate" });
+                    columns.Bound(m => m.CultureCode).Title("Culture Code").HtmlAttributes(new { id = "cultureCode" });
+                    columns.Bound(m => m.CurrencyCodeNum).Visible(false).HtmlAttributes(new { id = "currencyCodeNum" });
+                    columns.Bound(m => m.CurrencyCode).ClientTemplate("<label class='exchangeRateLabel'>  1 #=BaseCurrency# equals #=ExchangeRate# #=CurrencyCode#</label>").Title("");
+
+                })
+                                                                                         .DataSource(data => data.Ajax()
+                                                                                             .Model(model => { model.Id(m => m.CurrencyCodeNum); })
+                                                                                             .Batch(true).ServerOperation(false)
+                                                                                                 .Read(read => read.Action("GetExchangeRateGridData", "ExchangeRate").Data("additionalParamInfo"))
+                                                                                                .Sort(st =>
+                                                                                                {
+                                                                                                    st.Add(e => e.CurrencyCode).Ascending();
+                                                                                                    st.Add(e => e.CultureCode).Ascending();
+                                                                                                    st.Add(e => e.ExchangeRate).Ascending();
+                                                                                                }
+                                                                                                 )).Sortable()
+                                                                                         .HtmlAttributes(new { style = "width:100%;" }))
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+
+
+</div>
+
+<div id="divExchangeRate" class="modal fade" role="dialog" aria-labelledby="myModalLabel" data-keyboard="false" data-backdrop="static"></div>
+
+<!-- Modal -->
+<div class="modal fade" id="myModalBasecurrency" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+   
+</div>
+
+@(Html.Kendo().Window().Name("wndFilterSortPopup").Title("Filter/Sort").Visible(false).Width(710).Height(270).Modal(true))
+

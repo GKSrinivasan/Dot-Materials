@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/BusinessObject" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/BusinessObject" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:complexType name="ExceptionLogModel">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ApplicationName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="AssemblyName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ExceptionDateTime" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="ExceptionMessage" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ExceptionType" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="InnerExceptionMessage" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="InnerExceptionType" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IsServerSide" type="xs:boolean" />
+      <xs:element minOccurs="0" name="MethodName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SessionID" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="URL" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="UserID" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ExceptionLogModel" nillable="true" type="tns:ExceptionLogModel" />
+  <xs:complexType name="ArrayOfExceptionLogModel">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="ExceptionLogModel" nillable="true" type="tns:ExceptionLogModel" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfExceptionLogModel" nillable="true" type="tns:ArrayOfExceptionLogModel" />
+</xs:schema>

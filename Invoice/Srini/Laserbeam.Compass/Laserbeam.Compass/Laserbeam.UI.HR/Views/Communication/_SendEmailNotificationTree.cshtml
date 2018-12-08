@@ -1,0 +1,102 @@
+﻿<script type="text/javascript">
+    $(document).ready(function () {
+        BindEmailNotificationTreeview();
+    });
+
+    function BindEmailNotificationTreeview() {
+        $.post("../Communication/_SendEmailNotificationTree", function (dataValue) {
+            var datasource = getEmailNotificationHierarchialDataSource(dataValue, "UserRoleNum", "ReportingManagerNum", "IsTreeTop");
+            var treeView = $("#ddlEmailNotificationTreeview").kendoExtDropDownTreeView({
+                treeview: {
+                    template: '#= item.UserRoleName#',
+                    dataTextField: "UserRoleName",
+                    dataValueField: "UserRoleNum",
+                    loadOnDemand: true,
+                    dataSource: datasource,
+                    select: BindEmailNotificationTreeviewOnSelect
+                }
+            }).data("kendoExtDropDownTreeView");
+            treeView._treeview.expand(".k-item:first");
+            var nodeText = "";
+            //  if (treeView._treeview.dataSource._data.length > 0) {
+            nodeText = "-Select- ";
+            //   }
+
+            treeView.bind("select", function (e) {
+                if ($("#hndIsNodeSelected").val() == 1) {
+                    $('#ddlEmailNotificationTreeview').find('.k-input').text($("#hndSelectedTreeText").val());
+                }
+                else {
+                    var droptext = $(e.node).children("div").text();
+                    $('#ddlEmailNotificationTreeview').find('.k-input').text(droptext);
+                }
+            });
+
+            $('#ddlEmailNotificationTreeview').find('.k-input').text(nodeText);
+        });
+    }
+
+    function getEmailNotificationHierarchialDataSource(dataSource, keyColumn, parentKeyColumn, treeTopColumn) {
+        var topNode = [];
+        if (dataSource.length > 0) {
+            $(dataSource).each(function (index, item) {
+                if (item[treeTopColumn] == true)
+                    topNode.push(appendChildNode(dataSource, keyColumn, parentKeyColumn, item));
+                else return false;
+            });
+        }
+        return new kendo.data.HierarchicalDataSource({
+            data: topNode,
+            schema: {
+                model: {
+                    id: keyColumn,
+                    children: "ReporteeManagers"
+                }
+            }
+        });
+    }
+
+    function appendChildNode(dataSource, keyColumn, parentKeyColumn, node) {
+        var childNodes = dataSource.filter(function (item) {
+            if (item[parentKeyColumn] == node[keyColumn])
+                return item;
+        });
+        $(childNodes).each(function (index, item) {
+            appendChildNode(dataSource, keyColumn, parentKeyColumn, item);
+        });
+        if (childNodes.length > 0) {
+            node.ReporteeManagers = childNodes;
+        }
+        return node;
+    }
+
+    function BindEmailNotificationTreeviewOnSelect(e) {
+
+        var node = e.sender.dataItem(e.node);
+        var nodes = e.sender;
+        $("#hndIsNodeSelected").val(node.UserRoleNum);
+        $("#hndvalue").val(node.UserRoleNum);
+        $("#hndtext").val(node.UserRoleName);
+        $("#hndselectedtype").val(node.SelectedType);
+        var gridData = $("#dashboardEmailUserGrid").data("kendoGrid");
+        gridData.dataSource.read();
+        var root = $('.k-item:first');
+        if ((node.IsTreeTop == true) || !showSaveWarning) {
+            nodes.select(root);
+            $("#hndIsNodeSelected").val(1);
+            e._defaultPrevented = true;
+            return false;
+        }
+        else {
+            $("#hndIsNodeSelected").val(0);
+        }
+    }
+
+    $(document).on("change", "#ddlEmailNotificationTreeview", function (e) {
+        $('#divddlUserGrp').show();
+        $("#dashboardEmailUserGrid").show();
+    });
+</script>
+
+@Html.AntiForgeryToken()
+<div id="ddlEmailNotificationTreeview"></div>

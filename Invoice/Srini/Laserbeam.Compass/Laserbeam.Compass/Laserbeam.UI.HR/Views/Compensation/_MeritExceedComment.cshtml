@@ -1,0 +1,190 @@
+﻿@using Laserbeam.BusinessObject.Common
+@model IEnumerable<CommentModel>
+
+<link href="~/Content/Comment.css" rel="stylesheet" />
+<script src="~/Scripts/Comment.min.js"></script>
+<style type="text/css">
+
+   .removeScroll{
+          overflow-y :hidden !important;
+        height:none !important;
+    }
+
+    .nav_title {
+        background: none !important;
+    }
+    .nav_title {
+        background: none !important;
+    }
+
+    ::-webkit-input-placeholder { /* WebKit, Blink, Edge */
+        font-style: italic;
+    }
+
+    :-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+        font-style: italic;
+    }
+
+    ::-moz-placeholder { /* Mozilla Firefox 19+ */
+        font-style: italic;
+    }
+
+    :-ms-input-placeholder { /* Internet Explorer 10-11 */
+        font-style: italic;
+    }
+
+    ::-ms-input-placeholder { /* Microsoft Edge */
+        font-style: italic;
+    }
+    #frmMeritComment .modal-footer{
+        position: fixed;
+        bottom: 0;
+        width: 97%;
+    }
+    #frmMeritComment{
+        height: 240px;
+        overflow-y: auto;
+    }
+</style>
+<script type="text/javascript">
+    var meritmandCommentsCount = '@Model.Count()';
+</script>
+
+
+
+<div id="MeritMandateComment" class="modal-dialog" role="document">
+    <div class="modal-body commentbody">
+        <div class="row">
+            <div class="modal-header">
+                <h4 class="modal-title modaltitle" id="myModalLabel"> </h4>
+            </div>            
+            <div class="col-md-12 topsectionmerit">
+                <div style="font-size: 16px;padding-top:5px;color: #df4c81;">Rationale and comments are required if merit pay change is outside of guidelines. Other comments are optional.</div>
+                <ul class="nav nav-tabs tabforcomment" role="tablist">
+                    <li id="liMeritMandateComments" class="active" role="presentation"><a href="#meritMandateComments" aria-controls="merit" role="tab" data-toggle="tab">Merit</a></li>
+                  
+                </ul>            
+            </div>
+            <div class="col-md-12 modalright removeScroll" id="bodyContent" style="height:420px;">
+                @using (Ajax.BeginForm("_MeritExceedCommentUpdate", "Compensation", new { commentKey = ViewBag.EmpJobNum }, new AjaxOptions { UpdateTargetId = "MeritMandateComment", HttpMethod = "POST" }, new { id = "frmMeritComment" }))
+                {
+                    @Html.Hidden("IsMeritEditItem", false);
+                    @Html.Hidden("MeritEmpCommentNum", 0);
+@Html.AntiForgeryToken()
+                    if (Model != null && Model.Count() > 0)
+                    {
+
+                        foreach (var groupedItem in Model.GroupBy(s => (s.CommentCreatedDate.Value.ToLongDateString())))
+                        {
+                            List<string>
+                                       userNames = Model.Select(m => m.EmployeeName).Distinct().ToList();
+                            var dateFormat = Model.Select(x => x.DateFormat).Distinct().FirstOrDefault();
+                                                                <div role="tabpanel" class="tab-pane" id="generalComments" style="overflow-y: auto;overflow-x: hidden;display: block;height: auto !important;">
+                                                                    <div class="row top-pad">
+                                                                        <div class="col-md-12">
+                                                                            <div class="col-md-4 bordersec"></div>
+                                                                            <div class="col-md-4 datesec text-center">
+                                                                                @(Convert.ToDateTime(groupedItem.Key).ToLocalTime().ToLongDateString())
+                                                                            </div>
+                                                                            <div class="col-md-4 bordersec"></div>
+                                                                        </div>
+                                                                    </div>
+                                                                    @for (int i = 0; i < groupedItem.Count(); i++)
+                                                                    {
+                                                                        var num = 1;
+                                                                        var item = groupedItem.ElementAt(i);
+
+                                                                        <div id="comment_@item.EmpCommentNum" class="row top-pad">
+                                                                            <div class="col-md-12">
+                                                                                <div class="col-md-1 noleftrightpad textfilled text-center">
+                                                                                    <a href="#">@item.EmployeeNameShort</a>
+                                                                                </div>
+                                                                                <div class="col-md-11">
+                                                                                    <div class="row">
+                                                                                        <div class="col-md-6 bottom-pad">
+                                                                                            <a href="#" class="blockblack">
+                                                                                                @item.EmployeeName
+                                                                                            </a>
+                                                                                            <span class="time">@Convert.ToDateTime(item.CommentCreatedDate).ToLongTimeString()</span>
+                                                                                            <div class="row">
+                                                                                                <div class="col-md-12 smalltxt">
+                                                                                                    <span class="label label-skyblue" id="typeName">@item.Label</span>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div class="col-md-6 bottom-pad text-right">
+                                                                                            <ul class="list-unstyled list-inline edit-delete">
+                                                                                                @if (item.CreatedByUserNumOrEmpNum == ViewContext.GetUserNum())
+                                                                                                {
+                                                                                                    @Html.HiddenFor(j => item.EmpCommentNum)
+                                                                                                    @Html.HiddenFor(j => item.CompensationTypeNum)
+                                                                                                    <li><a class="editsec" id="btnMeritEdit_@item.EmpCommentNum" role="button" data-toggle="collapse" href="#meritCollapse_@item.EmpCommentNum" onclick="meritEditClick(@item.EmpCommentNum,@num)" aria-expanded="false" data-myitemid="@(item.Comment)" aria-controls="collapseedit"><i class="fa fa-pencil" aria-hidden="true"></i></a></li>
+                                                                                                }
+                                                                                                @if (item.CreatedByUserNumOrEmpNum == ViewContext.GetUserNum())
+                                                                                                {
+                                                                                                    @Html.HiddenFor(j => item.EmpCommentNum)
+                                                                                                    <li><a href="#" class="deletesec" data-mycommentitemid="@(item.EmpCommentNum)" id="btnMeritDelete_@item.EmpCommentNum" onclick="meritCommentDelete(@item.EmpCommentNum,@num)"><i class="fa fa-trash-o" aria-hidden="true"></i></a></li>
+                                                                                                }
+                                                                                            </ul>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="collapse" id="meritCollapse_@item.EmpCommentNum">
+                                                                                        <div class="well nopad">
+                                                                                            <textarea class='form-control' id="meritEditBox1_@item.EmpCommentNum" data-commentlabel="@(item.Label)" onchange="saveMeritComment(@item.EmpCommentNum,@item.CompensationTypeNum,@num)" row="7"></textarea>
+                                                                                        </div>
+                                                                                        <div class="btn-group pull-right" role="group" aria-label="...">
+                                                                                            <button type="button" class="btn btn-default" id="meritSaveBtn1_@item.EmpCommentNum" onclick="saveMeritComment(@item.EmpCommentNum,@item.CompensationTypeNum,@num)"><i class="fa fa-check"></i></button>
+                                                                                            <button type="button" class="btn btn-default" id="meritCloseBtn1_@item.EmpCommentNum" onclick="cancelMeritComment(@item.EmpCommentNum,@item.CompensationTypeNum,@num)"><i class="fa fa-close"></i></button>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="row">
+                                                                                        <div class="col-md-12">
+                                                                                            <p id="meritText1_@item.EmpCommentNum">
+                                                                                                @item.Comment
+
+                                                                                                <span>
+                                                                                                @if (item.UpdatedByUserNumOrEmpNum != null)
+                                                                                                    {
+                                                                                                        <span class="commentpagetooltip">
+                                                                                                            <span class="test">(Edited)</span>
+                                                                                                            <span class="tooltiptext">@Convert.ToDateTime(item.CommentUpdatedDate).ToString()</span>
+                                                                                                        </span>
+                                                                                                    }
+                                                                                                </span>
+                                                                                            </p>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    }
+                                                                </div>
+                        }
+                    }
+                    else
+                    {
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="img-padding text-center">
+                                    <div class="img-responsive">
+                                        <img src="../../images/comment-bicon.png">
+                                    </div>
+                                    <div class="big30">You have no comments here</div>
+                                    <div class="big21">Enter your comment in the below text box and tap on 'Add Comment' button</div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                                                        <div class="modal-footer col-md-12">                                                           
+                                                            @Html.TextArea("meritcomment", "", new { id = "meritcomment", rows = "3", style = "width:100%;", onchange = "SetCommentChangeFlag();",placeholder="Enter comments here" })
+                                                          
+                                                            <div class="top-pad">
+                                                                <button type="submit" class="btn btn-cancel" data-dismiss="modal" id="btnMeritMandateClose"><i class="fa fa-ban"></i> Cancel</button>
+                                                                <button type="submit" class="btn btn-skyblue" id="btnMeritMandateSave" >Add Comment</button>
+                                                            </div>
+                                                        </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="d02ce5c82b844397976344df08403fff" Name="Diagram1" ZoomLevel="31" >
+        <EntityTypeShape EntityType="LaserbeamEntities.AppEmail" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="LaserbeamEntities.AppExportScript" Width="1.5" PointX="2.75" PointY="0.75" />
+        <EntityTypeShape EntityType="LaserbeamEntities.AppMenu" Width="1.5" PointX="2.75" PointY="3.75" />
+        <EntityTypeShape EntityType="LaserbeamEntities.AppMessage" Width="1.5" PointX="9" PointY="83.125" />
+        <EntityTypeShape EntityType="LaserbeamEntities.AppScript" Width="1.5" PointX="9" PointY="28.375" />
+        <EntityTypeShape EntityType="LaserbeamEntities.AppSetting" Width="1.5" PointX="4.75" PointY="0.75" />
+        <EntityTypeShape EntityType="LaserbeamEntities.AppTable" Width="1.5" PointX="4.75" PointY="3.75" />
+        <EntityTypeShape EntityType="LaserbeamEntities.AppUserRole" Width="1.5" PointX="0.75" PointY="57.875" />
+        <EntityTypeShape EntityType="LaserbeamEntities.AppUserStatu" Width="1.5" PointX="0.75" PointY="47.5" />
+        <EntityTypeShape EntityType="LaserbeamEntities.BonusType" Width="1.5" PointX="3.75" PointY="93" />
+        <EntityTypeShape EntityType="LaserbeamEntities.BusinessUnit" Width="1.5" PointX="3.75" PointY="60.25" />
+        <EntityTypeShape EntityType="LaserbeamEntities.BusSetting" Width="1.5" PointX="6.75" PointY="0.75" />
+        <EntityTypeShape EntityType="LaserbeamEntities.Category" Width="1.5" PointX="6.75" PointY="4.75" />
+        <EntityTypeShape EntityType="LaserbeamEntities.Company" Width="1.5" PointX="0.75" PointY="7.75" />
+        <EntityTypeShape EntityType="LaserbeamEntities.CompensationType" Width="1.5" PointX="12" PointY="24.5" />
+        <EntityTypeShape EntityType="LaserbeamEntities.CostCenter" Width="1.5" PointX="2.75" PointY="7.75" />
+        <EntityTypeShape EntityType="LaserbeamEntities.Country" Width="1.5" PointX="3.75" PointY="85" />
+        <EntityTypeShape EntityType="LaserbeamEntities.Currency" Width="1.5" PointX="3.75" PointY="71.875" />
+        <EntityTypeShape EntityType="LaserbeamEntities.DateFormat" Width="1.5" PointX="4.75" PointY="7.75" />
+        <EntityTypeShape EntityType="LaserbeamEntities.DecimalType" Width="1.5" PointX="6.75" PointY="7.75" />
+        <EntityTypeShape EntityType="LaserbeamEntities.Department" Width="1.5" PointX="3.75" PointY="25.25" />
+        <EntityTypeShape EntityType="LaserbeamEntities.Division" Width="1.5" PointX="3.75" PointY="34.75" />
+        <EntityTypeShape EntityType="LaserbeamEntities.EmailTracker" Width="1.5" PointX="8.75" PointY="0.75" />
+        <EntityTypeShape EntityType="LaserbeamEntities.EmployeeClass" Width="1.5" PointX="3.75" PointY="32" />
+        <EntityTypeShape EntityType="LaserbeamEntities.EntityCode" Width="1.5" PointX="3.75" PointY="98.625" />
+        <EntityTypeShape EntityType="LaserbeamEntities.Ethnicity" Width="1.5" PointX="8.75" PointY="4.75" />
+        <EntityTypeShape EntityType="LaserbeamEntities.ExchangeRate" Width="1.5" PointX="6" PointY="72" />
+        <EntityTypeShape EntityType="LaserbeamEntities.Family" Width="1.5" PointX="8.75" PointY="7.75" />
+        <EntityTypeShape EntityType="LaserbeamEntities.Grade" Width="1.5" PointX="3.75" PointY="95.75" />
+        <EntityTypeShape EntityType="LaserbeamEntities.GroupType" Width="1.5" PointX="9.75" PointY="21.75" />
+        <EntityTypeShape EntityType="LaserbeamEntities.InitiativesLink" Width="1.5" PointX="10.75" PointY="0.75" />
+        <EntityTypeShape EntityType="LaserbeamEntities.Job" Width="1.5" PointX="3.75" PointY="90" />
+        <EntityTypeShape EntityType="LaserbeamEntities.JobStatu" Width="1.5" PointX="0.75" PointY="10.75" />
+        <EntityTypeShape EntityType="LaserbeamEntities.Location" Width="1.5" PointX="3.75" PointY="63" />
+        <EntityTypeShape EntityType="LaserbeamEntities.MetaColumn" Width="1.5" PointX="2.75" PointY="10.75" />
+        <EntityTypeShape EntityType="LaserbeamEntities.MetaTable" Width="1.5" PointX="4.75" PointY="10.75" />
+        <EntityTypeShape EntityType="LaserbeamEntities.MetaXmlTemplate" Width="2.125" PointX="10.75" PointY="5.75" />
+        <EntityTypeShape EntityType="LaserbeamEntities.Module" Width="1.5" PointX="9" PointY="32.25" />
+        <EntityTypeShape EntityType="LaserbeamEntities.Operator" Width="1.5" PointX="6.75" PointY="10.75" />
+        <EntityTypeShape EntityType="LaserbeamEntities.OrgGroupCriteria" Width="1.5" PointX="9.75" PointY="18.625" />
+        <EntityTypeShape EntityType="LaserbeamEntities.PayGroup" Width="1.5" PointX="3.75" PointY="37.5" />
+        <EntityTypeShape EntityType="LaserbeamEntities.Program" Width="1.5" PointX="3.75" PointY="101.375" />
+        <EntityTypeShape EntityType="LaserbeamEntities.Rating" Width="1.5" PointX="12" PointY="59.875" />
+        <EntityTypeShape EntityType="LaserbeamEntities.ReviewType" Width="1.5" PointX="3.75" PointY="40.25" />
+        <EntityTypeShape EntityType="LaserbeamEntities.RoundingType" Width="1.5" PointX="8.75" PointY="10.75" />
+        <EntityTypeShape EntityType="LaserbeamEntities.State" Width="1.5" PointX="3.75" PointY="87.5" />
+        <EntityTypeShape EntityType="LaserbeamEntities.SubFamily" Width="1.5" PointX="10.75" PointY="9.75" />
+        <EntityTypeShape EntityType="LaserbeamEntities.SubStatu" Width="1.5" PointX="3.75" PointY="28.5" />
+        <EntityTypeShape EntityType="LaserbeamEntities.UserAppUrlTracker" Width="1.5" PointX="12.75" PointY="0.75" />
+        <EntityTypeShape EntityType="LaserbeamEntities.UserQuery" Width="1.5" PointX="12.75" PointY="4.75" />
+        <EntityTypeShape EntityType="LaserbeamEntities.XmlProcess" Width="1.5" PointX="12.75" PointY="7.75" />
+        <EntityTypeShape EntityType="LaserbeamEntities.AppUser" Width="1.5" PointX="3" PointY="48.5" />
+        <EntityTypeShape EntityType="LaserbeamEntities.Budget" Width="1.5" PointX="14.25" PointY="45" />
+        <EntityTypeShape EntityType="LaserbeamEntities.DailyTask" Width="1.5" PointX="5.25" PointY="67.75" />
+        <EntityTypeShape EntityType="LaserbeamEntities.Employee" Width="1.5" PointX="0.75" PointY="50.625" />
+        <EntityTypeShape EntityType="LaserbeamEntities.EmployeeApprovalDetail" Width="1.5" PointX="5.25" PointY="77.5" />
+        <EntityTypeShape EntityType="LaserbeamEntities.EmployeeCompAdjustment" Width="1.5" PointX="8.25" PointY="78.875" />
+        <EntityTypeShape EntityType="LaserbeamEntities.EmployeeCompApprovalComment" Width="1.5" PointX="8.25" PointY="36" />
+        <EntityTypeShape EntityType="LaserbeamEntities.EmployeeCompApprovalLevel" Width="1.5" PointX="17.25" PointY="50.5" />
+        <EntityTypeShape EntityType="LaserbeamEntities.EmployeeCompApprovalRequest" Width="1.5" PointX="10.75" PointY="12.75" />
+        <EntityTypeShape EntityType="LaserbeamEntities.EmployeeCompApprovalStatu" Width="1.5" PointX="8.25" PointY="39" />
+        <EntityTypeShape EntityType="LaserbeamEntities.EmployeeCompComment" Width="1.5" PointX="14.25" PointY="52" />
+        <EntityTypeShape EntityType="LaserbeamEntities.EmployeeCompCommentStatu" Width="1.5" PointX="19.5" PointY="52.625" />
+        <EntityTypeShape EntityType="LaserbeamEntities.EmployeeCompMarket" Width="1.5" PointX="8.25" PointY="68" />
+        <EntityTypeShape EntityType="LaserbeamEntities.EmployeeCompMerit" Width="1.5" PointX="8.25" PointY="59.25" />
+        <EntityTypeShape EntityType="LaserbeamEntities.EmployeeCompNew" Width="1.5" PointX="8.25" PointY="74.375" />
+        <EntityTypeShape EntityType="LaserbeamEntities.EmployeeCompPromotion" Width="1.5" PointX="8.25" PointY="43.625" />
+        <EntityTypeShape EntityType="LaserbeamEntities.EmployeeCompRating" Width="1.5" PointX="14.25" PointY="56.25" />
+        <EntityTypeShape EntityType="LaserbeamEntities.EmployeeDetailsCorrection" Width="1.5" PointX="14.75" PointY="0.75" />
+        <EntityTypeShape EntityType="LaserbeamEntities.EmployeeGroup" Width="1.5" PointX="9" PointY="48.5" />
+        <EntityTypeShape EntityType="LaserbeamEntities.EmployeeGroupInclusionExclusion" Width="1.5" PointX="9" PointY="52.375" />
+        <EntityTypeShape EntityType="LaserbeamEntities.EmployeeInclusionAndExclusion" Width="1.5" PointX="3" PointY="106.75" />
+        <EntityTypeShape EntityType="LaserbeamEntities.EmployeeJob" Width="1.5" PointX="6" PointY="46.5" />
+        <EntityTypeShape EntityType="LaserbeamEntities.EmployeeMoreInfo" Width="1.5" PointX="4.75" PointY="13.75" />
+        <EntityTypeShape EntityType="LaserbeamEntities.EmployeeWorkFlowChanx" Width="1.5" PointX="6.75" PointY="13.75" />
+        <EntityTypeShape EntityType="LaserbeamEntities.EmployeeWorkflowCommentStatu" Width="1.5" PointX="10.5" PointY="64.5" />
+        <EntityTypeShape EntityType="LaserbeamEntities.FeedBack" Width="1.5" PointX="5.25" PointY="43.5" />
+        <EntityTypeShape EntityType="LaserbeamEntities.ManagerRelation" Width="1.5" PointX="3" PointY="109.875" />
+        <EntityTypeShape EntityType="LaserbeamEntities.OrgGroup" Width="1.5" PointX="6.75" PointY="30.875" />
+        <EntityTypeShape EntityType="LaserbeamEntities.OrgGroupAssignedCriteria" Width="1.5" PointX="12" PointY="31.5" />
+        <EntityTypeShape EntityType="LaserbeamEntities.OrgGroupDetail" Width="1.5" PointX="9" PointY="55.875" />
+        <EntityTypeShape EntityType="LaserbeamEntities.OrgGroupType" Width="1.5" PointX="12" PointY="28.625" />
+        <EntityTypeShape EntityType="LaserbeamEntities.ProxyGroup" Width="1.5" PointX="11.25" PointY="48.25" />
+        <EntityTypeShape EntityType="LaserbeamEntities.ProxyManager" Width="1.5" PointX="11.25" PointY="44.25" />
+        <EntityTypeShape EntityType="LaserbeamEntities.ProxyPopulationAccess" Width="1.5" PointX="9" PointY="24.875" />
+        <EntityTypeShape EntityType="LaserbeamEntities.ProxyScript" Width="1.5" PointX="11.25" PointY="52.5" />
+        <EntityTypeShape EntityType="LaserbeamEntities.TriggerEmail" Width="1.5" PointX="11.75" PointY="15.75" />
+        <EntityTypeShape EntityType="LaserbeamEntities.UserMenu" Width="1.5" PointX="5.25" PointY="81.375" />
+        <EntityTypeShape EntityType="LaserbeamEntities.UserMessage" Width="1.5" PointX="11.25" PointY="56.5" />
+        <EntityTypeShape EntityType="LaserbeamEntities.UserPopulation" Width="1.5" PointX="8.75" PointY="15.75" />
+        <EntityTypeShape EntityType="LaserbeamEntities.PivotedEmployeeCompApprovalLevel" Width="1.5" PointX="16.75" PointY="0.75" />
+        <AssociationConnector Association="LaserbeamEntities.fk_UserMessage_AppMessage" />
+        <AssociationConnector Association="LaserbeamEntities.FK_ProxyScript_AppScript" />
+        <AssociationConnector Association="LaserbeamEntities.fk_AppUser_AppUserRole" />
+        <AssociationConnector Association="LaserbeamEntities.fk1_AppUser_AppUserStatus" />
+        <AssociationConnector Association="LaserbeamEntities.fk4_EmployeeJob_BonusTypeNum" />
+        <AssociationConnector Association="LaserbeamEntities.fk5_EmployeeJob_BusinessUnitNum" />
+        <AssociationConnector Association="LaserbeamEntities.FK_Budget_CompensationType" />
+        <AssociationConnector Association="LaserbeamEntities.fk7_EmployeeJob_CountryNum" />
+        <AssociationConnector Association="LaserbeamEntities.FK__ExchangeR__Curre__469D7149" />
+        <AssociationConnector Association="LaserbeamEntities.FK__ExchangeR__Curre__66B53B20" />
+        <AssociationConnector Association="LaserbeamEntities.FK_EmployeeJob_Currency" />
+        <AssociationConnector Association="LaserbeamEntities.fk9_EmployeeJob_DepartmentNum" />
+        <AssociationConnector Association="LaserbeamEntities.fk6_EmployeeJob_DivisionNum" />
+        <AssociationConnector Association="LaserbeamEntities.fk12_EmployeeJob_ClassNum" />
+        <AssociationConnector Association="LaserbeamEntities.fk8_EmployeeJob_EntityCodeNum" />
+        <AssociationConnector Association="LaserbeamEntities.FK_EmployeeJob_Grade" />
+        <AssociationConnector Association="LaserbeamEntities.fk_OrgGroupType_GroupType" />
+        <AssociationConnector Association="LaserbeamEntities.fk_EmployeeJob_Job" />
+        <AssociationConnector Association="LaserbeamEntities.FK_EmployeeJob_Location" />
+        <AssociationConnector Association="LaserbeamEntities.FK__EmployeeC__Modul__4B399FE2" />
+        <AssociationConnector Association="LaserbeamEntities.FK__EmployeeC__Modul__4C2DC41B" />
+        <AssociationConnector Association="LaserbeamEntities.FK4_ProxyGroup_Module" />
+        <AssociationConnector Association="LaserbeamEntities.FK4_ProxyManager_Module" />
+        <AssociationConnector Association="LaserbeamEntities.FK_OrGGroupAssignedCriteria_OrgGroupCriteria" />
+        <AssociationConnector Association="LaserbeamEntities.fk10_EmployeeJob_PayGroupNum" />
+        <AssociationConnector Association="LaserbeamEntities.fk_EmployeeJob_ProgramNum" />
+        <AssociationConnector Association="LaserbeamEntities.fk_EmployeeCompRating_BonusPerformanceRating" />
+        <AssociationConnector Association="LaserbeamEntities.fk_EmployeeCompRating_MeritPerformanceRating" />
+        <AssociationConnector Association="LaserbeamEntities.FK_EmployeeJob_ReviewType" />
+        <AssociationConnector Association="LaserbeamEntities.FK_EmployeeJob_State" />
+        <AssociationConnector Association="LaserbeamEntities.fk11_EmployeeJob_EmployeeSubStatusNum" />
+        <AssociationConnector Association="LaserbeamEntities.fk_AppUser_EmployeeNum" />
+        <AssociationConnector Association="LaserbeamEntities.FK_AppUser_UserNum" />
+        <AssociationConnector Association="LaserbeamEntities.fk_EmployeeApprovalDetails_AppUser" />
+        <AssociationConnector Association="LaserbeamEntities.fk_EmployeeCompComments_AppUserCreatedBy" />
+        <AssociationConnector Association="LaserbeamEntities.fk_EmployeeCompComments_AppUserUpdatedBy" />
+        <AssociationConnector Association="LaserbeamEntities.fk_EmployeeCompCommentStatus_AppUser" />
+        <AssociationConnector Association="LaserbeamEntities.fk_EmployeeWorkflowCommentStatus_AppUser" />
+        <AssociationConnector Association="LaserbeamEntities.fk_FeedBack_AppUser" />
+        <AssociationConnector Association="LaserbeamEntities.FK_fk4_Budget_AppUser" />
+        <AssociationConnector Association="LaserbeamEntities.FK_ProxyGroup_AppUser" />
+        <AssociationConnector Association="LaserbeamEntities.FK_ProxyManager_AppUser" />
+        <AssociationConnector Association="LaserbeamEntities.FK_ProxyScript_AppUser" />
+        <AssociationConnector Association="LaserbeamEntities.FK_UserMenu_AppUser" />
+        <AssociationConnector Association="LaserbeamEntities.fk_UserMessage_AppUser" />
+        <AssociationConnector Association="LaserbeamEntities.FK_Budget_EmployeeJob" />
+        <AssociationConnector Association="LaserbeamEntities.FK_EmployeeGroup_Employee" />
+        <AssociationConnector Association="LaserbeamEntities.FK_EmployeeGroupInclusionExclusion_Employee" />
+        <AssociationConnector Association="LaserbeamEntities.FK_EmployeeInclusionAndExclusion_Employee" />
+        <AssociationConnector Association="LaserbeamEntities.fk_EmployeeJob_Employee" />
+        <AssociationConnector Association="LaserbeamEntities.fk_EmployeeJob_Employee_Managernum" />
+        <AssociationConnector Association="LaserbeamEntities.FK_ManagerRelation_Employee" />
+        <AssociationConnector Association="LaserbeamEntities.FK_ProxyManager_Employee" />
+        <AssociationConnector Association="LaserbeamEntities.fk_EmployeeWorkflowCommentStatus_EmployeeCompComment" />
+        <AssociationConnector Association="LaserbeamEntities.FK_EmployeeCompAdjustment_EmployeeJob" />
+        <AssociationConnector Association="LaserbeamEntities.FK_EmployeeCompApprovalComments_EmployeeJob" />
+        <AssociationConnector Association="LaserbeamEntities.FK00_EmployeeCompApprovalLevel_EmployeeJob" />
+        <AssociationConnector Association="LaserbeamEntities.FK01_EmployeeCompApprovalLevel_AppMgrOneEmpNum" />
+        <AssociationConnector Association="LaserbeamEntities.FK02_EmployeeCompApprovalLevel_AppMgrTwoEmpNum" />
+        <AssociationConnector Association="LaserbeamEntities.FK03_EmployeeCompApprovalLevel_AppMgrThreeEmpNum" />
+        <AssociationConnector Association="LaserbeamEntities.FK04_EmployeeCompApprovalLevel_AppMgrFourEmpNum" />
+        <AssociationConnector Association="LaserbeamEntities.FK05_EmployeeCompApprovalLevel_AppMgrFiveEmpNum" />
+        <AssociationConnector Association="LaserbeamEntities.FK06_EmployeeCompApprovalLevel_AppMgrSixEmpNum" />
+        <AssociationConnector Association="LaserbeamEntities.FK07_EmployeeCompApprovalLevel_AppMgrSevenEmpNum" />
+        <AssociationConnector Association="LaserbeamEntities.FK08_EmployeeCompApprovalLevel_AppMgrEightEmpNum" />
+        <AssociationConnector Association="LaserbeamEntities.FK09_EmployeeCompApprovalLevel_AppMgrNineEmpNum" />
+        <AssociationConnector Association="LaserbeamEntities.FK10_EmployeeCompApprovalLevel_AppMgrTenEmpNum" />
+        <AssociationConnector Association="LaserbeamEntities.FK_EmployeeCompApprovalStatus_EmployeeJob" />
+        <AssociationConnector Association="LaserbeamEntities.FK_EmployeeCompComments_EmployeeJob" />
+        <AssociationConnector Association="LaserbeamEntities.fk_EmployeeCompCommentStatus_EmployeeCompComment" />
+        <AssociationConnector Association="LaserbeamEntities.FK_EmployeeCompMarket_EmployeeJob" />
+        <AssociationConnector Association="LaserbeamEntities.FK_EmployeeCompMerit_EmployeeJob" />
+        <AssociationConnector Association="LaserbeamEntities.FK_EmployeeCompNew_EmployeeJob" />
+        <AssociationConnector Association="LaserbeamEntities.FK_EmployeeCompPromotion_EmployeeJob" />
+        <AssociationConnector Association="LaserbeamEntities.FK_EmployeeCompRating_EmployeeJob" />
+        <AssociationConnector Association="LaserbeamEntities.FK_EmployeeGroup_OrgGroup" />
+        <AssociationConnector Association="LaserbeamEntities.FK_EmployeeGroupInclusionExclusion_OrgGroup" />
+        <AssociationConnector Association="LaserbeamEntities.FK_OrGGroupAssignedCriteria_OrGGroup" />
+        <AssociationConnector Association="LaserbeamEntities.FK_OrgGroupDetail_OrgGroup" />
+        <AssociationConnector Association="LaserbeamEntities.fk_OrgGroupType_OrgGroup" />
+        <AssociationConnector Association="LaserbeamEntities.FK_ProxyGroup_OrgGroup" />
+        <AssociationConnector Association="LaserbeamEntities.FK_ProxyPopulationAccess_OrgGroup" />
+        <EntityTypeShape EntityType="LaserbeamEntities.Team" Width="1.5" PointX="17.375" PointY="5.5" />
+        <EntityTypeShape EntityType="LaserbeamEntities.SupportTask" Width="1.5" PointX="19.625" PointY="5" />
+        <AssociationConnector Association="LaserbeamEntities.FK_SupportTasks_Team_TeamNum" />
+        <EntityTypeShape EntityType="LaserbeamEntities.SupportTaskComment" Width="1.5" PointX="21.875" PointY="30.75" />
+        <AssociationConnector Association="LaserbeamEntities.fk_SupportTaskComments_AppUserCreatedBy" />
+        <AssociationConnector Association="LaserbeamEntities.FK_SupportTasks_SupportTaskNum" />
+        <EntityTypeShape EntityType="LaserbeamEntities.ChatUserStatus" Width="2" PointX="17.375" PointY="9.75" />
+        <EntityTypeShape EntityType="LaserbeamEntities.ChatDetail" Width="1.5" PointX="17.375" PointY="12.75" />
+        <EntityTypeShape EntityType="LaserbeamEntities.ChatSessionDetail" Width="1.5" PointX="17.375" PointY="15.75" />
+        <EntityTypeShape EntityType="LaserbeamEntities.MarketPayRange" Width="1.5" PointX="17.375" PointY="18.75" />
+        <EntityTypeShape EntityType="LaserbeamEntities.EmployeeCompBonu" Width="1.5" PointX="8.25" PointY="87.75" />
+        <AssociationConnector Association="LaserbeamEntities.FK_EmployeeCompBonus_EmployeeJob" />
+        </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

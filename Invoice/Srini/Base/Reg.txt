@@ -1,0 +1,631 @@
+﻿using Laserbeam.BusinessObject.Models;
+using Laserbeam.DataManager.ICommon;
+using Laserbeam.Libraries.Common;
+using Laserbeam.UI.CompassAdmin.Common;
+using Laserbeam.UI.CompassAdmin.Models;
+using Microsoft.SqlServer.Management.Common;
+using Microsoft.SqlServer.Management.Smo;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using System;
+using System.Configuration;
+using System.Data.Common;
+using System.Data.Entity.Core.EntityClient;
+using System.Data.SqlClient;
+using System.IO;
+using System.Net;
+using System.Threading.Tasks;
+using System.Web;
+using System.Web.Mvc;
+using System.Web.Script.Serialization;
+using System.Linq;
+
+namespace Laserbeam.UI.CompassAdmin.Controllers
+{
+    public class TenantRegisterController : Controller
+    {
+        #region Fields
+        private ITenantRegisterRepository m_tenantRepository;
+        private IUserRepository m_userRepository;
+        public static string GlobalVarSecretKey;
+        #endregion
+        #region Constructor
+        public TenantRegisterController(ITenantRegisterRepository tenantRegisterRepository, IUserRepository userRepository)
+        {
+            m_tenantRepository = tenantRegisterRepository;
+            m_userRepository = userRepository;
+
+        }
+        #endregion
+
+        #region Public Methods
+        // GET: TenantRegister
+        public ActionResult Index()
+        {
+            return View();
+        }
+        public ActionResult PrivacyPolicy()
+        {
+            return View();
+        }
+       
+        public ActionResult Message()
+        {
+            if (TempData["mailId"] != null)
+            {
+                string modelData = decrypt(TempData["mailId"].ToString());
+                TenantMessageModel message = JsonConvert.DeserializeObject<TenantMessageModel>(modelData);
+                message.Message = message.Mail == null ? message.Message : message.Mail;
+                return View(message);
+            }
+            else
+            {
+                return RedirectToAction("Home");
+            }
+        }
+
+        public ActionResult Home(string mayaLink="")
+        {
+            string siteKey = ConfigurationManager.AppSettings["ReCaptchaSiteKey"].ToString();
+            bool isReCaptcha = ConfigurationManager.AppSettings["ReCaptchaValidation"].ToLower()=="yes"?true:false;
+            
+            TenantDetails tenantDetails = new TenantDetails();
+            tenantDetails.IsRecaptcha = isReCaptcha;
+            tenantDetails.ReCaptchaSiteKey = siteKey;
+            return View(tenantDetails);
+
+        }
+
+        public ActionResult TenantExists()
+        {
+            if (TempData["mailId"] != null)
+            {
+                string modelData = decrypt(TempData["mailId"].ToString());
+                TenantMessageModel message = JsonConvert.DeserializeObject<TenantMessageModel>(modelData);
+                return View(message);
+            }
+            else
+            {
+                return RedirectToAction("Home");
+            }
+
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> Home(TenantDetails tenantData)
+        {
+            bool isRecaptcha=false;
+            string siteKey = ConfigurationManager.AppSettings["ReCaptchaSiteKey"].ToString();
+            bool isReCaptchaEnabled = ConfigurationManager.AppSettings["ReCaptchaValidation"].ToLower() == "yes" ? true : false;
+            TenantMessageModel tenantMessage = new TenantMessageModel();
+            tenantData.ReCaptchaSiteKey = siteKey;
+            tenantData.IsRecaptcha = isReCaptchaEnabled;
+            if(isReCaptchaEnabled==true)
+             isRecaptcha = ReCaptchaValidation();
+            if (m_tenantRepository.IsMailDuplication(tenantData))
+                ModelState.AddModelError("EmailAddress", "Email address already exists or is not a business email");
+            if (isRecaptcha==false && isReCaptchaEnabled==true)
+                ModelState.AddModelError("ReCaptcha", "Your recaptcha verification process is failed. Please try again");
+            if (ModelState.IsValid)
+            {
+                var errorModelResult = new ErrorModel();
+                EmailData emailData = new EmailData();
+                bool isGivenTenantNotExist = m_tenantRepository.GetTenant(tenantData.URL) == null ? true : false;
+                if (isGivenTenantNotExist)
+                {
+                    try
+                    {
+                            string dbServer = "";
+                            var apiConnectionData = new DbConnectionStringBuilder();
+                            apiConnectionData.ConnectionString = getEntityProviderString();
+                            MayaKey.TryEncrypt(Convert.ToString(apiConnectionData["Data Source"]), out dbServer);
+                            tenantData.DatabaseServer = dbServer;
+                            tenantData.ProductNum = 2;
+                            var tenant = AddTenant(tenantData);
+                            createDatabase(tenant);
+                            string connectionString = getCurrentCreatedDBConnectionString("LBS_Compass_" + tenantData.URL);
+                            string secrectKey = m_tenantRepository.CreateTenantUserDetails(tenantData.EmailAddress ?? "", connectionString);
+                            emailData = getCompassLoginEmailBody(tenantData, secrectKey);
+                            var emailStatus = await Email.SendEmail(emailData);
+                            errorModelResult.Result = true;
+                            errorModelResult.ErrorMessage = "New instance is created successfully";
+                    }
+                    finally { }
+                }
+                else
+                {
+                    errorModelResult.Result = false;
+                    errorModelResult.ErrorMessage = "Tenant code is already exists";
+                }
+                if (errorModelResult.ErrorMessage != "")
+                {
+                    tenantMessage.Message = tenantData.EmailAddress;
+                    JavaScriptSerializer js = new JavaScriptSerializer();
+                    string json = js.Serialize(tenantMessage);
+                    string encryptPath = encrypt(json);
+                    TempData["mailId"] = encryptPath;
+                    return RedirectToAction("Message");
+                }
+                else
+                {
+                    tenantMessage.Message = errorModelResult.ErrorMessage;
+                    tenantMessage.UserName = "";
+                    JavaScriptSerializer js = new JavaScriptSerializer();
+                    string json = js.Serialize(tenantMessage);
+                    string encryptPath = encrypt(json);
+                    TempData["mailId"] = encryptPath;
+                    return RedirectToAction("TenantExists");
+                }
+            }
+            return View(tenantData);
+        }
+
+        public JsonResult URLValidation(TenantDetails tenantData)
+        {
+            bool isGivenTenantNotExist = m_tenantRepository.GetTenant(tenantData.URL) == null ? true : false;
+            if (isGivenTenantNotExist == true)
+                return Json(true);
+            else
+                return Json(false);
+        }
+
+        [HttpPost]
+        public JsonResult UploadImage(string url)
+        {
+            string saveLogoPath = ConfigurationManager.AppSettings["SaveLogoPath"].ToString();
+            bool isGivenTenantNotExist = m_tenantRepository.GetTenant(url) == null ? true : false;
+            try
+            {
+                if (Request.Files.Count > 0 && isGivenTenantNotExist && url != "")
+                {
+                    var file = Request.Files[0];
+                    if (file != null && file.ContentLength > 0)
+                    {
+
+                        var fileName = Path.GetFileName(file.FileName);
+                        string path = Path.Combine(saveLogoPath, fileName.Replace(Path.GetFileNameWithoutExtension(fileName), (url != "" ? url : "Logo")));
+                        file.SaveAs(path);
+                    }
+                    return Json(true);
+                }
+                else
+                    return Json(false);
+
+            }
+            catch (Exception e)
+            {
+                return Json(false);
+            }
+        }
+       
+        [HttpGet]
+        public PartialViewResult _ChangeEmail()
+        {
+            return PartialView();
+        }
+
+        // Author       : Shaheena Shaik
+        // Creation Date: 31-May-2017
+        /// <summary>
+        /// Changing Email and updating into the database
+        /// </summary>
+        /// <param name="updateEmailModel"> model object with old emailId and new emialId</param>
+        /// <returns>Returning a model object</returns>
+        [HttpPost]
+        public async Task<ActionResult> _ChangeEmail(UpdateEmailAddressModel updateEmailModel)
+        {
+            MessageModel messageModel = new MessageModel();
+            TenantDetails tenantData = new TenantDetails();
+            EmailData emailData = new EmailData();
+            var user = m_userRepository.GetUser().Where(x => x.Email == updateEmailModel.hndOldMailID).FirstOrDefault();
+            if (!m_userRepository.IsMailDuplication(updateEmailModel.EmailAddress))
+            {
+                messageModel.MailExists = true;
+                messageModel.UpdatedEMail = updateEmailModel.EmailAddress;
+                messageModel.Mail = updateEmailModel.hndOldMailID;
+            }
+            else
+            {
+                messageModel.MailExists = false;
+                m_userRepository.UpdateNewEmailID(updateEmailModel.EmailAddress, updateEmailModel.hndOldMailID);
+                tenantData= m_userRepository.GetTenantDetails(updateEmailModel.EmailAddress);
+                string connectionString = getCurrentCreatedDBConnectionString("LBS_Compass_" + user.TenantName);
+                string secrectKey = m_userRepository.UpdateTenantUserDetails(updateEmailModel.EmailAddress, updateEmailModel.hndOldMailID, connectionString);
+                GlobalVarSecretKey = secrectKey;
+
+
+                //  bool result = await sendEmailToUser(updateEmailModel.EmailAddress);
+                emailData = getCompassLoginEmailBody(tenantData, GlobalVarSecretKey);
+                var emailStatus = await Email.SendEmail(emailData);
+                messageModel.Mail = updateEmailModel.EmailAddress;
+            }
+            JavaScriptSerializer js = new JavaScriptSerializer();
+            string json = js.Serialize(messageModel);
+            string encryptPath = encrypt(json);
+            TempData["mailId"] = encryptPath;
+            return RedirectToAction("Message");
+        }
+
+
+        ////
+        // Author       : Shaheena Shaik
+        // Creation Date:1-July-2017
+        /// <summary>
+        /// Validating Updated emailId is already exist or not
+        /// </summary>
+        /// <param name="newEmailAddress">Updated EmailId</param>
+        /// <param name="oldEmailAddress">old EmailId/param>
+        /// <returns>Returning a boolean result of whether updated emailId exist or not</returns>
+        [HttpPost]
+        public JsonResult NewlyUpdatedEmailValidation(string newEmailAddress, string oldEmailAddress)
+        {
+            bool allowSameDomain = ConfigurationManager.AppSettings["AllowSameDomain"].ToUpper()=="YES"? true:false;
+            if (newEmailAddress != oldEmailAddress)
+            {
+                int isNewEmailExists = m_tenantRepository.NewlyUpdatedEmailValidation(newEmailAddress,allowSameDomain);
+                
+                return Json(isNewEmailExists);
+            }
+            else
+                return Json(0);
+        }
+
+        public ActionResult Success()
+        {
+            return View();
+        }
+
+        public string getCurrentCreatedDBConnectionString(string dbName)
+        {
+            var databaseConnection = new DbConnectionStringBuilder();
+            databaseConnection.ConnectionString = ConfigurationManager.ConnectionStrings["CompTenant"].ConnectionString;
+            string dbServer = Convert.ToString(databaseConnection["Data Source"]);
+            string dbUserId = Convert.ToString(databaseConnection["User ID"]);
+            string dbPassword = Convert.ToString(databaseConnection["Password"]);
+            MayaKey.TryDecrypt(dbServer, out dbServer);
+            MayaKey.TryDecrypt(dbUserId, out dbUserId);
+            MayaKey.TryDecrypt(dbPassword, out dbPassword);
+            databaseConnection["Data Source"] = dbServer;
+            databaseConnection["Initial Catalog"] = dbName;
+            databaseConnection["User ID"] = dbUserId;
+            databaseConnection["Password"] = dbPassword;
+            return databaseConnection.ConnectionString;
+        }
+        public string ValidateUserSecretKey(string userId, string secretKey, string requestTimeStamp)
+        {
+            DateTime epochStart = new DateTime(1970, 01, 01, 0, 0, 0, 0, DateTimeKind.Utc);
+            TimeSpan currentTs = DateTime.UtcNow - epochStart;
+            var serverTotalSeconds = Convert.ToUInt64(currentTs.TotalSeconds);
+            string tenantStatus;
+            if (!string.IsNullOrWhiteSpace(requestTimeStamp) && (serverTotalSeconds - Convert.ToUInt64(requestTimeStamp)) > 86400)
+            {
+                tenantStatus = "Invalid";
+            }
+            else
+            {
+                bool isTenantCreated = m_tenantRepository.getUserDetails(userId);
+                if (isTenantCreated)
+                    tenantStatus = "Invalid";
+                else
+                {
+                    if (!validateSecretKey(userId, secretKey))
+                        tenantStatus = "Invalid";
+                    else
+                        tenantStatus = "Valid";
+                }
+            }
+            return tenantStatus;
+        }
+       
+        private bool ReCaptchaValidation()
+        {
+            string secretKey= ConfigurationManager.AppSettings["ReCaptchaSecretKey"].ToString();
+            var response = Request["g-recaptcha-response"];
+            var client = new WebClient();
+            var result = client.DownloadString(string.Format("https://www.google.com/recaptcha/api/siteverify?secret={0}&response={1}", secretKey, response));
+            var obj = JObject.Parse(result);
+            var status = (bool)obj.SelectToken("success");
+            //ViewBag.Message = status ? "Google reCaptcha validation success" : "Google reCaptcha validation failed";
+
+            return status;
+        }
+        #endregion
+       #region Private Methods
+        private bool validateSecretKey(string userId, string secretKey)
+        {
+            if (m_tenantRepository.getUserSecretKey(userId) == secretKey)
+                return true;
+            else
+                return false;
+        }
+        // Author         :   John Francis Xavier C		
+        // Creation Date  :   28-Dec-2016
+        // Ticket ID      :   PSP-13384
+        /// <summary>
+        /// Backup and Restore the database
+        /// </summary>
+        /// <param name="tenantConnection">Instance of TenantConnection</param>
+        /// <param name="databaseScripPatch">A valid path of database script patches as string</param>
+        private void backUpandRestoreDatabase(TenantDetails tenantConnection, Server server, string template)
+        {
+            string dbName = tenantConnection.DatabaseName;
+            string backupDbName = ConfigurationManager.AppSettings["TenantCreationBackupDatabase"].ToString();
+            string backupDbTime = DateTime.Now.ToString("yyyyMMddHHmmss");
+            MayaKey.TryDecrypt(dbName, out dbName);
+            Backup backup = new Backup();
+            backup.Action = BackupActionType.Database;
+            backup.Database = backupDbName;
+            backup.Devices.AddDevice(server.BackupDirectory + "\\" + backupDbName + "_" + backupDbTime + "_Backup.bak", DeviceType.File);
+            backup.Incremental = false;
+            backup.SqlBackup(server);
+
+            Restore res = new Restore();
+            res.Devices.AddDevice(server.BackupDirectory + "\\" + backupDbName + "_" + backupDbTime + "_Backup.bak", DeviceType.File);
+
+            RelocateFile DataFile = new RelocateFile();
+            string MDF = res.ReadFileList(server).Rows[0][1].ToString();
+            DataFile.LogicalFileName = res.ReadFileList(server).Rows[0][0].ToString();
+            DataFile.PhysicalFileName = server.Databases[backupDbName].FileGroups[0].Files[0].FileName.Replace(backupDbName, dbName);
+
+            RelocateFile LogFile = new RelocateFile();
+            string LDF = res.ReadFileList(server).Rows[1][1].ToString();
+            LogFile.LogicalFileName = res.ReadFileList(server).Rows[1][0].ToString();
+            LogFile.PhysicalFileName = server.Databases[backupDbName].LogFiles[0].FileName.Replace(backupDbName, dbName);
+
+            res.RelocateFiles.Add(DataFile);
+            res.RelocateFiles.Add(LogFile);
+
+            res.Database = dbName;
+            res.NoRecovery = false;
+            res.ReplaceDatabase = true;
+            res.SqlRestore(server);
+        }
+
+        private string encrypt(string url)
+        {
+            string encryptedPassword = string.Empty;
+            byte[] byteEncrptPassword = System.Text.ASCIIEncoding.ASCII.GetBytes(url);
+            encryptedPassword = Convert.ToBase64String(byteEncrptPassword);
+            return encryptedPassword;
+        }
+
+        private string decrypt(string encryptedUrl)
+        {
+            byte[] byteDecryptedUrl = Convert.FromBase64String(encryptedUrl);
+            string url = System.Text.ASCIIEncoding.ASCII.GetString(byteDecryptedUrl);
+            return url;
+        }
+
+        private EmailData getCompassLoginEmailBody(TenantDetails tenantData, string secrectKey)
+        {
+            var user = m_tenantRepository.getTenantUserDetail(tenantData.EmailAddress ?? "");
+            string compassInstanceBaseUrl = ConfigurationManager.AppSettings.Get("compassInstanceBaseUrl") + tenantData.URL + "/Account/Login";
+            string tenantURL = ConfigurationManager.AppSettings.Get("compassInstanceBaseUrl") + tenantData.URL;
+            string userName = tenantData.UserFirstName + " " + tenantData.UserLastName;
+            string bccEmail = ConfigurationManager.AppSettings["TenantCreationBCCMailAddress"].ToString();
+            string signupURL = ConfigurationManager.AppSettings.Get("tenantCreationBaseUrl");
+            EmailData emailData = new EmailData();
+            emailData.ToEmailId =  tenantData.EmailAddress;
+            emailData.BCCEmailId = bccEmail;
+            emailData.EmailSubject = "Your Laserbeam Compass Trial Login";
+            bool isEncrypted = false;
+            string encryptedMagicKey = string.Empty;
+            if ((user.UserName != "") && !string.IsNullOrWhiteSpace(secrectKey))
+            {
+                DateTime epochStart = new DateTime(1970, 01, 01, 0, 0, 0, 0, DateTimeKind.Utc);
+                TimeSpan timeSpan = DateTime.UtcNow - epochStart;
+                string requestTimeStamp = "";
+                isEncrypted = MayaKey.TryEncrypt(user.UserName + '|' + secrectKey + '|' + requestTimeStamp, out encryptedMagicKey);
+                compassInstanceBaseUrl = isEncrypted ? compassInstanceBaseUrl + "?mayaLink=" + HttpUtility.UrlEncode(encryptedMagicKey) : compassInstanceBaseUrl;
+            }
+            string emailTemplate = string.Empty;
+            using (StreamReader reader = new StreamReader(Server.MapPath("~/HtmlTemplate/TenantLoginEmailTemplate.html")))
+            {
+                emailTemplate = reader.ReadToEnd();
+            }
+            
+            string logoimage = signupURL + "/Images/logo.png";
+            string emailbannerimage = signupURL + "/Images/emailbanner.jpg";
+            string facebookimage = signupURL + "/Images/facebook-icon.png";
+            string twitterimage = signupURL + "/Images/twitter-icon.png";
+            string linkedinimage = signupURL + "/Images/linkedin-icon.png";
+            string instagramimage = signupURL + "/Images/instagram-icon.png";
+            emailTemplate = emailTemplate.Replace("@URLButton", "<a style=\"background:#ea5455;font-size:15px;padding:10px 25px;color:#fff;border-radius:30px;text-decoration:none;position:relative;bottom:15px;margin-bottom:15px;\" href = '" + compassInstanceBaseUrl + "'> Login</a>");
+            emailTemplate= emailTemplate.Replace("@PowerUp", "<a style=\"color:#ea5455;font-size:15px;font-weight: 600;text-decoration:none;\" href = '" + compassInstanceBaseUrl + "'> Power-up</a>");
+            emailTemplate = emailTemplate.Replace("@TenantURL", "<a  style=\"text-decoration:none;\" href = '" + compassInstanceBaseUrl + "'>"+ tenantURL + "</a>");
+
+
+
+            emailTemplate = emailTemplate.Replace("@SupportEmailLink", "<a href=\"\" style=\"text-decoration:underline; color:#064bc9;\">support@laserbm.net</a>");
+
+            string inputEmail = tenantData.EmailAddress;
+            string[] emailElements = inputEmail.Split('@');
+            string[] domainElements = emailElements[1].Split('.');
+            string emailAddress = "<span>" + emailElements[0] + "</span><span>@</span><span>" + domainElements[0] + "</span><span>.</span><span>" + domainElements[1] + "</span>";
+            emailTemplate = emailTemplate.Replace("@UserID", tenantData.EmailAddress).Replace("@UserName",userName).Replace("cid:lbs-logo", logoimage).Replace("cid:email-banner", emailbannerimage).Replace("cid:facebook-icon", facebookimage).Replace("cid:instagram-icon", instagramimage).Replace("cid:linkedin-icon", linkedinimage).Replace("cid:twitter-icon", twitterimage).Replace("@TenantURL", tenantURL);
+            emailData.EmailBody = emailTemplate;
+            return emailData;
+        }
+
+        // Author         :   John Francis Xavier C		
+        // Creation Date  :   27-Dec-2016
+        // Ticket ID      :   PSP-13384
+        /// <summary>
+        /// Get database connection string from entity connection string
+        /// </summary>
+        /// <returns>Returns database connection string as string</returns>
+        private string getEntityProviderString()
+        {
+            return new EntityConnectionStringBuilder(ConfigurationManager.ConnectionStrings["CompMasterEntities"].ConnectionString).ProviderConnectionString;
+        }
+
+       //private async Task<bool> sendEmailToUser(string email)
+       // {
+       //     string bccEmail = ConfigurationManager.AppSettings["TenantCreationBCCMailAddress"].ToString();
+       //     EmailData emailDetail = new EmailData();
+       //     var user = m_userRepository.GetUser().Where(x => x.Email == email).FirstOrDefault();
+       //     string userName = user.UserName;
+       //     //  string emailTemplate1 = "<html> <head> </head> <body style=\"font-family: sans-serif; margin:0 auto;\"> <div style=\"width:500px; height:500px; padding: 10px; border:50px solid #f3f3f3;\"> <div style=\"padding:5px; background:#FFF; width:480px; height:480px;margin-left:0;margin-top:0;\"> <div style=\"font-size:45px;font-weight:500;Text-align:center;\"><span style=\"color:#625d59;\">Laser</span><span style=\"color:#c63329;\">beam</span></div> <div style=\"font-size:25px;font-weight:500;Text-align:center; color:#625d59;\">Compass</div> <h3 style=\"margin-top: 30px; text-align: center; color: #666666;\">Congratulations</h3> <h2 style=\"text-align: center; color: #f98d00;\">Account Created</h2> <p style=\"margin-top: 20px; text-align:center; color: #666666; line-height:24px; font-size:15px; font-family: sans-serif;\"><span style=\"font-weight:bold;\">You are almost done.</span> Click on login button to access COMPASS LITE<p> <h3 style=\"margin-top: 20px; text-align:center; color: #01569d; line-height:24px; font-family: sans-serif;\"><span style=\"font-weight:bold;\">User ID:</span>@UserID</h3> @URLButton <div style=\"margin-top: 40px;\"></div>  <div style=\"margin-top: 40px;\"></div> <hr style=\"margin-top: 50px; margin-bottom:30px; color:#666666;padding:0;\"> <p style=\"margin-top: 40px; text-align:center; color: #666666; font-family: sans-serif; line-height:24px; font-size:12px;\">If you have trouble mail us at @SupportEmailLink </p> </div> </div> </body> </html>";
+       //     Attachment imgAtt = new Attachment(Server.MapPath("~/Images/login-btn.png"));
+       //     imgAtt.ContentId = "login-btn.png";
+       //     emailDetail.EmailSubject = "We've created COMPASS account to manage compensation cycle";
+       //     emailDetail.ToEmailId = email;
+       //     emailDetail.BCCEmailId = bccEmail;
+       //     string compassInstanceBaseUrl = ConfigurationManager.AppSettings["compassInstanceBaseUrl"].ToString() + tenantData.URL + "/Account/Login";
+       //     string tenantURL = "https://compass.laserbm.us/" + tenantData.URL;
+          
+
+       //     // emailDetail.EmailBody = getCreateTenantEmailBody(emailTemplate1, user, GlobalVarSecretKey);
+       //     //string inputEmail = email;
+       //     //string[] emailElements = inputEmail.Split('@');
+       //     // string[] domainElements = emailElements[1].Split('.');
+       //     // string emailAddress = "<span>" + emailElements[0] + "</span><span>@</span><span>" + domainElements[0] + "</span><span>.</span><span>" + domainElements[1] + "</span>";
+       //     string emailTemplate = string.Empty;
+       //     using (StreamReader reader = new StreamReader(Server.MapPath("~/HtmlTemplate/TenantLoginEmailTemplate.html")))
+       //     {
+       //         emailTemplate = reader.ReadToEnd();
+       //     }
+
+       //     string logoimage = Request.Url.AbsoluteUri.Replace(Request.Url.AbsolutePath, "") + "/Images/logo.png";
+       //     string emailbannerimage = Request.Url.AbsoluteUri.Replace(Request.Url.AbsolutePath, "") + "/Images/emailbanner.jpg";
+       //     string facebookimage = Request.Url.AbsoluteUri.Replace(Request.Url.AbsolutePath, "") + "/Images/facebook-icon.png";
+       //     string twitterimage = Request.Url.AbsoluteUri.Replace(Request.Url.AbsolutePath, "") + "/Images/twitter-icon.jpg";
+       //     string linkedinimage = Request.Url.AbsoluteUri.Replace(Request.Url.AbsolutePath, "") + "/Images/linkedin-icon.png";
+       //     //emailTemplate = emailTemplate.Replace("@URLButton", "<span><a style=\"margin:0 auto; margin-left:38%;background: #099cde; padding: 10px;color:#FFF;font-size:15px; float:none; border-radius:5px;text-decoration: none;\" href = '" + compassInstanceBaseUrl + "'> Click here to login</a><span>");
+       //     emailTemplate = emailTemplate.Replace("@URLButton", "<a style=\"background:#ea5455;font-size:15px;padding:10px 25px;color:#fff;border-radius:30px;text-decoration:none;\" href = '" + compassInstanceBaseUrl + "'> Login</a>");
+       //     emailTemplate = emailTemplate.Replace("@PowerUp", "<a style=\"color:#ea5455;font-size:15px;font-weight: 600;text-decoration:none;\" href = '" + compassInstanceBaseUrl + "'> Power-up</a>");
+
+
+       //     emailTemplate = emailTemplate.Replace("@TenantURL", "<a  style=\"text-decoration:none;\" href = '" + compassInstanceBaseUrl + "'>" + tenantURL + "</a>");
+
+
+
+       //     emailTemplate = emailTemplate.Replace("@SupportEmailLink", "<a href=\"\" style=\"text-decoration:underline; color:#064bc9;\">support@laserbm.net</a>");
+
+       //     string inputEmail = email;
+       //     string[] emailElements = inputEmail.Split('@');
+       //     string[] domainElements = emailElements[1].Split('.');
+       //     string emailAddress = "<span>" + emailElements[0] + "</span><span>@</span><span>" + domainElements[0] + "</span><span>.</span><span>" + domainElements[1] + "</span>";
+       //     emailTemplate = emailTemplate.Replace("@UserID", emailAddress).Replace("@UserName", userName).Replace("cid:lbs-logo", logoimage).Replace("cid:email-banner", emailbannerimage).Replace("cid:facebook-icon", facebookimage).Replace("cid:linkedin-icon", linkedinimage).Replace("cid:twitter-icon", twitterimage).Replace("@TenantURL", tenantURL);
+       //     emailDetail.EmailBody = emailTemplate;
+       //     //emailDetail.EmailBody = emailDetail.EmailBody.Replace("@UserID", emailAddress);
+
+       //     var status = Email.SendEmail(emailDetail);
+       //     return await status;
+       // }
+
+           private string getCreateTenantEmailBody(string emailBody, UserEmailModel user, string secrectKey)
+        {
+            string referenceUrl = ConfigurationManager.AppSettings["compassInstanceBaseUrl"].ToString() + user.TenantName + "/Account/Login";
+            bool isEncrypted = false;
+            string encryptedMagicKey = string.Empty;
+            if ((user.UserName != "") && !string.IsNullOrWhiteSpace(secrectKey))
+            {
+                DateTime epochStart = new DateTime(1970, 01, 01, 0, 0, 0, 0, DateTimeKind.Utc);
+                TimeSpan timeSpan = DateTime.UtcNow - epochStart;
+                string requestTimeStamp = "";
+                isEncrypted = MayaKey.TryEncrypt(user.UserName + '|' + secrectKey + '|' + requestTimeStamp, out encryptedMagicKey);
+                referenceUrl = isEncrypted ? referenceUrl + "?mayaLink=" + HttpUtility.UrlEncode(encryptedMagicKey) : referenceUrl;
+            }
+            emailBody = emailBody.Replace("@URLButton", "<span><a style=\"margin:0 auto; margin-left:38%;background: #099cde; padding: 10px;color:#FFF;font-size:15px; float:none; border-radius:5px;text-decoration: none;\" href = '" + referenceUrl + "'> Click here to login</a><span>");
+            emailBody = emailBody.Replace("@SupportEmailLink", "<a href=\"\" style=\"text-decoration:underline; color:#064bc9;\">support@laserbm.net</a>");
+            //emailBody = emailBody.Replace("@URLButton", "<span><a style=\"margin:0 auto; margin-left:38%;background: #099cde; padding: 10px;color:#FFF;font-size:15px; float:none; border-radius:5px;text-decoration: none;\" href = '" + referenceUrl + "'> Create Account</a><span>");
+            //emailBody = emailBody.Replace("@SupportEmailLink", "<a href=\"#\" style=\"text - decoration:underline; color:#064bc9;\">support@laserbm.net</a>");
+            return emailBody;
+        }
+        // Author         :   John Francis Xavier C		
+        // Creation Date  :   27-Dec-2016
+        // Ticket ID      :   PSP-13384
+        /// <summary>
+        /// Adds tenant information into master database
+        /// </summary>
+        /// <param name="tenantCode">An instance of TenantCode</param>
+        /// <param name="tenantName">An instance of TenantName</param>
+        /// <param name="guId">An instance of GuId</param>
+        /// <param name="dbServer">Database server name/IP as string</param>
+        /// <returns>Returns an instance of Tenant</returns>
+        private TenantDetails AddTenant(TenantDetails tenantData)
+        {
+            TenantDetails tenant = m_tenantRepository.GetTenant(tenantData.URL);
+            if (tenant == null)
+            {
+
+                string dbName = "LBS_Compass_" + tenantData.URL;
+                string dbUserId = tenantData.URL + "user";
+                string dbPassword = KeyGenerator.GenerateRandomKey(12);
+                MayaKey.TryEncrypt(dbName, out dbName);
+                MayaKey.TryEncrypt(dbUserId, out dbUserId);
+                MayaKey.TryEncrypt(dbPassword, out dbPassword);
+                tenantData.DatabaseName = dbName;
+                tenantData.DatabaseUserId = dbUserId;
+                tenantData.DatabasePassword = dbPassword;
+                m_tenantRepository.AddTenant(tenantData);
+            }
+            return tenantData;
+        }
+
+
+        private void createDatabase(TenantDetails tenantConnection)
+        {
+            string template = "";
+            string dbName = tenantConnection.DatabaseName;
+            string dbUserId = tenantConnection.DatabaseUserId;
+            string dbPassword = tenantConnection.DatabasePassword;
+            MayaKey.TryDecrypt(dbName, out dbName);
+            MayaKey.TryDecrypt(dbUserId, out dbUserId);
+            MayaKey.TryDecrypt(dbPassword, out dbPassword);
+            using (SqlConnection sqlConnection = new SqlConnection(getServerConnectionString()))
+            {
+                Server server = new Server(new ServerConnection(sqlConnection));
+
+                if (server.Databases[dbName] == null)
+                {
+                    Database newDatabase = new Database(server, dbName);
+                    newDatabase.Create();
+                    backUpandRestoreDatabase(tenantConnection, server, template);
+                }
+
+                if (server.Logins[dbUserId] == null)
+                {
+                    Login newLogin = new Login(server, dbUserId);
+                    newLogin.PasswordExpirationEnabled = false;
+                    newLogin.PasswordPolicyEnforced = false;
+                    newLogin.LoginType = LoginType.SqlLogin;
+                    newLogin.Create(dbPassword, LoginCreateOptions.None);
+                    User newUser = new User(server.Databases[dbName], newLogin.Name);
+                    newUser.Login = newLogin.Name;
+                    newUser.Create();
+                    newUser.AddToRole("db_owner");
+                }
+            }
+
+        }
+
+        // Author         :   John Francis Xavier C		
+        // Creation Date  :   27-Dec-2016
+        // Ticket ID      :   PSP-13384
+        /// <summary>
+        /// Gets database connection string for the ServerManager
+        /// </summary>
+        /// <returns>Returns connection string as string</returns>
+        private string getServerConnectionString()
+        {
+            var databaseConnection = new DbConnectionStringBuilder();
+            databaseConnection.ConnectionString = ConfigurationManager.ConnectionStrings["CompTenant"].ConnectionString;
+            string dbServer = Convert.ToString(databaseConnection["Data Source"]);
+            string dbName = Convert.ToString(databaseConnection["Initial Catalog"]);
+            string dbUserId = Convert.ToString(databaseConnection["User ID"]);
+            string dbPassword = Convert.ToString(databaseConnection["Password"]);
+            MayaKey.TryDecrypt(dbServer, out dbServer);
+            MayaKey.TryDecrypt(dbName, out dbName);
+            MayaKey.TryDecrypt(dbUserId, out dbUserId);
+            MayaKey.TryDecrypt(dbPassword, out dbPassword);
+            databaseConnection["Data Source"] = dbServer;
+            databaseConnection["Initial Catalog"] = dbName;
+            databaseConnection["User ID"] = dbUserId;
+            databaseConnection["Password"] = dbPassword;
+            return databaseConnection.ConnectionString;
+        }
+        #endregion 
+    }
+}

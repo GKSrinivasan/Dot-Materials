@@ -1,0 +1,33 @@
+﻿<script>
+    $(document).ready(function () {
+        setRules();
+    });
+</script>
+<script>
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+    })
+    function setRules() {
+        var token = $('input[name="__RequestVerificationToken"]').val();
+        $.ajax({
+            url: "../ManageRules/_SetRules",
+            type: "post",
+            data: { __RequestVerificationToken:token, isWizard: false },
+            success: function (result) {
+                $("#divRules").html(result);
+            }
+        });
+
+    }
+</script>
+
+@Html.AntiForgeryToken()
+<div class="container-fluid">
+
+    <div class="row">
+        <div class="row"><div id="divmanagerulesheading" class="col-md-12 mainheading mainheading1 top-pad">Manage Rules</div></div>
+    </div>
+    <div id="divRules"></div>
+
+</div>
+

@@ -1,0 +1,62 @@
+﻿@model Laserbeam.BusinessObject.Common.AnalyticsBusinessObjects.RatingDistributionModel
+<div id="payRangeDistribution">
+        <div class="row">
+            <div class="col-lg-10 col-md-12 col-sm-12 col-xs-12" style="margin-top:6%;">
+                @(Html.Kendo().Chart(Model.PayRangeDistributionChart)
+                .Name("linechart")
+                        //.Title("Pay Range Distribution")
+                        .Legend(legend => legend.Position(ChartLegendPosition.Top))
+                        .ChartArea(chartArea => chartArea
+                        .Margin(0).Width(500) .Height(300))
+             .Series(series => series.Line(model => model.Before).Color("#E9510E").Markers(false).Name("Before Merit"))
+
+             .Series(series => series.Line(model => model.After).Color("#92CD00").Markers(false).Name("After Merit"))
+
+          .CategoryAxis(axis => axis
+                                    .Categories(model => model.Title)
+                                    .Labels(labels => labels.Rotation(0))
+                                    .MajorGridLines(lines => lines.Visible(false)))
+
+                          .ValueAxis(axis => axis
+                    .Numeric().Labels(labels => labels.Format("{0}"))
+                    .Line(line => line.Visible(false))
+                    .AxisCrossingValue(-10)
+                      .Title("No. of employee(s)")
+     )
+          .Tooltip(tooltip => tooltip.
+                                   Visible(true)
+                                          .Format("{0}")
+          ))
+            </div>
+            <div class="col-lg-1"></div>
+        </div>
+        <div class="row">&nbsp;</div>
+        <div class="row">&nbsp;</div>
+        <div class="row">&nbsp;</div>
+        <div class="row col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="col-lg-1"></div>
+            <div>
+                @(Html.Kendo().Grid(Model.PayRangeDistribution)
+              .Name("payrangedistribution")
+              .HtmlAttributes(new { style = "text-align: center;" })
+              .TableHtmlAttributes(new { style = "text-align: center;" })
+              .Columns(columns =>
+                           {
+                               columns.Bound(m => m.Typestr)
+                                   .Title("TYPE").HtmlAttributes(new { style = "text-align:left;" }).HeaderHtmlAttributes(new { style = "text-align: left;" });
+                               columns.Bound(m => m.Belowminstr).Encoded(false)
+                                   .Title("BELOW MIN").HeaderHtmlAttributes(new { style = "text-align: center;" });
+                               columns.Bound(m => m.Lowerstr).Encoded(false)
+                                   .Title("BELOW MID").HeaderHtmlAttributes(new { style = "text-align: center;" });
+                               columns.Bound(m => m.Upperstr).Encoded(false)
+                                   .Title("ABOVE MID").HeaderHtmlAttributes(new { style = "text-align: center;" });
+                               columns.Bound(m => m.Overmaxstr).Encoded(false)
+                                   .Title("ABOVE MAX").HeaderHtmlAttributes(new { style = "text-align: center;" });
+                           })
+                              .DataSource(da => da.Ajax().Read(read => read.Action("PayRangeDistribution", "RatingDistribution").Data("PayRangeDataParams"))).HtmlAttributes(new { style = "text-align: center !important;color: #6E6259 !important;" })
+
+                )
+            </div>
+            <div class="col-lg-1"></div>
+        </div>
+</div>

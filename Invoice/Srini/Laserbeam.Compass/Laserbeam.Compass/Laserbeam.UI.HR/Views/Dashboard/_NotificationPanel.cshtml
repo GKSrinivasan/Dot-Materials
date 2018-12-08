@@ -1,0 +1,51 @@
+﻿@model Laserbeam.BusinessObject.Common.EmployeeTitleModel
+@Html.Hidden("hdnApprovalCount", Model.ApprovalCount)
+@if (Model.MyApprovals != null)
+{
+    var CompApproval = Model.MyApprovals.Where(x => x.Module == "Compensation").Select(x => x).ToList();
+    var LTIPApproval = Model.MyApprovals.Where(x => x.Module == "LTIP").Select(x => x).ToList();
+    if (CompApproval.Count() != 0)
+    {
+        <div><b>Compensation</b> </div>
+        <ul id="menu1" class="msg_list nopadding" role="menu" style="max-height:150px!important;overflow-y:auto;overflow-x:hidden">
+
+            @foreach (var item in CompApproval)
+            {
+                <li>
+                    <a class="clsPopover nopadding" onclick="onSelectNotification(@item.EmployeeNum,'@item.Module');" href="javascript:void(0);">
+                        <div class="row">
+                            <div class="col-lg-2 col-md-2">
+                                <span><input class="abbreviatedText text-center" value=@item.Abbreviation type="text" disabled="disabled" style=" width 30px !important; height 30px !important; color white !important; padding-left:1px!important; margin-right 7px;background-color:#c24646 !important;" /></span>
+                            </div>
+                            <div class="col-lg-9 col-md-9" style="padding-top:5px">
+                                <span style="color:#c24646 !important">@item.EmployeeName (@item.EmployeeCount)</span>
+                            </div>
+                        </div>
+                    </a>
+                </li>
+            }
+        </ul>
+    }
+    if (LTIPApproval.Count() != 0)
+    {
+        <div style="margin-top:5px!important"><b>LTIP </b></div>
+        <ul id="menu1" class="msg_list nopadding" role="menu" style="max-height:150px!important;overflow-y:auto;overflow-x:hidden">
+
+            @foreach (var item in LTIPApproval)
+            {
+                <li>
+                    <a class="clsPopover nopadding" onclick="onSelectNotification(@item.EmployeeNum,'@item.Module');" href="javascript:void(0);">
+                        <div class="row">
+                            <div class="col-lg-2 col-md-2">
+                                <span><input class="abbreviatedText text-center" value=@item.Abbreviation type="text" disabled="disabled" style=" width 30px !important; height 30px !important;color white !important; padding-left:1px!important; margin-right 7px;background-color:#c24646 !important;" /></span>
+                            </div>
+                            <div class="col-lg-9 col-md-9" style="padding-top:5px">
+                                <span style="color:#c24646 !important;">@item.EmployeeName (@item.EmployeeCount)</span>
+                            </div>
+                        </div>
+                    </a>
+                </li>
+            }
+        </ul>
+    }
+}

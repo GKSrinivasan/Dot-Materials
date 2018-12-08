@@ -1,0 +1,86 @@
+﻿<!--Commented by Hari-->
+<!----This partial view having some java scripts functions because wizard page also using the same partial view only so we can't move the scripts into workforce.js file :) -->
+<script type="text/javascript">
+ 
+    function additionalParameterInfo()
+    {
+        return {
+            __RequestVerificationToken: $('input[name="__RequestVerificationToken"]').val(),
+        }
+    }
+
+    function chooseFieldsFunGrpNames() {
+        var groupNames = $("#grdTemplateColumns .k-grouping-row").find('.k-reset');
+        for (var i = 0; i < groupNames.length; i++) {
+            var actualGroupValue = groupNames[i].innerText;
+            var suffix = actualGroupValue.substring(19);
+            groupNames[i].innerHTML = '<a tabindex=\"-1\" class=\"k-icon k-i-collapse\" href=\"#\"></a>' + suffix;
+        }
+    }
+    function WorkForceSave(){
+        var postData = [];
+        $("[id$=chkFields]:checked").each(function () {
+            postData.push($(this).attr('data-fieldname'));
+        });
+
+        if (postData.length > 0) {
+            var token = $('input[name="__RequestVerificationToken"]').val();
+            $.ajax({
+                url: '../WorkForce/UpdateChooseFields',
+                type: "post",
+                data: JSON.stringify({ __RequestVerificationToken: token, selectedFields: postData }),
+                async: false,
+                contentType: "application/json",
+                processData: false,
+                success: function (message) {
+                    Successmessage(message);
+                }
+            });
+            postData = [];
+        }
+        objChangeFlag = false;
+    }
+</script>
+@if(ViewBag.isWizard ==true)
+{
+<div class="form-actions">
+    <div class="row">
+        <div class="col-md-12 text-right top-btn" id="btnLevels">
+            <a href="javascript:;" class="btn default button-previous" id="btnBack">
+                <i class="fa fa-angle-left"></i> Back
+            </a>
+            <a href="javascript:;" class="btn btn-outline green button-next" id="btnNext">
+                Save &amp; Continue
+                <i class="fa fa-angle-right"></i>
+            </a>
+
+        </div>
+    </div>
+</div>
+}
+<div class="row nomargin">
+    <div class="col-md-12 noleftrightpad table-responsive scrollable notopmargin choosefields">
+        <div id="parent">
+            @(Html.Kendo().Grid<Laserbeam.BusinessObject.Common.TemplateMetaColumns>()
+        .Name("grdTemplateColumns")
+        .HtmlAttributes(new { style = "" })
+            .Columns(columns =>
+                {                   
+                    columns.Template(@<text></text>).ClientTemplate("<input type='checkbox' data-fieldname=#=TemplateMetaColumnID# name='chkFields' id='chkFields' #= IsEnabled ? checked='checked' : '' #  #= IsMandate ? disabled='disabled' : '' # ></input>").Width(110).HtmlAttributes(new { id = "chkFields", style = " width:70px;" });
+                    columns.Bound(m => m.FieldName).Title("Data Elements").HtmlAttributes(new { id = "Fields", style = "word-wrap: break-word;" }).Width(160).HeaderHtmlAttributes(new { style = "width:80px; " });
+                    columns.Bound(m => m.SampleData).Title("Example").HtmlAttributes(new { id = "SampleData", style = "word-wrap: break-word;" }).Width(160).HeaderHtmlAttributes(new { style = "width:80px;" });
+                    columns.Bound(m => m.DataLength).Title("Data Length").HtmlAttributes(new { id = "Data Length", style = "word-wrap: break-word; text-align: center;" }).Width(160).HeaderHtmlAttributes(new { style = "width:80px;text-align: center;" });
+                    columns.Bound(m => m.DataFormat).Title("Excel Data Format").HtmlAttributes(new { id = "DataFormat", style = "word-wrap: break-word;" }).Width(160).HeaderHtmlAttributes(new { style = "width:80px;" });
+                    columns.Bound(m => m.FieldDescription).Title("Short Description").HtmlAttributes(new { id = "FieldDescription", style = "word-wrap: break-word;" }).Width(160).HeaderHtmlAttributes(new { style = "width:80px;" });
+                })
+                          .DataSource(datasource => datasource.Ajax()
+                          .Group(group => group.Add(o => o.FunctionalGroup))
+                                  .Read(read => read.Action("GetTemplateColumnsList", "WorkForce").Data("additionalParameterInfo"))).Events(x => x.DataBound("chooseFieldsFunGrpNames"))
+                          //.Scrollable()
+                          .AutoBind(true)
+            )
+
+        </div>
+
+    </div>
+</div>

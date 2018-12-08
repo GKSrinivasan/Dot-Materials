@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="MasterModelStoreContainer" CdmEntityContainer="MasterEntities">
+    <EntitySetMapping Name="Tenants">
+      <EntityTypeMapping TypeName="MasterModel.Tenant">
+        <MappingFragment StoreEntitySet="Tenant">
+          <ScalarProperty Name="TenantPK" ColumnName="TenantPK" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="PhoneNo" ColumnName="PhoneNo" />
+          <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
+          <ScalarProperty Name="TenantName" ColumnName="TenantName" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TenantDatabases">
+      <EntityTypeMapping TypeName="MasterModel.TenantDatabase">
+        <MappingFragment StoreEntitySet="TenantDatabase">
+          <ScalarProperty Name="TenantDatabasePK" ColumnName="TenantDatabasePK" />
+          <ScalarProperty Name="TenantFK" ColumnName="TenantFK" />
+          <ScalarProperty Name="DataBaseName" ColumnName="DataBaseName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

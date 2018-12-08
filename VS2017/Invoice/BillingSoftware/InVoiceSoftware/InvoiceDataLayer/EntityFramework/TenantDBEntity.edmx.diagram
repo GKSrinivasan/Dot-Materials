@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="efcb127150bf4f8a80146e654813984c" Name="Diagram1">
+        <EntityTypeShape EntityType="BIZ_DEVModel.AppUser" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="BIZ_DEVModel.CommonCode" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="BIZ_DEVModel.UserRole" Width="1.5" PointX="2.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="BIZ_DEVModel.Employee" Width="1.5" PointX="5.375" PointY="0.75" />
+        <EntityTypeShape EntityType="BIZ_DEVModel.GroupMaster" Width="1.5" PointX="0.75" PointY="6.75" />
+        <EntityTypeShape EntityType="BIZ_DEVModel.CompanyLocation" Width="1.5" PointX="2.75" PointY="6.75" />
+        <EntityTypeShape EntityType="BIZ_DEVModel.Currency" Width="1.5" PointX="7.75" PointY="0.75" />
+        <EntityTypeShape EntityType="BIZ_DEVModel.Vendor" Width="1.5" PointX="7.75" PointY="3.75" />
+        <EntityTypeShape EntityType="BIZ_DEVModel.Customer" Width="1.5" PointX="4.75" PointY="7.75" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

@@ -1,0 +1,4 @@
+D:\TFS.111\Compass\Laserbeam.Compass\Laserbeam.EntityManager.TenantMasterObjects\bin\Release\Laserbeam.EntityManager.TenantMasterObjects.dll
+D:\TFS.111\Compass\Laserbeam.Compass\Laserbeam.EntityManager.TenantMasterObjects\bin\Release\Laserbeam.EntityManager.TenantMasterObjects.pdb
+D:\TFS.111\Compass\Laserbeam.Compass\Laserbeam.EntityManager.TenantMasterObjects\obj\Release\Laserbeam.EntityManager.TenantMasterObjects.dll
+D:\TFS.111\Compass\Laserbeam.Compass\Laserbeam.EntityManager.TenantMasterObjects\obj\Release\Laserbeam.EntityManager.TenantMasterObjects.pdb

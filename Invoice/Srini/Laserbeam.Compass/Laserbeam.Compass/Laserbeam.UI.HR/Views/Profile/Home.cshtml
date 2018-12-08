@@ -1,0 +1,357 @@
+﻿@model Laserbeam.BusinessObject.Common.UserProfileModel
+<script src="~/Scripts/Plupload-v2.1.2/plupload.full.min.js"></script>
+<script src="~/Scripts/Profile.js"></script>
+<link href="~/Content/Profile.css" rel="stylesheet" />
+<style type="text/css">
+
+    #uploadimg {
+    padding: 0;
+    margin: 20px 0 0;
+}
+#uploadimg li {
+    list-style: none;
+    float: left;
+    margin: 7px;
+    padding: 5px;
+    box-shadow: 0 0 2px 2px rgba(0, 0, 0, 0.3);
+    -webkit-backface-visibility: hidden;
+}
+.icon-upld-icon {
+    position: relative;
+    top: 20px;
+    padding-right: 10px;
+}
+.icon-blue {
+    color: #00abf0;
+}
+.big60 {
+    font-size: 60px;
+}
+#uploadimg li img,
+#uploadimg li canvas {
+    display: block;
+}
+    </style>
+<script type="text/javascript">
+    var hoursSpent = '@Model.SupportHours'
+    </script>
+@Html.AntiForgeryToken()
+<div class="row top-pad">
+    <div class="col-md-10 col-md-offset-1" style="margin-left:10px !important;">
+        <div class="col-md-3">
+            <div class="profileimg">
+                <div class="profile-userpic">
+                    <span>@Model.UserNameShort</span>
+                </div>
+                <div class="profile-usertitle">
+                    <div id="divprofileusername"  class="profile-usertitle-name"> @Model.UserName </div>
+                    <div id="divprofileuserrole" class="profile-usertitle-job"> @Model.UserRole </div>
+                    @*<div class="profile-desc-link"><i class="fa fa-skype"></i> <a href="#">LaserbeamSoftware</a></div>*@
+                </div>
+            </div>
+            <div class="profiletabs">
+                <!-- Nav tabs -->
+                <ul class="nav nav-tabs" role="tablist">
+                    <li role="presentation" class="active"><a id="lnkprofileaccounttab" href="#account" aria-controls="account" role="tab" data-toggle="tab">Account</a></li>
+                    <li role="presentation"><a id="lnkprofilelogotab" href="#logo" aria-controls="logo" role="tab" data-toggle="tab">Logo</a></li>
+                    <li role="presentation"><a id="lnkprofileapitab" href="#api" aria-controls="api" role="tab" data-toggle="tab">API</a></li>
+                    <li role="presentation"><a id="lnkprofilesupporttab" href="#support" aria-controls="support" role="tab" data-toggle="tab">Support</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-9">
+            <!-- Tab panes -->
+            <div class="tab-content">
+                <!--Account Section-->
+                <div role="tabpanel" class="tab-pane active" id="account">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="portlet light portletform">
+                                <div class="portlet-title tabbable-line">
+                                    <div class="caption caption-md">
+                                        <span class="caption-subject">Account Details</span>
+                                    </div>
+                                </div>
+                                <div class="portlet-body">
+                                    <div class="tab-content">
+                                        <!-- PERSONAL INFO TAB -->
+                                        <div class="tab-pane active">
+                                            @using (Ajax.BeginForm("updateUserDetails", "Profile", new AjaxOptions { HttpMethod = "POST", OnSuccess = "refreshpage()" }, new { id = "accountForm" }))
+                                            {
+                                                @Html.AntiForgeryToken()
+                                                <div>
+                                                    <label class="control-label">Name<span class="redtxt">*</span></label>
+                                                </div>
+                                                <div class="form-group" style="margin-bottom:32px">
+                                                    <div class="input-group Firstname">
+                                                        <span class="input-group-addon">
+                                                            <i class="fa fa-user fauseer"></i>
+                                                        </span>
+                                                        @Html.TextBoxFor(s => s.FirstName, new { @class= "form-control",id="firstname", placeholder = "First Name" })
+                                                        <p class="orangetext" id="Accerror_firstname"></p>
+                                                    </div>
+                                                    <div class="input-group Lastname">
+                                                        <span class="input-group-addon">
+                                                            <i class="fa fa-user fauseer"></i>
+                                                        </span>
+                                                        @Html.TextBoxFor(s => s.LastName, new { @class= "form-control",id="lastname", placeholder = "Last Name" })
+                                                    </div>
+                                                </div>
+                                                <div class="form-group"style="margin-bottom:32px">
+                                                    <label class="control-label">Email<span class="redtxt">*</span></label>
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon">
+                                                            <i class="fa fa-user fauseer"></i>
+                                                        </span>
+                                                        @Html.TextBoxFor(s => s.UserID, new { @class= "form-control", id="useridTxt", placeholder = "" })
+                                                        <span class="orangetext" id="Accerror_useridTxt"></span>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group"  style="margin-bottom:32px">
+                                                    <label class="control-label">URL<span class="redtxt">*</span></label>
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon">
+                                                            <i class="fa fa-globe"></i>
+                                                        </span>
+                                                        @Html.TextBoxFor(s => s.URL, new { @class= "form-control", @readonly="readonly", @id="link" })
+                                                        <a  id="linkTxt" class="input-group-addon whitetxt" onclick="TextCopied('link')">
+                                                            Copy link
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                                <div class="text-right">
+                                                    <button type="button" id="accountUpdateBtn" class="btn btn-blue">Save changes</button>
+                                                </div>
+                                            }
+                                        </div>
+                                        <!-- END PERSONAL INFO TAB -->
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--End Account Section-->
+                <!--Photo Section-->
+                <div role="tabpanel" class="tab-pane" id="logo">
+                    <div class="portlet light portletform">
+                        <div class="portlet-title tabbable-line">
+                            <div class="caption caption-md">
+                                <span class="caption-subject">Logo Details</span>
+                            </div>
+                        </div>
+                        <div class="row top-pad">
+                            <div class="col-md-12">
+                                <form>
+                                    <div class="dottedborder text-center top-pad" id="dropContent"> 
+                                        @*<img src="~/Images/upld-icon.png" class="" alt="">*@
+                                        <i class="icon-upld-icon icon-blue big60 " aria-hidden="true"></i>
+                                        <b>Drag and Drop</b> or <a id="browseBtn" href="#" style="position: relative; z-index: 1;">Browse</a> to upload
+                                        <br>
+                                        <span style="color:red;">.JPG .PNG Max.Size 750KB</span>
+                                        <div id="divFileArea" class="uploadimg">
+
+                                        </div>
+                                        </div>
+                                    <div class="row">
+                                        <div class="col-md-12 top-pad text-right">
+                                            <button type="button" class="btn btn-blue" onclick="uploadImage()">Save changes</button>
+                                        </div>
+                                    </div>
+                                </form>
+
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <!--End Photo Section-->
+                <!--API Clients Section-->
+                <div role="tabpanel" class="tab-pane" id="api">
+                    <div class="portlet light portletform">
+                        <div class="portlet-title tabbable-line">
+                            <div class="caption caption-md">
+                                <span class="caption-subject">API Details</span>
+                            </div>
+                        </div>
+                        <div class="row top-pad">
+                            <div class="col-md-12">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="alert alert-info" style="position:relative">
+                                            You don't have any API yet.
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12 top-pad text-right">
+                                        <button id="btnprofilerequestapi" type="submit" class="btn btn-blue">Request API</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--End API Clients Section-->
+                <!--Support Section-->
+                <div role="tabpanel" class="tab-pane" id="support">
+                    <div class="portlet light portletform">
+                        <div class="portlet-title tabbable-line">
+                            <div class="caption caption-md linespace">
+                                <span class="caption-subject">Support Details</span>
+                                @*<button type="submit" class="btn btn-bluesecondary pull-right"><i class="fa fa-print"></i> Print</button>*@
+                            </div>
+                        </div>
+                        <div class="row top-pad nomargin">
+                            <div class="col-md-12 datarangediv">
+                                <div class="row">
+                                    <div class="col-md-8">
+                                        <div class="">
+                                            <label class="control-label">Date Range</label>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="input-group width48">
+                                                @(Html.Kendo().DatePicker().Name("fromDate").HtmlAttributes(new { style = "width:100%;" }))
+                                            </div>
+                                            <div class="input-group width50">
+                                                @(Html.Kendo().DatePicker().Name("toDate").Events(e=>e.Change("DefineToDateEnableExport")).HtmlAttributes(new { style = "width:100%;" }))
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 text-right">
+                                        <div class="invisible">
+                                            <label class="control-label">Date Range</label>
+                                        </div>
+                                        <button type="button" class="btn btn-bluesecondary btn-green"  id="taskExportBtn"disabled="disabled"><i class="fa fa-file-excel-o"></i> Export</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="col-md-2 col-lg-2 captiononleft">
+                                    <div class="uti-title">Utilization</div>
+                                    <div class="c100 small" id="chart">
+
+                                        <span id="hoursSpentPct"></span>
+                                        <div class="slice">
+                                            <div class="bar"></div>
+                                            <div class="fill"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 col-lg-3 top-pad">
+                                    <div class="table-responsive">
+                                        <table class="table colortable">
+                                            <tr>
+                                                <td>
+                                                    <div class="colorcode">
+                                                        <span class="greyclr greycode"></span>
+                                                        <span class="">Available Hours</span>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <span class="charttxt" id="availableHours"></span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <div class="colorcode">
+                                                        <span class="bluecode greycode"></span>
+                                                        <span class="">Hours spent</span>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <span class="charttxt" id="totalHrsSpent"></span>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="col-md-2 col-lg-2">
+
+                                </div>
+                                <div class="col-md-2 col-lg-2 projectedrevenue projectedrevenue1">
+                                    <div class="uti-title">tasks</div>
+                                    <div class="amtcontent" id="taskCount">2</div>
+                                </div>
+                                <div class="col-md-3 col-lg-3 projectedrevenue">
+                                    <div class="uti-title">Add support hours</div>
+                                    <div class="input-group spinner spininput">
+                                        @Html.TextBoxFor(a => a.SupportHours, new { @class = "form-control", disabled = "disabled",id="supportHrsTxt" })
+                                        @*<input type="text" class="form-control" value="40" disabled>*@
+                                        <div class="input-group-btn-vertical">
+                                            <button class="btn btn-default" type="button" id="addSupportHours"><i class="fa fa-caret-up"></i></button>
+                                            <button class="btn btn-default" type="button" id="minusSupportHours"><i class="fa fa-caret-down"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 text-right">
+                                <button type="button" class="btn btn-blue" data-toggle="modal" data-target="#AddtaskModal" id="btnAddTask">Add Task</button>
+                            </div>
+                           <div class="col-md-12  top-pad">
+                                @(Html.Kendo().Grid<Laserbeam.BusinessObject.Common.TaskDataModel>()
+                                        .Name("TaskData")
+                                .Events(e => e.DataBound("grdTaskDataBound"))
+                                //.Scrollable(s => s.Enabled(true).Height(400))
+                                //.HtmlAttributes(new { style = "height:400px" })
+                                .Columns(columns =>
+                                {
+                                columns.Bound(e => e.SupportTaskNum).Visible(false);
+                                columns.Bound(e => e.TotalSpent).Visible(false);
+                                columns.Bound(e => e.Hours).Visible(false);
+                                columns.Bound(e => e.Minutes).Visible(false);
+                                columns.Template(@<text></text>).ClientTemplate("<a id='editTask'>#=Task#</a>").HtmlAttributes(new { style = "text-align:center;" }).Title("Task").HeaderHtmlAttributes(new { style = "text-align:center;white-space: normal" });
+                                    columns.Template(@<text></text>).ClientTemplate("#=TeamName#").HtmlAttributes(new { style = "text-align:center;" }).Title("Team").HeaderHtmlAttributes(new { style = "text-align:center;white-space: normal" });
+                                    columns.Template(@<text></text>).ClientTemplate("#=HoursSpent#").HtmlAttributes(new { style = "text-align:center;" }).Title("Hours Spent").HeaderHtmlAttributes(new { style = "text-align:center;white-space: normal" });
+                                    columns.Template(@<text></text>).ClientTemplate("#=Date#").HtmlAttributes(new { style = "text-align:center;" }).Title("Date").HeaderHtmlAttributes(new { style = "text-align:center;white-space: normal" });
+                                    columns.Template(@<text></text>).ClientTemplate("<a class='statusicon' id='commentShow'><img src='../../Images/cmt-read.png'></img></a>").HtmlAttributes(new { style = "text-align:center;" }).Title("Notes").HeaderHtmlAttributes(new { style = "text-align:center;white-space: normal" });
+                                    
+                                }).AutoBind(true)
+
+                                                                                                              .DataSource(datasource => datasource
+                                                                                                              .Ajax()
+                                                                                                                    .Read(read => read.Action("GetTaskData", "Profile").Data("additionalParamInfo"))
+                                                                                                              .ServerOperation(true)
+                                                                                                              .PageSize(50))
+                                                                                                              .Pageable()
+                                )
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--End Support Section-->
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div id="divEdittask" class="modal fade" role="dialog" aria-labelledby="myModalLabel" data-keyboard="false" data-backdrop="static"></div>
+
+<!--add task-->
+<div id="divAddtask" class="modal fade" role="dialog" aria-labelledby="myModalLabel" data-keyboard="false" data-backdrop="static"></div>
+
+
+<div id="divSupportTaskComments" class="modal fade" role="dialog" aria-labelledby="myModalLabel" data-keyboard="false"></div>
+
+
+
+<script type="text/javascript">
+    (function ($) {
+        $('.spinner .btn:first-of-type').on('click', function () {
+            $('.spinner input').val(parseInt($('.spinner input').val(), 10) + 1);
+        });
+        $('.spinner .btn:last-of-type').on('click', function () {
+            $('.spinner input').val(parseInt($('.spinner input').val(), 10) - 1);
+        });
+    })(jQuery);
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+    })
+</script>

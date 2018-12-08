@@ -1,0 +1,4 @@
+D:\TFS.111\Compass\Laserbeam.Compass\Laserbeam.Libraries.Core.Interfaces.Common\bin\Debug\Laserbeam.Libraries.Core.Interfaces.Common.dll
+D:\TFS.111\Compass\Laserbeam.Compass\Laserbeam.Libraries.Core.Interfaces.Common\bin\Debug\Laserbeam.Libraries.Core.Interfaces.Common.pdb
+D:\TFS.111\Compass\Laserbeam.Compass\Laserbeam.Libraries.Core.Interfaces.Common\obj\Debug\Laserbeam.Libraries.Core.Interfaces.Common.dll
+D:\TFS.111\Compass\Laserbeam.Compass\Laserbeam.Libraries.Core.Interfaces.Common\obj\Debug\Laserbeam.Libraries.Core.Interfaces.Common.pdb

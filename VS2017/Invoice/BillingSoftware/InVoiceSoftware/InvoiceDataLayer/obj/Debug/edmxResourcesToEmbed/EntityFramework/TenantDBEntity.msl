@@ -1,0 +1,200 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="BIZ_DEVModelStoreContainer" CdmEntityContainer="BIZ_DEVEntities">
+    <EntitySetMapping Name="AppUsers">
+      <EntityTypeMapping TypeName="BIZ_DEVModel.AppUser">
+        <MappingFragment StoreEntitySet="AppUser">
+          <ScalarProperty Name="ContactNo" ColumnName="ContactNo" />
+          <ScalarProperty Name="AppUserPK" ColumnName="AppUserPK" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Passkey" ColumnName="Passkey" />
+          <ScalarProperty Name="Logged" ColumnName="Logged" />
+          <ScalarProperty Name="UserRole" ColumnName="UserRole" />
+          <ScalarProperty Name="LoginAttempt" ColumnName="LoginAttempt" />
+          <ScalarProperty Name="Lastlogin" ColumnName="Lastlogin" />
+          <ScalarProperty Name="Lastlogout" ColumnName="Lastlogout" />
+          <ScalarProperty Name="UserStatus" ColumnName="UserStatus" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CommonCodes">
+      <EntityTypeMapping TypeName="BIZ_DEVModel.CommonCode">
+        <MappingFragment StoreEntitySet="CommonCode">
+          <ScalarProperty Name="CommonCodePK" ColumnName="CommonCodePK" />
+          <ScalarProperty Name="CodeType" ColumnName="CodeType" />
+          <ScalarProperty Name="CodeID" ColumnName="CodeID" />
+          <ScalarProperty Name="Code" ColumnName="Code" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UserRoles">
+      <EntityTypeMapping TypeName="BIZ_DEVModel.UserRole">
+        <MappingFragment StoreEntitySet="UserRole">
+          <ScalarProperty Name="UserRolePK" ColumnName="UserRolePK" />
+          <ScalarProperty Name="UserRole1" ColumnName="UserRole" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Employees">
+      <EntityTypeMapping TypeName="BIZ_DEVModel.Employee">
+        <MappingFragment StoreEntitySet="Employee">
+          <ScalarProperty Name="EmployeeName" ColumnName="EmployeeName" />
+          <ScalarProperty Name="AppuserFK" ColumnName="AppuserFK" />
+          <ScalarProperty Name="ISAppUser" ColumnName="ISAppUser" />
+          <ScalarProperty Name="ContactPhoneNo" ColumnName="ContactPhoneNo" />
+          <ScalarProperty Name="ContactName" ColumnName="ContactName" />
+          <ScalarProperty Name="ManagerEmpFK" ColumnName="ManagerEmpFK" />
+          <ScalarProperty Name="Location" ColumnName="Location" />
+          <ScalarProperty Name="Designation" ColumnName="Designation" />
+          <ScalarProperty Name="DeptType" ColumnName="DeptType" />
+          <ScalarProperty Name="ReferenceID" ColumnName="ReferenceID" />
+          <ScalarProperty Name="IDType" ColumnName="IDType" />
+          <ScalarProperty Name="DOB" ColumnName="DOB" />
+          <ScalarProperty Name="pincode" ColumnName="pincode" />
+          <ScalarProperty Name="country" ColumnName="country" />
+          <ScalarProperty Name="Statecode" ColumnName="Statecode" />
+          <ScalarProperty Name="City" ColumnName="City" />
+          <ScalarProperty Name="Addressline2" ColumnName="Addressline2" />
+          <ScalarProperty Name="Addressline1" ColumnName="Addressline1" />
+          <ScalarProperty Name="PhoneNo" ColumnName="PhoneNo" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="EmployedDate" ColumnName="EmployedDate" />
+          <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+          <ScalarProperty Name="EmployeePK" ColumnName="EmployeePK" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="USP_GET_UserGridDate" FunctionName="BIZ_DEVModel.Store.USP_GET_UserGridDate">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="BIZ_DEVModel.USP_GET_UserGridDate_Result">
+          <ScalarProperty Name="UserNum" ColumnName="UserNum" />
+          <ScalarProperty Name="EmployeeName" ColumnName="EmployeeName" />
+          <ScalarProperty Name="DOB" ColumnName="DOB" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="UserRole" ColumnName="UserRole" />
+          <ScalarProperty Name="UserStatus" ColumnName="UserStatus" />
+          <ScalarProperty Name="PhoneNo" ColumnName="PhoneNo" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="Department" ColumnName="Department" />
+          <ScalarProperty Name="Designation" ColumnName="Designation" />
+          <ScalarProperty Name="Manager" ColumnName="Manager" />
+          <ScalarProperty Name="IsUser" ColumnName="IsUser" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <EntitySetMapping Name="GroupMasters">
+      <EntityTypeMapping TypeName="BIZ_DEVModel.GroupMaster">
+        <MappingFragment StoreEntitySet="GroupMaster">
+          <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+          <ScalarProperty Name="Updatedby" ColumnName="Updatedby" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="Createdby" ColumnName="Createdby" />
+          <ScalarProperty Name="Displaysequence" ColumnName="Displaysequence" />
+          <ScalarProperty Name="Groupprefix" ColumnName="Groupprefix" />
+          <ScalarProperty Name="Statementpart" ColumnName="Statementpart" />
+          <ScalarProperty Name="StatementType" ColumnName="StatementType" />
+          <ScalarProperty Name="TopGroupFK" ColumnName="TopGroupFK" />
+          <ScalarProperty Name="GroupName" ColumnName="GroupName" />
+          <ScalarProperty Name="CompanyFK" ColumnName="CompanyFK" />
+          <ScalarProperty Name="GroupMasterPK" ColumnName="GroupMasterPK" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CompanyLocations">
+      <EntityTypeMapping TypeName="BIZ_DEVModel.CompanyLocation">
+        <MappingFragment StoreEntitySet="CompanyLocation">
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="Started_Date" ColumnName="Started_Date" />
+          <ScalarProperty Name="OccupancyType" ColumnName="OccupancyType" />
+          <ScalarProperty Name="Reg_No" ColumnName="Reg_No" />
+          <ScalarProperty Name="PhoneNo" ColumnName="PhoneNo" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="pincode" ColumnName="pincode" />
+          <ScalarProperty Name="country" ColumnName="country" />
+          <ScalarProperty Name="Statecode" ColumnName="Statecode" />
+          <ScalarProperty Name="City" ColumnName="City" />
+          <ScalarProperty Name="Addressline2" ColumnName="Addressline2" />
+          <ScalarProperty Name="Addressline1" ColumnName="Addressline1" />
+          <ScalarProperty Name="Usage" ColumnName="Usage" />
+          <ScalarProperty Name="Location_Name" ColumnName="Location_Name" />
+          <ScalarProperty Name="CompanyFK" ColumnName="CompanyFK" />
+          <ScalarProperty Name="CompanyLocationPK" ColumnName="CompanyLocationPK" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Currencies">
+      <EntityTypeMapping TypeName="BIZ_DEVModel.Currency">
+        <MappingFragment StoreEntitySet="Currency">
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="Decimal_Name" ColumnName="Decimal_Name" />
+          <ScalarProperty Name="Currency_Symbol" ColumnName="Currency_Symbol" />
+          <ScalarProperty Name="Currency1" ColumnName="Currency" />
+          <ScalarProperty Name="CurrencyPK" ColumnName="CurrencyPK" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Vendors">
+      <EntityTypeMapping TypeName="BIZ_DEVModel.Vendor">
+        <MappingFragment StoreEntitySet="Vendor">
+          <ScalarProperty Name="Created_Date" ColumnName="Created_Date" />
+          <ScalarProperty Name="Contact2PhoneNo" ColumnName="Contact2PhoneNo" />
+          <ScalarProperty Name="Contact2Extn" ColumnName="Contact2Extn" />
+          <ScalarProperty Name="ContactName2" ColumnName="ContactName2" />
+          <ScalarProperty Name="Contact1PhoneNo" ColumnName="Contact1PhoneNo" />
+          <ScalarProperty Name="Contact1Extn" ColumnName="Contact1Extn" />
+          <ScalarProperty Name="ContactName1" ColumnName="ContactName1" />
+          <ScalarProperty Name="CreatedLocationfk" ColumnName="CreatedLocationfk" />
+          <ScalarProperty Name="CurrencyPK" ColumnName="CurrencyPK" />
+          <ScalarProperty Name="PhoneNo" ColumnName="PhoneNo" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="pincode" ColumnName="pincode" />
+          <ScalarProperty Name="country" ColumnName="country" />
+          <ScalarProperty Name="Statecode" ColumnName="Statecode" />
+          <ScalarProperty Name="City" ColumnName="City" />
+          <ScalarProperty Name="Addressline2" ColumnName="Addressline2" />
+          <ScalarProperty Name="Addressline1" ColumnName="Addressline1" />
+          <ScalarProperty Name="Tax_No" ColumnName="Tax_No" />
+          <ScalarProperty Name="BusnType" ColumnName="BusnType" />
+          <ScalarProperty Name="VendorName" ColumnName="VendorName" />
+          <ScalarProperty Name="CompanyFK" ColumnName="CompanyFK" />
+          <ScalarProperty Name="VendorPK" ColumnName="VendorPK" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Customers">
+      <EntityTypeMapping TypeName="BIZ_DEVModel.Customer">
+        <MappingFragment StoreEntitySet="Customer">
+          <ScalarProperty Name="Created_Date" ColumnName="Created_Date" />
+          <ScalarProperty Name="CreatedLocationfk" ColumnName="CreatedLocationfk" />
+          <ScalarProperty Name="ReferenceID" ColumnName="ReferenceID" />
+          <ScalarProperty Name="IDType" ColumnName="IDType" />
+          <ScalarProperty Name="DOB" ColumnName="DOB" />
+          <ScalarProperty Name="Gender" ColumnName="Gender" />
+          <ScalarProperty Name="MobileNo" ColumnName="MobileNo" />
+          <ScalarProperty Name="PhoneNo" ColumnName="PhoneNo" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="pincode" ColumnName="pincode" />
+          <ScalarProperty Name="country" ColumnName="country" />
+          <ScalarProperty Name="Statecode" ColumnName="Statecode" />
+          <ScalarProperty Name="City" ColumnName="City" />
+          <ScalarProperty Name="Addressline2" ColumnName="Addressline2" />
+          <ScalarProperty Name="Addressline1" ColumnName="Addressline1" />
+          <ScalarProperty Name="Tax_No" ColumnName="Tax_No" />
+          <ScalarProperty Name="BusnType" ColumnName="BusnType" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="CompanyFK" ColumnName="CompanyFK" />
+          <ScalarProperty Name="CustomerPK" ColumnName="CustomerPK" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

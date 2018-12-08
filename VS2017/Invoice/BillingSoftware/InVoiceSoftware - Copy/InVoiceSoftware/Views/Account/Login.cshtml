@@ -1,0 +1,30 @@
+﻿<html ng-app="myApp">
+<head>
+    <title>Login</title>
+</head>
+<body ng-controller="AccountController as login">
+    <form class="form-group" id="loginForm" ng-submit="login()" name="myForm" novalidate style="width:35%;margin-left:30%;margin-top:15%">
+        <div class="jumbotron">
+            <img src="~/Images/login.png" style="width:75%;margin-left:16%;margin-top:-50px"/>
+            <div id="divAccountLogin">
+                <div class="input-group" style="margin-bottom:2%">
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                    <input type="text" ng-model="logUser.userID" name="UserID" placeholder="UserID" required style="width:250px" value=""/>
+                </div>
+                <div class="input-group" style="margin-bottom:5%">
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                    <input type="text" ng-model="logUser.password" name="Password" placeholder="Password" required style="width:250px" value=""/>
+                </div>
+            </div>
+            <div class="row container-fluid" style="margin-left:1%">
+                <button class="btn btn-lg btn-primary btn-block" type="submit" style="width:100px;">Login</button>
+                <a href="#" class="link pull-right" id="lnkAccountLoginForgotPassword" style="margin-top:-45px;">Forgot Password?</a>
+            </div>
+        </div>
+    </form>
+    <script src="~/Scripts/angular.min.js"></script>
+    <script src="~/Scripts/AppScripts/Login.js"></script>
+</body>
+</html>
+
+

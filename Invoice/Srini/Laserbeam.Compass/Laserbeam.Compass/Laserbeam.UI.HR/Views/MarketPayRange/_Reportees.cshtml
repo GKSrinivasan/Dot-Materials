@@ -1,0 +1,75 @@
+﻿@model Laserbeam.BusinessObject.Common.MarketPayRangeModel
+@using Laserbeam.BusinessObject.Common
+@using Laserbeam.Constant.HR
+@{ 
+    Layout = null;
+    bool IsJobCodeEnable = (Model.SelectedMarketPayRange == MarketPayRangeConstants.JobCode) ? true : false;
+    bool IsGradeEnable = (Model.SelectedMarketPayRange == MarketPayRangeConstants.Grade) ? true : false;
+    bool IsEmployeeEnable = (Model.SelectedMarketPayRange == MarketPayRangeConstants.ByEmployee) ? true : false;
+}
+<script>
+    selectedMarketPayRange = '@Model.SelectedMarketPayRange';
+</script>
+
+@(Html.Kendo().Grid<MarketPayRangeGridModel>
+        ().Name("MarketPayRangeReporteeGrid")
+        .Columns(columns =>
+        {
+            columns.Bound(m => m.JobCode).Title("Job Code").ClientTemplate("<a id='lnkMarketPayRangeJobCode' data-value='#=JobCode#' data-marketpayrange-num='#=MarketPayRangeNum#'>#=JobCode#</a>").Width(200).HeaderHtmlAttributes(new { style = "text-align:left !important;border-right: 1px solid #dbdbdb;vertical-align: middle;" }).HtmlAttributes(new { @class="grid-content-border-right"});  //.HeaderHtmlAttributes(new { @class = "columnSize-180 width150 text-center" }).HtmlAttributes(new { @class = "columnSize-180 width150 text-center" });
+            columns.Bound(m => m.GradeCode).Title("Grade").ClientTemplate("<a id='lnkMarketPayRangeGradeCode' data-value='#=GradeCode#' data-marketpayrange-num='#=MarketPayRangeNum#'>#=GradeCode#</a>").Width(200).HeaderHtmlAttributes(new { style = "text-align:left !important;border-right: 1px solid #dbdbdb;vertical-align: middle;" }).HtmlAttributes(new { @class = "grid-content-border-right" });
+            columns.Bound(m => m.EmployeeID).Title("Employee ID").HeaderTemplate("Employee Name <br> Employee ID").ClientTemplate("<a id='lnkMarketPayRangeEmployeeID' data-value='#=EmployeeID#' data-marketpayrange-num='#=MarketPayRangeNum#'>#=EmployeeName#</a><br>#=EmployeeID#").Width(250).HeaderHtmlAttributes(new { style= "text-align:left !important;border-right: 1px solid #dbdbdb;vertical-align: middle;" }).HtmlAttributes(new { @class = "grid-content-border-right" });
+            columns.Bound(m => m.EmployeeName).Visible(false);//.Title("Employee Name").Width(200).HeaderHtmlAttributes(new { style = "text-align:left !important;border-right: 1px solid #dbdbdb;vertical-align: middle;" }).HtmlAttributes(new { @class = "grid-content-border-right" });
+            columns.Group(group => group.Title("Current Min").HeaderHtmlAttributes(new { style = "text-align:center !important;" })
+            .Columns(info =>
+            {
+                info.Bound(m => m.CurrentMin).Title("Annual").Format("{0:n2}").HeaderHtmlAttributes(new { style = "text-align:center !important;" }).HtmlAttributes(new { style = "text-align:center !important;" });
+                info.Bound(m => m.HourlyCurrentMin).Title("Hourly").Format("{0:n5}").HeaderHtmlAttributes(new { style = "text-align:center !important;" }).HtmlAttributes(new { style = "text-align:center !important;" });
+            })
+            );
+            columns.Group(group => group.Title("Current Mid").HeaderHtmlAttributes(new { style = "text-align:center !important;" })
+            .Columns(info =>
+            {
+                info.Bound(m => m.CurrentMid).Title("Annual").Format("{0:n2}").HeaderHtmlAttributes(new { style = "text-align:center !important;" }).HtmlAttributes(new { style = "text-align:center !important;" });
+                info.Bound(m => m.HourlyCurrentMid).Title("Hourly").Format("{0:n5}").HeaderHtmlAttributes(new { style = "text-align:center !important;" }).HtmlAttributes(new { style = "text-align:center !important;" });
+            })
+            );
+            columns.Group(group => group.Title("Current Max").HeaderHtmlAttributes(new { style = "text-align:center !important;" })
+            .Columns(info =>
+            {
+                info.Bound(m => m.CurrentMax).Title("Annual").Format("{0:n2}").HeaderHtmlAttributes(new { style = "text-align:center !important;" }).HtmlAttributes(new { style = "text-align:center !important;" });
+                info.Bound(m => m.HourlyCurrentMax).Title("Hourly").Format("{0:n5}").HeaderHtmlAttributes(new { style = "text-align:center !important;" }).HtmlAttributes(new { style = "text-align:center !important;" });
+            })
+            );
+            columns.Group(group => group.Title("New Min").HeaderHtmlAttributes(new { style = "text-align:center !important;" })
+            .Columns(info =>
+            {
+                info.Bound(m => m.FutureMin).Title("Annual").Format("{0:n2}").HeaderHtmlAttributes(new { style = "text-align:center !important;" }).HtmlAttributes(new { style = "text-align:center !important;" });
+                info.Bound(m => m.HourlyFutureMin).Title("Hourly").Format("{0:n5}").HeaderHtmlAttributes(new { style = "text-align:center !important;" }).HtmlAttributes(new { style = "text-align:center !important;" });
+            })
+            );
+            columns.Group(group => group.Title("New Mid").HeaderHtmlAttributes(new { style = "text-align:center !important;" })
+           .Columns(info =>
+           {
+               info.Bound(m => m.FutureMid).Title("Annual").Format("{0:n2}").HeaderHtmlAttributes(new { style = "text-align:center !important;" }).HtmlAttributes(new { style = "text-align:center !important;" });
+               info.Bound(m => m.HourlyFutureMid).Title("Hourly").Format("{0:n5}").HeaderHtmlAttributes(new { style = "text-align:center !important;" }).HtmlAttributes(new { style = "text-align:center !important;" });
+           })
+           );
+            columns.Group(group => group.Title("New Max").HeaderHtmlAttributes(new { style = "text-align:center !important;" })
+           .Columns(info =>
+           {
+               info.Bound(m => m.FutureMax).Title("Annual").Format("{0:n2}").HeaderHtmlAttributes(new { style = "text-align:center !important;" }).HtmlAttributes(new { style = "text-align:center !important;" });
+               info.Bound(m => m.HourlyFutureMax).Title("Hourly").Format("{0:n5}").HeaderHtmlAttributes(new { style = "text-align:center !important;" }).HtmlAttributes(new { style = "text-align:center !important;" });
+           })
+           );
+
+        })
+        .DataSource(dataSource => dataSource.Ajax().Read(read => read.Action("_GetMarketPayRangeReportees", "MarketPayRange").Data("GetReporteesMarketPayRangeParam"))//.PageSize(25).ServerOperation(true).Batch(true)
+        )
+        .Sortable().Resizable(resize => resize.Columns(false))
+        //.Pageable()
+        .Scrollable(scrollable => scrollable.Height(300))
+        .Selectable(selectable => selectable
+            //.Mode(GridSelectionMode.Multiple)
+            .Type(GridSelectionType.Row))
+        .Events(x => x.DataBound("onMarketPayRangeDataBound").Change("Grid_OnRowSelect"))
+)

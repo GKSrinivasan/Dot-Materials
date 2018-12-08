@@ -1,0 +1,449 @@
+﻿@model  Laserbeam.UI.HR.Models.CompensationViewModel
+@using Laserbeam.BusinessObject.Common.MeritBusinussObjects;
+@using Laserbeam.Constant.HR;
+
+
+<script type="text/javascript">
+    var ReporteesPageConstatns =
+    {
+        LoggedInEmployeeNum: '@Model.CompensationTypeConfiguration.LoggedInEmployeeNum',
+        configuration: '@Model.CompensationTypeConfiguration',
+        compensationCommentType: '@CommentType.Compensation',
+        meritmandateType: '@CommentType.CompensationMeritMandit',
+        adjustmentType: '@CommentType.Adjustment',
+        RangeExceedPCT: '@Model.RangeExceedPCT',
+        BonusMandateType: '@CommentType.BonusMandateComment',
+    }
+</script>
+
+
+<div>
+    @(Html.Kendo().Grid<MeritGridModel>().Name("ReporteeGrid")
+        .Columns(columns =>
+        {
+
+        columns.Bound(m => m.WorkFlow).Visible(false);
+    if ((Model.compensationGridDisplay.EmployeeName || Model.compensationGridDisplay.EmployeeID) && (Model.CompensationTypeConfiguration.FeatureConfigurationWorkFlow == true))
+    {
+
+        columns.Template(@<text></text>)
+                              .ClientTemplate("<span style='padding-right:10px;width:30px;'>#=showStatusImage(WorkFlowStatus,FlagTooltip)#</span>" +
+                               "#if('" + Model.compensationGridDisplay.EmployeeName + "'=='True'){#" + "<span style='width:70%;font-weight:normal;'><a id='lnkEmployeeName'>#=(EmployeeName!=null) ? EmployeeName : ''#</a></span>" + "#}# #if (IsMktMinHigh == true){#" + "<span class='fa fa-chevron-circle-up mktMinLocal' style='display:block;color:red;padding-top:3px;float:right;'></span>" + "#}# #if('" + Model.compensationGridDisplay.EmployeeID + "'=='True'){#" + "</br><span id='EmployeeID' style=padding-left:30px !important;font-weight:normal !important;>#=(EmployeeID!=null) ? EmployeeID : ''#</span>" + "#}#"
+                              )
+                                .Title(Model.compensationGridDisplay.EmployeeName && Model.compensationGridDisplay.EmployeeID ? Model.aliasName.EmployeeName + "</br>" + Model.aliasName.EmployeeID : Model.compensationGridDisplay.EmployeeName ? Model.aliasName.EmployeeName : Model.aliasName.EmployeeID)
+                    .Width(220).Locked(true).HtmlAttributes(new { style = "text-align:left !important;" }).HeaderTemplate("<label style='width:19px !important'></label>"
+                    + "<label style=padding-left:10px !important; id='EmployeeNameHeader'>"
+                    + (Model.compensationGridDisplay.EmployeeName && Model.compensationGridDisplay.EmployeeID ? Model.aliasName.EmployeeName + "</br>" + Model.aliasName.EmployeeID : Model.compensationGridDisplay.EmployeeName ? Model.aliasName.EmployeeName : Model.aliasName.EmployeeID) + "</label>")
+                    .HeaderHtmlAttributes(new { style = "text-align:left !important;" });
+
+    }
+
+    if ((Model.compensationGridDisplay.EmployeeName || Model.compensationGridDisplay.EmployeeID) && (Model.CompensationTypeConfiguration.FeatureConfigurationWorkFlow == false))
+    {
+        columns.Template(@<text></text>)
+    .ClientTemplate(
+              "#if('" + Model.compensationGridDisplay.EmployeeName + "'=='True'){#" + "<label style='width:100%;font-weight:normal;'><a id='lnkEmployeeName'>#=(EmployeeName!=null) ? EmployeeName : ''#</a></label>" + "#}# #if('" + Model.compensationGridDisplay.EmployeeID + "'=='True'){#" + "</br><label id='EmployeeID' style=font-weight:normal !important;>#=(EmployeeID!=null) ? EmployeeID : ''#</label>" + "#}#")
+    .Title(Model.compensationGridDisplay.EmployeeName && Model.compensationGridDisplay.EmployeeID ? Model.aliasName.EmployeeName + "</br>" + Model.aliasName.EmployeeID : Model.compensationGridDisplay.EmployeeName ? Model.aliasName.EmployeeName : Model.aliasName.EmployeeID)
+    .Width(220).Locked(true);
+    }
+
+
+if (Model.compensationGridDisplay.JobTitle || Model.compensationGridDisplay.JobCode)
+{
+    columns.Template(@<text></text>)
+                 .ClientTemplate("#if('" + Model.compensationGridDisplay.JobTitle + "'=='True'){#" + "#=(Title!=null) ? Title : ''#" + "#}# <br/> #if('" + Model.compensationGridDisplay.JobCode + "'=='True'){#" + "#=(JobCode!=null) ? kendo.toString(JobCode) : ''#" + "#}#")
+                 .Title(Model.compensationGridDisplay.JobTitle && Model.compensationGridDisplay.JobCode ? Model.aliasName.JobTitle + "</br>" + Model.aliasName.JobCode : Model.compensationGridDisplay.JobTitle ? Model.aliasName.JobTitle : Model.aliasName.JobCode)
+                 .HtmlAttributes(new { @class = "columnSize-180 text-left" }).HeaderHtmlAttributes(new { @class = "columnSize-180 child177 text-left" });
+    }
+
+    if (Model.compensationGridDisplay.CurrentGrade || Model.compensationGridDisplay.Function)
+    {
+        columns.Template(@<text></text>)
+
+                .ClientTemplate("#if('" + Model.compensationGridDisplay.CurrentGrade + "'=='True'){#" + "#=(Grade!=null) ? Grade : ''#" + "#}# <br/> #if('" + Model.compensationGridDisplay.Function + "'=='True'){#" + "#=(EmpFunction!=null) ? EmpFunction : ''#" + "#}#")
+                .Title(Model.compensationGridDisplay.CurrentGrade && Model.compensationGridDisplay.Function ? Model.aliasName.CurrentGrade + "</br>" + Model.aliasName.Function : Model.compensationGridDisplay.CurrentGrade ? Model.aliasName.CurrentGrade : Model.aliasName.Function)
+                .HtmlAttributes(new { @class = "columnSize-130 text-left child133" }).HeaderHtmlAttributes(new { @class = "columnSize-130 text-left" });
+    }
+
+    if (Model.compensationGridDisplay.BusinessUnit || Model.compensationGridDisplay.Department)
+    {
+        columns.Template(@<text></text>)
+                 .ClientTemplate("#if('" + Model.compensationGridDisplay.BusinessUnit + "'=='True'){#" + "#=(BusinessUnit!=null) ? kendo.toString(BusinessUnit) : ''#" + "#}#   #if('" + Model.compensationGridDisplay.Department + "'=='True'){#" + "#=(Department!=null) ? Department : ''#" + "#}#")
+                 .Title(Model.compensationGridDisplay.BusinessUnit && Model.compensationGridDisplay.Department ? Model.aliasName.BusinessUnit + "</br>" + Model.aliasName.Department : Model.compensationGridDisplay.BusinessUnit ? Model.aliasName.BusinessUnit : Model.aliasName.Department)
+                 .HtmlAttributes(new { @class = "columnSize-130 text-left child133" }).HeaderHtmlAttributes(new { @class = "columnSize-130 text-left" });
+    }
+
+
+
+    if (Model.compensationGridDisplay.FLSAStatus || Model.compensationGridDisplay.EmployeeStatus)
+    {
+        columns.Template(@<text></text>)
+                .ClientTemplate("#if('" + Model.compensationGridDisplay.FLSAStatus + "'=='True'){#" + "#=(FLSAStatus!=null) ? FLSAStatus : ''#" + "#}# <br/> #if('" + Model.compensationGridDisplay.EmployeeStatus + "'=='True'){#" + "#=((EmployeeStatus!=null) ? ((EmployeeStatus=='annual') ? 'Annual' : 'Hourly') : '')#" + "#}#")
+                .Title(Model.compensationGridDisplay.FLSAStatus && Model.compensationGridDisplay.EmployeeStatus ? Model.aliasName.FLSAStatus + "</br>" + Model.aliasName.EmployeeStatus : Model.compensationGridDisplay.FLSAStatus ? Model.aliasName.FLSAStatus : Model.aliasName.EmployeeStatus)
+                .HtmlAttributes(new { @class = "columnSize-130 child140 text-center" }).HeaderHtmlAttributes(new { @class = "columnSize-130 text-center" });
+    }
+
+    if (Model.compensationGridDisplay.EmployeeClass || Model.compensationGridDisplay.FTE)
+    {
+
+        columns.Template(@<text></text>)
+                .ClientTemplate("#if('" + Model.compensationGridDisplay.EmployeeClass + "'=='True'){#" + "#=(EmployeeClass!=null) ? EmployeeClass : ''#" + "#}#  #if('" + Model.compensationGridDisplay.FTE + "'=='True'){#" + "#=(FTE!=null) ? FTE : ''#" + "#}#")
+               .Title(Model.compensationGridDisplay.EmployeeClass && Model.compensationGridDisplay.FTE ? Model.aliasName.EmployeeClass + "</br>" + Model.aliasName.FTE : Model.compensationGridDisplay.EmployeeClass ? Model.aliasName.EmployeeClass : Model.aliasName.FTE)
+                .HtmlAttributes(new { @class = "columnSize-130 text-center" }).HeaderHtmlAttributes(new { @class = "columnSize-130 text-center" });
+    }
+
+
+
+
+    if (Model.compensationGridDisplay.WorkCountry || Model.compensationGridDisplay.PayCurrency)
+    {
+        columns.Template(@<text></text>)
+                .ClientTemplate("#if('" + Model.compensationGridDisplay.WorkCountry + "'=='True'){#" + "#=(Country!=null) ? Country : ''#" + "#}#  #if('" + Model.compensationGridDisplay.PayCurrency + "'=='True'){#" + "</br>#=(CurrencyCodeLocal!=null) ? CurrencyCodeLocal : ''#" + "#}#")
+                .Title(Model.compensationGridDisplay.WorkCountry && Model.compensationGridDisplay.PayCurrency ? Model.aliasName.WorkCountry + "</br>" + Model.aliasName.PayCurrency : Model.compensationGridDisplay.WorkCountry ? Model.aliasName.WorkCountry : Model.aliasName.PayCurrency)
+                .HtmlAttributes(new { @class = "columnSize-130 text-center child133" }).HeaderHtmlAttributes(new { @class = "columnSize-130 text-center" });
+
+    columns.Template(@<text></text>)
+                .ClientTemplate("#if('" + Model.compensationGridDisplay.WorkCountry + "'=='True'){#" + "#=(Country!=null) ? Country : ''#" + "#}# <br/> #if('" + Model.compensationGridDisplay.PayCurrency + "'=='True'){#" + "</br>#=(CurrencyCodeUSD!=null) ? CurrencyCodeUSD : ''#" + "#}#")
+                .Title(Model.compensationGridDisplay.WorkCountry && Model.compensationGridDisplay.PayCurrency ? Model.aliasName.WorkCountry + "</br>" + " " : Model.compensationGridDisplay.WorkCountry ? Model.aliasName.WorkCountry : " ")
+                .HtmlAttributes(new { @class = "columnSize-130 text-left child133" }).HeaderHtmlAttributes(new { @class = "columnSize-130 text-center" });
+
+    }
+    if (Model.compensationGridDisplay.SupervisorName || Model.compensationGridDisplay.WorkLocation)
+    {
+        columns.Template(@<text></text>)
+                    .ClientTemplate("#if('" + Model.compensationGridDisplay.SupervisorName + "'=='True'){#" + "#=(SupervisorName!=null) ? SupervisorName : ''#" + "#}# <br/> #if('" + Model.compensationGridDisplay.WorkLocation + "'=='True'){#" + "#=(WorkLocation!=null) ? WorkLocation : ''#" + "#}# ")
+                   .Title(Model.compensationGridDisplay.SupervisorName && Model.compensationGridDisplay.WorkLocation ? Model.aliasName.SupervisorName + "</br>" + Model.aliasName.WorkLocation : Model.compensationGridDisplay.SupervisorName ? Model.aliasName.SupervisorName : Model.aliasName.WorkLocation)
+                    .HtmlAttributes(new { @class = "columnSize-130 text-center child137" })
+                    .HeaderHtmlAttributes(new { @class = "columnSize-130 text-center" });
+    }
+
+
+
+    if (Model.compensationGridDisplay.HireDate || Model.compensationGridDisplay.CurrentAnnualizedSalary)
+    {
+        columns.Template(@<text></text>)
+                 .ClientTemplate("#if('" + Model.compensationGridDisplay.HireDate + "'=='True'){#" + "#=(HireDate!=null) ? kendo.toString(HireDate) : ''#" + "#}# <br/> #if ('" + Model.compensationGridDisplay.CurrentAnnualizedSalary + "'=='True'){#" + "#=formatGridCurrency(CurrentAnnualizedSalaryLocal,'merit','annual',CultureCode)#" + "#}#")
+                .Title(Model.compensationGridDisplay.HireDate && Model.compensationGridDisplay.CurrentAnnualizedSalary ? Model.aliasName.HireDate + "</br>" + Model.aliasName.CurrentAnnualizedSalary : Model.compensationGridDisplay.HireDate ? Model.aliasName.HireDate : Model.aliasName.CurrentAnnualizedSalary)
+                 .HtmlAttributes(new { @class = "columnSize-180 text-center" }).HeaderHtmlAttributes(new { @class = "columnSize-180 text-center" });
+    columns.Template(@<text></text>)
+                 .ClientTemplate("#if('" + Model.compensationGridDisplay.HireDate + "'=='True'){#" + "</br>#=(HireDate!=null) ? kendo.toString(HireDate) : ''#" + "#}# <br/> #if ('" + Model.compensationGridDisplay.CurrentAnnualizedSalary + "'=='True'){#" + "#=formatGridCurrency(CurrentAnnualizedSalaryUSD,'merit','annual',CultureCode)#" + "#}#")
+                .Title(Model.compensationGridDisplay.HireDate && Model.compensationGridDisplay.CurrentHourlyRate ? Model.aliasName.HireDate + "</br>" + Model.aliasName.CurrentHourlyRate : Model.compensationGridDisplay.HireDate ? Model.aliasName.HireDate : Model.aliasName.CurrentHourlyRate)
+                 .HtmlAttributes(new { @class = "columnSize-180 text-center" }).HeaderHtmlAttributes(new { @class = "columnSize-180 text-center" });
+
+    }
+
+    if (Model.compensationGridDisplay.CurrentAnnualSalary || Model.compensationGridDisplay.CurrentHourlyRate)
+    {
+        columns.Template(@<text></text>)
+                .ClientTemplate("#if('" + Model.compensationGridDisplay.CurrentAnnualSalary + "'=='True'){#" + "#=formatGridCurrency(BaseSalaryLocal,'currentsalary','annual',CultureCode)#" + "#}# <br/>   #if('" + Model.compensationGridDisplay.CurrentHourlyRate + "'=='True' && EmployeeStatus=='hourly' ){#" + "#=formatGridCurrency(CurrentHourlyRateLocal,'currentsalary','hourlyrate',CultureCode)#" + "#}#")
+                .Title(Model.compensationGridDisplay.CurrentAnnualSalary && Model.compensationGridDisplay.CurrentHourlyRate ? Model.aliasName.CurrentAnnualSalary + "</br>" + Model.aliasName.CurrentHourlyRate : Model.compensationGridDisplay.CurrentAnnualSalary ? Model.aliasName.CurrentAnnualSalary : Model.aliasName.CurrentHourlyRate)
+                .HeaderHtmlAttributes(new { @class = "columnSize-130 text-center" }).HtmlAttributes(new { @class = "columnSize-130 child137 text-center" });
+
+    columns.Template(@<text></text>)
+                .ClientTemplate("#if('" + Model.compensationGridDisplay.CurrentAnnualSalary + "'=='True'){#" + "#=formatGridCurrency(BaseSalaryUSD,'currentsalary','annual','en-US')#" + "#}# <br/>  #if('" + Model.compensationGridDisplay.CurrentHourlyRate + "'=='True' && EmployeeStatus=='hourly'){#" + "#=formatGridCurrency(CurrentHourlyRateUSD,'currentsalary','hourlyrate','en-US')#" + "#}#")
+                .Title(Model.compensationGridDisplay.CurrentAnnualSalary && Model.compensationGridDisplay.CurrentHourlyRate ? Model.aliasName.CurrentAnnualSalary + "</br>" + Model.aliasName.CurrentHourlyRate : Model.compensationGridDisplay.CurrentAnnualSalary ? Model.aliasName.CurrentAnnualSalary : Model.aliasName.CurrentHourlyRate)
+                .HeaderHtmlAttributes(new { @class = "columnSize-130 text-center" }).HtmlAttributes(new { @class = "columnSize-130 child137 text-center" });
+    }
+
+    if (Model.compensationGridDisplay.CompaRatio)
+    {
+        columns.Template(@<text></text>)
+                .ClientTemplate("#if('" + Model.compensationGridDisplay.CompaRatio + "'=='True'){#" + "#=formatGridCurrency(CompaRatio,'general','percentage','en-US')#" + "#}# ")
+                .Title(Model.aliasName.CompaRatio)
+                .HeaderHtmlAttributes(new { style = "text-align:center;", @class = "columnSize-130 text-center" }).HtmlAttributes(new { style = "text-align:center;", @class = "columnSize-130 text-center" });
+}
+    if (Model.compensationGridDisplay.SalaryMin)
+    {
+        columns.Template(@<text></text>)
+                .ClientTemplate("#if('" + Model.compensationGridDisplay.SalaryMin + "'=='True'){#" + "#=formatGridCurrency(MktMinLocal,'currentsalary',EmployeeStatus,CultureCode)#" + "#}#")
+                .Title(Model.aliasName.SalaryMin)
+                .HeaderHtmlAttributes(new { @class = "columnSize-130 text-center" }).HtmlAttributes(new { @class = "columnSize-130 text-center child137" });
+
+        columns.Template(@<text></text>)
+                .ClientTemplate("#if('" + Model.compensationGridDisplay.SalaryMin + "'=='True'){#" + "#=formatGridCurrency(MktMinUSD,'currentsalary',EmployeeStatus,'en-US')#" + "#}#")
+                .Width(100).Title(Model.aliasName.SalaryMin)
+                .HeaderHtmlAttributes(new { @class = "columnSize-130 text-center" }).HtmlAttributes(new { @class = "columnSize-130 text-center child137" });
+    }
+
+    if (Model.compensationGridDisplay.SalaryMid)
+    {
+        columns.Template(@<text></text>)
+                .ClientTemplate("#if('" + Model.compensationGridDisplay.SalaryMid + "'=='True'){#" + "#=formatGridCurrency(MktMidLocal,'currentsalary',EmployeeStatus,CultureCode)#" + "#}#")
+                .Title(Model.aliasName.SalaryMid)
+                .HeaderHtmlAttributes(new { @class = "columnSize-130 text-center" }).HtmlAttributes(new { @class = "columnSize-130 text-center child137" });
+
+    columns.Template(@<text></text>)
+                .ClientTemplate("#if('" + Model.compensationGridDisplay.SalaryMid + "'=='True'){#" + "#=formatGridCurrency(MktMidUSD,'currentsalary',EmployeeStatus,'en-US')#" + "#}#")
+                .Width(100).Title(Model.aliasName.SalaryMid)
+                .HeaderHtmlAttributes(new { @class = "columnSize-130 text-center" }).HtmlAttributes(new { @class = "columnSize-130 text-center child137" });
+    }
+
+    if (Model.compensationGridDisplay.SalaryMax)
+    {
+        columns.Template(@<text></text>)
+                .ClientTemplate("#if('" + Model.compensationGridDisplay.SalaryMax + "'=='True'){#" + "#=formatGridCurrency(MktMaxLocal,'currentsalary',EmployeeStatus,CultureCode)#" + "#}#")
+                .Title(Model.aliasName.SalaryMax)
+                .HeaderHtmlAttributes(new { @class = "columnSize-130 text-center" }).HtmlAttributes(new { @class = "columnSize-130 text-center child137" });
+
+    columns.Template(@<text></text>)
+                .ClientTemplate("#if('" + Model.compensationGridDisplay.SalaryMax + "'=='True'){#" + "#=formatGridCurrency(MktMaxUSD,'currentsalary',EmployeeStatus,'en-US')#" + "#}#")
+                .Title(Model.aliasName.SalaryMax)
+                .HeaderHtmlAttributes(new { @class = "columnSize-130 text-center" }).HtmlAttributes(new { @class = "columnSize-130 text-center child137" });
+    }
+
+    if (Model.compensationGridDisplay.MeritProrationFactor || Model.compensationGridDisplay.MeritProrationDate)
+    {
+        columns.Template(@<text></text>)
+                 .ClientTemplate("#if(ProRation < 1 || ProRation > 1 || ProRation == null){#" + "<span class='fa fa-adjust proration'></span>" + "#}#<lable id='ProRationId'> #=(ProRation!=null && ProRation!='') ?  kendo.toString(ProRation, 'n2') : '0.00'#</label> #if('" + Model.compensationGridDisplay.MeritProrationDate + "'=='True'){#" + "</br>#=(MeritProrationDate!=null) ? kendo.toString(MeritProrationDate) : ''#" + "#}#")
+                 .Title(Model.compensationGridDisplay.MeritProrationFactor && Model.compensationGridDisplay.MeritProrationDate ? Model.aliasName.MeritProrationFactor + "</br>" + Model.aliasName.MeritProrationDate : Model.compensationGridDisplay.MeritProrationFactor ? Model.aliasName.MeritProrationFactor : Model.aliasName.MeritProrationDate)
+                 .HeaderHtmlAttributes(new { @class = "columnSize-150 text-center" }).HtmlAttributes(new { @class = "columnSize-150 text-center" });
+    }
+
+
+
+    if (Model.CompensationTypeConfiguration.FeatureConfigurationRatingDropdown || Model.CompensationTypeConfiguration.FeatureConfigurationRatingDisplay)
+    {
+        if (Model.compensationGridDisplay.MeritPerformanceRating || Model.compensationGridDisplay.MeritIncreaseGuideline)
+        {
+            if (Model.CompensationTypeConfiguration.FeatureConfigurationRatingDisplay)
+            {
+                if (!Model.CompensationTypeConfiguration.FeatureConfigurationRatingDropdown)
+                {
+                    columns.Template(@<text></text>)
+    .ClientTemplate("#if('" + Model.compensationGridDisplay.MeritPerformanceRating + "'=='True'){#" +
+    ("# if(MeritPerformanceRating==''||MeritPerformanceRating ==null) {#" +
+    Html.Kendo().DropDownList().Name("ddlMeritPerfRating_#=Empjobnum#").OptionLabel("#if(MeritPerformanceRating==null){#-Select-#}#")
+    .BindTo(Model.rating).DataTextField("Text").DataValueField("Value").Value("#=MeritPerformanceRatingNum#").HtmlAttributes(new { style = "width:75% !important;" }).ToClientTemplate().ToHtmlString()
+    + "#} else {# #=(MeritPerformanceRating!=null) ? MeritPerformanceRating : ''# #}#")
+       + "#}#"
+
+    + "#if('" + Model.compensationGridDisplay.MeritIncreaseGuideline + "'=='True'){#" + "</br>#=(MeritIncreaseGuideline) ? MeritIncreaseGuideline : ''#" + "#}#")
+    .Title(Model.compensationGridDisplay.MeritPerformanceRating && Model.compensationGridDisplay.MeritIncreaseGuideline ? Model.aliasName.MeritPerformanceRating + "</br>" + Model.aliasName.MeritIncreaseGuideline : Model.compensationGridDisplay.MeritPerformanceRating ? Model.aliasName.MeritPerformanceRating : Model.aliasName.MeritIncreaseGuideline)
+    .HeaderHtmlAttributes(new { style = "text-align: center", @class = "columnSize-150 text-center" }).HtmlAttributes(new { style = "text-align: center", @class = "gridControl" });
+    }
+    else
+    {
+        columns.Template(@<text></text>)
+.ClientTemplate("#if('" + Model.compensationGridDisplay.MeritPerformanceRating + "'=='True'){#" +
+Html.Kendo().DropDownList().Name("ddlMeritPerfRating_#=Empjobnum#").OptionLabel("#if(MeritPerformanceRating==null){#-Select-#}#")
+.BindTo(Model.rating).DataTextField("Text").DataValueField("Value").Value("#=MeritPerformanceRatingNum#").HtmlAttributes(new { style = "width:75% !important;margin:1px;" }).ToClientTemplate().ToHtmlString()
+   + "#}# #if('" + Model.compensationGridDisplay.MeritIncreaseGuideline + "'=='True'){#" + "</br>#=(MeritIncreaseGuideline) ? MeritIncreaseGuideline : ''#" + "#}#")
+.Title(Model.compensationGridDisplay.MeritPerformanceRating && Model.compensationGridDisplay.MeritIncreaseGuideline ? Model.aliasName.MeritPerformanceRating + "</br>" + Model.aliasName.MeritIncreaseGuideline : Model.compensationGridDisplay.MeritPerformanceRating ? Model.aliasName.MeritPerformanceRating : Model.aliasName.MeritIncreaseGuideline)
+.HeaderHtmlAttributes(new { style = "text-align: center", @class = "columnSize-150 text-center" }).HtmlAttributes(new { style = "text-align: center;", @class = "gridControl columnsize157" });
+        }
+    }
+    else
+    {
+        if (Model.compensationGridDisplay.MeritIncreaseGuideline)
+        {
+            columns.Template(@<text></text>).ClientTemplate("#=(MeritIncreaseGuideline!=null) ? MeritIncreaseGuideline : ''#")
+.Title(Model.aliasName.MeritIncreaseGuideline)
+.HeaderHtmlAttributes(new { style = "text-align: center", @class = "columnSize-150 text-center" }).HtmlAttributes(new { style = "text-align: center;", @class = "columnSize-150 text-center" });
+                }
+            }
+        }
+    }
+
+    if (Model.CompensationTypeConfiguration.FeatureConfigurationMerit)
+    {
+        if (Model.compensationGridDisplay.MeritPct || Model.compensationGridDisplay.MeritAmount)
+        {
+            columns.Template(@<text></text>)
+    .ClientTemplate("#if(IsMeritEligible){ if('" + Model.compensationGridDisplay.MeritPct + "'=='True'){#" + Html.TextBox("txtMeritPCT", "#=formatGridCurrency(MeritPCT,'merit','percentage','en-US')#", new { style = "width:87% !important;" }).ToHtmlString() + "#}# #if('" + Model.compensationGridDisplay.MeritAmount + "'=='True'){#" + "</br>" + Html.TextBox("txtMeritAmtLocal", "#=formatGridCurrency(MeritAmtLocal,'merit',EmployeeStatus,CultureCode)#", new { style = "width:87% !important;margin-top:5%;" }).ToHtmlString() + "#}}else{# <em id='emMeritInEligible' style='color: gray;'>Merit Ineligible</em> #}#")
+    .Title(Model.compensationGridDisplay.MeritPct && Model.compensationGridDisplay.MeritAmount ? Model.aliasName.MeritPct + "</br>" + Model.aliasName.MeritAmount : Model.compensationGridDisplay.MeritPct ? Model.aliasName.MeritPct : Model.aliasName.MeritAmount)
+    .HeaderHtmlAttributes(new { @class = "columnSize-150 text-center" }).HtmlAttributes(new { @class = "columnSize-150 text-center", id = "local" }).Visible(Model.CompensationTypeConfiguration.FeatureConfigurationMerit);
+
+    columns.Template(@<text></text>)
+.ClientTemplate("#if(IsMeritEligible){ if('" + Model.compensationGridDisplay.MeritPct + "'=='True'){#" + Html.TextBox("txtMeritPCT", "#=formatGridCurrency(MeritPCT,'merit','percentage','en-US')#", new { style = "width:87% !important;" }).ToHtmlString() + "#}# #if('" + Model.compensationGridDisplay.MeritAmount + "'=='True'){#" + "</br>" + Html.TextBox("txtMeritAmtUSD", "#=formatGridCurrency(MeritAmtUSD,'general', EmployeeStatus,'en-US')#", new { style = "width:87% !important;margin-top:5%;" }).ToHtmlString() + "#}}else{# <em id='emMeritInEligible' style='color: gray;'>Merit Ineligible</em> #}#")
+.Title(Model.compensationGridDisplay.MeritPct && Model.compensationGridDisplay.MeritAmount ? Model.aliasName.MeritPct + "</br>" + Model.aliasName.MeritAmount : Model.compensationGridDisplay.MeritPct ? Model.aliasName.MeritPct : Model.aliasName.MeritAmount)
+.HeaderHtmlAttributes(new { @class = "columnSize-150 text-center" }).HtmlAttributes(new { @class = "columnSize-150 text-center", id = "usd" }).Visible(Model.CompensationTypeConfiguration.FeatureConfigurationMerit);
+
+
+    columns.Template(@<text></text>)
+        .ClientTemplate("<br />" + "#if(EmployeeStatus=='hourly' && IsMeritEligible==true){#" + Html.Label("lblYearlyHourly", "/hr", new { style = "position:relative;top:6px;font-weight:normal;" }).ToHtmlString() + "#}#")
+        .HeaderHtmlAttributes(new { style = "width:35px !important;float:left; padding-bottom:0%; position:relative; right:15px; top:25px;padding:0;font-size: 12px; border-bottom:none;" }).HtmlAttributes(new { style = "width:35px !important;float:left; padding-bottom:0%; position:relative; right:15px; top:25px;padding:0;font-size: 12px; border-bottom:none;" }).Visible(Model.CompensationTypeConfiguration.FeatureConfigurationMerit);
+        }
+    }
+
+
+    if (Model.CompensationTypeConfiguration.FeatureConfigurationPromotion)
+    {
+        if (Model.compensationGridDisplay.PromoteTo)
+        {
+            columns.Template(@<text></text>)
+        .ClientTemplate("#if(IsPromotionEligible){#" + "<a id='lnkNewTitle'>#=(NewTitle!=null) ? NewTitle : '" + "--PROMOTE TO--" + "'#</a></br><span class='fa fa-comment fa-1x commentIcon' id='lnkimgComment'style='display:#=(PromotionCommentsCount > 0) ? " + "'block'" + ":" + "'none'" + "#'> </span>" + "# }#")
+        .Title(Model.aliasName.PromoteTo)
+        .HeaderHtmlAttributes(new { @class = "columnSize-150 text-center" }).HtmlAttributes(new { @class = "columnSize-150 text-center columnsize157" });
+    }
+    if (Model.compensationGridDisplay.PromotionPct || Model.compensationGridDisplay.PromotionAmount)
+    {
+        columns.Template(@<text></text>).Hidden(true)
+.ClientTemplate("#if(IsPromotionEligible){ if('" + Model.compensationGridDisplay.PromotionPct + "'=='True'){#" + Html.TextBox("txtPromotionPctLocal", "#=formatGridCurrency(PromotionPct,'promotion','percentage','en-US')#", new { style = "width:87% !important;" }).ToHtmlString() + "#}# #if('" + Model.compensationGridDisplay.PromotionAmount + "'=='True'){#" + "</br>" + Html.TextBox("txtPromotionAmtLocal", "#=formatGridCurrency(PromotionAmtLocal,'promotion',EmployeeStatus,CultureCode)#", new { style = "width:87% !important;margin-top:5%;" }).ToHtmlString() + "#}}else{# <em id='emPromotionInEligible' style='color: gray;'>Promotion Ineligible</em> #}#")
+.Title(Model.compensationGridDisplay.PromotionPct && Model.compensationGridDisplay.PromotionAmount ? Model.aliasName.PromotionPct + "</br>" + Model.aliasName.PromotionAmount : Model.compensationGridDisplay.PromotionPct ? Model.aliasName.PromotionPct : Model.aliasName.PromotionAmount)
+.HeaderHtmlAttributes(new { @class = "columnSize-150 text-center" }).HtmlAttributes(new { @class = "columnSize-150 text-center columnsize157", id = "promotionLocal" });
+
+    columns.Template(@<text></text>).Hidden(true)
+.ClientTemplate("#if(IsPromotionEligible){ if('" + Model.compensationGridDisplay.PromotionPct + "'=='True'){#" + Html.TextBox("txtPromotionPctUSD", "#=formatGridCurrency(PromotionPct,'general','percentage','en-US')#", new { style = "width:87% !important;" }).ToHtmlString() + "#}# #if('" + Model.compensationGridDisplay.PromotionAmount + "'=='True'){#" + "</br>" + Html.TextBox("txtPromotionAmtUSD", "#=formatGridCurrency(PromotionAmtUSD,'general',EmployeeStatus,'en-US')#", new { style = "width:87% !important;margin-top:5%;" }).ToHtmlString() + "#}}else{# <em id='emPromotionInEligible' style='color: gray;'>Promotion Ineligible</em> #}#")
+.Title(Model.compensationGridDisplay.PromotionPct && Model.compensationGridDisplay.PromotionAmount ? Model.aliasName.PromotionPct + "</br>" + Model.aliasName.PromotionAmount : Model.compensationGridDisplay.PromotionPct ? Model.aliasName.PromotionPct : Model.aliasName.PromotionAmount)
+.HeaderHtmlAttributes(new { @class = "columnSize-150 text-center" }).HtmlAttributes(new { @class = "columnSize-150 text-center columnsize157", id = "promotionUSD" });
+
+    columns.Template(@<text></text>)
+        .ClientTemplate("<br />" + "#if(EmployeeStatus=='hourly'  && IsPromotionEligible==true){#" + Html.Label("lblYearlyHourly", "/hr", new { style = "position:relative;top:6px;font-weight:normal;" }).ToHtmlString() + "#}#")
+        .HeaderHtmlAttributes(new { style = "width:35px !important;float:left; padding-bottom:0%; position:relative; right:25px; top:25px;font-size: 12px;border-bottom:none;" }).HtmlAttributes(new { style = "width:35px !important;float:left; padding-bottom:0%; position:relative; right:25px; top:25px;font-size: 12px;border-bottom:none;" }).Visible(Model.CompensationTypeConfiguration.FeatureConfigurationMerit);
+        }
+    }
+
+
+    if (Model.CompensationTypeConfiguration.FeatureConfigurationAdjustment)
+    {
+        if (Model.compensationGridDisplay.AdjustmentPct || Model.compensationGridDisplay.AdjustmentAmount)
+        {
+            columns.Template(@<text></text>)
+        .ClientTemplate("#if(IsAdjustmentEligible){ if('" + Model.compensationGridDisplay.AdjustmentPct + "'=='True'){#" + Html.TextBox("txtAdjustmentPct", "#=formatGridCurrency(AdjustmentPct,'adjustment','percentage','en-US')#", new { style = "width:87% !important;" }).ToHtmlString() + "#}# #if('" + Model.compensationGridDisplay.AdjustmentAmount + "'=='True'){#" + "</br>" + Html.TextBox("txtAdjustmentAmtLocal", "#=formatGridCurrency(AdjustmentAmtLocal,'adjustment',EmployeeStatus,CultureCode)#", new { style = "width:87% !important;margin-top:5%;" }).ToHtmlString() + "#}}else{# <em id='emAdjustmentInEligible' style='color: gray;' >Adjustment Ineligible</em> #}#")
+        .Title(Model.compensationGridDisplay.AdjustmentPct && Model.compensationGridDisplay.AdjustmentAmount ? Model.aliasName.AdjustmentPct + "</br>" + Model.aliasName.AdjustmentAmount : Model.compensationGridDisplay.AdjustmentPct ? Model.aliasName.AdjustmentPct : Model.aliasName.AdjustmentAmount)
+        .HeaderHtmlAttributes(new { @class = "columnSize-150 text-center" }).HtmlAttributes(new { @class = "columnSize-150 text-center", id = "AdjustmentLocal" });
+
+    columns.Template(@<text></text>)
+.ClientTemplate("#if(IsAdjustmentEligible){ if('" + Model.compensationGridDisplay.AdjustmentPct + "'=='True'){#" + Html.TextBox("txtAdjustmentPct", "#=formatGridCurrency(AdjustmentPct,'adjustment','percentage','en-US')#", new { style = "width:87% !important;" }).ToHtmlString() + "#}# #if('" + Model.compensationGridDisplay.AdjustmentAmount + "'=='True'){#" + "</br>" + Html.TextBox("txtAdjustmentAmtUSD", "#=formatGridCurrency(AdjustmentAmtUSD,'general',EmployeeStatus,'en-US')#", new { style = "width:87% !important;margin-top:5%;" }).ToHtmlString() + "#}}else{# <em id='emAdjustmentInEligible' style='color: gray;'>Adjustment Ineligible</em> #}#")
+.Title(Model.compensationGridDisplay.AdjustmentPct && Model.compensationGridDisplay.AdjustmentAmount ? Model.aliasName.AdjustmentPct + "</br>" + Model.aliasName.AdjustmentAmount : Model.compensationGridDisplay.AdjustmentPct ? Model.aliasName.AdjustmentPct : Model.aliasName.AdjustmentAmount)
+.HeaderHtmlAttributes(new { @class = "columnSize-150 text-center" }).HtmlAttributes(new { @class = "columnSize-150 text-center", id = "AdjustmentUSD" });
+
+    columns.Template(@<text></text>)
+        .ClientTemplate("<br />" + "#if(EmployeeStatus=='hourly' && IsAdjustmentEligible==true){#" + Html.Label("lblYearlyHourly", "/hr", new { style = "position:relative;top:6px;font-weight:normal;" }).ToHtmlString() + "#}#")
+        .HeaderHtmlAttributes(new { style = "width:35px !important;float:left; padding-bottom:0%; position:relative; right:25px; top:25px;font-size: 12px;border-bottom:none;" }).HtmlAttributes(new { style = "width:35px !important;float:left; padding-bottom:0%; position:relative; right:25px; top:25px;font-size: 12px;border-bottom:none;" }).Visible(Model.CompensationTypeConfiguration.FeatureConfigurationMerit);
+        }
+    }
+
+
+    if (Model.CompensationTypeConfiguration.FeatureConfigurationLumpSum)
+    {
+        if (Model.compensationGridDisplay.LumpSumPct || Model.compensationGridDisplay.LumpSumAmount)
+        {
+            if (Model.CompensationTypeConfiguration.LumpSumRuleLumpSumType == "AutoCalc" && Model.CompensationTypeConfiguration.AutoCalculateLumpSum == false)
+            {
+                columns.Template(@<text></text>)
+    .ClientTemplate("#if(IsMeritEligible){ if('" + Model.compensationGridDisplay.LumpSumPct + "'=='True'){#" + "#=formatGridCurrency(LumpSumPct,'lumpsum','percentage','en-US')#" + "#}# #if('" + Model.compensationGridDisplay.LumpSumAmount + "'=='True'){#" + "</br>#=formatGridCurrency(LumpSumAmtLocal,'lumpsum','annual',CultureCode)#" + "#}}else{# <em id='emLumpsumInEligible'>Lump Sum Ineligible</em> #}#")
+    .Title(Model.compensationGridDisplay.LumpSumPct && Model.compensationGridDisplay.LumpSumAmount ? Model.aliasName.LumpSumPct + "</br>" + Model.aliasName.LumpSumAmount : Model.compensationGridDisplay.LumpSumPct ? Model.aliasName.LumpSumPct : Model.aliasName.LumpSumAmount)
+    .HeaderHtmlAttributes(new { @class = "columnSize-150 text-center" }).HtmlAttributes(new { @class = "columnSize-150 columnsize157 text-center" });
+
+    columns.Template(@<text></text>)
+.ClientTemplate("#if(IsMeritEligible){ if('" + Model.compensationGridDisplay.LumpSumPct + "'=='True'){#" + "#=formatGridCurrency(LumpSumPct,'lumpsum','percentage','en-US')#" + "#}# #if('" + Model.compensationGridDisplay.LumpSumAmount + "'=='True'){#" + "</br>#=formatGridCurrency(LumpSumAmtUSD,'general','annual','en-US')#" + "#}}else{# <em id='emLumpsumInEligible'>Lump Sum Ineligible</em> #}#")
+.Title(Model.compensationGridDisplay.LumpSumPct && Model.compensationGridDisplay.LumpSumAmount ? Model.aliasName.LumpSumPct + "</br>" + Model.aliasName.LumpSumAmount : Model.compensationGridDisplay.LumpSumPct ? Model.aliasName.LumpSumPct : Model.aliasName.LumpSumAmount)
+.HeaderHtmlAttributes(new { @class = "columnSize-150 text-center" }).HtmlAttributes(new { @class = "columnSize-150 columnsize157 text-center" });
+    }
+    else
+    {
+        columns.Template(@<text></text>)
+.ClientTemplate("#if(IsMeritEligible){ if('" + Model.compensationGridDisplay.LumpSumPct + "'=='True'){#" + Html.TextBox("txtLumpSumPct", "#=formatGridCurrency(LumpSumPct,'lumpsum','percentage','en-US')#", new { style = "width:87% !important;" }).ToHtmlString() + "#}# #if('" + Model.compensationGridDisplay.LumpSumAmount + "'=='True'){#" + "</br>" + Html.TextBox("txtLumpSumAmtLocal", "#=formatGridCurrency(LumpSumAmtLocal,'lumpsum',EmployeeStatus,CultureCode)#", new { style = "width:87% !important;margin-top:5%;" }).ToHtmlString() + "#}}else{# <em id='emLumpsumInEligible' style='color: gray;'>Lump Sum Ineligible</em> #}#")
+.Title(Model.compensationGridDisplay.LumpSumPct && Model.compensationGridDisplay.LumpSumAmount ? Model.aliasName.LumpSumPct + "</br>" + Model.aliasName.LumpSumAmount : Model.compensationGridDisplay.LumpSumPct ? Model.aliasName.LumpSumPct : Model.aliasName.LumpSumAmount)
+.HeaderHtmlAttributes(new { @class = "columnSize-150 text-center" }).HtmlAttributes(new { @class = "columnSize-150 text-center", id = "LumpSumLocal" });
+
+    columns.Template(@<text></text>)
+.ClientTemplate("#if(IsMeritEligible){ if('" + Model.compensationGridDisplay.LumpSumPct + "'=='True'){#" + Html.TextBox("txtLumpSumPct", "#=formatGridCurrency(LumpSumPct,'lumpsum','percentage','en-US')#", new { style = "width:87% !important;" }).ToHtmlString() + "#}# #if('" + Model.compensationGridDisplay.LumpSumAmount + "'=='True'){#" + "</br>" + Html.TextBox("txtLumpSumAmtUSD", "#=formatGridCurrency(LumpSumAmtUSD,'general',EmployeeStatus,'en-US')#", new { style = "width:87% !important;margin-top:5%;" }).ToHtmlString() + "#}}else{# <em id='emLumpsumInEligible' style='color: gray;'>Lump Sum Ineligible</em> #}#")
+.Title(Model.compensationGridDisplay.LumpSumPct && Model.compensationGridDisplay.LumpSumAmount ? Model.aliasName.LumpSumPct + "</br>" + Model.aliasName.LumpSumAmount : Model.compensationGridDisplay.LumpSumPct ? Model.aliasName.LumpSumPct : Model.aliasName.LumpSumAmount)
+.HeaderHtmlAttributes(new { @class = "columnSize-150 text-center" }).HtmlAttributes(new { @class = "columnSize-150 text-center", id = "LumpSumUSD" });
+            }
+
+        }
+    }
+
+
+    if (Model.compensationGridDisplay.NewSalary || Model.compensationGridDisplay.NewHourlyRate)
+    {
+        columns.Template(@<text></text>)
+                .ClientTemplate("#if('" + Model.compensationGridDisplay.NewSalary + "'=='True'){#" + Html.Label("txtNewSalaryLocal", "#=formatGridCurrency(NewSalaryLocal,'newsalary','annual',CultureCode)#", new { style = "width:87% !important;", id = "txtNewSalaryLocal" }).ToHtmlString() + "#}# #if('" + Model.compensationGridDisplay.NewHourlyRate + "'=='True' && EmployeeStatus=='hourly'){#" + "#=formatGridCurrency((roundingRule(NewHourlyRateLocal, 'newsalary', 'hourly')),'merit', 'hourlyrate',CultureCode)#" + "#}#")
+                 .Title(Model.compensationGridDisplay.NewSalary && Model.compensationGridDisplay.NewHourlyRate ? Model.aliasName.NewSalary + "</br>" + Model.aliasName.NewHourlyRate : Model.compensationGridDisplay.NewSalary ? Model.aliasName.NewSalary : Model.aliasName.NewHourlyRate)
+                .HeaderHtmlAttributes(new { @class = "columnSize-100 text-center" }).HtmlAttributes(new { @class = "columnSize-100 ", style = "text-align:center!important" });
+
+    columns.Template(@<text></text>)
+                .ClientTemplate("#if('" + Model.compensationGridDisplay.NewSalary + "'=='True'){#" + Html.Label("txtNewSalaryUSD", "#=formatGridCurrency(NewSalaryUSD,'general','annual','en-US')#", new { style = "width:87% !important;", id = "txtNewSalaryUSD" }).ToHtmlString() + "#}# #if('" + Model.compensationGridDisplay.NewHourlyRate + "'=='True' && EmployeeStatus=='hourly'){#" + "#=formatGridCurrency((roundingRule(NewHourlyRateUSD, 'newsalary', 'hourly')),'merit', 'hourlyrate','en-US')#" + "#}# ")
+                  .Title(Model.aliasName.NewSalary)
+                .HeaderHtmlAttributes(new { @class = "columnSize-100 text-center" }).HtmlAttributes(new { @class = "columnSize-100", style = "text-align:center!important" });
+
+    }
+    if (Model.compensationGridDisplay.NewCompaRatio)
+    {
+        columns.Template(@<text></text>)
+                .ClientTemplate(" #if('" + Model.compensationGridDisplay.NewCompaRatio + "'=='True'){#" + "#=(NewCompaRatio!=null) ? ' ' : ''#" + "#}#" + "<section><div class='barWrapper'><div class='progress'><div class='progress-bar' role='progressbar' aria-valuemin='0' aria-valuemax='100' style='width:#=newCompPrgWidth(NewCompaRatio,NewSalaryLocal,MktMinLocal,MktMaxLocal,NewHourlyRateLocal,EmployeeStatus)#%;background:#=newCompProgressBar(NewCompaRatio,NewSalaryLocal,MktMinLocal,MktMaxLocal,NewHourlyRateLocal,EmployeeStatus)#'><span class='popOver' data-toggle='tooltip' id='progress_" + "#=MyHRID#" + "' data-placement='top' title='#=formatGridCurrency(NewCompaRatio,'general','percentage','en-US')#'> </span> </div></div></div></section>" + "</br>" + "<div class='row CompNewCompaRatioMinMax'><div class='col-lg-4 col-md-4'><span style='float:left;'>#=formatGridCurrency(MktMinLocal,'currentsalary',EmployeeStatus,CultureCode)#</span></div><div class='col-lg-4 col-md-4'><span style='float:right;'>#=formatGridCurrency(MktMaxLocal,'currentsalary',EmployeeStatus,CultureCode)#</span></div></div>")
+                .Title(Model.aliasName.NewCompaRatio)
+                .HeaderHtmlAttributes(new { style = "text-align:center;", @class = "columnSize-200 text-center" }).HtmlAttributes(new { style = "text-align:center;padding-top:20px;", @class = "columnSize-200 child210 text-center" });
+
+    columns.Template(@<text></text>)
+                .ClientTemplate(" #if('" + Model.compensationGridDisplay.NewCompaRatio + "'=='True'){#" + "#=(NewCompaRatio!=null) ? ' ' : ''#" + "#}#" + "<br/><section><div class='barWrapper'><div class='progress'><div class='progress-bar' role='progressbar' aria-valuemin='0' aria-valuemax='100' style='width:#=newCompPrgWidth(NewCompaRatio,NewSalaryUSD,MktMinUSD,MktMaxUSD)#%;background:#=newCompProgressBar(NewCompaRatio,NewSalaryUSD,MktMinUSD,MktMaxUSD)#'><span class='popOver' data-toggle='tooltip' id='progressUSD_" + "#=MyHRID#" + "' data-placement='top' title='#=formatGridCurrency(NewCompaRatio,'general','percentage','en-US')#'> </span> </div></div></div></section>" + "</br>" + "<div class='row CompNewCompaRatioMinMax'><div class='col-lg-4 col-md-4'><span style='float:left;'>#=formatGridCurrency(MktMinUSD,'currentsalary',EmployeeStatus,'en-US')#</span></div><div class='col-lg-4 col-md-4'><span style='float:right;'>#=formatGridCurrency(MktMaxUSD,'currentsalary',EmployeeStatus,'en-US')#</span></div></div>")
+                .Title(Model.aliasName.NewCompaRatio)
+                .HeaderHtmlAttributes(new { style = "text-align:center;", @class = "columnSize-200 text-center" }).HtmlAttributes(new { style = "text-align:center;padding-top:20px;", @class = "columnSize-200 child210 text-center" });
+    }
+    if (Model.CompensationTypeConfiguration.FeatureConfigurationTCC)
+    {
+
+        if (Model.compensationGridDisplay.TotalNewComp)
+        {
+            columns.Template(@<text></text>)
+    .ClientTemplate("#if('" + Model.compensationGridDisplay.TotalNewComp + "'=='True'){#" + "#=formatGridCurrency(TCCLocal,'merit', 'annual' ,CultureCode)#" + "#}#")
+    .Title(Model.aliasName.TotalNewComp)
+    .HeaderHtmlAttributes(new { @class = "columnSize-130 text-center" }).HtmlAttributes(new { @class = "columnSize-130 child137 text-center" });
+
+            columns.Template(@<text></text>)
+.ClientTemplate("#if('" + Model.compensationGridDisplay.TotalNewComp + "'=='True'){#" + "#=formatGridCurrency(TCCUSD,'merit','annual','en-US')#" + "#}#")
+.Title(Model.aliasName.TotalNewComp)
+.HeaderHtmlAttributes(new { @class = "columnSize-130 text-center" }).HtmlAttributes(new { @class = "columnSize-130 child137 text-center" });
+        }
+    }
+
+
+
+    if (Model.compensationGridDisplay.MoreInfo1)
+    {
+        columns.Template(@<text></text>)
+                 .ClientTemplate("#if('" + Model.compensationGridDisplay.MoreInfo1 + "'=='True'){#" + "#=(MoreInfo1!=null) ? kendo.toString(MoreInfo1) : ''#" + "#}#")
+                 .Title(Model.aliasName.MoreInfo1)
+                 .HtmlAttributes(new { @class = "columnSize-180 text-center" }).HeaderHtmlAttributes(new { @class = "columnSize-180 text-center width200" });
+    }
+    if (Model.compensationGridDisplay.MoreInfo2)
+    {
+        columns.Template(@<text></text>)
+                 .ClientTemplate("#if('" + Model.compensationGridDisplay.MoreInfo2 + "'=='True'){#" + "#=(MoreInfo2!=null) ? kendo.toString(MoreInfo2) : ''#" + "#}#")
+                 .Title(Model.aliasName.MoreInfo2)
+                 .HtmlAttributes(new { @class = "columnSize-180 text-center child185" }).HeaderHtmlAttributes(new { @class = "columnSize-180 text-center" });
+    }
+    if (Model.compensationGridDisplay.MoreInfo3)
+    {
+        columns.Template(@<text></text>)
+                 .ClientTemplate("#if('" + Model.compensationGridDisplay.MoreInfo3 + "'=='True'){#" + "#=(MoreInfo3!=null) ? kendo.toString(MoreInfo3) : ''#" + "#}#")
+                 .Title(Model.aliasName.MoreInfo3)
+                 .HtmlAttributes(new { @class = "columnSize-180 text-center child185" }).HeaderHtmlAttributes(new { @class = "columnSize-180 text-center width200" });
+    }
+    if (Model.compensationGridDisplay.MoreInfo4)
+    {
+        columns.Template(@<text></text>)
+                 .ClientTemplate("#if('" + Model.compensationGridDisplay.MoreInfo4 + "'=='True'){#" + "#=(MoreInfo4!=null) ? kendo.toString(MoreInfo4) : ''#" + "#}#")
+                 .Title(Model.aliasName.MoreInfo4)
+                 .HtmlAttributes(new { @class = "columnSize-180 text-center child185" }).HeaderHtmlAttributes(new { @class = "columnSize-180 text-center" });
+    }
+    if (Model.compensationGridDisplay.MoreInfo5)
+    {
+        columns.Template(@<text></text>)
+                 .ClientTemplate("#if('" + Model.compensationGridDisplay.MoreInfo5 + "'=='True'){#" + "#=(MoreInfo5!=null) ? kendo.toString(MoreInfo5) : ''#" + "#}#")
+                 .Title(Model.aliasName.MoreInfo5)
+                 .HtmlAttributes(new { @class = "columnSize-180 text-center" }).HeaderHtmlAttributes(new { @class = "columnSize-180 text-center" });
+    }
+
+    columns.Template(@<text></text>)
+   .ClientTemplate("<a class='statusicon' id='lnkComment'>#=showCommentImage(Empjobnum,TotalCommentsCount,TotalUnReadComment)#</a>")
+                .Title(Model.aliasName.Comments).HeaderHtmlAttributes(new { @class = "columnSize-180 width150 text-center" }).HtmlAttributes(new { @class = "columnSize-180 width150 text-center" });
+
+        })
+            .DataSource(dataSource => dataSource.Ajax().Read(read => read.Action("_GetReportees", "Compensation").Data("GetReporteesCompParam")).PageSize(25).ServerOperation(true).Batch(true).Events(x => x.RequestStart("requestPage"))
+            .Update(update => update.Action("UpdateCompReportees", "Compensation").Data("PutReporteesCompParam"))
+            .Model(model => { model.Id(id => id.Empjobnum); })).Pageable(m => m.PageSizes(false)).Events(x => x.DataBound("onMeritReporteesBound"))
+            .Sortable().Resizable(resize => resize.Columns(false))
+            .Scrollable(scrollable => scrollable.Height(300))
+    )
+</div>
+<!-- PopUp Related Code Start -->
+<div id="divEmployeeInfo" class="modal fade" role="dialog" aria-labelledby="myModalLabel"></div>
+<div id="divComment" class="modal fade" role="dialog" aria-labelledby="myModalLabel"></div>
+<div id="divPromotion" class="modal fade" role="dialog" aria-labelledby="myModalLabel"></div>
+<div id="divMeritComment" class="modal fade" role="dialog" aria-labelledby="myModalLabel"></div>
+<!-- PopUp Related Code End -->
+@(Html.Kendo().Window().Name("CommentPopup").Modal(true).Visible(false).Actions(action => action.Close()))

@@ -1,0 +1,112 @@
+﻿@{
+    ViewBag.Title = "Chatbot";
+    Layout = "~/Views/Shared/_SiteLayout.cshtml";
+}
+<link href="~/Content/font-awesome-animation.min.css" rel="stylesheet" />
+<link href="~/Content/Chatbot.css" rel="stylesheet" />
+
+
+
+<div class="fixedbutton">
+    <img data-toggle="modal" data-target="#ChatbotModal" src="../../Images/RobotDance.gif" alt="" />
+</div>
+
+<div class="modal fade" id="ChatbotModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel"><i class="fa fa-comments"></i> Chatbot</h4>
+            </div>
+            <div class="modal-body">
+                <div class="portlet-body" id="chats">
+                        <div>
+                            <div class="row top-pad bottomborder">
+                                <div class="col-md-12">
+                                    <div class="col-md-1 nopad">
+                                        <img class="img-circle img-responsive" src="~/Images/RobotDance.png" alt="" />
+                                    </div>
+                                    <div class="col-md-11">
+                                        <div class="row">
+                                            <div class="col-md-12 bottom-pad">
+                                                <a href="#" class="blockblack">
+                                                    Chatbot
+                                                </a>
+                                                <span>21:21</span>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <p>Hi!!! How can I help you?</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row top-pad bottomborder">
+                                <div class="col-md-12">
+                                    <div class="col-md-1 noleftrightpad textfilled text-center">
+                                        <span class="bluecircle nomargin">
+                                            R
+                                        </span>
+                                    </div>
+                                    <div class="col-md-11">
+                                        <div class="row">
+                                            <div class="col-md-12 bottom-pad">
+                                                <a href="#" class="blockblack">
+                                                    Rajitha
+                                                </a>
+                                                <span>21:21</span>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <p>lorem ipsum dolar sit amet</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row top-pad bottomborder mychats">
+                                <div class="col-md-12">
+                                    <div class="col-md-1 nopad">
+                                        <img class="img-circle img-responsive" src="~/Images/RobotDance.png" alt="" />
+                                    </div>
+                                    <div class="col-md-11">
+                                        <div class="row">
+                                            <div class="col-md-12 bottom-pad">
+                                                <a href="#" class="blockblack">
+                                                    Chatbot
+                                                </a>
+                                                <span>22:10</span>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <p>lorem ipsum dolar sit amet</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    <div class="top-pad"></div>
+                    <div class="row chatsec">
+                        <div class="col-md-10 norightpad">
+                            <input class="form-control" type="text" placeholder="Type a message here...">
+                        </div>
+                        <div class="col-md-2 text-right">
+                            <button type="button" class="btn btn-groupcall1"> <i class="fa fa-send"></i></button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<!--another model-->

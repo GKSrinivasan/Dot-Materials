@@ -1,0 +1,535 @@
+﻿@{ViewBag.Title = "UserDetail";}
+
+<link href="~/Content/UserDetails.css" rel="stylesheet" />
+<link href="~/Content/themes/base/jquery-ui.css" rel="stylesheet" />
+@*<link href="~/Content/jquery.jqGrid/ui.jqgrid.css"  rel="stylesheet"   />*@
+
+<script src="~/Scripts/angular.min.js"></script>
+<script src="~/Scripts/AppScripts/UserDetails.js"></script>
+<script src="~/Scripts/jquery-ui-1.10.0.js"></script>
+@*<script src="~/Scripts/i18n/grid.locale-en.js"></script>
+    <script src="~/Scripts/jquery.jqGrid.min.js"></script>*@
+@*<style>
+        .ui-widget-overlay{
+            height:0% !important;
+        }
+    </style>
+    <script>
+        $(function () {
+                $("#jqGrid").jqGrid({
+                        url:  "../UserDetail/GetStudents",
+                        datatype:  'json',
+                        mtype:  'Get',
+                    colNames: ['EmployeeID', 'EmployeeName', 'City', 'Email', 'Addressline1', 'Statecode', 'pincode','DOB'],
+                        colModel:  [
+                            { key: true, hidden: true, name: 'EmployeeID', index:  'EmployeeID',  editable:  true  },
+                            { key: false, name: 'EmployeeName', index:  'EmployeeName',  editable:  true  },
+                            { key: false, name: 'City', index:  'City',  editable:  true  },
+                            { key: false, name: 'Email', index:  'Email',  editable:  true },
+                            { key: false, name: 'Addressline1', index: 'Addressline1', editable: true },
+                            { key: false, name: 'Statecode', index: 'Statecode', editable: true },
+                            { key: false, name: 'pincode', index: 'pincode', editable: true },
+                            { key: false, name: 'DOB', index:  'DOB',  editable:  true,  formatter:  'date',  formatoptions:  {  newformat:  'd/m/Y'  }  }],
+                        pager:  jQuery('#jqControls'),
+                        rowNum:  10,
+                        rowList:  [10,  20,  30,  40,  50],
+                        height:  '100%',
+                        viewrecords:  true,
+                        caption:  'Students Records',
+                        emptyrecords:  'No Students Records are Available to Display',
+                        jsonReader:  {
+                                root:  "rows",
+                                page:  "page",
+                                total:  "total",
+                                records:  "records",
+                                repeatitems:  false,
+                                Id:  "0"
+                        },
+                        autowidth:  true,
+                        multiselect:  false
+                });
+        });  
+    </script>*@
+
+@*<div class="row" style="padding-top:1%;padding-right:1%">
+        <div class="col-md-12 text-right">
+            <button id="btnSaveRule" type="button" class="btn btn-info prim-btn">Save</button>
+        </div>
+    </div>*@
+
+<div class="row top-pad" ng-app="myApp">
+    <div class="col-sm-3 col-md-4 col-lg-2 noleftpad norightpad wizardleftsec">
+        <ul class="nav nav-pills nav-stacked">
+            <li class="active"><a id="lnkEmployeeDetails" href="#tab_a" data-toggle="pill">Employee Registration</a></li>
+            <li><a id="lnkVendeorDetails" href="#tab_b" data-toggle="pill">Vendor Registration</a></li>
+            <li><a id="lnkCustomerDetails" href="#tab_c" data-toggle="pill">Customer Registration</a></li>
+            <li><a id="lnkCustomerDetails" href="#tab_d" data-toggle="pill">Account Group Registration</a></li>
+        </ul>
+    </div>
+    <div class="col-sm-9 col-md-9 col-lg-10">
+        <div class="row">
+            <div class="tab-content col-md-12">
+                <div class="tab-pane active" id="tab_a" ng-controller="EmployeeDetailsController as User">
+                    <form class="form-group" id="employeeDetailsForm" ng-submit="Employeedetails()" name="myForm" novalidate autocomplete="off">
+                        <div class="col-md-12 text-right">
+                            <div class="col-md-11">
+                                <label class="switch" style="width:10%;margin-left:90%">
+                                    <input class="switch-input" type="checkbox" id="btnAddUser" ng-click="userChange()" ng-model="User.IsUser" name="IsUser" />
+                                    <span class="switch-label" data-on="Is User" data-off="Not an User"></span>
+                                    <span class="switch-handle"></span>
+                                </label>
+                            </div>
+                            <div class="col-md-1">
+                                <button type="submit" class="btn btn-info prim-btn" ng-disabled="myForm.$invalid" style="margin-top:1%;margin-right:35%">Save</button>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="row topPadding">
+                                <label class="col-md-4">Employee ID <span style="color:red;">*</span></label>
+                                <input class="col-md-5 inputControl" type="text" ng-model="User.EmployeeID" name="EmployeeID" required/>
+                            </div>
+                            <div class="row topPadding">
+                                <label class="col-md-4">Date of Birth <span style="color:red;">*</span></label>
+                                <input class="col-md-5 inputControl" type="date" ng-model="User.DateOfBirth" name="DateOfBirth" placeholder="Hire Date" required/>
+                            </div>
+                            <div class="row topPadding">
+                                <label class="col-md-4">Email Id <span style="color:red;">*</span></label>
+                                <input class="col-md-5 inputControl" type="email" ng-model="User.EmailID" name="EmailID" required/>
+                            </div>
+                            <div class="row topPadding">
+                                <label class="col-md-4">City<span style="color:red;">*</span></label>
+                                <input class="col-md-5 inputControl" type="text" ng-model="User.City" name="City" required/>
+                            </div>
+                            <div class="row topPadding">
+                                <label class="col-md-4">Pin Code<span style="color:red;">*</span></label>
+                                <input class="col-md-5 inputControl" type="number" ng-model="User.Pincode" name="Pincode" required/>
+                            </div>
+                            <div class="row topPadding">
+                                <label class="col-md-4">Work Location<span style="color:red;">*</span></label>
+                                <select class="col-md-5 inputControl" id="workLocation" ng-model="User.Location" name="Location" ng-options="item for item in location" required>
+                                    <option value="" label="Select Location"></option>
+                                </select>
+                            </div>
+                            <div class="row topPadding">
+                                <label class="col-md-4">Hire Date <span style="color:red;">*</span></label>
+                                <input class="col-md-5 inputControl" type="date" ng-model="User.HireDate" name="HireDate" placeholder="Hire Date" required/>
+                            </div>
+                            <div class="row topPadding">
+                                <label class="col-md-4">Contact Person</label>
+                                <input class="col-md-5 inputControl" type="text" ng-model="User.ContactPerson" name="ContactPerson"/>
+                            </div>
+                            <div class="row topPadding" id="userControl1" style="display:none">
+                                <label class="col-md-4">User Roll</label>
+                                <select class="col-md-5 inputControl" id="userRoll" ng-model="User.UserRoll" name="UserRoll" ng-options="item for item in userRoll">
+                                    <option value="" label="Select UserRoll"></option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="row topPadding">
+                                <label class="col-md-4">Frist Name <span style="color:red;">*</span></label>
+                                <input class="col-md-5 inputControl" type="text" ng-model="User.FirstName" name="FirstName" required/>
+                            </div>
+                            <div class="row topPadding">
+                                <label class="col-md-4">Gender <span style="color:red;">*</span></label>
+                                <select class="col-md-5 inputControl" id="employeeGender" ng-model="User.Gender" name="Gender" ng-options="item for item in gender" required>
+                                    <option value="" label="Select Gender"></option>
+                                </select>
+                            </div>
+                            <div class="row topPadding">
+                                <label class="col-md-4">Address Line1<span style="color:red;">*</span></label>
+                                <input class="col-md-5 inputControl" type="text" ng-model="User.Address1" name="Address1" required/>
+                            </div>
+                            <div class="row topPadding">
+                                <label class="col-md-4">State<span style="color:red;">*</span></label>
+                                <input class="col-md-5 inputControl" type="text" ng-model="User.State" name="State" required/>
+                            </div>
+                            <div class="row topPadding">
+                                <label class="col-md-4">Department<span style="color:red;">*</span></label>
+                                <select class="col-md-5 inputControl" id="employeeDepartment" ng-model="User.Department" name="Department" ng-options="item for item in department" required>
+                                    <option value="" label="Select Department"></option>
+                                </select>
+                            </div>
+                            <div class="row topPadding">
+                                <label class="col-md-4">ID Type<span style="color:red;">*</span></label>
+                                <select class="col-md-5 inputControl" id="employeeIDType" ng-model="User.IDType" name="IDType" ng-options="item for item in iDType" required>
+                                    <option value="" label="Select IDType"></option>
+                                </select>
+                            </div>
+                            <div class="row topPadding">
+                                <label class="col-md-4">Manager ID</label>
+                                <input class="col-md-5 inputControl" type="text" ng-model="User.ManagerID" name="ManagerID"/>
+                            </div>
+                            <div class="row topPadding">
+                                <label class="col-md-4">Address</label>
+                                <input class="col-md-5 inputControl" type="text" ng-model="User.ContactPersonAddress" name="ContactPersonAddress"/>
+                            </div>
+                            <div class="row topPadding" id="userControl2" style="display:none">
+                                <label class="col-md-4">User Status</label>
+                                <select class="col-md-5 inputControl" id="employeeUserStatus" ng-model="User.UserStatus" name="UserStatus" ng-options="item for item in userStatus">
+                                    <option value="" label="Select UserStatus"></option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="row topPadding">
+                                <label class="col-md-4">Last Name <span style="color:red;">*</span></label>
+                                <input class="col-md-5 inputControl" type="text" ng-model="User.LastName" name="LastName" required/>
+                            </div>
+                            <div class="row topPadding">
+                                <label class="col-md-4">Phone No<span style="color:red;">*</span></label>
+                                <input class="col-md-5 inputControl" type="number" ng-model="User.PhoneNo" name="PhoneNo" required/>
+                            </div>
+                            <div class="row topPadding">
+                                <label class="col-md-4">Address Line2</label>
+                                <input class="col-md-5 inputControl" type="text" ng-model="User.Address2" name="Address2"/>
+                            </div>
+                            <div class="row topPadding">
+                                <label class="col-md-4">Country<span style="color:red;">*</span></label>
+                                <input class="col-md-5 inputControl" type="text" ng-model="User.Country" name="Country" required/>
+                            </div>
+                            <div class="row topPadding">
+                                <label class="col-md-4">Designation<span style="color:red;">*</span></label>
+                                <input class="col-md-5 inputControl" type="text" ng-model="User.Designation" name="Designation" required/>
+                            </div>
+                            <div class="row topPadding">
+                                <label class="col-md-4">ID No<span style="color:red;">*</span></label>
+                                <input class="col-md-5 inputControl" type="text" ng-model="User.IDNo" name="IDNo" required/>
+                            </div>
+                            <div class="row topPadding">
+                                <label class="col-md-4">Manager Name</label>
+                                <input class="col-md-5 inputControl" type="text" ng-model="User.ManagerName" name="ManagerName"/>
+                            </div>
+                            <div class="row topPadding">
+                                <label class="col-md-4">Phone No</label>
+                                <input class="col-md-5 inputControl" type="number" ng-model="User.ContactPersonNo" name="ContactPersonNo"/>
+                            </div>
+                            <div class="row topPadding" id="userControl3" style="display:none">
+                                <label class="col-md-4">User ID</label>
+                                <input class="col-md-5 inputControl" type="text" ng-model="User.UserID" name="UserID"/>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="tab-pane" id="tab_b" ng-controller="VendorDetailsController as Vendor">
+                    <form id="vendorDetailsForm" class="form-group" ng-submit="Vendordetails()" name="myForm" novalidate autocomplete="off">
+                        <div class="col-md-12 text-right">
+                            <button type="submit" class="btn btn-info prim-btn" ng-disabled="myForm.$invalid" style="margin-top:1%;margin-right:1%">Save</button>
+                        </div>
+                        <div class="col-md-5">
+                            <div class="row topPadding">
+                                <label class="col-md-3">Vendor No</label>
+                                <input class="col-md-5 inputControl" type="number" ng-model="Vendor.VendorNo" name="VendorNo"/>
+                            </div>
+                            <div class="row topPadding">
+                                <label class="col-md-3">Company Name<span style="color:red;">*</span></label>
+                                <input class="col-md-5 inputControl" type="text" ng-model="Vendor.VendorBusinessName" name="VendorBusinessName" required />
+                            </div>
+                            <div class="row topPadding">
+                                <label class="col-md-3">Phone No<span style="color:red;">*</span></label>
+                                <input class="col-md-5 inputControl" type="number" ng-model="Vendor.PhoneNo" name="PhoneNo" required />
+                            </div>
+                            <div class="row topPadding">
+                                <label class="col-md-3">Currency<span style="color:red;">*</span></label>
+                                <select class="col-md-5 inputControl" id="currency" ng-model="Vendor.Currency" name="Currency" ng-options="item.Currency1 for item in currency" required>
+                                    <option value="" label="Select Currency"></option>
+                                </select>
+                            </div>
+                            <div class="row topPadding">
+                                <label class="col-md-3">Address Line1<span style="color:red;">*</span></label>
+                                <input class="col-md-5 inputControl" type="text" ng-model="Vendor.AddressLine1" name="AddressLine1" required />
+                            </div>
+                            <div class="row topPadding">
+                                <label class="col-md-3">City<span style="color:red;">*</span></label>
+                                <input class="col-md-5 inputControl" type="text" ng-model="Vendor.City" name="City" required />
+                            </div>
+                            <div class="row topPadding">
+                                <label class="col-md-3">Country<span style="color:red;">*</span></label>
+                                <input class="col-md-5 inputControl" type="text" ng-model="Vendor.Country" name="Country" required />
+                            </div>
+                            <div class="row topPadding">
+                                <label class="col-md-3">Contact Name1</label>
+                                <input class="col-md-5 inputControl" type="text" ng-model="Vendor.ContactName1" name="ContactName1"/>
+                            </div>
+                            <div class="row topPadding">
+                                <label class="col-md-3">Work No - Extn</label>
+                                <input class="col-md-5 inputControl" type="text" ng-model="Vendor.ContactWorkExtn1" name="ContactWorkExtn1"/>
+                            </div>
+                            <div class="row topPadding">
+                                <label class="col-md-3">Mobile No</label>
+                                <input class="col-md-5 inputControl" type="number" ng-model="Vendor.ContactMobile1" name="ContactMobile1"/>
+                            </div>
+                        </div>
+                        <div class="col-md-5">
+                            <div class="row topPadding">
+                                <label class="col-md-3">Store Location<span style="color:red;">*</span></label>
+                                <input class="col-md-5 inputControl" type="text" ng-model="Vendor.StoreLocation" name="StoreLocation" required />
+                            </div>
+                            <div class="row topPadding">
+                                <label class="col-md-3">Business Type<span style="color:red;">*</span></label>
+                                <select class="col-md-5 inputControl" id="businessType" ng-model="Vendor.BusinessType" name="BusinessType" ng-options="item.Code for item in businessType" required>
+                                    <option value="" label="Select BusinessType"></option>
+                                </select>
+                            </div>
+                            <div class="row topPadding">
+                                <label class="col-md-3">Email ID<span style="color:red;">*</span></label>
+                                <input class="col-md-5 inputControl" type="email" ng-model="Vendor.EmailID" name="EmailID" required />
+                            </div>
+                            <div class="row topPadding">
+                                <label class="col-md-3">Tin No<span style="color:red;">*</span></label>
+                                <input class="col-md-5 inputControl" type="text" ng-model="Vendor.TinNo" name="TinNo" required />
+                            </div>
+                            <div class="row topPadding">
+                                <label class="col-md-3">Address Line2</label>
+                                <input class="col-md-5 inputControl" type="text" ng-model="Vendor.AddressLine2" name="AddressLine2"/>
+                            </div>
+                            <div class="row topPadding">
+                                <label class="col-md-3">State<span style="color:red;">*</span></label>
+                                <input class="col-md-5 inputControl" type="text" ng-model="Vendor.State" name="State" required />
+                            </div>
+                            <div class="row topPadding">
+                                <label class="col-md-3">Pin Code<span style="color:red;">*</span></label>
+                                <input class="col-md-5 inputControl" type="number" ng-model="Vendor.PinCode" name="PinCode" required />
+                            </div>
+                            <div class="row topPadding">
+                                <label class="col-md-3">Contact Name2</label>
+                                <input class="col-md-5 inputControl" type="text" ng-model="Vendor.ContactName2" name="ContactName2"/>
+                            </div>
+                            <div class="row topPadding">
+                                <label class="col-md-3">Work No - Extn</label>
+                                <input class="col-md-5 inputControl" type="text" ng-model="Vendor.ContactWorkExtn2" name="ContactWorkExtn2"/>
+                            </div>
+                            <div class="row topPadding">
+                                <label class="col-md-3">Mobile No</label>
+                                <input class="col-md-5 inputControl" type="number" ng-model="Vendor.ContactMobile2" name="ContactMobile2"/>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="tab-pane" id="tab_c" ng-controller="CustomerDetailsController as Customer">
+                    <form id="customerDetailsForm" class="form-group" ng-submit="Customerdetails()" name="myForm" novalidate autocomplete="off">
+                        <div class="col-md-12 text-right">
+                            <button type="submit" class="btn btn-info prim-btn" ng-disabled="myForm.$invalid" style="margin-top:1%;margin-right:1%">Save</button>
+                        </div>
+                        <div class="col-md-5">
+                            <div class="row topPadding">
+                                <label class="col-md-3">Customer No</label>
+                                <input class="col-md-5 inputControl" type="number" ng-model="Customer.CustomerNo" name="CustomerNo" />
+                            </div>
+                            <div class="row topPadding">
+                                <label class="col-md-3">First Name<span style="color:red;">*</span></label>
+                                <input class="col-md-5 inputControl" type="text" ng-model="Customer.FirstName" name="FirstName" required />
+                            </div>
+                            <div class="row topPadding">
+                                <label class="col-md-3">Gender<span style="color:red;">*</span></label>
+                                <select class="col-md-5 inputControl" ng-model="Customer.Gender" id="customerGender" name="Gender" ng-options="item for item in gender" required>
+                                    <option value="" label="Select Gender"></option>
+                                </select>
+                            </div>
+                            <div class="row topPadding">
+                                <label class="col-md-3">Phone No<span style="color:red;">*</span></label>
+                                <input class="col-md-5 inputControl" type="number" ng-model="Customer.PhoneNo" name="PhoneNo" required />
+                            </div>
+                            <div class="row topPadding">
+                                <label class="col-md-3">ID Type</label>
+                                <select class="col-md-5 inputControl" ng-model="Customer.IDType" id="customerIdType" name="IDType" ng-options="item for item in idType">
+                                    <option value="" label="Select IDType"></option>
+                                </select>
+                            </div>
+                            <div class="row topPadding">
+                                <label class="col-md-3">Address Line1<span style="color:red;">*</span></label>
+                                <input class="col-md-5 inputControl" type="text" ng-model="Customer.AddressLine1" name="AddressLine1" required />
+                            </div>
+                            <div class="row topPadding">
+                                <label class="col-md-3">City<span style="color:red;">*</span></label>
+                                <input class="col-md-5 inputControl" type="text" ng-model="Customer.City" name="City" required />
+                            </div>
+                            <div class="row topPadding">
+                                <label class="col-md-3">Country<span style="color:red;">*</span></label>
+                                <input class="col-md-5 inputControl" type="text" ng-model="Customer.Country" name="Country" required />
+                            </div>
+                            <div class="row topPadding">
+                                <label class="col-md-3" style="padding-top:2%">Store Card</label>
+                                <label class="col-md-5 switch" style="width:21%">
+                                    <input class="switch-input" type="checkbox" id="btnStoreCard" ng-model="Customer.StoreCard" name="StoreCard" />
+                                    <span class="switch-label" data-on="Yes" data-off="No"></span>
+                                    <span class="switch-handle"></span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-md-5">
+                            <div class="row topPadding">
+                                <label class="col-md-3">Store Location<span style="color:red;">*</span></label>
+                                <select class="col-md-5 inputControl" ng-model="Customer.StoreLocation" name="StoreLocation" id="storelocation" ng-options="item for item in storeLocation" required>
+                                    <option value="" label="Select StoreLocation"></option>
+                                </select>
+                            </div>
+                            <div class="row topPadding">
+                                <label class="col-md-3">Last Name</label>
+                                <input class="col-md-5 inputControl" type="text" ng-model="Customer.LastName" name="LastName" />
+                            </div>
+                            <div class="row topPadding">
+                                <label class="col-md-3">Date of Birth</label>
+                                <input class="col-md-5 inputControl" type="date" ng-model="Customer.DOB" name="DOB" />
+                            </div>
+                            <div class="row topPadding">
+                                <label class="col-md-3">Email ID</label>
+                                <input class="col-md-5 inputControl" type="email" ng-model="Customer.EmailID" name="EmailID" />
+                            </div>
+                            <div class="row topPadding">
+                                <label class="col-md-3">ID No</label>
+                                <input class="col-md-5 inputControl" type="text" ng-model="Customer.IDNo" name="IDNo" />
+                            </div>
+                            <div class="row topPadding">
+                                <label class="col-md-3">Address Line2</label>
+                                <input class="col-md-5 inputControl" type="text" ng-model="Customer.AddressLine2" name="AddressLine2" />
+                            </div>
+                            <div class="row topPadding">
+                                <label class="col-md-3">State<span style="color:red;">*</span></label>
+                                <input class="col-md-5 inputControl" type="text" ng-model="Customer.State" name="State" required />
+                            </div>
+                            <div class="row topPadding">
+                                <label class="col-md-3">Pin Code<span style="color:red;">*</span></label>
+                                <input class="col-md-5 inputControl" type="number" ng-model="Customer.PinCode" name="PinCode" required />
+                            </div>
+                            <div class="row topPadding">
+                                <label class="col-md-3" style="padding-top:2%">Create Account</label>
+                                <label class="col-md-5 switch" style="width:21%">
+                                    <input class="switch-input" type="checkbox" id="btnCreateAccount" ng-model="Customer.CreateAccount" name="CreateAccount" />
+                                    <span class="switch-label" data-on="Yes" data-off="No"></span>
+                                    <span class="switch-handle"></span>
+                                </label>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="tab-pane" id="tab_d" ng-controller="AccountGroupController as group">
+                    <form id="accountGroupForm" class="form-group" ng-submit="AccountGroup()" name="myForm" novalidate autocomplete="off">
+                        <div class="col-md-12 text-right">
+                            <button type="submit" class="btn btn-info prim-btn" ng-disabled="myForm.$invalid" style="margin-top:1%;margin-right:1%">Save</button>
+                        </div>
+                        <div class="col-md-5">
+                            <div class="row topPadding">
+                                <label class="col-md-3">Group Name</label>
+                                <input class="col-md-5 inputControl" type="text" ng-model="group.GroupName" name="GroupName"/>
+                            </div>
+                            <div class="row topPadding">
+                                <label class="col-md-3">Top Group Name</label>
+                                <input class="col-md-5 inputControl" type="text" ng-model="group.TopGroupName" name="TopGroupName" />
+                            </div>
+                            <div class="row topPadding">
+                                <label class="col-md-3">Statement</label>
+                                <select class="col-md-5 inputControl" id="statement" ng-model="group.Statement" name="Statement" ng-options="item.Code for item in statement" required>
+                                    <option value="" label="Select Statement"></option>
+                                </select>
+                            </div>
+                            <div class="row topPadding">
+                                <label class="col-md-3">Part of Statement</label>
+                                <input class="col-md-5 inputControl" type="text" ng-model="group.PartofStatement" name="PartofStatement" />
+                            </div>
+                            <div class="row topPadding">
+                                <label class="col-md-3">Group Prefix No</label>
+                                <input class="col-md-5 inputControl" type="text" ng-model="group.GroupPrefixNo" name="GroupPrefixNo"/>
+                            </div>
+                            <div class="row topPadding">
+                                <label class="col-md-3">Display Sequence</label>
+                                <input class="col-md-5 inputControl" type="text" ng-model="group.DisplaySequence" name="DisplaySequence"/>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div><!-- tab content -->
+</div>
+
+@*<div ng-app="myApp">
+        <div ng-controller="UserDetailsController as User">
+            <div class="row" style="margin-bottom:1%">
+                <button type="button" class="btn btn-primary glyphicon glyphicon-plus" ng-click="AddUser()" id="AddUser" style="width:5%;padding-bottom:10px;margin-top:10px;float:right;margin-right:1%;border:1px solid;padding-top:8px;">Add</button>
+            </div>
+        <div class="modal fade" id="myUserModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <form class="form-group" id="userDetailsForm" ng-submit="Userdetails()" name="myForm" novalidate autocomplete="off">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            <h4 class="modal-title" id="myModalLabel">User Details</h4>
+                        </div>
+                        <div class="modal-body" style="margin-bottom:85%">
+                            <div class="col-xs-12">
+                                <div class="col-xs-6">
+                                    <input type="text" ng-model="User.EmployeeID" name="EmployeeID" placeholder="Employee ID*" required style="width:100%;border:none;border-bottom:1px solid grey" value="" />
+                                    <input type="text" ng-model="User.FirstName" name="FirstName" placeholder="First Name*" required style="width:100%;border:none;border-bottom:1px solid grey;padding-top:7%" value="" />
+                                    <label style="color:#989696">Gender*</label>
+                                    <select ng-model="User.Gender" name="Gender" required style="width:73%;border:none;border-bottom:1px solid grey;padding-top:7%">
+                                        <option ng-repeat="x in gender" value="{{x.model==""?"Gender":x.model}}">{{x.model==""?"Gender":x.model}}</option>
+                                    </select>
+                                    <input type="text" ng-model="User.PhoneNo" name="PhoneNo" placeholder="Phone No*" required style="width:100%;border:none;border-bottom:1px solid grey;padding-top:7%" value="" />
+                                    <input type="text" ng-model="User.Address1" name="Address1" placeholder="Address Line 1*" required style="width:100%;border:none;border-bottom:1px solid grey;padding-top:7%" value="" />
+                                    <input type="text" ng-model="User.City" name="City" placeholder="City*" required style="width:100%;border:none;border-bottom:1px solid grey;padding-top:7%" value="" />
+                                    <input type="text" ng-model="User.Country" name="Country" placeholder="Country*" required style="width:100%;border:none;border-bottom:1px solid grey;padding-top:7%" value="" />
+                                    <label style="color:#989696">ID Type*</label>
+                                    <select ng-model="User.IDType" name="IDType" required style="width:72%;border:none;border-bottom:1px solid grey;padding-top:7%">
+                                        <option ng-repeat="x in iDType" value="{{x.model}}">{{x.model}}</option>
+                                    </select>
+                                    <label style="color:#989696">Department*</label>
+                                    <select ng-model="User.Department" name="Department" required style="width:60%;border:none;border-bottom:1px solid grey;padding-top:7%">
+                                        <option ng-repeat="x in department" value="{{x.model}}">{{x.model}}</option>
+                                    </select>
+                                    <label style="color:#989696">Location*</label>
+                                    <select ng-model="User.Location" name="Location" required style="width:69%;border:none;border-bottom:1px solid grey;padding-top:7%">
+                                        <option ng-repeat="x in location" value="{{x.model}}">{{x.model}}</option>
+                                    </select>
+                                    <input type="text" ng-model="User.ContactName" name="ContactName" placeholder="Contact Name" style="width:100%;border:none;border-bottom:1px solid grey;padding-top:7%" value="" />
+                                    <label style="color:#989696">User Status*</label>
+                                    <select ng-model="User.UserStatus" name="UserStatus" required style="width:60%;border:none;border-bottom:1px solid grey;padding-top:7%">
+                                        <option ng-repeat="x in userStatus" value="{{x.model}}">{{x.model}}</option>
+                                    </select>
+                                    <label class="switch" style="width:63%;margin-top:3%;margin-left:-5px;">
+                                        <input class="switch-input" type="checkbox" id="btnAddUser" ng-click="userChange()" ng-model="User.IsUser" name="IsUser" />
+                                        <span class="switch-label" data-on="Is User" data-off="Not an User"></span>
+                                        <span class="switch-handle"></span>
+                                    </label>
+                                </div>
+                                <div class="col-xs-6">
+                                    <label style="color:#989696">HireDate*</label>
+                                    <input type="date" ng-model="User.HireDate" name="HireDate" placeholder="Hire Date" style="width:70%;border:none;border-bottom:1px solid grey;" value="" />
+                                    <input type="text" ng-model="User.LastName" name="LastName" placeholder="Last Name" style="width:100%;border:none;border-bottom:1px solid grey;padding-top:7%" value="" />
+                                    <label style="color:#989696">DOB*</label>
+                                    <input type="date" ng-model="User.DateofBirth" name="DateofBirth" placeholder="Date of Birth*" required style="width:81%;border:none;border-bottom:1px solid grey;padding-top:7%" value="" />
+                                    <input type="email" ng-model="User.EmailID" name="EmailID" placeholder="Email ID*" required style="width:100%;border:none;border-bottom:1px solid grey;padding-top:7%" value="" />
+                                    <input type="text" ng-model="User.Address2" name="Address2" placeholder="Address Line 2" style="width:100%;border:none;border-bottom:1px solid grey;padding-top:7%" value="" />
+                                    <input type="text" ng-model="User.State" name="State" placeholder="State*" required style="width:100%;border:none;border-bottom:1px solid grey;padding-top:7%" value="" />
+                                    <input type="text" ng-model="User.PinCode" name="PinCode" placeholder="Pin Code*" required style="width:100%;border:none;border-bottom:1px solid grey;padding-top:7%" value="" />
+                                    <input type="text" ng-model="User.IDNo" name="IDNo" placeholder="ID No*" required style="width:100%;border:none;border-bottom:1px solid grey;padding-top:7%" value="" />
+                                    <label style="color:#989696">Designation*</label>
+                                    <select ng-model="User.Designation" name="Designation" required style="width:59%;border:none;border-bottom:1px solid grey;padding-top:7%">
+                                        <option ng-repeat="x in designation" value="{{x.model}}">{{x.model}}</option>
+                                    </select>
+                                    <input type="text" ng-model="User.Manager" name="Manager" placeholder="Manager" style="width:100%;border:none;border-bottom:1px solid grey;padding-top:7%" value="" />
+                                    <input type="text" ng-model="User.ContactPhoneNo" name="ContactPhoneNo" placeholder="Contact Phone No" style="width:100%;border:none;border-bottom:1px solid grey;padding-top:7%" value="" />
+                                    <label style="color:#989696">Roll*</label>
+                                    <select ng-model="User.UserRoll" name="UserRoll" required style="width:83%;border:none;border-bottom:1px solid grey;padding-top:7%">
+                                        <option ng-repeat="x in userRoll" value="{{x.model}}">{{x.model}}</option>
+                                    </select>
+                                    <input type="text" ng-model="User.UserID" name="UserID" placeholder="User ID" id="UserID" style="width:100%;border:none;display:none;border-bottom:1px solid grey;padding-top:7%" value="" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="center" style="margin-bottom:2%">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary" ng-disabled="myForm.$invalid">Save</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+        <script src="~/Scripts/angular.min.js"></script>
+        <script src="~/Scripts/AppScripts/UserDetails.js"></script>
+    </div>
+    <div class="row">
+        <table id="jqGrid"></table>
+        <div id="jqControls"></div>
+    </div>*@

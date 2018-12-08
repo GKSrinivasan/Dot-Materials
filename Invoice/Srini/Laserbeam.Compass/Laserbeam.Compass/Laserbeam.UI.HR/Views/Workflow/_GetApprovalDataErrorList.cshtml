@@ -1,0 +1,51 @@
+﻿
+<div class="modal-dialog workflow-popup">
+    <div class="modal-content">
+        <div class="modal-header no-padding">
+            <h4><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Error Message</h4>
+        </div>
+
+        <div class="modal-body">
+            <div class="row top-pad">
+                <div class="col-md-12 mainheading text-center">
+                    Error Message
+                </div>
+                <div class="col-md-12 para">Hold Up! We found some issues in excel file</div>
+            </div>
+            <div class="row voffset2">
+                <div id="approvalDataerrorFiles">
+                </div>
+            </div>
+            <div class="row voffset4">
+                <div class="col-md-12">
+                    <div class="error-patch"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> There are few things you must fix in order to upload your excel file</div>
+                </div>
+            </div>
+            <div class="row">
+                @(Html.Kendo().Grid<Laserbeam.BusinessObject.Common.TemplateErrorListModel>()
+                                        .Name("grdApprovalDataError").Events(x => x.DataBound("grdApprovalErrorRecordDataBound"))
+                                .Scrollable(s => s.Enabled(true).Height(400))
+                                        .HtmlAttributes(new { style = "height:400px !important;margin:25px !important" })
+                                .Columns(columns =>
+                                {
+                                    columns.Bound(x => x.Error).HtmlAttributes(new { style = "text-align:left;" }).Title("Error");
+                                    columns.Bound(x => x.AffectedData).HtmlAttributes(new { style = "text-align:center;" }).Title("Affected Rows");
+                                    columns.Bound(x => x.HowToFix).HtmlAttributes(new { style = "text-align:left;" }).Title("How to fix");
+
+                                }).AutoBind(true)
+                                .DataSource(datasource => datasource
+                                                                              .Ajax().Read(read => read.Action("GetApprovalDataErrorList", "Workflow").Data("additionalParam"))
+                                                                      .ServerOperation(false))
+
+                )
+            </div>
+
+        </div>
+
+        <div class="modal-footer">
+            <div class="pull-left dwnld-txt">Download the excel which highlights the errors on each row</div><div class="pull-right"><button onclick="getApprovalErrorExport();" class="btn btn-info prim-btn">Download xlsx to Fix</button></div>
+        </div>
+
+    </div>
+</div>
+

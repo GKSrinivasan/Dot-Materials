@@ -1,0 +1,12 @@
+D:\TFS.111\Compass\Laserbeam.Compass\Laserbeam.EntityManager.Common\bin\Debug\Laserbeam.EntityManager.Common.dll.config
+D:\TFS.111\Compass\Laserbeam.Compass\Laserbeam.EntityManager.Common\bin\Debug\Laserbeam.EntityManager.Common.dll
+D:\TFS.111\Compass\Laserbeam.Compass\Laserbeam.EntityManager.Common\bin\Debug\Laserbeam.EntityManager.Common.pdb
+D:\TFS.111\Compass\Laserbeam.Compass\Laserbeam.EntityManager.Common\bin\Debug\EntityFramework.dll
+D:\TFS.111\Compass\Laserbeam.Compass\Laserbeam.EntityManager.Common\bin\Debug\EntityFramework.SqlServer.dll
+D:\TFS.111\Compass\Laserbeam.Compass\Laserbeam.EntityManager.Common\bin\Debug\Laserbeam.EntityManager.TenantObjects.dll
+D:\TFS.111\Compass\Laserbeam.Compass\Laserbeam.EntityManager.Common\bin\Debug\Laserbeam.EntityManager.TenantObjects.pdb
+D:\TFS.111\Compass\Laserbeam.Compass\Laserbeam.EntityManager.Common\bin\Debug\EntityFramework.xml
+D:\TFS.111\Compass\Laserbeam.Compass\Laserbeam.EntityManager.Common\bin\Debug\EntityFramework.SqlServer.xml
+D:\TFS.111\Compass\Laserbeam.Compass\Laserbeam.EntityManager.Common\obj\Debug\Laserbeam.EntityManager.Common.csprojResolveAssemblyReference.cache
+D:\TFS.111\Compass\Laserbeam.Compass\Laserbeam.EntityManager.Common\obj\Debug\Laserbeam.EntityManager.Common.dll
+D:\TFS.111\Compass\Laserbeam.Compass\Laserbeam.EntityManager.Common\obj\Debug\Laserbeam.EntityManager.Common.pdb

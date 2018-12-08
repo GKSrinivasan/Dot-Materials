@@ -1,0 +1,32 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>AccessDenied</title>
+    <link rel="icon" type="image/png" sizes="192x192" href="~/Images/favicon.ico">
+    <link href="~/Content/Site.css" rel="stylesheet" />
+    <link href="~/Content/AccessDenied.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/AccessDenied.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="container">
+        <div class="row accessmiddlediv">
+            <div class="col-md-12 text-center">
+                <div><img class="img-responsive center-block" src="~/Images/accessdenied.png" /></div>
+                <div class="txt-msg">Oops! Something went wrong here...</div>
+                <div class="txt-info">You do not have enough privileges to access this page or perform the requested operation. <br />For more information, contact your administrator.</div>
+                <div class="top-pad">
+                    @Html.ActionLink("Ok, got it!", "DashboardView", "Dashboard", new { }, new { @class = "btn btn-ok" })
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

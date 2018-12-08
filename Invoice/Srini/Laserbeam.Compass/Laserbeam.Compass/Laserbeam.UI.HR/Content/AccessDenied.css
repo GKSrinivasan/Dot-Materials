@@ -1,0 +1,52 @@
+﻿.txt-msg{
+    color:#fa6366;
+    font-size:25px;
+    padding-top:20px;
+    padding-bottom:20px;
+}
+.txt-info{
+    color:#333;
+    font-size:20px;
+}
+body{
+    font-family: 'segoeui';
+}
+.btn-ok,.btn-ok:hover,.btn-ok:focus{
+    color:#fff;
+    background:#00abf0; 
+    padding:6px 12px;
+    font-family: 'segoeui';
+    font-size:15px;
+}
+
+
+@media only screen and (min-width: 320px) {
+	.accessmiddlediv{
+        margin-top:20%;
+    }
+}
+@media only screen and (min-width: 480px) {
+	.accessmiddlediv{
+        margin-top:20%;
+    }
+}
+@media only screen and (min-width: 768px) {
+	.accessmiddlediv{
+        margin-top:20%;
+    }
+}
+@media only screen and (min-width: 992px) {
+	.accessmiddlediv{
+        margin-top:20%;
+    }
+}
+@media only screen and (min-width: 1200px) {
+	.accessmiddlediv{
+        margin-top:15%;
+    }
+}
+@media only screen and (min-width: 1920px) {
+	.accessmiddlediv{
+        margin-top:20%;
+    }
+}

@@ -1,0 +1,307 @@
+﻿@model Laserbeam.UI.HR.Models.BudgetPlanModel
+@using Laserbeam.BusinessObject.Common
+@{
+    ViewBag.Title = "Home";
+    Layout = "~/Views/Shared/_SiteLayout.cshtml";
+}
+
+<script type="text/javascript" src="~/Scripts/BudgetPlan.js"></script>
+<link href="~/Content/BudgetPlan.css" rel="stylesheet" />
+<script type="text/javascript">
+    var preferredCulture = '@Model.BaseCultureCode';
+    var DefaultCurrencyNum = '@Model.BaseCurrencyNum';
+    var BudgetPlanConfiguration = @Html.Raw(Json.Encode(Model.BudgetPlanConfiguration));
+    var isProrationVisible='@Model.BudgetPlanConfiguration.BudgetProration';
+    var isEnableMerit='@Model.BudgetPlanConfiguration.isEnableMerit';
+    var isEnableLumpSum='@Model.BudgetPlanConfiguration.isEnableLumpSum';
+    var isEnableAdjustment='@Model.BudgetPlanConfiguration.isEnableAdjustment';
+    var isEnablePromotion='@Model.BudgetPlanConfiguration.isEnablePromotion';
+</script>
+<style type="text/css">
+    .prorateIconDisplay {
+        display: none;
+    }
+</style>
+<!-- budget plan start -->
+<div class="container-fluid">
+    @Html.AntiForgeryToken()
+    @Html.Hidden("selectedCurrencyNum", Model.BaseCurrencyNum)
+    <div class="row">
+        <div class="row"><div id="idvbudgetplanheader" class="col-md-12 mainheading mainheading1">Budget Plan</div></div>
+        <div class="col-md-12 whitebg">
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="row top-pad lgsized">
+                        <div class="col-md-6 col-sm-12 col-xs-12">
+                            <div class="row">
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <div class="row whitebg nomargin space redbrdr">
+                                        <div class="col-md-12 col-sm-12 col-xs-12 formtitle formtitle1">Total Merit Eligible Employees</div>
+                                        <div class="col-md-12 col-sm-12 col-xs-12 lgtxt text-center" id="totalCount"></div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <div class="row whitebg nomargin space bluebrdr">
+                                        <div class="col-md-12 col-sm-12 col-xs-12 formtitle formtitle1">Total Merit Eligibles Salary</div>
+                                        <div class="col-md-12 col-sm-12 col-xs-12 lgtxt text-center" id="totalSalary"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-sm-12 col-xs-12">
+                            <div class="row">
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <div class="row whitebg nomargin space redbrdr">
+                                        <div class="col-md-12 col-sm-12 col-xs-12 formtitle formtitle1">Distributed Budget %</div>
+                                        <div class="col-md-12 col-sm-12 col-xs-12 lgtxt text-center" id="budgetPct"></div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <div class="row whitebg nomargin space bluebrdr">
+                                        <div class="col-md-12 col-sm-12 col-xs-12 formtitle formtitle1">Distributed Budget Amount</div>
+                                        <div class="col-md-12 col-sm-12 col-xs-12 lgtxt text-center" id="budgetAmt"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <div class="row top-pad distribute-moreaction">
+                                <div class="col-md-12 col-sm-12 col-xs-12">
+                                    <div class="row">
+                                        <div class="col-md-4 col-sm-12 col-xs-12 col-lg-3 proratecheckbox">
+                                            <div class="checkbox checkbox-primary checkboxnopad">
+                                                <input id="prorateCheckBox" type="checkbox">
+                                                <label for="prorateCheckBox" data-toggle="modal">
+                                                    Prorate Budget  &nbsp; <a href="#" id="proratedPopUp"><i class="fa fa-pencil"></i></a>
+                                                </label>
+                                                <span class="tooltip1">
+                                                    <i class="fa fa-info-circle test" aria-hidden="true" id="idProrateTooltip"></i>
+                                                    <span class="tooltiptext">
+                                                        The budget will be prorated for Employees hired between <br /><span class="fntlg" id="idStartDate"> </span> to
+                                                        <span class="fntlg" id="idEndDate"></span>
+                                                    </span>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-5 col-lg-4 proratedropdwn">
+                                            <label for="currency" class="currencyshow">Show Budget in </label>
+                                            @(Html.Kendo().DropDownList().Name("ddlLocalCurrenciesBudget").DataTextField("CurrencyCode").DataValueField("CurrencyNum").BindTo(Model.ExchangeCurrencies).Events(x => x.DataBound("dataBound").Change("onChange")).HtmlAttributes(new { @class = "budgetdrpdwn", style = "text-align:left; " }))
+
+                                        </div>
+                                        <div class="col-md-4 col-lg-5 conversionamt">
+                                            <span id="conversionRate" class="conversionRate"></span>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 top-pad">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="donut-wrapper">
+                                <div id="gauge-container">
+                                    <div id="gauge"></div>
+                                </div>
+                                <div class="inner-contentmsg">
+                                    Spent
+                                    <div id="totalSpentAmt"></div>
+                                </div>
+                                <div class="inner-contentmsg1">
+                                    Remaining
+                                    <div id="balanceAmt"></div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="col-md-6 top-pad">
+                            <ul class="list-unstyled definecolor">
+                                <li id="lgtMerit"><i class="fa fa-square" aria-hidden="true" style="color:#71c055"></i> <span class="colortitles">Merit</span> <span id="meritSpent"></span> <span class="chartamt"></span></li>
+                                <li id="lgtLumpSum"><i class="fa fa-square" aria-hidden="true" style="color:#fec679"></i> <span class="colortitles">Lump Sum</span> <span id="lumpsumSpent"></span></li>
+                                <li id="lgtPromotion"><i class="fa fa-square" aria-hidden="true" style="color:#71c4ee"></i> <span class="colortitles">Promotion</span> <span id="promotionSpent"></span></li>
+                                <li id="lgtAdjustment"><i class="fa fa-info-circle infocircle" data-toggle="tooltip" data-placement="top" title="Adjustment is not a part of Merit budget."></i><span class="colortitles">Adjustment</span><span id="adjustmentSpent"></span></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<div class="row top-pad">
+    <div class="col-md-12 col-sm-12 col-xs-12 text-right distribute-moreaction">
+        <div class="dropdown">
+            <button type="button" class="btn btn-info prim-btn" data-toggle="modal" data-target="#addUser" id="btnApplyBudgetPct">Distribute Budget</button>
+            <button type="button" class="btn btn-info prim-btn" data-toggle="modal" data-target="#addUser" id="btnCreateGroup">Distribute Budget</button>
+
+
+            <button class="btn btn-bordered dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                <img src="../../Images/more-v.png" class="top2pad" alt=""> Action
+                @*<i class="icon-more-action-o morbtn-icon1 icon-grey big20" aria-hidden="true"></i>*@
+            </button>
+            <ul class="dropdown-menu moreaction-btn more1" aria-labelledby="dropdownMenu1">
+                <li id="filter"><a href="#"><i class="fa fa-filter"></i> Filter & Sort</a></li>
+                <li id="btnClearFilter"><a href="#"><i class="fa fa-filter"></i> Clear</a></li>
+                <li id="budgetExport"><a href="#"><i class="fa fa-file-excel-o"></i> Export</a></li>
+
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="row row nomargin whitebg enterbudget top-pad">
+            <div class="col-sm-6 col-md-2" id="budgetPctDiv">
+                <div class="form-group lbltxt">
+                    <label for="Budgetpercent">Budget %</label>
+                    <input type="text" class="form-control" id="Budgetpercent">
+                </div>
+            </div>
+            <div class="col-sm-6 col-md-3" id="budgetAmtDiv">
+                <div class="form-group lbltxt">
+                    <label for="amt">Budget Amount</label>
+                    <input type="text" class="form-control" id="amt">
+                </div>
+            </div>
+            <div class="col-sm-6 col-md-2" id="proratedPctDiv">
+                <div class="form-group lbltxt">
+                    <label for="Budgetpercent">Budget %</label>
+                    <input type="text" class="form-control" id="proratedBudgetpercent">
+                </div>
+            </div>
+            <div class="col-sm-6 col-md-4" id="proratedAmtDiv">
+                <div class="form-group lbltxt">
+                    <label for="amt">Prorated Budget Amount</label>
+                    <input type="text" class="form-control" id="proratedAmt">
+                </div>
+            </div>
+            <div class="col-sm-6 col-md-3">
+                <div class="form-group lbltxt">
+                    <label>Adjusted Budget % :</label>
+                    <label id="adjustedBudgetPct"></label>
+                </div>
+            </div>
+            <div class="col-sm-6 col-md-3">
+                <div class="form-group lbltxt">
+                    <label> Adjusted Budget Amount :</label>
+                    <label id="adjustedBudgetAmt"></label>
+                </div>
+            </div>
+        </div>
+        <div class="row nomargin" style="margin-right:2px;">
+            @(Html.Kendo().Grid<BudgetPlanGridData>().Name("grdBudgetPlan")
+                .Columns(columns =>
+                {
+
+                columns.Bound(m => m.ManagerName).Title("Manager Name")
+                    .HtmlAttributes(new { @class = "" });
+                columns.Bound(m => m.EmployeeCount)
+                    .Title("Total Employee").HtmlAttributes(new { @Class = "text-center" }).HeaderHtmlAttributes(new { style = "text-align:center;" });
+
+                columns.Bound(m => m.BaseCurrentSalary)
+                    //.ClientTemplate("#=formatGridValue(roundingRule(BaseCurrentSalary,'BudgetAmt', 'Dollar'),'BudgetAmt', 'Dollar',preferredCulture)#")
+                    .ClientTemplate("#=formatGridValue(Math.round(BaseCurrentSalary),'BudgetAmt', 'Dollar',preferredCulture)#")
+
+                    .Title("Current Salary").HtmlAttributes(new { style = "text-align:center;" }).HeaderHtmlAttributes(new { style = "text-align:center;" });
+
+
+                columns.Bound(m => m.BudgetPct).Title("Budget %").HtmlAttributes(new { style = "text-align:center;" }).HeaderHtmlAttributes(new { style = "text-align:center;" });
+
+                columns.Bound(m => m.Budget)
+                    //.ClientTemplate("#=formatGridValue(roundingRule(Budget,'BudgetAmt', 'Dollar'),'BudgetAmt', 'Dollar',preferredCulture)#")
+                    .ClientTemplate("#=formatGridValue(Math.round(Budget),'BudgetAmt', 'Dollar',preferredCulture)#")
+
+                    .Title("Budget Amount");
+
+
+                columns.Bound(m => m.ProratedBudgetPct).Title("Prorated Budget %").HtmlAttributes(new { @Class = "text-center" });
+
+                columns.Bound(m => m.ProratedBudget)
+                    .ClientTemplate("#=formatGridValue(roundingRule(Math.round(ProratedBudget),'BudgetAmt', 'Dollar'),'BudgetAmt', 'Dollar',preferredCulture)#")
+
+                    .Title("Prorated Budget Amount");
+
+                columns.Template(@<text></text>)
+            .ClientTemplate(Html.TextBox("txtAdjustedBudgetPCT", "#=AdjustedBudgetRoundedPct#", new { }).ToHtmlString()).HtmlAttributes(new { style = "padding-right:2%;" })
+            .HeaderHtmlAttributes(new { style = "text-align:center;", @class = "columnSize-100" }).HtmlAttributes(new { style = "text-align:center;", id = "usd" }).Title("Adjusted Budget%");
+                    columns.Template(@<text></text>)
+            //.ClientTemplate(Html.TextBox("txtAdjustedBudget", "#=formatGridValue(roundingRule(AdjustedBudget,'BudgetAmt', 'Dollar'),'BudgetAmt', 'Dollar',preferredCulture)#", new { })
+            .ClientTemplate(Html.TextBox("txtAdjustedBudget", "#=formatGridValue(Math.round(AdjustedBudget),'BudgetAmt', 'Dollar',preferredCulture)#", new { })
+
+            .ToHtmlString())
+
+            .Width("7%").HtmlAttributes(new { style = "padding-right:2%;" })
+            .HeaderHtmlAttributes(new { style = "text-align:center;", @class = "columnSize-100" }).HtmlAttributes(new { style = "text-align:center;", @class = "columnSize-100", id = "usd" }).Title("Adjusted Budget Amount");
+
+                    columns.Bound(m => m.Spent)
+                    //.ClientTemplate("#=formatGridValue(roundingRule(Spent,'BudgetAmt', 'Dollar'),'BudgetAmt', 'Dollar',preferredCulture)#")
+                    .ClientTemplate("#=formatGridValue(Math.round(Spent),'BudgetAmt', 'Dollar',preferredCulture)#")
+
+                        .Title("Spent").HtmlAttributes(new { @Class = "text-center" }).HeaderHtmlAttributes(new { style = "text-align:center;" });
+
+                    columns.Bound(m => m.Balance)
+                        //.ClientTemplate("#=formatGridValue(roundingRule(Balance,'BudgetAmt', 'Dollar'),'BudgetAmt', 'Dollar',preferredCulture)#")
+                        .ClientTemplate("#=formatGridValue(Math.round(Balance),'BudgetAmt', 'Dollar',preferredCulture)#")
+
+                        .Title("Balance").HtmlAttributes(new { @Class = "text-center" }).HeaderHtmlAttributes(new { style = "text-align:center;" });
+
+
+                })
+                                                                              .DataSource(data => data.Ajax().Model(model => { model.Id(m => m.RowId); }).Batch(true).ServerOperation(false)
+                                                                              .Read(read => read.Action("GetBudgetPlanGridData", "BudgetPlan").Data("BudgetGridData"))
+                                                                                   .Update(update => update.Action("UpdateBudgetPlanGridData", "BudgetPlan").Data("BudgetGridData"))
+                                                                                  .Events(events => events.RequestEnd("onUpdateRequestEnd").Sync("gridUser_sync"))
+                                                                                          .Sort(st =>
+                                                                                          {
+                                                                                              st.Add(e => e.ManagerName).Ascending();
+                                                                                              st.Add(e => e.EmployeeCount).Ascending();
+                                                                                              st.Add(e => e.BaseCurrentSalary).Ascending();
+                                                                                              st.Add(e => e.BudgetPct).Ascending();
+                                                                                              st.Add(e => e.Budget).Ascending();
+                                                                                              st.Add(e => e.AdjustedBudgetPct).Ascending();
+                                                                                              st.Add(e => e.AdjustedBudget).Ascending();
+                                                                                              st.Add(e => e.Spent).Ascending();
+                                                                                              st.Add(e => e.Balance).Ascending();
+
+                                                                                          })
+                                                                                      .Aggregates(aggregates =>
+                                                                                      {
+                                                                                          aggregates.Add(p => p.EmployeeCount).Sum();
+                                                                                          aggregates.Add(p => p.Budget).Sum();
+                                                                                          aggregates.Add(p => p.BaseCurrentSalary).Sum();
+                                                                                          aggregates.Add(p => p.ProratedBudget).Sum();
+                                                                                          aggregates.Add(p => p.AdjustedBudget).Sum();
+                                                                                          aggregates.Add(p => p.Spent).Sum();
+                                                                                          aggregates.Add(p => p.Balance).Sum();
+                                                                                          aggregates.Add(p => p.MeritSpent).Sum();
+                                                                                          aggregates.Add(p => p.PromotionSpent).Sum();
+                                                                                          aggregates.Add(p => p.LumpSumSpent).Sum();
+                                                                                          aggregates.Add(p => p.AdjustmentSpent).Sum();
+                                                                                      })
+                                                                              )
+                                                                              .Sortable()
+                                                                              //.Pageable(page => page.Enabled(true).PageSizes(new int[] { 10, 20, 30, 50, 100 }))
+                                                                              .HtmlAttributes(new { style = "width:100%;" })
+                                                                                       .Events(events => events.DataBound("budgetPlanDataBound"))
+            )
+        </div>
+
+    </div>
+</div>
+@(Html.Kendo().Window().Name("wndFilterSort").Title("Filter/Sort").Visible(false).Width(710).Height(270).Modal(true))
+
+<div id="divProration" class="modal fade" role="dialog" aria-labelledby="myModalLabel"></div>
+
+<script>
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+    })
+</script>

@@ -1,0 +1,5 @@
+D:\TFS.111\Compass\Laserbeam.Compass\Laserbeam.Constant.HR\bin\Debug\Laserbeam.Constant.HR.dll
+D:\TFS.111\Compass\Laserbeam.Compass\Laserbeam.Constant.HR\bin\Debug\Laserbeam.Constant.HR.pdb
+D:\TFS.111\Compass\Laserbeam.Compass\Laserbeam.Constant.HR\obj\Debug\Laserbeam.Constant.HR.dll
+D:\TFS.111\Compass\Laserbeam.Compass\Laserbeam.Constant.HR\obj\Debug\Laserbeam.Constant.HR.pdb
+D:\TFS.111\Compass\Laserbeam.Compass\Laserbeam.Constant.HR\obj\Debug\Laserbeam.Constant.HR.csprojResolveAssemblyReference.cache

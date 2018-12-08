@@ -1,0 +1,5 @@
+D:\TFS.111\Compass\Laserbeam.Compass\Laserbeam.EntityManager.TenantObjects\bin\Release\Laserbeam.EntityManager.TenantObjects.dll
+D:\TFS.111\Compass\Laserbeam.Compass\Laserbeam.EntityManager.TenantObjects\bin\Release\Laserbeam.EntityManager.TenantObjects.pdb
+D:\TFS.111\Compass\Laserbeam.Compass\Laserbeam.EntityManager.TenantObjects\obj\Release\Laserbeam.EntityManager.TenantObjects.dll
+D:\TFS.111\Compass\Laserbeam.Compass\Laserbeam.EntityManager.TenantObjects\obj\Release\Laserbeam.EntityManager.TenantObjects.pdb
+D:\TFS.111\Compass\Laserbeam.Compass\Laserbeam.EntityManager.TenantObjects\obj\Release\Laserbeam.EntityManager.TenantObjects.csprojResolveAssemblyReference.cache
